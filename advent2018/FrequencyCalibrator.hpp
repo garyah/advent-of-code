@@ -13,6 +13,7 @@ namespace Advent2018
             m_frequencyIsRepeated(false),
             m_repeatedFrequency(-1)
         {
+            if (extendedOperation) m_seenFrequencies.insert(0);
         }
 
         void changeFrequency(const char *input)
