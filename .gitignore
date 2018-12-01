@@ -60,3 +60,4 @@ ipch
 *.opendb
 *.suo
 .vs/
+*.user
