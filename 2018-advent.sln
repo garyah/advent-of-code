@@ -119,6 +119,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "advent2017-tests", "advent2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2018", "advent2018", "{93A18934-BD3D-472E-A8FA-D82523D728CC}"
 	ProjectSection(SolutionItems) = preProject
+		advent2018\FrequencyCalibrator.hpp = advent2018\FrequencyCalibrator.hpp
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "advent2018-tests", "advent2018-tests\advent2018-tests.vcxproj", "{6933C586-DA68-4413-9909-C3BD1A9CB1FA}"

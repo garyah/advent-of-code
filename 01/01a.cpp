@@ -1,17 +1,19 @@
 #include <stdio.h>
 
 #include "../common/InputReader.hpp"
-#include "../advent2017/CaptchaDigitSummer.hpp"
+#include "../advent2018/FrequencyCalibrator.hpp"
 
 using namespace Common;
-using namespace Advent2017;
+using namespace Advent2018;
 
 int main()
 {
+    FrequencyCalibrator calibrator;
     char *line = NULL;
     while ((line = InputReader::ReadLine()) != NULL)
     {
-        (void)printf("%u\n", CaptchaDigitSummer::sumRepeating(line));
+        calibrator.changeFrequency(line);
     }
+    (void)printf("%lld\n", calibrator.getFrequency());
     return 0;
 }
