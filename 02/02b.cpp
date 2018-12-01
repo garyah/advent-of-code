@@ -1,19 +1,19 @@
 #include <stdio.h>
 
 #include "../common/InputReader.hpp"
-#include "../advent2016/KeypadMoveParser.hpp"
+#include "../advent2018/BlankClass.hpp"
 
 using namespace Common;
-using namespace Advent2016;
+using namespace Advent2018;
 
 int main()
 {
-    KeypadMoveParser parser;
+    //KeypadMoveParser parser;
     char *line = NULL;
     while ((line = InputReader::ReadLine()) != NULL)
     {
-        parser.parseInstructionForDiamond(line);
+        //parser.parseInstructionForDiamond(line);
     }
-    (void)printf("%s\n", parser.getCode());
+    //(void)printf("%s\n", parser.getCode());
     return 0;
 }
