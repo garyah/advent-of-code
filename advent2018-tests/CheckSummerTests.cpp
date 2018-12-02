@@ -23,5 +23,19 @@ namespace advent2018tests
             summer.addBoxId("ababab");
             Assert::AreEqual(12u, summer.getChecksum());
         }
+
+        TEST_METHOD(PartTwoSampleInputGivesMatchingSubstring)
+        {
+            CheckSummer summer;
+            summer.addBoxId("abcde");
+            summer.addBoxId("fghij");
+            summer.addBoxId("klmno");
+            summer.addBoxId("pqrst");
+            summer.addBoxId("fguij");
+            summer.addBoxId("axcye");
+            summer.addBoxId("wvxyz");
+            summer.findPrototypeBoxes();
+            Assert::AreEqual("fgij", summer.getMatchingSubString().c_str());
+        }
     };
 }
