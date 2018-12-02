@@ -1,19 +1,20 @@
 #include <stdio.h>
 
 #include "../common/InputReader.hpp"
-#include "../advent2018/BlankClass.hpp"
+#include "../advent2018/CheckSummer.hpp"
 
 using namespace Common;
 using namespace Advent2018;
 
 int main()
 {
-    //KeypadMoveParser parser;
+    CheckSummer summer;
     char *line = NULL;
     while ((line = InputReader::ReadLine()) != NULL)
     {
-        //parser.parseInstructionForDiamond(line);
+        summer.addBoxId(line);
     }
-    //(void)printf("%s\n", parser.getCode());
+    summer.findPrototypeBoxes();
+    (void)printf("%s\n", summer.getMatchingSubString().c_str());
     return 0;
 }

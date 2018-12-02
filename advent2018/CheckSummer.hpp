@@ -1,7 +1,7 @@
+#include <algorithm>
+#include <string.h>
 #include <unordered_map>
-//#include <unordered_set>
-#include <stdint.h>
-//#include <vector>
+#include <vector>
 
 namespace Advent2018
 {
@@ -34,24 +34,37 @@ namespace Advent2018
             }
             if (gotExactlyTwo) ++m_exactTwoCount;
             if (gotExactlyThree) ++m_exactThreeCount;
+            m_boxIds.push_back(boxId);
         }
 
-        //int64_t method2()
-        //{
-        //    return m_checksum;
-        //}
+        void findPrototypeBoxes()
+        {
+            std::sort(m_boxIds.begin(), m_boxIds.end());
+            auto it1 = m_boxIds.cbegin();
+            for (auto it2 = it1 + 1; it2 != m_boxIds.cend(); ++it1, ++it2)
+            {
+                unsigned numMismatches = 0;
+                std::string matchingSubString;
+                for (size_t i = 0; i < it1->length(); ++i)
+                {
+                    if ((*it1)[i] != (*it2)[i]) ++numMismatches;
+                    else matchingSubString += (*it1)[i];
+                }
+                if (numMismatches == 1) m_matchingSubString = matchingSubString;
+            }
+        }
 
         unsigned getChecksum() { return m_exactTwoCount * m_exactThreeCount; }
+        std::string getMatchingSubString() { return m_matchingSubString; }
 
     private:
-        //typedef std::vector<int64_t> SomeVectorType;
-        //typedef std::unordered_set<int64_t> SomeSetType;
         typedef std::unordered_map<char, unsigned> LetterStats;
+        typedef std::vector<std::string> BoxIds;
 
         unsigned m_exactTwoCount;
         unsigned m_exactThreeCount;
-        //SomeVectorType m_someVector;
-        //SomeSetType m_someSet;
-        //SomeMapType m_someMap;
+
+        BoxIds m_boxIds;
+        std::string m_matchingSubString;
     };
 }
