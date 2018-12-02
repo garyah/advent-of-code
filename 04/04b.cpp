@@ -1,22 +1,19 @@
 #include <stdio.h>
 
 #include "../common/InputReader.hpp"
-#include "../advent2016/RoomValidator.hpp"
+#include "../advent2018/BlankClass.hpp"
 
 using namespace Common;
-using namespace Advent2016;
+using namespace Advent2018;
 
 int main()
 {
-    RoomValidator validator;
+    BlankClass blank;
     char *line = NULL;
     while ((line = InputReader::ReadLine()) != NULL)
     {
-        validator.addRoom(line);
-        if (validator.getLastId() != 0)
-        {
-            (void)printf("name = %s id = %u\n", validator.getLastDecryptedName(), validator.getLastId());
-        }
+        blank.method1(line);
     }
+    (void)printf("%u\n", blank.method2());
     return 0;
 }
