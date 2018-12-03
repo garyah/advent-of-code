@@ -8,8 +8,7 @@ namespace Advent2018
     class FabricOverlapCalculator
     {
     public:
-        FabricOverlapCalculator()/* :
-            m_overlappedArea(0)*/
+        FabricOverlapCalculator()
         {
         }
 

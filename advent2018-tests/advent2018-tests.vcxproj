@@ -169,6 +169,7 @@
     <ClCompile Include="BlankTests03.cpp" />
     <ClCompile Include="BlankTests04.cpp" />
     <ClCompile Include="BlankTests05.cpp" />
+    <ClCompile Include="FabricOverlapCalculatorTests.cpp" />
     <ClCompile Include="FrequencyCalibratorTests.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
