@@ -1,19 +1,19 @@
 #include <stdio.h>
 
 #include "../common/InputReader.hpp"
-#include "../advent2018/BlankClass.hpp"
+#include "../advent2018/FabricOverlapCalculator.hpp"
 
 using namespace Common;
 using namespace Advent2018;
 
 int main()
 {
-    BlankClass blank;
+    FabricOverlapCalculator calculator;
     char *line = NULL;
     while ((line = InputReader::ReadLine()) != NULL)
     {
-        blank.method1(line);
+        calculator.addClaim(line);
     }
-    (void)printf("%u\n", blank.method2());
+    (void)printf("%u\n", calculator.getIdOfNonOverlappedClaim());
     return 0;
 }

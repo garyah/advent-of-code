@@ -8,12 +8,12 @@ using namespace Advent2018;
 
 int main()
 {
-    FabricOverlapCalculator blank;
+    FabricOverlapCalculator calculator;
     char *line = NULL;
     while ((line = InputReader::ReadLine()) != NULL)
     {
-        blank.addClaim(line);
+        calculator.addClaim(line);
     }
-    (void)printf("%u\n", blank.getOverlappedArea());
+    (void)printf("%u\n", calculator.getOverlappedArea());
     return 0;
 }

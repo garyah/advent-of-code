@@ -17,10 +17,13 @@ namespace Advent2018
         {
             unsigned id = 0, left = 0, top = 0, width = 0, height = 0;
             (void)sscanf_s(claim, "#%u @ %u,%u: %ux%u", &id, &left, &top, &width, &height);
+            m_claimStore.resize(id + 1);
+            m_claimStore[id] = {id, left, top, width, height};
+
             unsigned gridHeightNeeded = top + height;
-            if (m_fabricGrid.size() < gridHeightNeeded) resizeToHeightNeeded(gridHeightNeeded);
+            if (m_fabricGrid.size() < gridHeightNeeded) resizeGridToHeightNeeded(gridHeightNeeded);
             unsigned gridWidthNeeded = left + width;
-            if (m_fabricGrid[0].size() < gridWidthNeeded) resizeToWidthNeeded(gridWidthNeeded);
+            if (m_fabricGrid[0].size() < gridWidthNeeded) resizeGridToWidthNeeded(gridWidthNeeded);
             putClaimOnGrid(left, top, width, height);
         }
 
@@ -40,15 +43,26 @@ namespace Advent2018
             return overlappedArea;
         }
 
-        //unsigned getOverlappedArea() { return m_overlappedArea; }
+        unsigned getIdOfNonOverlappedClaim()
+        {
+            for (size_t i = 1; i < m_claimStore.size(); ++i)
+            {
+                if (claimIsNotOverlapped(m_claimStore[i].left, m_claimStore[i].top,
+                                         m_claimStore[i].width, m_claimStore[i].height)) return (unsigned)i;
+            }
+            return 0;
+        }
 
     private:
         typedef std::vector<std::vector<unsigned>> FabricGrid;
         typedef std::vector<unsigned> FabricGridRow;
-        //typedef std::unordered_set<unsigned> SomeSetType;
-        //typedef std::unordered_map<unsigned, unsigned> SomeMapType;
+        typedef struct
+        {
+            unsigned id, left, top, width, height;
+        } Claim;
+        typedef std::vector<Claim> ClaimStore;
 
-        void resizeToHeightNeeded(unsigned gridHeightNeeded)
+        void resizeGridToHeightNeeded(unsigned gridHeightNeeded)
         {
             size_t currentHeight = m_fabricGrid.size();
             size_t currentWidth = currentHeight > 0 ? m_fabricGrid[0].size() : 0;
@@ -63,7 +77,7 @@ namespace Advent2018
             }
         }
 
-        void resizeToWidthNeeded(unsigned gridWidthNeeded)
+        void resizeGridToWidthNeeded(unsigned gridWidthNeeded)
         {
             for (size_t r = 0; r < m_fabricGrid.size(); ++r)
             {
@@ -86,9 +100,19 @@ namespace Advent2018
             }
         }
 
-        //unsigned m_overlappedArea;
+        bool claimIsNotOverlapped(unsigned left, unsigned top, unsigned width, unsigned height)
+        {
+            for (size_t r = top; r < top + height; ++r)
+            {
+                for (size_t c = left; c < left + width; ++c)
+                {
+                    if (m_fabricGrid[r][c] > 1) return false;
+                }
+            }
+            return true;
+        }
+
         FabricGrid m_fabricGrid;
-        //SomeSetType m_someSet;
-        //SomeMapType m_someMap;
+        ClaimStore m_claimStore;
     };
 }
