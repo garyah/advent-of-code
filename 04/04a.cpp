@@ -14,6 +14,7 @@ int main()
     {
         tracker.addRecord(line);
     }
-    (void)printf("%u\n", tracker.getIdOfSleepiestGuardBySleepiestMinute());
+    tracker.sortAndProcessRecords();
+    (void)printf("%u\n", tracker.getIdOfSleepiestGuardTimesItsSleepiestMinute());
     return 0;
 }

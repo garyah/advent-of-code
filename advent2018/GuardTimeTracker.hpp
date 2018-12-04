@@ -18,11 +18,9 @@ namespace Advent2018
             m_recordStore.push_back(record);
         }
 
-        unsigned getIdOfSleepiestGuardBySleepiestMinute()
+        void sortAndProcessRecords()
         {
             std::sort(m_recordStore.begin(), m_recordStore.end());
-            GuardSleepTimes guardSleepTimes;
-            GuardSleepMinutes guardSleepMinutes;
             unsigned year = 0, month = 0, date = 0, hour = 0, minute = 0, fallsAsleepMinute = 0, wakesUpMinute = 0, id = 0;
             for (auto it = m_recordStore.cbegin(); it != m_recordStore.cend(); ++it)
             {
@@ -30,12 +28,12 @@ namespace Advent2018
                 if (record.find("Guard") != std::string::npos)
                 {
                     (void)sscanf_s(it->c_str(), "[%4u-%2u-%2u %2u:%2u] Guard #%u begins shift", &year, &month, &date, &hour, &minute, &id);
-                    if (guardSleepTimes.find(id) == guardSleepTimes.end())
+                    if (m_guardSleepTimes.find(id) == m_guardSleepTimes.end())
                     {
-                        guardSleepTimes[id] = 0;
+                        m_guardSleepTimes[id] = 0;
                         SleepMinuteList sleepMinutesList;
                         for (size_t i = 0; i < 60; ++i) { sleepMinutesList.push_back(0); }
-                        guardSleepMinutes[id] = sleepMinutesList;
+                        m_guardSleepMinutes[id] = sleepMinutesList;
                     }
                 }
                 else if (record.find("falls") != std::string::npos)
@@ -45,14 +43,17 @@ namespace Advent2018
                 else if (record.find("wakes") != std::string::npos)
                 {
                     (void)sscanf_s(it->c_str(), "[%4u-%2u-%2u %2u:%2u] wakes up", &year, &month, &date, &hour, &wakesUpMinute);
-                    guardSleepTimes[id] += wakesUpMinute - fallsAsleepMinute;
-                    for (size_t i = fallsAsleepMinute; i < wakesUpMinute; ++i) { guardSleepMinutes[id][i] += 1; }
+                    m_guardSleepTimes[id] += wakesUpMinute - fallsAsleepMinute;
+                    for (size_t i = fallsAsleepMinute; i < wakesUpMinute; ++i) { m_guardSleepMinutes[id][i] += 1; }
                 }
             }
+        }
 
-            unsigned maxSleepTime = 0;
+        unsigned getIdOfSleepiestGuardTimesItsSleepiestMinute()
+        {
             unsigned iDOfSleepiestGuard = 0;
-            for (auto it = guardSleepTimes.cbegin(); it != guardSleepTimes.cend(); ++it)
+            unsigned maxSleepTime = 0;
+            for (auto it = m_guardSleepTimes.cbegin(); it != m_guardSleepTimes.cend(); ++it)
             {
                 auto guardSleepTime = it->second;
                 if (guardSleepTime > maxSleepTime)
@@ -62,11 +63,11 @@ namespace Advent2018
                 }
             }
 
+            size_t sleepiestMinute = 0;
             unsigned maxNumberSleeps = 0;
-            unsigned sleepiestMinute = 0;
-            for (size_t i = 0; i < guardSleepMinutes[iDOfSleepiestGuard].size(); ++i)
+            for (size_t i = 0; i < m_guardSleepMinutes[iDOfSleepiestGuard].size(); ++i)
             {
-                auto numberSleeps = guardSleepMinutes[iDOfSleepiestGuard][i];
+                auto numberSleeps = m_guardSleepMinutes[iDOfSleepiestGuard][i];
                 if (numberSleeps > maxNumberSleeps)
                 {
                     maxNumberSleeps = numberSleeps;
@@ -76,6 +77,28 @@ namespace Advent2018
             return iDOfSleepiestGuard * sleepiestMinute;
         }
 
+        unsigned getIdOfGuardWithSleepiestMinuteTimesItsSleepiestMinute()
+        {
+            unsigned iDOfGuardWithSleepiestMinute = 0;
+            size_t sleepiestMinute = 0;
+            unsigned maxNumberSleeps = 0;
+            for (auto it = m_guardSleepTimes.cbegin(); it != m_guardSleepTimes.cend(); ++it)
+            {
+                auto id = it->first;
+                for (size_t i = 0; i < m_guardSleepMinutes[id].size(); ++i)
+                {
+                    auto numberSleeps = m_guardSleepMinutes[id][i];
+                    if (numberSleeps > maxNumberSleeps)
+                    {
+                        maxNumberSleeps = numberSleeps;
+                        sleepiestMinute = i;
+                        iDOfGuardWithSleepiestMinute = id;
+                    }
+                }
+            }
+            return iDOfGuardWithSleepiestMinute * sleepiestMinute;
+        }
+
     private:
         typedef std::vector<std::string> RecordStore;
         typedef std::unordered_map<unsigned, unsigned> GuardSleepTimes;
@@ -83,5 +106,7 @@ namespace Advent2018
         typedef std::unordered_map<unsigned, SleepMinuteList> GuardSleepMinutes;
 
         RecordStore m_recordStore;
+        GuardSleepTimes m_guardSleepTimes;
+        GuardSleepMinutes m_guardSleepMinutes;
     };
 }
