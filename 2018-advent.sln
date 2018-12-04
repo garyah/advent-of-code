@@ -119,13 +119,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "advent2017-tests", "advent2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2018", "advent2018", "{93A18934-BD3D-472E-A8FA-D82523D728CC}"
 	ProjectSection(SolutionItems) = preProject
-		advent2018\FabricOverlapCalculator.hpp = advent2018\FabricOverlapCalculator.hpp
-		advent2018\BlankClass1.hpp = advent2018\BlankClass1.hpp
+		advent2018\GuardTimeTracker.hpp = advent2018\GuardTimeTracker.hpp
 		advent2018\BlankClass2.hpp = advent2018\BlankClass2.hpp
 		advent2018\BlankClass3.hpp = advent2018\BlankClass3.hpp
 		advent2018\BlankClass4.hpp = advent2018\BlankClass4.hpp
 		advent2018\BlankClass5.hpp = advent2018\BlankClass5.hpp
 		advent2018\CheckSummer.hpp = advent2018\CheckSummer.hpp
+		advent2018\FabricOverlapCalculator.hpp = advent2018\FabricOverlapCalculator.hpp
 		advent2018\FrequencyCalibrator.hpp = advent2018\FrequencyCalibrator.hpp
 	EndProjectSection
 EndProject
