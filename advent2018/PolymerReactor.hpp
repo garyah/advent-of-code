@@ -1,16 +1,12 @@
 #include <cctype>
-#include <unordered_map>
-#include <unordered_set>
 #include <string>
-#include <vector>
 
 namespace Advent2018
 {
     class PolymerReactor
     {
     public:
-        PolymerReactor()/* :
-            m_someField(0)*/
+        PolymerReactor()
         {
         }
 
@@ -60,16 +56,6 @@ namespace Advent2018
 			return lengthOfShortestPolymer;
         }
 
-        //int64_t getSomeField() { return m_someField; }
-
     private:
-        typedef std::vector<int64_t> SomeVectorType;
-        typedef std::unordered_set<int64_t> SomeSetType;
-        typedef std::unordered_map<int64_t, unsigned> SomeMapType;
-
-        //int64_t m_someField;
-        //SomeVectorType m_someVector;
-        //SomeSetType m_someSet;
-        //SomeMapType m_someMap;
     };
 }

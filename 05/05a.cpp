@@ -14,6 +14,5 @@ int main()
     {
 		(void)printf("%u\n", reactor.getNumUnitsRemainingAfterReaction(line));
 	}
-    //(void)printf("%u\n", reactor.method2());
     return 0;
 }
