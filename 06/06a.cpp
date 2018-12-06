@@ -1,20 +1,19 @@
 #include <stdio.h>
 
 #include "../common/InputReader.hpp"
-#include "../advent2016/ErrorCorrector.hpp"
+#include "../advent2018/ChronalOptimizer.hpp"
 
 using namespace Common;
-using namespace Advent2016;
+using namespace Advent2018;
 
 int main()
 {
-    ErrorCorrector corrector;
+    ChronalOptimizer optimizer;
     char *line = NULL;
 	while ((line = InputReader::ReadLine()) != NULL)
 	{
-        corrector.addMessage(line);
+        optimizer.addCoordinate(line);
 	}
-    corrector.doForwardCorrection();
-    (void)printf("%s\n", corrector.getCorrected());
+    (void)printf("%u\n", optimizer.getSizeOfLargestArea());
     return 0;
 }
