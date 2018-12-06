@@ -30,14 +30,33 @@ namespace Advent2018
 
 		unsigned getSizeOfLargestArea()
         {
-			for (unsigned id = 1; id <= m_idOfLastCoordinate; ++id)
+			for (unsigned id = 0; id <= m_idOfLastCoordinate; ++id)
 			{
-				unsigned x = m_coordinateStore[id].x;
-				unsigned y = m_coordinateStore[id].y;
-				findProximates(x, y, id);
+				m_coordinateCounts.push_back(0);
+			}
 
-				m_coordinateCounts.resize(id + 1);
-				m_coordinateCounts[id] = 0;
+			for (unsigned y = 0; y < m_coordinateGrid.size(); ++y)
+			{
+				for (unsigned x = 0; x < m_coordinateGrid[y].size(); ++x)
+				{
+					unsigned minDistance = (unsigned)-1;
+					unsigned idWithMinDistance = 0;
+					for (unsigned id = 1; id <= m_idOfLastCoordinate; ++id)
+					{
+						auto thisCoordinate = m_coordinateStore[id];
+						auto distanceToThis = abs((int)x - (int)thisCoordinate.x) + abs((int)y - (int)thisCoordinate.y);
+						if (distanceToThis < minDistance)
+						{
+							minDistance = distanceToThis;
+							idWithMinDistance = id;
+						}
+						else if (distanceToThis == minDistance)
+						{
+							idWithMinDistance = 0;
+						}
+					}
+					m_coordinateGrid[y][x] = idWithMinDistance;
+				}
 			}
 
 			for (unsigned y = 0; y < m_coordinateGrid.size(); ++y)
@@ -45,11 +64,12 @@ namespace Advent2018
 				for (unsigned x = 0; x < m_coordinateGrid[y].size(); ++x)
 				{
 					unsigned id = m_coordinateGrid[y][x];
-					if (id != 0 && id != (unsigned)-1)
+					if (id != 0 && m_coordinateCounts[id] != (unsigned)-1)
 					{
-						if (x != 0 && x != m_coordinateGrid[y].size() - 1 && y != 0 && y != m_coordinateGrid.size() - 1)
+						m_coordinateCounts[id] += 1;
+						if (x == 0 || x == m_coordinateGrid[y].size() - 1 || y == 0 || y == m_coordinateGrid.size() - 1)
 						{
-							m_coordinateCounts[id] += 1;
+							m_coordinateCounts[id] = (unsigned)-1;
 						}
 					}
 				}
@@ -58,12 +78,10 @@ namespace Advent2018
 			unsigned maxArea = 0;
 			for (unsigned id = 1; id <= m_idOfLastCoordinate; ++id)
 			{
-				if (m_coordinateCounts[id] > maxArea) maxArea = m_coordinateCounts[id];
+				if (m_coordinateCounts[id] < (unsigned)-1 && m_coordinateCounts[id] > maxArea) maxArea = m_coordinateCounts[id];
 			}
 			return maxArea;
         }
-
-        //int64_t getSomeField() { return m_someField; }
 
     private:
 		typedef std::vector<unsigned> CoordinateGridRow;
@@ -74,8 +92,6 @@ namespace Advent2018
 		} Coordinate;
 		typedef std::vector<Coordinate> CoordinateStore;
 		typedef std::vector<unsigned> CoordinateCounts;
-		//typedef std::unordered_set<int64_t> SomeSetType;
-        //typedef std::unordered_map<int64_t, unsigned> SomeMapType;
 
 		void resizeGridToHeightNeeded(unsigned gridHeightNeeded)
 		{
@@ -134,8 +150,5 @@ namespace Advent2018
 		CoordinateGrid m_coordinateGrid;
 		CoordinateStore m_coordinateStore;
 		CoordinateCounts m_coordinateCounts;
-		//int m_someField;
-        //SomeSetType m_someSet;
-        //SomeMapType m_someMap;
     };
 }
