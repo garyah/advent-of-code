@@ -14,6 +14,6 @@ int main()
 	{
 		optimizer.addCoordinate(line);
 	}
-	(void)printf("%u\n", optimizer.getSizeOfLargestArea());
+	(void)printf("%u\n", optimizer.getSizeOfRegionCloseEnoughToAllCoordinates());
 	return 0;
 }

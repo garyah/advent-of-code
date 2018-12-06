@@ -1,6 +1,3 @@
-#include <unordered_map>
-#include <unordered_set>
-#include <stdint.h>
 #include <vector>
 
 namespace Advent2018
@@ -22,7 +19,6 @@ namespace Advent2018
 			if (m_coordinateGrid.size() < y + 1) resizeGridToHeightNeeded(y + 1);
 			if (m_coordinateGrid[0].size() < x + 1) resizeGridToWidthNeeded(x + 1);
 			++m_idOfLastCoordinate;
-			//m_coordinateGrid[y][x] = m_idOfLastCoordinate;
 
 			m_coordinateStore.resize(m_idOfLastCoordinate + 1);
 			m_coordinateStore[m_idOfLastCoordinate] = { x, y };
@@ -82,6 +78,27 @@ namespace Advent2018
 			}
 			return maxArea;
         }
+
+		unsigned getSizeOfRegionCloseEnoughToAllCoordinates()
+		{
+			unsigned sizeOfRegion = 0;
+			for (unsigned y = 0; y < m_coordinateGrid.size(); ++y)
+			{
+				for (unsigned x = 0; x < m_coordinateGrid[y].size(); ++x)
+				{
+					unsigned totalDistance = 0;
+					for (unsigned id = 1; id <= m_idOfLastCoordinate; ++id)
+					{
+						auto thisCoordinate = m_coordinateStore[id];
+						auto distanceToThis = abs((int)x - (int)thisCoordinate.x) + abs((int)y - (int)thisCoordinate.y);
+						totalDistance += distanceToThis;
+					}
+					// something in the region of proximity
+					if (totalDistance < 10000) ++sizeOfRegion;
+				}
+			}
+			return sizeOfRegion;
+		}
 
     private:
 		typedef std::vector<unsigned> CoordinateGridRow;
