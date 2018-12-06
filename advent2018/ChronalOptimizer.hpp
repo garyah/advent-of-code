@@ -7,7 +7,6 @@ namespace Advent2018
     public:
         ChronalOptimizer() :
 			m_idOfLastCoordinate(0)
-            //m_someField(0)*/
         {
         }
 
