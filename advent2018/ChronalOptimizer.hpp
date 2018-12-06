@@ -137,32 +137,6 @@ namespace Advent2018
 			}
 		}
 
-		void findProximates(unsigned x, unsigned y, unsigned id)
-		{
-			if (m_coordinateGrid[y][x] == 0) m_coordinateGrid[y][x] = id;
-			else if (m_coordinateGrid[y][x] == id) return;
-			else if (m_coordinateGrid[y][x] != (unsigned)-1)
-			{
-				// another coordinate got here first, arbitrate
-				auto thisCoordinate = m_coordinateStore[id];
-				auto distanceToThis = abs((int)x - (int)thisCoordinate.x) + abs((int)y - (int)thisCoordinate.y);
-				auto otherCoordinate = m_coordinateStore[m_coordinateGrid[y][x]];
-				auto distanceToOther = abs((int)x - (int)otherCoordinate.x) + abs((int)y - (int)otherCoordinate.y);
-				if (distanceToThis < distanceToOther) m_coordinateGrid[y][x] = id; // new winner
-				else if (distanceToThis == distanceToOther) m_coordinateGrid[y][x] = (unsigned)-1; // mark tie
-			}
-			auto xUpper = m_coordinateGrid[y].size() - 1;
-			auto yUpper = m_coordinateGrid.size() - 1;
-			if (x > 0 && y > 0 && x < xUpper && y < yUpper)                             findProximates(x - 1, y - 1, id);
-			if (y > 0 && y < yUpper)                                                    findProximates(x,     y - 1, id);
-			if (x < xUpper && y > 0 && x > 0 && y < yUpper)                             findProximates(x + 1, y - 1, id);
-			if (x > 0 && x < xUpper)                                                    findProximates(x - 1, y, id);
-			if (x < xUpper && x > 0)                                                    findProximates(x + 1, y, id);
-			if (x > 0 && y < yUpper && x < xUpper && y > 0)                             findProximates(x - 1, y + 1, id);
-			if (y < yUpper && y > 0)                                                    findProximates(x,     y + 1, id);
-			if (x < xUpper && y < yUpper && x > 0 && y > 0)                             findProximates(x + 1, y + 1, id);
-		}
-
 		unsigned m_idOfLastCoordinate;
 		CoordinateGrid m_coordinateGrid;
 		CoordinateStore m_coordinateStore;
