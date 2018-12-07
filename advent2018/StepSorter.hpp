@@ -76,12 +76,46 @@ namespace Advent2018
 			return (nextWork != 0);
 		}
 
-		void assignWorkToAllAvailable()
+		void assignWorkToAll()
 		{
 			for (size_t w = 0; w < _countof(workers); ++w)
 			{
 				(void)assignWork(w);
 			}
+		}
+
+		bool assignWorkToAllAvailable()
+		{
+			bool workLeft = false;
+			for (size_t w = 0; w < _countof(workers); ++w)
+			{
+				if (workers[w].workNode == 0) workLeft |= assignWork(w);
+			}
+			return workLeft;
+		}
+
+		bool decrementWork()
+		{
+			bool workLeft = false;
+			for (size_t w = 0; w < _countof(workers); ++w)
+			{
+				auto workNode = workers[w].workNode;
+				if (workNode && workers[w].timeLeft)
+				{
+					--(workers[w].timeLeft);
+					if (workers[w].timeLeft == 0)
+					{
+						auto children = m_parentChildList[workNode];
+						for (auto it2 = children.begin(); it2 != children.end(); ++it2)
+						{
+							m_childParentList[*it2].erase(workNode);
+						}
+						workers[w].workNode = 0;
+					}
+					else workLeft = true;
+				}
+			}
+			return workLeft;
 		}
 
 		void logWorkerStatus()
@@ -96,39 +130,19 @@ namespace Advent2018
 
 		unsigned method3()
 		{
-			assignWorkToAllAvailable();
-
+			assignWorkToAll();
 			m_timeSpent = 0;
-			bool noWorkLeft;
+
+			bool workLeft;
 			do
 			{
-				noWorkLeft = true;
+				workLeft = false;
 				logWorkerStatus();
-				for (size_t w = 0; w < _countof(workers); ++w)
-				{
-					bool workLeft = false;
-					auto workNode = workers[w].workNode;
-					if (workNode && workers[w].timeLeft)
-					{
-						--(workers[w].timeLeft);
-						workLeft = true;
-						if (workers[w].timeLeft == 0)
-						{
-							auto children = m_parentChildList[workNode];
-							for (auto it2 = children.begin(); it2 != children.end(); ++it2)
-							{
-								m_childParentList[*it2].erase(workNode);
-							}
-						}
-					}
-					if (!workNode || workers[w].timeLeft == 0)
-					{
-						workLeft = assignWork(w);
-					}
-					noWorkLeft &= !workLeft;
-				}
+				workLeft |= decrementWork();
+				workLeft |= assignWorkToAllAvailable();
 				++m_timeSpent;
-			} while (!noWorkLeft);
+			} while (workLeft);
+
 			return m_timeSpent;
 		}
 
