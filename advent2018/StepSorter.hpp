@@ -72,7 +72,7 @@ namespace Advent2018
 			{
 				auto rootNode = pullRootNode();
 				workers[w].workNode = rootNode;
-				workers[w].timeLeft = rootNode ? (rootNode - 'A' + 1 + 0) : 0;
+				workers[w].timeLeft = rootNode ? (rootNode - 'A' + 1 + 60) : 0;
 			}
 
 			unsigned timeSpent = 0;
@@ -80,6 +80,12 @@ namespace Advent2018
 			do
 			{
 				noWorkLeft = true;
+				(void)printf("%03u:  ", timeSpent);
+				for (size_t w = 0; w < _countof(workers); ++w)
+				{
+					(void)printf("(%c, %03u)  ", workers[w].workNode ? workers[w].workNode : '.', workers[w].timeLeft);
+				}
+				(void)printf("\n");
 				for (size_t w = 0; w < _countof(workers); ++w)
 				{
 					bool workLeft = false;
@@ -101,7 +107,7 @@ namespace Advent2018
 					{
 						auto rootNode = pullRootNode();
 						workers[w].workNode = rootNode;
-						workers[w].timeLeft = rootNode ? (rootNode - 'A' + 1 + 0) : 0;
+						workers[w].timeLeft = rootNode ? (rootNode - 'A' + 1 + 60) : 0;
 						workLeft = (rootNode != 0);
 					}
 					noWorkLeft &= !workLeft;
@@ -123,7 +129,7 @@ namespace Advent2018
 			char workNode;
 			unsigned timeLeft;
 		} WorkItem;
-		WorkItem workers[2];
+		WorkItem workers[5];
 
         //int64_t m_someField;
         //SomeVectorType m_someVector;
