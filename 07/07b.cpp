@@ -14,6 +14,7 @@ int main()
 	{
 		optimizer.method1(line);
 	}
-	(void)printf("%s\n", optimizer.method2());
+	//(void)printf("%s\n", optimizer.method2());
+	(void)printf("%u\n", optimizer.method3());
 	return 0;
 }

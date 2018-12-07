@@ -18,9 +18,6 @@ namespace Advent2018
 			char parentStep = 0;
 			char childStep = 0;
             (void)sscanf_s(input, "Step %1c must be finished before step %1c can begin.", &parentStep, 1, &childStep, 1);
-			//m_childParentList[childStep] += parentStep;
-			//m_parentChildList[parentStep] += childStep;
-			//if (m_childParentList.find(parentStep) == m_childParentList.end()) m_childParentList[parentStep] = "";
 			m_childParentList[childStep].insert(parentStep);
 			m_parentChildList[parentStep].insert(childStep);
 			if (m_childParentList.find(parentStep) == m_childParentList.end())
@@ -54,6 +51,66 @@ namespace Advent2018
             return m_stepList.c_str();
         }
 
+		char pullRootNode()
+		{
+			for (auto it = m_childParentList.begin(); it != m_childParentList.end(); ++it)
+			{
+				auto parents = it->second;
+				if (parents.size() == 0)
+				{
+					auto rootNode = it->first;
+					m_childParentList.erase(rootNode);
+					return rootNode;
+				}
+			}
+			return 0;
+		}
+
+		unsigned method3()
+		{
+			for (size_t w = 0; w < _countof(workers); ++w)
+			{
+				auto rootNode = pullRootNode();
+				workers[w].workNode = rootNode;
+				workers[w].timeLeft = rootNode ? (rootNode - 'A' + 1 + 0) : 0;
+			}
+
+			unsigned timeSpent = 0;
+			bool noWorkLeft;
+			do
+			{
+				noWorkLeft = true;
+				for (size_t w = 0; w < _countof(workers); ++w)
+				{
+					bool workLeft = false;
+					auto workNode = workers[w].workNode;
+					if (workNode && workers[w].timeLeft)
+					{
+						--(workers[w].timeLeft);
+						workLeft = true;
+						if (workers[w].timeLeft == 0)
+						{
+							auto children = m_parentChildList[workNode];
+							for (auto it2 = children.begin(); it2 != children.end(); ++it2)
+							{
+								m_childParentList[*it2].erase(workNode);
+							}
+						}
+					}
+					if (!workNode || workers[w].timeLeft == 0)
+					{
+						auto rootNode = pullRootNode();
+						workers[w].workNode = rootNode;
+						workers[w].timeLeft = rootNode ? (rootNode - 'A' + 1 + 0) : 0;
+						workLeft = (rootNode != 0);
+					}
+					noWorkLeft &= !workLeft;
+				}
+				++timeSpent;
+			} while (!noWorkLeft);
+			return timeSpent;
+		}
+
         //int64_t getSomeField() { return m_someField; }
 
     private:
@@ -61,6 +118,12 @@ namespace Advent2018
         typedef std::set<char> NodeSetType;
 		//typedef std::map<char, std::string> NodeMapType;
 		typedef std::map<char, NodeSetType> NodeMapType;
+		typedef struct
+		{
+			char workNode;
+			unsigned timeLeft;
+		} WorkItem;
+		WorkItem workers[2];
 
         //int64_t m_someField;
         //SomeVectorType m_someVector;
