@@ -29,6 +29,7 @@ namespace Advent2018
 
         const char *method2()
         {
+			m_stepList.empty();
 			while (m_childParentList.size())
 			{
 				for (auto it = m_childParentList.begin(); it != m_childParentList.end(); ++it)
@@ -51,7 +52,7 @@ namespace Advent2018
             return m_stepList.c_str();
         }
 
-		char pullRootNode()
+		char pullNextWork()
 		{
 			for (auto it = m_childParentList.begin(); it != m_childParentList.end(); ++it)
 			{
@@ -66,26 +67,43 @@ namespace Advent2018
 			return 0;
 		}
 
-		unsigned method3()
+		char addedTime = 60;
+		bool assignWork(size_t w)
+		{
+			auto nextWork = pullNextWork();
+			workers[w].workNode = nextWork;
+			workers[w].timeLeft = nextWork ? (nextWork - 'A' + 1 + addedTime) : 0;
+			return (nextWork != 0);
+		}
+
+		void assignWorkToAllAvailable()
 		{
 			for (size_t w = 0; w < _countof(workers); ++w)
 			{
-				auto rootNode = pullRootNode();
-				workers[w].workNode = rootNode;
-				workers[w].timeLeft = rootNode ? (rootNode - 'A' + 1 + 60) : 0;
+				(void)assignWork(w);
 			}
+		}
 
-			unsigned timeSpent = 0;
+		void logWorkerStatus()
+		{
+			(void)printf("%03u:  ", m_timeSpent);
+			for (size_t w = 0; w < _countof(workers); ++w)
+			{
+				(void)printf("(%c, %03u)  ", workers[w].workNode ? workers[w].workNode : '.', workers[w].timeLeft);
+			}
+			(void)printf("\n");
+		}
+
+		unsigned method3()
+		{
+			assignWorkToAllAvailable();
+
+			m_timeSpent = 0;
 			bool noWorkLeft;
 			do
 			{
 				noWorkLeft = true;
-				(void)printf("%03u:  ", timeSpent);
-				for (size_t w = 0; w < _countof(workers); ++w)
-				{
-					(void)printf("(%c, %03u)  ", workers[w].workNode ? workers[w].workNode : '.', workers[w].timeLeft);
-				}
-				(void)printf("\n");
+				logWorkerStatus();
 				for (size_t w = 0; w < _countof(workers); ++w)
 				{
 					bool workLeft = false;
@@ -105,16 +123,13 @@ namespace Advent2018
 					}
 					if (!workNode || workers[w].timeLeft == 0)
 					{
-						auto rootNode = pullRootNode();
-						workers[w].workNode = rootNode;
-						workers[w].timeLeft = rootNode ? (rootNode - 'A' + 1 + 60) : 0;
-						workLeft = (rootNode != 0);
+						workLeft = assignWork(w);
 					}
 					noWorkLeft &= !workLeft;
 				}
-				++timeSpent;
+				++m_timeSpent;
 			} while (!noWorkLeft);
-			return timeSpent;
+			return m_timeSpent;
 		}
 
         //int64_t getSomeField() { return m_someField; }
@@ -137,5 +152,6 @@ namespace Advent2018
 		NodeMapType m_childParentList;
 		NodeMapType m_parentChildList;
 		std::string m_stepList;
+		unsigned m_timeSpent;
 	};
 }
