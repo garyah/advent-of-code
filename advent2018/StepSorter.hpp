@@ -8,8 +8,8 @@ namespace Advent2018
     class StepSorter
     {
     public:
-        StepSorter() :
-            m_someField(0)
+        StepSorter()/* :
+            m_someField(0)*/
         {
         }
 
@@ -32,7 +32,6 @@ namespace Advent2018
 
         const char *method2()
         {
-			std::string stepList;
 			while (m_childParentList.size())
 			{
 				for (auto it = m_childParentList.begin(); it != m_childParentList.end(); ++it)
@@ -47,15 +46,15 @@ namespace Advent2018
 							m_childParentList[*it2].erase(rootNode);
 						}
 						m_childParentList.erase(rootNode);
-						stepList += rootNode;
+						m_stepList += rootNode;
 						break;
 					}
 				}
 			}
-            return stepList.c_str();
+            return m_stepList.c_str();
         }
 
-        int64_t getSomeField() { return m_someField; }
+        //int64_t getSomeField() { return m_someField; }
 
     private:
         //typedef std::vector<int64_t> SomeVectorType;
@@ -63,10 +62,11 @@ namespace Advent2018
 		//typedef std::map<char, std::string> NodeMapType;
 		typedef std::map<char, NodeSetType> NodeMapType;
 
-        int64_t m_someField;
+        //int64_t m_someField;
         //SomeVectorType m_someVector;
         //SomeSetType m_someSet;
 		NodeMapType m_childParentList;
 		NodeMapType m_parentChildList;
+		std::string m_stepList;
 	};
 }
