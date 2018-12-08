@@ -9,6 +9,7 @@ int main()
 {
     TreeBuilder builder;
 	builder.readData();
-	std::cout << builder.method2();
+	builder.processMetadata();
+	std::cout << builder.getSumOfMetadata();
 	return 0;
 }

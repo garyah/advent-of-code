@@ -1,8 +1,11 @@
+//#include <algorithm>
 #include <iostream>
-#include <stdint.h>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
+#include <queue>
+//#include <stack>
+//#include <stdint.h>
+//#include <unordered_map>
+//#include <unordered_set>
+//#include <vector>
 
 namespace Advent2018
 {
@@ -10,31 +13,70 @@ namespace Advent2018
     {
     public:
         TreeBuilder() :
-            m_someField(0)
+            m_sumOfMetadata(0)
         {
         }
 
         void readData()
         {
 			unsigned data;
-			while (std::cin >> data) m_treeData.push_back(data);
+			while (std::cin >> data) m_treeData.push(data);
         }
 
-        int64_t method2()
+		void processMetadata()
         {
-            return m_someField;
+			popChildrenAndMetadata(popHeader());
+
+			//std::for_each(m_treeData.begin(), m_treeData.end(), [](unsigned data)
+			//{
+			//});
         }
 
-        int64_t getSomeField() { return m_someField; }
+		unsigned getSumOfMetadata() { return m_sumOfMetadata; }
 
     private:
-        typedef std::vector<unsigned> TreeData;
-        typedef std::unordered_set<int64_t> SomeSetType;
-        typedef std::unordered_map<int64_t, unsigned> SomeMapType;
+		typedef std::queue<unsigned> TreeData;
+		typedef struct
+		{
+			unsigned numChildren, numMetadata;
+		} Header;
+		//typedef std::stack<unsigned> NumChildrenStack;
+		//typedef std::unordered_set<unsigned> SomeSetType;
+  //      typedef std::unordered_map<unsigned, unsigned> SomeMapType;
 
-        int64_t m_someField;
+		void popChildrenAndMetadata(Header header)
+		{
+			for (unsigned i = 0; i < header.numChildren; ++i)
+			{
+				popChildrenAndMetadata(popHeader());
+			}
+			for (unsigned i = 0; i < header.numMetadata; ++i)
+			{
+				m_sumOfMetadata += popMetadata();
+			}
+		}
+
+		Header popHeader()
+		{
+			Header header;
+			header.numChildren = m_treeData.front();
+			m_treeData.pop();
+			header.numMetadata = m_treeData.front();
+			m_treeData.pop();
+			return header;
+		}
+
+		unsigned popMetadata()
+		{
+			auto metadata = m_treeData.front();
+			m_treeData.pop();
+			return metadata;
+		}
+
 		TreeData m_treeData;
-        //SomeSetType m_someSet;
+		//NumChildrenStack m_numChildrenStack;
+		unsigned m_sumOfMetadata;
+		//SomeSetType m_someSet;
         //SomeMapType m_someMap;
     };
 }
