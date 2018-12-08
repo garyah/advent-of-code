@@ -8,7 +8,7 @@ using namespace Advent2018;
 int main()
 {
 	TreeBuilder builder;
-	builder.method1();
+	builder.readData();
 	std::cout << builder.method2();
 	return 0;
 }

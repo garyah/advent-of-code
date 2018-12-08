@@ -14,11 +14,10 @@ namespace Advent2018
         {
         }
 
-        void method1()
+        void readData()
         {
-			unsigned number;
-			std::vector<unsigned> numbers;
-			while (std::cin >> number) numbers.push_back(number);
+			unsigned data;
+			while (std::cin >> data) m_treeData.push_back(data);
         }
 
         int64_t method2()
@@ -29,13 +28,13 @@ namespace Advent2018
         int64_t getSomeField() { return m_someField; }
 
     private:
-        typedef std::vector<int64_t> SomeVectorType;
+        typedef std::vector<unsigned> TreeData;
         typedef std::unordered_set<int64_t> SomeSetType;
         typedef std::unordered_map<int64_t, unsigned> SomeMapType;
 
         int64_t m_someField;
-        SomeVectorType m_someVector;
-        SomeSetType m_someSet;
-        SomeMapType m_someMap;
+		TreeData m_treeData;
+        //SomeSetType m_someSet;
+        //SomeMapType m_someMap;
     };
 }
