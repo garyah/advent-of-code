@@ -1,6 +1,7 @@
+#include <iostream>
+#include <stdint.h>
 #include <unordered_map>
 #include <unordered_set>
-#include <stdint.h>
 #include <vector>
 
 namespace Advent2018
@@ -13,11 +14,11 @@ namespace Advent2018
         {
         }
 
-        void method1(const char *input)
+        void method1()
         {
-            int64_t someVariable = 0;
-            (void)sscanf_s(input, "%lld", &someVariable);
-            m_someField = someVariable;
+			unsigned number;
+			std::vector<unsigned> numbers;
+			while (std::cin >> number) numbers.push_back(number);
         }
 
         int64_t method2()
