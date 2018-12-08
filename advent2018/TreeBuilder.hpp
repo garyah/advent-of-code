@@ -23,13 +23,9 @@ namespace Advent2018
 			while (std::cin >> data) m_treeData.push(data);
         }
 
-		void processMetadata()
+		void processSumOfMetadata()
         {
 			popChildrenAndMetadata(popHeader());
-
-			//std::for_each(m_treeData.begin(), m_treeData.end(), [](unsigned data)
-			//{
-			//});
         }
 
 		unsigned getSumOfMetadata() { return m_sumOfMetadata; }
@@ -40,9 +36,6 @@ namespace Advent2018
 		{
 			unsigned numChildren, numMetadata;
 		} Header;
-		//typedef std::stack<unsigned> NumChildrenStack;
-		//typedef std::unordered_set<unsigned> SomeSetType;
-  //      typedef std::unordered_map<unsigned, unsigned> SomeMapType;
 
 		void popChildrenAndMetadata(Header header)
 		{
@@ -74,9 +67,6 @@ namespace Advent2018
 		}
 
 		TreeData m_treeData;
-		//NumChildrenStack m_numChildrenStack;
 		unsigned m_sumOfMetadata;
-		//SomeSetType m_someSet;
-        //SomeMapType m_someMap;
     };
 }
