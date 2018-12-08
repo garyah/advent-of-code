@@ -1,7 +1,6 @@
 #include <map>
 #include <set>
 #include <string>
-#include <vector>
 
 namespace Advent2018
 {
@@ -13,7 +12,7 @@ namespace Advent2018
         {
         }
 
-        void method1(const char *input)
+        void addStepDependency(const char *input)
         {
 			char parentStep = 0;
 			char childStep = 0;
@@ -27,7 +26,7 @@ namespace Advent2018
 			}
 		}
 
-        const char *method2()
+        const char *getStepList()
         {
 			m_stepList.empty();
 			while (m_childParentList.size())
@@ -67,7 +66,7 @@ namespace Advent2018
 			return 0;
 		}
 
-		char addedTime = 60;
+		const char addedTime = 60;
 		bool assignWork(size_t w)
 		{
 			auto nextWork = pullNextWork();
@@ -128,7 +127,7 @@ namespace Advent2018
 			(void)printf("\n");
 		}
 
-		unsigned method3()
+		unsigned getParallelTimeSpent()
 		{
 			assignWorkToAll();
 			m_timeSpent = 0;
@@ -146,12 +145,8 @@ namespace Advent2018
 			return m_timeSpent;
 		}
 
-        //int64_t getSomeField() { return m_someField; }
-
     private:
-        //typedef std::vector<int64_t> SomeVectorType;
         typedef std::set<char> NodeSetType;
-		//typedef std::map<char, std::string> NodeMapType;
 		typedef std::map<char, NodeSetType> NodeMapType;
 		typedef struct
 		{
@@ -160,9 +155,6 @@ namespace Advent2018
 		} WorkItem;
 		WorkItem workers[5];
 
-        //int64_t m_someField;
-        //SomeVectorType m_someVector;
-        //SomeSetType m_someSet;
 		NodeMapType m_childParentList;
 		NodeMapType m_parentChildList;
 		std::string m_stepList;

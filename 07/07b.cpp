@@ -8,13 +8,12 @@ using namespace Advent2018;
 
 int main()
 {
-	StepSorter optimizer;
+	StepSorter sorter;
 	char *line = NULL;
 	while ((line = InputReader::ReadLine()) != NULL)
 	{
-		optimizer.method1(line);
+		sorter.addStepDependency(line);
 	}
-	//(void)printf("%s\n", optimizer.method2());
-	(void)printf("%u\n", optimizer.method3());
+	(void)printf("%u\n", sorter.getParallelTimeSpent());
 	return 0;
 }
