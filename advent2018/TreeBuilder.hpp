@@ -1,10 +1,5 @@
-//#include <algorithm>
 #include <iostream>
 #include <queue>
-//#include <stack>
-//#include <stdint.h>
-//#include <unordered_map>
-//#include <unordered_set>
 #include <vector>
 
 namespace Advent2018
