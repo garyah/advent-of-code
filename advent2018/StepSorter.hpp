@@ -7,8 +7,7 @@ namespace Advent2018
     class StepSorter
     {
     public:
-        StepSorter()/* :
-            m_someField(0)*/
+        StepSorter()
         {
         }
 
