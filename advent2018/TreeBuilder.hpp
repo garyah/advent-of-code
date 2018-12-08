@@ -5,7 +5,7 @@
 //#include <stdint.h>
 //#include <unordered_map>
 //#include <unordered_set>
-//#include <vector>
+#include <vector>
 
 namespace Advent2018
 {
@@ -13,7 +13,8 @@ namespace Advent2018
     {
     public:
         TreeBuilder() :
-            m_sumOfMetadata(0)
+            m_sumOfMetadata(0),
+			m_valueOfRootNode(0)
         {
         }
 
@@ -28,7 +29,13 @@ namespace Advent2018
 			popChildrenAndMetadata(popHeader());
         }
 
+		void processValueOfRootNode()
+		{
+			m_valueOfRootNode = popChildrenAndMetadataForRoot(popHeader());
+		}
+
 		unsigned getSumOfMetadata() { return m_sumOfMetadata; }
+		unsigned getValueOfRootNode() { return m_valueOfRootNode; }
 
     private:
 		typedef std::queue<unsigned> TreeData;
@@ -36,6 +43,7 @@ namespace Advent2018
 		{
 			unsigned numChildren, numMetadata;
 		} Header;
+		typedef std::vector<unsigned> ChildValues;
 
 		void popChildrenAndMetadata(Header header)
 		{
@@ -47,6 +55,32 @@ namespace Advent2018
 			{
 				m_sumOfMetadata += popMetadata();
 			}
+		}
+
+		unsigned popChildrenAndMetadataForRoot(Header header)
+		{
+			unsigned nodeValue = 0;
+			ChildValues childValues;
+			for (unsigned i = 0; i < header.numChildren; ++i)
+			{
+				childValues.push_back(popChildrenAndMetadataForRoot(popHeader()));
+			}
+			for (unsigned i = 0; i < header.numMetadata; ++i)
+			{
+				if (header.numChildren == 0)
+				{
+					nodeValue += popMetadata();
+				}
+				else
+				{
+					auto childIndex = popMetadata();
+					if (childIndex > 0 && childIndex < childValues.size())
+					{
+						nodeValue += childValues[childIndex - 1];
+					}
+				}
+			}
+			return nodeValue;
 		}
 
 		Header popHeader()
@@ -68,5 +102,6 @@ namespace Advent2018
 
 		TreeData m_treeData;
 		unsigned m_sumOfMetadata;
+		unsigned m_valueOfRootNode;
     };
 }
