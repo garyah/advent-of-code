@@ -74,7 +74,7 @@ namespace Advent2018
 				else
 				{
 					auto childIndex = popMetadata();
-					if (childIndex > 0 && childIndex < childValues.size())
+					if (childIndex > 0 && childIndex <= childValues.size())
 					{
 						nodeValue += childValues[childIndex - 1];
 					}
