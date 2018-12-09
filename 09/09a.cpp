@@ -1,23 +1,19 @@
 #include <stdio.h>
 
 #include "../common/InputReader.hpp"
-#include "../advent2017/StreamProcessor.hpp"
+#include "../advent2018/MarbleGame.hpp"
 
 using namespace Common;
-using namespace Advent2017;
-
-unsigned StreamProcessor::TotalGroupScore = 0;
+using namespace Advent2018;
 
 int main()
 {
-    char *line = NULL;
+	MarbleGame blank;
+	char *line = NULL;
     while ((line = InputReader::ReadLine()) != NULL)
     {
-        StreamProcessor::TotalGroupScore = 0;
-        auto numGroups = 0u;
-        auto groupScore = 0u;
-        (void)StreamProcessor::EatGroup(line, numGroups, &groupScore);
+        blank.method1(line);
     }
-    (void)printf("%u\n", StreamProcessor::TotalGroupScore);
+    (void)printf("%u\n", blank.method2());
     return 0;
 }

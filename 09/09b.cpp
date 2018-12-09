@@ -1,20 +1,19 @@
 #include <stdio.h>
 
 #include "../common/InputReader.hpp"
-#include "../advent2016/ErrorCorrector.hpp"
+#include "../advent2018/MarbleGame.hpp"
 
 using namespace Common;
-using namespace Advent2016;
+using namespace Advent2018;
 
 int main()
 {
-    ErrorCorrector corrector;
+    MarbleGame blank;
     char *line = NULL;
 	while ((line = InputReader::ReadLine()) != NULL)
 	{
-        corrector.addMessage(line);
+        blank.method1(line);
     }
-    corrector.doReverseCorrection();
-    (void)printf("%s\n", corrector.getCorrected());
+    (void)printf("%u\n", blank.method2());
     return 0;
 }
