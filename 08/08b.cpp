@@ -7,7 +7,7 @@ using namespace Advent2018;
 int main()
 {
 	TreeBuilder builder;
-	builder.readData();
+	builder.readData(std::cin);
 	builder.processValueOfRootNode();
 	std::cout << builder.getValueOfRootNode();
 	return 0;

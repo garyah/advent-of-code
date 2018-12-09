@@ -1,4 +1,4 @@
-#include <iostream>
+//#include <iostream>
 #include <queue>
 #include <vector>
 
@@ -13,10 +13,10 @@ namespace Advent2018
         {
         }
 
-        void readData()
+        void readData(std::istream& istream)
         {
 			unsigned data;
-			while (std::cin >> data) m_treeData.push(data);
+			while (istream >> data) m_treeData.push(data);
         }
 
 		void processSumOfMetadata()
