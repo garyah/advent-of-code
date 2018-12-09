@@ -1,7 +1,4 @@
 #include <iostream>
-//#include <unordered_map>
-//#include <unordered_set>
-//#include <stdint.h>
 #include <vector>
 
 namespace Advent2018
@@ -157,8 +154,6 @@ namespace Advent2018
     private:
 		typedef std::vector<unsigned> Marbles;
 		typedef std::vector<unsigned> PlayerScores;
-		//typedef std::unordered_set<unsigned> SomeSetType;
-        //typedef std::unordered_map<unsigned, unsigned> SomeMapType;
 
 		unsigned m_numPlayers;
 		unsigned m_lastMarble;
@@ -168,8 +163,5 @@ namespace Advent2018
 
 		Marbles m_marbles;
 		PlayerScores m_playerScores;
-		//SomeVectorType m_someVector;
-        //SomeSetType m_someSet;
-        //SomeMapType m_someMap;
     };
 }
