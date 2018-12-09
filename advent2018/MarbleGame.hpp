@@ -1,6 +1,7 @@
+#include <iostream>
 #include <unordered_map>
 #include <unordered_set>
-#include <stdint.h>
+//#include <stdint.h>
 #include <vector>
 
 namespace Advent2018
@@ -9,32 +10,35 @@ namespace Advent2018
     {
     public:
         MarbleGame() :
-            m_someField(0)
+            m_numPlayers(0),
+			m_lastMarble(0)
         {
         }
 
-        void method1(const char *input)
+        void method1(unsigned numPlayers, unsigned lastMarble)
         {
-            int64_t someVariable = 0;
-            (void)sscanf_s(input, "%lld", &someVariable);
-            m_someField = someVariable;
+			m_numPlayers = numPlayers;
+			m_lastMarble = lastMarble;
+		}
+
+		unsigned method2()
+        {
+			std::cout << m_numPlayers << "," << m_lastMarble << std::endl;
+            return m_numPlayers;
         }
 
-        int64_t method2()
-        {
-            return m_someField;
-        }
-
-        int64_t getSomeField() { return m_someField; }
+		unsigned getNumPlayers() { return m_numPlayers; }
+		unsigned getLastMarble() { return m_lastMarble; }
 
     private:
-        typedef std::vector<int64_t> SomeVectorType;
-        typedef std::unordered_set<int64_t> SomeSetType;
-        typedef std::unordered_map<int64_t, unsigned> SomeMapType;
+        typedef std::vector<unsigned> SomeVectorType;
+        typedef std::unordered_set<unsigned> SomeSetType;
+        typedef std::unordered_map<unsigned, unsigned> SomeMapType;
 
-        int64_t m_someField;
-        SomeVectorType m_someVector;
-        SomeSetType m_someSet;
-        SomeMapType m_someMap;
+		unsigned m_numPlayers;
+		unsigned m_lastMarble;
+		//SomeVectorType m_someVector;
+  //      SomeSetType m_someSet;
+  //      SomeMapType m_someMap;
     };
 }

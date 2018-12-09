@@ -1,19 +1,20 @@
+#include <iostream>
 #include <stdio.h>
 
-#include "../common/InputReader.hpp"
 #include "../advent2018/MarbleGame.hpp"
 
-using namespace Common;
 using namespace Advent2018;
 
 int main()
 {
-	MarbleGame blank;
-	char *line = NULL;
-    while ((line = InputReader::ReadLine()) != NULL)
-    {
-        blank.method1(line);
-    }
-    (void)printf("%u\n", blank.method2());
+	char line[80 + 1] = { 0 };
+	std::cin.getline(line, _countof(line));
+	auto numPlayers = 0u;
+	auto lastMarble = 0u;
+	(void)sscanf_s(line, "%u players; last marble is worth %u points", &numPlayers, &lastMarble);
+
+	MarbleGame game;
+	game.method1(numPlayers, lastMarble);
+	std::cout << game.method2();
     return 0;
 }
