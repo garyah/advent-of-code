@@ -25,52 +25,97 @@ namespace Advent2018
 
 		void playGame()
         {
-			//std::cout << m_numPlayers << "," << m_lastMarble << std::endl;
 			auto currentMarble = 0u;
 			m_marbles.push_back(currentMarble);
 			m_currentPlayer = m_numPlayers - 1;
 			while (currentMarble < m_lastMarble)
 			{
 				++currentMarble;
-				m_currentPlayer = (m_currentPlayer + 1) % m_numPlayers;
+				advanceCurrentPlayer();
 
-				auto numMarbles = m_marbles.size();
-				if (currentMarble / 23 * 23 == currentMarble)
+				if (isMarbleMultipleOfSpecialValue(currentMarble))
 				{
-					m_playerScores[m_currentPlayer] += currentMarble;
-					auto indexSevenCounterclockwise = (m_indexOfCurrentMarble - 7) % numMarbles;
-					auto it = m_marbles.begin();
-					for (size_t i = 0; i < indexSevenCounterclockwise; ++i, ++it);
-					m_playerScores[m_currentPlayer] += *it;
-					(void)m_marbles.erase(it);
-					m_indexOfCurrentMarble = indexSevenCounterclockwise == numMarbles - 1 ? 0 : indexSevenCounterclockwise;
+					advanceCurrentPlayerScore(currentMarble);
+					removeMarble(getMarbleIndexFromCurrent(-7));
 				}
 				else
 				{
-					auto indexOneClockwise = (m_indexOfCurrentMarble + 1) % numMarbles;
-					auto indexTwoClockwise = (m_indexOfCurrentMarble + 2) % numMarbles;
-					auto indexOfLast = numMarbles - 1;
-					if (indexOneClockwise == indexTwoClockwise
-						|| indexOneClockwise == indexOfLast && indexTwoClockwise == 0)
-					{
-						m_marbles.push_back(currentMarble);
-						m_indexOfCurrentMarble = indexOfLast + 1;
-					}
-					else
-					{
-						auto it = m_marbles.begin();
-						for (size_t i = 0; i < indexTwoClockwise; ++i, ++it);
-						(void)m_marbles.insert(it, currentMarble);
-						m_indexOfCurrentMarble = indexOneClockwise + 1;
-					}
+					addMarbleBetweenTwo(currentMarble, getMarbleIndexFromCurrent(1), getMarbleIndexFromCurrent(2));
 				}
 			}
+
+			findWinningScore();
+        }
+
+		void findWinningScore()
+		{
 			m_winningScore = 0u;
 			for (auto it = m_playerScores.cbegin(); it != m_playerScores.cend(); ++it)
 			{
 				if (*it > m_winningScore) m_winningScore = *it;
 			}
-        }
+		}
+
+		void removeMarble(size_t indexToRemove)
+		{
+			auto it = iteratorAtIndex(m_marbles, indexToRemove);
+			advanceCurrentPlayerScore(*it);
+			(void)m_marbles.erase(it);
+			m_indexOfCurrentMarble = ((indexToRemove == m_marbles.size()) ? 0 : indexToRemove);
+		}
+
+		void addMarbleBetweenTwo(unsigned marbleToAdd, unsigned beforeIndex, unsigned afterIndex)
+		{
+			auto indexOfLast = m_marbles.size() - 1;
+			if (beforeIndex == indexOfLast && afterIndex == 0)
+			{
+				addMarbleToEnd(marbleToAdd);
+			}
+			else
+			{
+				addMarbleToMiddle(marbleToAdd, afterIndex);
+			}
+		}
+
+		void addMarbleToEnd(unsigned marbleToadd)
+		{
+			m_marbles.push_back(marbleToadd);
+			m_indexOfCurrentMarble = m_marbles.size() - 1;
+		}
+
+		void addMarbleToMiddle(unsigned marbleToAdd, size_t indexToAddBefore)
+		{
+			auto it = iteratorAtIndex(m_marbles, indexToAddBefore);
+			(void)m_marbles.insert(it, marbleToAdd);
+			m_indexOfCurrentMarble = indexToAddBefore;
+		}
+
+		std::vector<unsigned>::iterator iteratorAtIndex(std::vector<unsigned>& vector, size_t index)
+		{
+			auto it = vector.begin();
+			for (size_t i = 0; i < index; ++i, ++it);
+			return it;
+		}
+
+		size_t getMarbleIndexFromCurrent(int offset)
+		{
+			return (m_indexOfCurrentMarble + offset) % m_marbles.size();
+		}
+
+		void advanceCurrentPlayerScore(unsigned scoreToAdd)
+		{
+			m_playerScores[m_currentPlayer] += scoreToAdd;
+		}
+
+		bool isMarbleMultipleOfSpecialValue(unsigned marble)
+		{
+			return (marble / 23 * 23 == marble);
+		}
+
+		void advanceCurrentPlayer()
+		{
+			m_currentPlayer = (m_currentPlayer + 1) % m_numPlayers;
+		}
 
 		unsigned getNumPlayers() { return m_numPlayers; }
 		unsigned getLastMarble() { return m_lastMarble; }
