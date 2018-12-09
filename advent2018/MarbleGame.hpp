@@ -36,6 +36,7 @@ namespace Advent2018
 
 				if (isMarbleMultipleOfSpecialValue(currentMarble))
 				{
+					//std::cout << currentMarble << " = " << currentMarble / 23 << " * 23" << std::endl;
 					advanceCurrentPlayerScore(currentMarble);
 					removeMarble(getMarbleIndexFromCurrent(-7));
 				}
@@ -116,8 +117,18 @@ namespace Advent2018
 		{
 			auto targetIndex = (int)m_indexOfCurrentMarble + offset;
 			auto validIfNonNegativeResult = targetIndex % m_marbles.size();
+			//if (offset == -7 && targetIndex >= 0)
+			//{
+			//	std::cout << "m_indexOfCurrentMarble = " << m_indexOfCurrentMarble << " (-7)-> " << targetIndex;
+			//	std::cout << ", modulo size of " << m_marbles.size() << " is " << validIfNonNegativeResult << std::endl;
+			//}
 			if (targetIndex >= 0) return validIfNonNegativeResult;
-			return validIfNonNegativeResult + 2;
+			targetIndex += (int)m_marbles.size();
+			//{
+			//	std::cout << "m_indexOfCurrentMarble = " << m_indexOfCurrentMarble << " (-7)-> " << targetIndex;
+			//	std::cout << "  since index underflowed" << std::endl;
+			//}
+			return targetIndex;
 		}
 
 		void advanceCurrentPlayerScore(unsigned scoreToAdd)
