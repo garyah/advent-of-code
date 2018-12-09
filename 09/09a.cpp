@@ -16,6 +16,7 @@ int main()
 	MarbleGame game;
 	game.setNumPlayersAndLastMarble(numPlayers, lastMarble);
 	game.playGame();
-	std::cout << game.getCurrentPlayer();
+	std::cout << game.getCurrentPlayer() << std::endl;
+	std::cout << game.getIndexOfCurrentMarble();
 	return 0;
 }

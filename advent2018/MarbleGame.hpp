@@ -22,32 +22,44 @@ namespace Advent2018
 
 		void playGame()
         {
-			std::cout << m_numPlayers << "," << m_lastMarble << std::endl;
+			//std::cout << m_numPlayers << "," << m_lastMarble << std::endl;
 			auto currentMarble = 0u;
 			m_marbles.push_back(currentMarble);
+			m_currentPlayer = m_numPlayers - 1;
 			while (currentMarble < m_lastMarble)
 			{
 				++currentMarble;
+				m_currentPlayer = (m_currentPlayer + 1) % m_numPlayers;
+
 				auto numMarbles = m_marbles.size();
-				auto indexOneClockwise = (m_indexOfCurrentMarble + 1) % numMarbles;
-				auto indexTwoClockwise = (m_indexOfCurrentMarble + 2) % numMarbles;
-				auto indexOfLast = numMarbles - 1;
-				if (indexOneClockwise == indexTwoClockwise
-					|| indexOneClockwise == indexOfLast && indexTwoClockwise == 0)
+				if (currentMarble / 23 * 23 == currentMarble)
 				{
-					m_marbles.push_back(currentMarble);
-					m_indexOfCurrentMarble = indexOfLast;
+					auto indexSevenCounterclockwise = (m_indexOfCurrentMarble - 7) % numMarbles;
+					auto it = m_marbles.begin();
+					for (size_t i = 0; i < indexSevenCounterclockwise; ++i, ++it);
+					(void)m_marbles.erase(it);
+					m_indexOfCurrentMarble = indexSevenCounterclockwise == numMarbles - 1 ? 0 : indexSevenCounterclockwise;
 				}
 				else
 				{
-					auto it = m_marbles.begin();
-					for (size_t i = 0; i < indexTwoClockwise; ++i, ++it);
-					(void)m_marbles.insert(it, currentMarble);
-					m_indexOfCurrentMarble = indexOneClockwise + 1;
+					auto indexOneClockwise = (m_indexOfCurrentMarble + 1) % numMarbles;
+					auto indexTwoClockwise = (m_indexOfCurrentMarble + 2) % numMarbles;
+					auto indexOfLast = numMarbles - 1;
+					if (indexOneClockwise == indexTwoClockwise
+						|| indexOneClockwise == indexOfLast && indexTwoClockwise == 0)
+					{
+						m_marbles.push_back(currentMarble);
+						m_indexOfCurrentMarble = indexOfLast + 1;
+					}
+					else
+					{
+						auto it = m_marbles.begin();
+						for (size_t i = 0; i < indexTwoClockwise; ++i, ++it);
+						(void)m_marbles.insert(it, currentMarble);
+						m_indexOfCurrentMarble = indexOneClockwise + 1;
+					}
 				}
-				m_currentPlayer = (m_currentPlayer + 1) % m_numPlayers;
 			}
-            //return m_numPlayers;
         }
 
 		unsigned getNumPlayers() { return m_numPlayers; }
