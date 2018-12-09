@@ -28,6 +28,7 @@ namespace Advent2018
 			auto currentMarble = 0u;
 			m_marbles.push_back(currentMarble);
 			m_currentPlayer = m_numPlayers - 1;
+			//std::cout << "[-] (0)" << std::endl;
 			while (currentMarble < m_lastMarble)
 			{
 				++currentMarble;
@@ -42,10 +43,24 @@ namespace Advent2018
 				{
 					addMarbleBetweenTwo(currentMarble, getMarbleIndexFromCurrent(1), getMarbleIndexFromCurrent(2));
 				}
+
+				//logMarbles();
 			}
 
 			findWinningScore();
         }
+
+		void logMarbles()
+		{
+			std::cout << "[" << getCurrentPlayer() << "] ";
+			auto itCurrent = iteratorAtIndex(m_marbles, m_indexOfCurrentMarble);
+			for (auto it = m_marbles.begin(); it != m_marbles.end(); ++it)
+			{
+				auto isCurrent = (it == itCurrent);
+				std::cout << (isCurrent ? "(" : "") << *it << (isCurrent ? ")" : "") << " ";
+			}
+			std::cout << std::endl;
+		}
 
 		void findWinningScore()
 		{
@@ -99,7 +114,10 @@ namespace Advent2018
 
 		size_t getMarbleIndexFromCurrent(int offset)
 		{
-			return (m_indexOfCurrentMarble + offset) % m_marbles.size();
+			auto targetIndex = (int)m_indexOfCurrentMarble + offset;
+			auto validIfNonNegativeResult = targetIndex % m_marbles.size();
+			if (targetIndex >= 0) return validIfNonNegativeResult;
+			return validIfNonNegativeResult + 2;
 		}
 
 		void advanceCurrentPlayerScore(unsigned scoreToAdd)
