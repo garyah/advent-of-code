@@ -45,8 +45,10 @@ namespace Advent2018
 					addMarbleBetweenTwo(currentMarble, getMarbleIndexFromCurrent(1), getMarbleIndexFromCurrent(2));
 				}
 
+				if (currentMarble % 100000 == 0) std::cout << currentMarble << " ";
 				//logMarbles();
 			}
+			std::cout << std::endl;
 
 			findWinningScore();
         }
