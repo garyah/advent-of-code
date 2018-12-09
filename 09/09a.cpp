@@ -14,7 +14,8 @@ int main()
 	(void)sscanf_s(line, "%u players; last marble is worth %u points", &numPlayers, &lastMarble);
 
 	MarbleGame game;
-	game.method1(numPlayers, lastMarble);
-	std::cout << game.method2();
-    return 0;
+	game.setNumPlayersAndLastMarble(numPlayers, lastMarble);
+	game.playGame();
+	std::cout << game.getCurrentPlayer();
+	return 0;
 }
