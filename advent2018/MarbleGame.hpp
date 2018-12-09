@@ -1,4 +1,5 @@
 #include <iostream>
+#include <list>
 #include <vector>
 
 namespace Advent2018
@@ -105,9 +106,9 @@ namespace Advent2018
 			m_indexOfCurrentMarble = indexToAddBefore;
 		}
 
-		std::vector<unsigned>::iterator iteratorAtIndex(std::vector<unsigned>& vector, size_t index)
+		std::list<unsigned>::iterator iteratorAtIndex(std::list<unsigned>& list, size_t index)
 		{
-			auto it = vector.begin();
+			auto it = list.begin();
 			for (size_t i = 0; i < index; ++i, ++it);
 			return it;
 		}
@@ -152,7 +153,8 @@ namespace Advent2018
 		unsigned getWinningScore() { return m_winningScore; }
 
     private:
-		typedef std::vector<unsigned> Marbles;
+		//typedef std::vector<unsigned> Marbles;
+		typedef std::list<unsigned> Marbles;
 		typedef std::vector<unsigned> PlayerScores;
 
 		unsigned m_numPlayers;
