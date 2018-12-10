@@ -76,18 +76,36 @@ namespace Advent2018
 			std::string drawing;
 
 			auto maxDistance = 0u, minDistance = (unsigned)-1;
+			int maxDistanceXPos1, maxDistanceXPos2, maxDistanceYPos1, maxDistanceYPos2;
+			int minDistanceXPos1, minDistanceXPos2, minDistanceYPos1, minDistanceYPos2;
 			for (auto it1 = m_points.begin(); it1 != m_points.end(); ++it1)
 			{
 				for (auto it2 = m_points.begin(); it2 != m_points.end(); ++it2)
 				{
 					if (it1 == it2) continue;
 					auto distance = (unsigned)(abs(it2->xPos - it1->xPos) + abs(it2->yPos - it1->yPos));
-					if (distance > maxDistance) maxDistance = distance;
-					if (distance < minDistance) minDistance = distance;
+					if (distance > maxDistance)
+					{
+						maxDistance = distance;
+						maxDistanceXPos1 = it1->xPos;
+						maxDistanceXPos2 = it2->xPos;
+						maxDistanceYPos1 = it1->yPos;
+						maxDistanceYPos2 = it2->yPos;
+					}
+					if (distance < minDistance)
+					{
+						minDistance = distance;
+						minDistanceXPos1 = it1->xPos;
+						minDistanceXPos2 = it2->xPos;
+						minDistanceYPos1 = it1->yPos;
+						minDistanceYPos2 = it2->yPos;
+					}
 				}
 			}
-			std::cout << minDistance << std::endl;
-			std::cout << maxDistance << std::endl;
+			std::cout << minDistance << " between (" << minDistanceXPos1 << "," << minDistanceYPos1 << ")";
+			std::cout << " and (" << minDistanceXPos2 << "," << minDistanceYPos2 << ")" << std::endl;
+			std::cout << maxDistance << " between (" << maxDistanceXPos1 << "," << maxDistanceYPos1 << ")";
+			std::cout << " and (" << maxDistanceXPos2 << "," << maxDistanceYPos2 << ")" << std::endl;
 
 			//auto xMaxPlus = 0, yMaxPlus = 0;
 			//auto xMaxMinus = 0, yMaxMinus = 0;
