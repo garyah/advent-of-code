@@ -40,7 +40,7 @@ namespace Advent2018
 			point.yPos += point.yVel;
 		}
 
-		std::string drawPoints()
+		std::string drawPointsSimple()
 		{
 			std::string drawing;
 
@@ -62,11 +62,55 @@ namespace Advent2018
 			{
 				for (auto xPos = -xMaxMinus; xPos <= xMaxPlus; ++xPos)
 				{
-					//if (isPointAt(xPos, yPos)) drawing += "#";
-					//else drawing += ".";
+					if (isPointAt(xPos, yPos)) drawing += "#";
+					else drawing += ".";
 				}
-				//drawing += "\n";
+				drawing += "\n";
 			}
+
+			return drawing;
+		}
+
+		std::string drawPoints()
+		{
+			std::string drawing;
+
+			auto maxDistance = 0u, minDistance = (unsigned)-1;
+			for (auto it1 = m_points.begin(); it1 != m_points.end(); ++it1)
+			{
+				for (auto it2 = m_points.begin(); it2 != m_points.end(); ++it2)
+				{
+					if (it1 == it2) continue;
+					auto distance = (unsigned)(abs(it2->xPos - it1->xPos) + abs(it2->yPos - it1->yPos));
+					if (distance > maxDistance) maxDistance = distance;
+					if (distance < minDistance) minDistance = distance;
+				}
+			}
+			std::cout << minDistance << std::endl;
+			std::cout << maxDistance << std::endl;
+
+			//auto xMaxPlus = 0, yMaxPlus = 0;
+			//auto xMaxMinus = 0, yMaxMinus = 0;
+			{
+				//auto xPos = it->xPos;
+				//if (xPos >= 0 && abs(xPos) > xMaxPlus) xMaxPlus = abs(xPos);
+				//if (xPos < 0 && abs(xPos) > xMaxMinus) xMaxMinus = abs(xPos);
+				//auto yPos = it->yPos;
+				//if (yPos >= 0 && abs(yPos) > yMaxPlus) yMaxPlus = abs(yPos);
+				//if (yPos < 0 && abs(yPos) > yMaxMinus) yMaxMinus = abs(yPos);
+			}
+
+			//auto width = xMaxPlus + xMaxMinus + 1;
+			//auto height = yMaxPlus + yMaxMinus + 1;
+			//for (auto yPos = -yMaxMinus; yPos <= yMaxPlus; ++yPos)
+			//{
+			//	for (auto xPos = -xMaxMinus; xPos <= xMaxPlus; ++xPos)
+			//	{
+			//		if (isPointAt(xPos, yPos)) drawing += "#";
+			//		else drawing += ".";
+			//	}
+			//	drawing += "\n";
+			//}
 
 			return drawing;
 		}
