@@ -20,7 +20,7 @@ int main()
 	} while (!std::cin.eof());
 
 	std::cout << finder.drawPoints() << std::endl;
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < 0; ++i)
 	{
 		finder.movePoints();
 		std::cout << finder.drawPoints() << std::endl;

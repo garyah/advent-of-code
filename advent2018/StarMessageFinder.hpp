@@ -62,10 +62,10 @@ namespace Advent2018
 			{
 				for (auto xPos = -xMaxMinus; xPos <= xMaxPlus; ++xPos)
 				{
-					if (isPointAt(xPos, yPos)) drawing += "#";
-					else drawing += ".";
+					//if (isPointAt(xPos, yPos)) drawing += "#";
+					//else drawing += ".";
 				}
-				drawing += "\n";
+				//drawing += "\n";
 			}
 
 			return drawing;
