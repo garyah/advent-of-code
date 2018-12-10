@@ -26,6 +26,7 @@ namespace Advent2018
 			auto currentMarble = 0u;
 			m_marbles.push_back(currentMarble);
 			m_currentPlayer = m_numPlayers - 1;
+			m_iteratorOfCurrentMarble = m_marbles.begin();
 			//std::cout << "[-] (0)" << std::endl;
 			while (currentMarble < m_lastMarble)
 			{
@@ -82,7 +83,7 @@ namespace Advent2018
 
 		void addMarbleBetweenTwo(unsigned marbleToAdd, std::list<unsigned>::iterator beforeIt, std::list<unsigned>::iterator afterIt)
 		{
-			auto indexOfLast = m_marbles.size() - 1;
+			//auto indexOfLast = m_marbles.size() - 1;
 			if (beforeIt == --(m_marbles.end()) && afterIt == m_marbles.begin())
 			{
 				addMarbleToEnd(marbleToAdd);
@@ -141,9 +142,10 @@ namespace Advent2018
 			for (; i < offset && it != m_marbles.end(); ++i, ++it);
 			if (i < offset)
 			{
-				it = --(m_marbles.begin());
+				it = m_marbles.begin();
 				for (auto j = 0u; j < offset - i; ++j, ++it);
 			}
+			if (it == m_marbles.end()) it = m_marbles.begin();
 			return it;
 		}
 
@@ -151,12 +153,16 @@ namespace Advent2018
 		{
 			auto i = 0u;
 			auto it = m_iteratorOfCurrentMarble;
-			for (; i < offset && it != --(m_marbles.begin()); ++i, --it);
+			auto itReverse = --(m_marbles.rend());
+			for (; it != m_marbles.begin(); --it, --itReverse);
+			for (; i < offset && itReverse != m_marbles.rend(); ++i, ++itReverse);
 			if (i < offset)
 			{
-				it = m_marbles.end();
-				for (auto j = 0u; j < offset - i; ++j, --it);
+				itReverse = m_marbles.rbegin();
+				for (auto j = 0u; j < offset - i; ++j, ++itReverse);
 			}
+			if (itReverse != m_marbles.rend()) ++itReverse;
+			for (; itReverse != m_marbles.rend(); ++itReverse, ++it);
 			return it;
 		}
 
