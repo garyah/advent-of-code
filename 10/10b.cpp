@@ -19,11 +19,10 @@ int main()
 		finder.addPoint(xPos, yPos, xVel, yVel);
 	} while (!std::cin.eof());
 
-	std::cout << finder.drawPointsSimple() << std::endl;
-	for (int i = 0; i < 4; ++i)
-	{
-		std::cout << finder.drawPointsSimple() << std::endl;
-	}
-	//std::cout << finder.method2() << std::endl;
+	//std::cout << finder.drawPointsSimple() << std::endl;
+	//for (int i = 0; i < 4; ++i)
+	//{
+	//	std::cout << finder.drawPointsSimple() << std::endl;
+	//}
 	return 0;
 }

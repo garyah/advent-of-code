@@ -40,7 +40,7 @@ namespace Advent2018
 			point.yPos += point.yVel;
 		}
 
-		std::string drawPointsSimple()
+		std::string drawPoints()
 		{
 			std::string drawing;
 
@@ -71,19 +71,27 @@ namespace Advent2018
 			return drawing;
 		}
 
-		std::string drawPoints()
+		void statPoints()
 		{
-			std::string drawing;
-
 			auto maxDistance = 0u, minDistance = (unsigned)-1;
 			int maxDistanceXPos1, maxDistanceXPos2, maxDistanceYPos1, maxDistanceYPos2;
 			int minDistanceXPos1, minDistanceXPos2, minDistanceYPos1, minDistanceYPos2;
+			auto maxMeanDistance = 0u, minMeanDistance = (unsigned)-1;
 			for (auto it1 = m_points.begin(); it1 != m_points.end(); ++it1)
 			{
-				for (auto it2 = m_points.begin(); it2 != m_points.end(); ++it2)
+				auto meanDistance = 0u, i = 0u;
+				bool foundMine = false;
+				for (auto it2 = m_points.begin(); it2 != m_points.end(); ++it2, ++i)
 				{
-					if (it1 == it2) continue;
+					if (it1 == it2)
+					{
+						foundMine = true;
+						continue;
+					}
 					auto distance = (unsigned)(abs(it2->xPos - it1->xPos) + abs(it2->yPos - it1->yPos));
+					if (i == 0 || foundMine && i == 1) meanDistance = distance;
+					else if (foundMine) meanDistance = (meanDistance * (i - 1) + distance) / i;
+					else meanDistance = (meanDistance * i + distance) / (i + 1);
 					if (distance > maxDistance)
 					{
 						maxDistance = distance;
@@ -101,36 +109,15 @@ namespace Advent2018
 						minDistanceYPos2 = it2->yPos;
 					}
 				}
+				if (meanDistance > maxMeanDistance) maxMeanDistance = meanDistance;
+				if (meanDistance < minMeanDistance) minMeanDistance = meanDistance;
 			}
-			std::cout << minDistance << " between (" << minDistanceXPos1 << "," << minDistanceYPos1 << ")";
+			std::cout << "minimum distance of " << minDistance << " between (" << minDistanceXPos1 << "," << minDistanceYPos1 << ")";
 			std::cout << " and (" << minDistanceXPos2 << "," << minDistanceYPos2 << ")" << std::endl;
-			std::cout << maxDistance << " between (" << maxDistanceXPos1 << "," << maxDistanceYPos1 << ")";
+			std::cout << "maximum distance of " << maxDistance << " between (" << maxDistanceXPos1 << "," << maxDistanceYPos1 << ")";
 			std::cout << " and (" << maxDistanceXPos2 << "," << maxDistanceYPos2 << ")" << std::endl;
-
-			//auto xMaxPlus = 0, yMaxPlus = 0;
-			//auto xMaxMinus = 0, yMaxMinus = 0;
-			{
-				//auto xPos = it->xPos;
-				//if (xPos >= 0 && abs(xPos) > xMaxPlus) xMaxPlus = abs(xPos);
-				//if (xPos < 0 && abs(xPos) > xMaxMinus) xMaxMinus = abs(xPos);
-				//auto yPos = it->yPos;
-				//if (yPos >= 0 && abs(yPos) > yMaxPlus) yMaxPlus = abs(yPos);
-				//if (yPos < 0 && abs(yPos) > yMaxMinus) yMaxMinus = abs(yPos);
-			}
-
-			//auto width = xMaxPlus + xMaxMinus + 1;
-			//auto height = yMaxPlus + yMaxMinus + 1;
-			//for (auto yPos = -yMaxMinus; yPos <= yMaxPlus; ++yPos)
-			//{
-			//	for (auto xPos = -xMaxMinus; xPos <= xMaxPlus; ++xPos)
-			//	{
-			//		if (isPointAt(xPos, yPos)) drawing += "#";
-			//		else drawing += ".";
-			//	}
-			//	drawing += "\n";
-			//}
-
-			return drawing;
+			std::cout << "minimum mean distance of " << minMeanDistance << std::endl;
+			std::cout << "maximum mean distance of " << maxMeanDistance << std::endl;
 		}
 
 		bool isPointAt(int xPos, int yPos)

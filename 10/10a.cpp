@@ -19,12 +19,21 @@ int main()
 		finder.addPoint(xPos, yPos, xVel, yVel);
 	} while (!std::cin.eof());
 
-	std::cout << finder.drawPoints() << std::endl;
-	for (int i = 0; i < 0; ++i)
+	//std::cout << "initially:" << std::endl;
+	//std::cout << finder.statPoints() << std::endl;
+	auto numSecondsBegin = 10 * 1000u + 593u;
+	auto i = 0u;
+	for (; i < numSecondsBegin; ++i)
 	{
 		finder.movePoints();
+	}
+	auto numSecondsEnd = 10 * 1000u + 609u + 1u;
+	for (; i < numSecondsEnd; ++i)
+	{
+		finder.movePoints();
+		std::cout << "after " << i << " seconds:" << std::endl;
+		finder.statPoints();
 		std::cout << finder.drawPoints() << std::endl;
 	}
-	//std::cout << finder.method2() << std::endl;
 	return 0;
 }
