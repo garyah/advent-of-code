@@ -31,7 +31,7 @@ int main()
 	for (; i < numSecondsEnd; ++i)
 	{
 		finder.movePoints();
-		std::cout << "after " << i << " seconds:" << std::endl;
+		std::cout << "after " << i + 1 << " seconds:" << std::endl;
 		finder.statPoints();
 		std::cout << finder.drawPoints() << std::endl;
 	}

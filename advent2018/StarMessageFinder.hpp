@@ -1,7 +1,4 @@
 #include <iostream>
-#include <unordered_map>
-#include <unordered_set>
-#include <stdint.h>
 #include <string>
 #include <vector>
 
@@ -15,8 +12,7 @@ namespace Advent2018
 			int xPos, yPos, xVel, yVel;
 		} Point;
 
-		StarMessageFinder() :
-            m_someField(0)
+		StarMessageFinder()
         {
         }
 
@@ -129,21 +125,9 @@ namespace Advent2018
 			return false;
 		}
 
-        int64_t method2()
-        {
-            return m_someField;
-        }
-
-        int64_t getSomeField() { return m_someField; }
-
     private:
         typedef std::vector<Point> Points;
-        typedef std::unordered_set<int64_t> SomeSetType;
-        typedef std::unordered_map<int64_t, unsigned> SomeMapType;
 
-        int64_t m_someField;
 		Points m_points;
-        SomeSetType m_someSet;
-        SomeMapType m_someMap;
     };
 }
