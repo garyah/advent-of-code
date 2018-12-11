@@ -1,8 +1,4 @@
-#include <unordered_map>
-#include <unordered_set>
-#include <stdint.h>
 #include <string>
-#include <vector>
 
 namespace Advent2018
 {
@@ -142,13 +138,6 @@ namespace Advent2018
 		}
 
     private:
-        typedef std::vector<int64_t> SomeVectorType;
-        typedef std::unordered_set<int64_t> SomeSetType;
-        typedef std::unordered_map<int64_t, unsigned> SomeMapType;
-
 		unsigned m_gridSerial;
-        SomeVectorType m_someVector;
-        SomeSetType m_someSet;
-        SomeMapType m_someMap;
     };
 }
