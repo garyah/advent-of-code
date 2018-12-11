@@ -19,8 +19,7 @@ namespace Advent2018
 			const auto totalSize = 300u;
 			auto maxPower = -1000;
 			auto xMax = 0u, yMax = 0u;
-			auto x = 1u, y = 1u;
-			auto maxDimension = totalSize - 2u;
+			auto x = 1u, y = 1u, maxDimension = totalSize - 2u;
 			for (; y <= maxDimension; ++y)
 			{
 				for (x = 1u; x <= maxDimension; ++x)
@@ -67,30 +66,34 @@ namespace Advent2018
 			auto maxPower = -1000;
 			auto xMax = 0u, yMax = 0u, sizeMax = 0u;
 			auto x = 1u, y = 1u, maxDimension = totalSize - 2u;
-			for (; y <= maxDimension; ++y)
+			//for (auto size = 2u; size < totalSize - 1; ++size)
+			auto size = 3u;
 			{
-				for (x = 1u; x <= maxDimension; ++x)
+				for (y = 1u; y <= maxDimension; ++y)
 				{
-					auto anyPower = 0;
-					for (auto yThis = y; yThis < y + 3; ++yThis)
+					for (x = 1u; x <= maxDimension; ++x)
 					{
-						for (auto xThis = x; xThis < x + 3; ++xThis)
+						auto anyPower = 0;
+						for (auto yThis = y; yThis < y + 3; ++yThis)
 						{
-							anyPower += calculatePower(xThis, yThis);
+							for (auto xThis = x; xThis < x + 3; ++xThis)
+							{
+								anyPower += calculatePower(xThis, yThis);
+							}
 						}
-					}
-					testCalculateAnyPower(x, y, anyPower);
-					if (anyPower > maxPower)
-					{
-						maxPower = anyPower;
-						xMax = x;
-						yMax = y;
-						sizeMax = 3;
+						testCalculateAnyPower(x, y, anyPower);
+						if (anyPower > maxPower)
+						{
+							maxPower = anyPower;
+							xMax = x;
+							yMax = y;
+							sizeMax = 3;
+						}
 					}
 				}
 			}
 
-			std::cout << "x= " << x << " y= " << y << std::endl;
+			std::cout << "last x= " << x << " last y= " << y << std::endl;
 			std::cout << "maxPower= " << maxPower << std::endl;
 			char result[80 + 1] = { 0 };
 			(void)snprintf(result, _countof(result), "%u,%u,%u", xMax, yMax, sizeMax);
