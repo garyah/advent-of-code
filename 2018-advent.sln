@@ -119,7 +119,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "advent2017-tests", "advent2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2018", "advent2018", "{93A18934-BD3D-472E-A8FA-D82523D728CC}"
 	ProjectSection(SolutionItems) = preProject
-		advent2018\StarMessageFinder.hpp = advent2018\StarMessageFinder.hpp
+		advent2018\BlankClass.hpp = advent2018\BlankClass.hpp
 		advent2018\CheckSummer.hpp = advent2018\CheckSummer.hpp
 		advent2018\ChronalOptimizer.hpp = advent2018\ChronalOptimizer.hpp
 		advent2018\FabricOverlapCalculator.hpp = advent2018\FabricOverlapCalculator.hpp
@@ -127,6 +127,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2018", "advent2018", 
 		advent2018\GuardTimeTracker.hpp = advent2018\GuardTimeTracker.hpp
 		advent2018\MarbleGame.hpp = advent2018\MarbleGame.hpp
 		advent2018\PolymerReactor.hpp = advent2018\PolymerReactor.hpp
+		advent2018\StarMessageFinder.hpp = advent2018\StarMessageFinder.hpp
 		advent2018\StepSorter.hpp = advent2018\StepSorter.hpp
 		advent2018\TreeBuilder.hpp = advent2018\TreeBuilder.hpp
 	EndProjectSection
@@ -160,6 +161,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10a", "10\10a.vcxproj", "{72786532-F30D-4880-9368-D0BCE71A4822}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10b", "10\10b.vcxproj", "{51F6D401-48EA-4178-A10C-83278AEFE47B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "11a", "11\11a.vcxproj", "{B0C6D8E1-8DAB-47C9-A4A5-C5A4B6784839}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "11b", "11\11b.vcxproj", "{323B08D9-25D6-4321-ABAA-DAB6ABDEE42B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -633,6 +638,26 @@ Global
 		{51F6D401-48EA-4178-A10C-83278AEFE47B}.Release|x64.Build.0 = Release|x64
 		{51F6D401-48EA-4178-A10C-83278AEFE47B}.Release|x86.ActiveCfg = Release|Win32
 		{51F6D401-48EA-4178-A10C-83278AEFE47B}.Release|x86.Build.0 = Release|Win32
+		{B0C6D8E1-8DAB-47C9-A4A5-C5A4B6784839}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{B0C6D8E1-8DAB-47C9-A4A5-C5A4B6784839}.Debug|x64.ActiveCfg = Debug|x64
+		{B0C6D8E1-8DAB-47C9-A4A5-C5A4B6784839}.Debug|x64.Build.0 = Debug|x64
+		{B0C6D8E1-8DAB-47C9-A4A5-C5A4B6784839}.Debug|x86.ActiveCfg = Debug|Win32
+		{B0C6D8E1-8DAB-47C9-A4A5-C5A4B6784839}.Debug|x86.Build.0 = Debug|Win32
+		{B0C6D8E1-8DAB-47C9-A4A5-C5A4B6784839}.Release|Any CPU.ActiveCfg = Release|Win32
+		{B0C6D8E1-8DAB-47C9-A4A5-C5A4B6784839}.Release|x64.ActiveCfg = Release|x64
+		{B0C6D8E1-8DAB-47C9-A4A5-C5A4B6784839}.Release|x64.Build.0 = Release|x64
+		{B0C6D8E1-8DAB-47C9-A4A5-C5A4B6784839}.Release|x86.ActiveCfg = Release|Win32
+		{B0C6D8E1-8DAB-47C9-A4A5-C5A4B6784839}.Release|x86.Build.0 = Release|Win32
+		{323B08D9-25D6-4321-ABAA-DAB6ABDEE42B}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{323B08D9-25D6-4321-ABAA-DAB6ABDEE42B}.Debug|x64.ActiveCfg = Debug|x64
+		{323B08D9-25D6-4321-ABAA-DAB6ABDEE42B}.Debug|x64.Build.0 = Debug|x64
+		{323B08D9-25D6-4321-ABAA-DAB6ABDEE42B}.Debug|x86.ActiveCfg = Debug|Win32
+		{323B08D9-25D6-4321-ABAA-DAB6ABDEE42B}.Debug|x86.Build.0 = Debug|Win32
+		{323B08D9-25D6-4321-ABAA-DAB6ABDEE42B}.Release|Any CPU.ActiveCfg = Release|Win32
+		{323B08D9-25D6-4321-ABAA-DAB6ABDEE42B}.Release|x64.ActiveCfg = Release|x64
+		{323B08D9-25D6-4321-ABAA-DAB6ABDEE42B}.Release|x64.Build.0 = Release|x64
+		{323B08D9-25D6-4321-ABAA-DAB6ABDEE42B}.Release|x86.ActiveCfg = Release|Win32
+		{323B08D9-25D6-4321-ABAA-DAB6ABDEE42B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -681,6 +706,8 @@ Global
 		{45919B32-AE4C-4AF2-8E96-D874CD6815E0} = {3B252197-C677-46BB-A83E-39041B8D4E1E}
 		{72786532-F30D-4880-9368-D0BCE71A4822} = {3B252197-C677-46BB-A83E-39041B8D4E1E}
 		{51F6D401-48EA-4178-A10C-83278AEFE47B} = {3B252197-C677-46BB-A83E-39041B8D4E1E}
+		{B0C6D8E1-8DAB-47C9-A4A5-C5A4B6784839} = {A89778CE-E809-41EF-94E8-39EB4FDD909B}
+		{323B08D9-25D6-4321-ABAA-DAB6ABDEE42B} = {A89778CE-E809-41EF-94E8-39EB4FDD909B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {812E15DC-BEBE-424A-BBAA-2679DE05FF6B}
