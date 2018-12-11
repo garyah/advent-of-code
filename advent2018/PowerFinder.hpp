@@ -75,7 +75,7 @@ namespace Advent2018
 			auto maxPower = -1000;
 			auto xMax = 0u, yMax = 0u, sizeMax = 0u;
 			auto x = 1u, y = 1u, maxDimension = totalSize;
-			for (auto size = 2u; size < totalSize - 1; ++size)
+			for (auto size = 2u; size <= totalSize - 1; ++size)
 			{
 				maxDimension = totalSize - size + 1;
 				for (y = 1u; y <= maxDimension; ++y)
