@@ -9,12 +9,12 @@ namespace Advent2018
     class PowerFinder
     {
     public:
-        PowerFinder() :
-            m_someField(0)
+        PowerFinder(unsigned gridSerial) :
+			m_gridSerial(gridSerial)
         {
         }
 
-        std::string getMax3x3Power(unsigned gridSerial)
+        std::string getMax3x3Power()
         {
 			auto maxPower = -1000;
 			auto xMax = 0u;
@@ -31,31 +31,10 @@ namespace Advent2018
 					{
 						for (auto xThis = x; xThis < x + 3; ++xThis)
 						{
-							auto rackId = xThis + 10u;
-							auto power = rackId * yThis;
-							power += gridSerial;
-							power *= rackId;
-							power = power / 100 % 10;
-							int finalPower = (int)power - 5;
-							if (xThis == 3u && yThis == 5u && gridSerial == 8u
-								|| xThis == 122u && yThis == 79u && gridSerial == 57u
-								|| xThis == 217u && yThis == 196u && gridSerial == 39u
-								|| xThis == 101u && yThis == 153u && gridSerial == 71u)
-							{
-								std::cout << finalPower << std::endl;
-							}
-
-							power3x3 += finalPower;
+							power3x3 += calculatePower(xThis, yThis);
 						}
 					}
-					if (x == 33u && y == 45u && gridSerial == 18)
-					{
-						std::cout << power3x3 << std::endl;
-					}
-					if (x == 21u && y == 61u && gridSerial == 42)
-					{
-						std::cout << power3x3 << std::endl;
-					}
+					testCalculate3x3Power(x, y, power3x3);
 					if (power3x3 > maxPower)
 					{
 						maxPower = power3x3;
@@ -73,14 +52,47 @@ namespace Advent2018
             return resultString;
         }
 
-        //int64_t getSomeField() { return m_someField; }
+		void testCalculate3x3Power(unsigned x, unsigned y, int power3x3)
+		{
+			if (x == 33u && y == 45u && m_gridSerial == 18)
+			{
+				std::cout << power3x3 << std::endl;
+			}
+			if (x == 21u && y == 61u && m_gridSerial == 42)
+			{
+				std::cout << power3x3 << std::endl;
+			}
+		}
+
+		int calculatePower(unsigned x, unsigned y)
+		{
+			auto rackId = x+ 10u;
+			auto power = rackId * y;
+			power += m_gridSerial;
+			power *= rackId;
+			power = power / 100 % 10;
+			int finalPower = (int)power - 5;
+			testCalculatePower(x, y, finalPower);
+			return finalPower;
+		}
+
+		void testCalculatePower(unsigned x, unsigned y, int finalPower)
+		{
+			if (x == 3u && y == 5u && m_gridSerial == 8u
+				|| x == 122u && y == 79u && m_gridSerial == 57u
+				|| x == 217u && y == 196u && m_gridSerial == 39u
+				|| x == 101u && y == 153u && m_gridSerial == 71u)
+			{
+				std::cout << finalPower << std::endl;
+			}
+		}
 
     private:
         typedef std::vector<int64_t> SomeVectorType;
         typedef std::unordered_set<int64_t> SomeSetType;
         typedef std::unordered_map<int64_t, unsigned> SomeMapType;
 
-        int64_t m_someField;
+		unsigned m_gridSerial;
         SomeVectorType m_someVector;
         SomeSetType m_someSet;
         SomeMapType m_someMap;
