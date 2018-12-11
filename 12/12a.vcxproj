@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}}</ProjectGuid>
+    <ProjectGuid>{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My12</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
