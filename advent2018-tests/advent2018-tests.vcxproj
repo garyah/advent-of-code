@@ -165,10 +165,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="CheckSummerTests.cpp" />
-    <ClCompile Include="BlankTests02.cpp" />
-    <ClCompile Include="BlankTests03.cpp" />
-    <ClCompile Include="BlankTests04.cpp" />
-    <ClCompile Include="BlankTests05.cpp" />
     <ClCompile Include="FabricOverlapCalculatorTests.cpp" />
     <ClCompile Include="FrequencyCalibratorTests.cpp" />
     <ClCompile Include="stdafx.cpp">
