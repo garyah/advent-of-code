@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{72786532-F30D-4880-9368-D0BCE71A4822}</ProjectGuid>
+    <ProjectGuid>{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>My10</RootNamespace>
+    <RootNamespace>My12</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <ProjectName>10a</ProjectName>
+    <ProjectName>12a</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -147,7 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="10a.cpp" />
+    <ClCompile Include="12a.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
