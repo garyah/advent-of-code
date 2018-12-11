@@ -10,6 +10,6 @@ int main()
 	auto gridSerial = 0u;
 	std::cin >> gridSerial;
 	PowerFinder finder(gridSerial);
-	std::cout << finder.getMax3x3Power() << std::endl;
+	std::cout << finder.getMaxAnyPower() << std::endl;
 	return 0;
 }

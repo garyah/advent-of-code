@@ -44,7 +44,7 @@ namespace Advent2018
 				}
 			}
 
-			std::cout << "x= " << x << " y= " << y << std::endl;
+			std::cout << "last x= " << x << " last y= " << y << std::endl;
 			std::cout << "maxPower= " << maxPower << std::endl;
 			char result[80 + 1] = { 0 };
 			(void)snprintf(result, _countof(result), "%u,%u", xMax, yMax);
@@ -54,13 +54,60 @@ namespace Advent2018
 
 		void testCalculate3x3Power(unsigned x, unsigned y, int power3x3)
 		{
-			if (x == 33u && y == 45u && m_gridSerial == 18)
+			if (x == 33u && y == 45u && m_gridSerial == 18
+				|| x == 21u && y == 61u && m_gridSerial == 42)
 			{
+				std::cout << "test " << m_gridSerial << ": @(" << x << "," << y << ") -> ";
 				std::cout << power3x3 << std::endl;
 			}
-			if (x == 21u && y == 61u && m_gridSerial == 42)
+		}
+
+		std::string getMaxAnyPower()
+		{
+			auto maxPower = -1000;
+			auto xMax = 0u;
+			auto yMax = 0u;
+			auto sizeMax = 0u;
+			auto x = 1u;
+			auto y = 1u;
+			auto size = 300u - 2u;
+			for (; y <= size; ++y)
 			{
-				std::cout << power3x3 << std::endl;
+				for (x = 1u; x <= size; ++x)
+				{
+					auto power3x3 = 0;
+					for (auto yThis = y; yThis < y + 3; ++yThis)
+					{
+						for (auto xThis = x; xThis < x + 3; ++xThis)
+						{
+							power3x3 += calculatePower(xThis, yThis);
+						}
+					}
+					testCalculate3x3Power(x, y, power3x3);
+					if (power3x3 > maxPower)
+					{
+						maxPower = power3x3;
+						xMax = x;
+						yMax = y;
+					}
+				}
+			}
+
+			std::cout << "x= " << x << " y= " << y << std::endl;
+			std::cout << "maxPower= " << maxPower << std::endl;
+			char result[80 + 1] = { 0 };
+			(void)snprintf(result, _countof(result), "%u,%u,%u", xMax, yMax, sizeMax);
+			std::string resultString(result);
+			return resultString;
+		}
+
+		void testCalculateAnyPower(unsigned x, unsigned y, int anyPower)
+		{
+			if (x == 90u && y == 269u && m_gridSerial == 18
+				|| x == 232u && y == 251u && m_gridSerial == 42)
+			{
+				std::cout << "test " << m_gridSerial << ": @(" << x << "," << y << ") -> ";
+				std::cout << anyPower << std::endl;
 			}
 		}
 
@@ -83,6 +130,7 @@ namespace Advent2018
 				|| x == 217u && y == 196u && m_gridSerial == 39u
 				|| x == 101u && y == 153u && m_gridSerial == 71u)
 			{
+				std::cout << "test " << m_gridSerial << ": @(" << x << "," << y << ") -> ";
 				std::cout << finalPower << std::endl;
 			}
 		}
