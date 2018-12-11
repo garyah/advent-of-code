@@ -14,14 +14,7 @@ namespace Advent2018
         {
         }
 
-        void method1(unsigned number)
-        {
-            //int64_t someVariable = 0;
-            //(void)sscanf_s(input, "%lld", &someVariable);
-            //m_someField = someVariable;
-        }
-
-        std::string method2(unsigned gridSerial)
+        std::string getMax3x3Power(unsigned gridSerial)
         {
 			auto maxPower = -1000;
 			auto xMax = 0u;
@@ -80,7 +73,7 @@ namespace Advent2018
             return resultString;
         }
 
-        int64_t getSomeField() { return m_someField; }
+        //int64_t getSomeField() { return m_someField; }
 
     private:
         typedef std::vector<int64_t> SomeVectorType;
