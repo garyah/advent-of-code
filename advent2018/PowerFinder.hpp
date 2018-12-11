@@ -16,15 +16,14 @@ namespace Advent2018
 
         std::string getMax3x3Power()
         {
+			const auto totalSize = 300u;
 			auto maxPower = -1000;
-			auto xMax = 0u;
-			auto yMax = 0u;
-			auto x = 1u;
-			auto y = 1u;
-			auto size = 300u - 2u;
-			for (; y <= size; ++y)
+			auto xMax = 0u, yMax = 0u;
+			auto x = 1u, y = 1u;
+			auto maxDimension = totalSize - 2u;
+			for (; y <= maxDimension; ++y)
 			{
-				for (x = 1u; x <= size; ++x)
+				for (x = 1u; x <= maxDimension; ++x)
 				{
 					auto power3x3 = 0;
 					for (auto yThis = y; yThis < y + 3; ++yThis)
@@ -64,31 +63,29 @@ namespace Advent2018
 
 		std::string getMaxAnyPower()
 		{
+			const auto totalSize = 300u;
 			auto maxPower = -1000;
-			auto xMax = 0u;
-			auto yMax = 0u;
-			auto sizeMax = 0u;
-			auto x = 1u;
-			auto y = 1u;
-			auto size = 300u - 2u;
-			for (; y <= size; ++y)
+			auto xMax = 0u, yMax = 0u, sizeMax = 0u;
+			auto x = 1u, y = 1u, maxDimension = totalSize - 2u;
+			for (; y <= maxDimension; ++y)
 			{
-				for (x = 1u; x <= size; ++x)
+				for (x = 1u; x <= maxDimension; ++x)
 				{
-					auto power3x3 = 0;
+					auto anyPower = 0;
 					for (auto yThis = y; yThis < y + 3; ++yThis)
 					{
 						for (auto xThis = x; xThis < x + 3; ++xThis)
 						{
-							power3x3 += calculatePower(xThis, yThis);
+							anyPower += calculatePower(xThis, yThis);
 						}
 					}
-					testCalculate3x3Power(x, y, power3x3);
-					if (power3x3 > maxPower)
+					testCalculateAnyPower(x, y, anyPower);
+					if (anyPower > maxPower)
 					{
-						maxPower = power3x3;
+						maxPower = anyPower;
 						xMax = x;
 						yMax = y;
+						sizeMax = 3;
 					}
 				}
 			}
