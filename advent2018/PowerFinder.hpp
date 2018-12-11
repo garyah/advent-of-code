@@ -63,11 +63,18 @@ namespace Advent2018
 		std::string getMaxAnyPower()
 		{
 			const auto totalSize = 300u;
+			int powerValues[totalSize][totalSize] = { 0 };
+			for (auto y = 1u; y <= totalSize; ++y)
+			{
+				for (auto x = 1u; x <= totalSize; ++x)
+				{
+					powerValues[x][y] = calculatePower(x, y);
+				}
+			}
+
 			auto maxPower = -1000;
 			auto xMax = 0u, yMax = 0u, sizeMax = 0u;
 			auto x = 1u, y = 1u, maxDimension = totalSize;
-			//auto size = 3u;
-			//for (auto size = 3u; size <= 16u; ++size)
 			for (auto size = 2u; size < totalSize - 1; ++size)
 			{
 				maxDimension = totalSize - size + 1;
@@ -80,16 +87,13 @@ namespace Advent2018
 						{
 							for (auto xThis = x; xThis < x + size; ++xThis)
 							{
-								anyPower += calculatePower(xThis, yThis);
+								anyPower += powerValues[xThis][yThis];
 							}
 						}
 						testCalculateAnyPower(x, y, size, anyPower);
 						if (anyPower > maxPower)
 						{
-							maxPower = anyPower;
-							xMax = x;
-							yMax = y;
-							sizeMax = size;
+							maxPower = anyPower, xMax = x, yMax = y, sizeMax = size;
 						}
 					}
 				}
@@ -115,7 +119,7 @@ namespace Advent2018
 
 		int calculatePower(unsigned x, unsigned y)
 		{
-			auto rackId = x+ 10u;
+			auto rackId = x + 10u;
 			auto power = rackId * y;
 			power += m_gridSerial;
 			power *= rackId;
