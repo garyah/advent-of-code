@@ -65,29 +65,31 @@ namespace Advent2018
 			const auto totalSize = 300u;
 			auto maxPower = -1000;
 			auto xMax = 0u, yMax = 0u, sizeMax = 0u;
-			auto x = 1u, y = 1u, maxDimension = totalSize - 2u;
-			//for (auto size = 2u; size < totalSize - 1; ++size)
-			auto size = 3u;
+			auto x = 1u, y = 1u, maxDimension = totalSize;
+			//auto size = 3u;
+			//for (auto size = 3u; size <= 16u; ++size)
+			for (auto size = 2u; size < totalSize - 1; ++size)
 			{
+				maxDimension = totalSize - size + 1;
 				for (y = 1u; y <= maxDimension; ++y)
 				{
 					for (x = 1u; x <= maxDimension; ++x)
 					{
 						auto anyPower = 0;
-						for (auto yThis = y; yThis < y + 3; ++yThis)
+						for (auto yThis = y; yThis < y + size; ++yThis)
 						{
-							for (auto xThis = x; xThis < x + 3; ++xThis)
+							for (auto xThis = x; xThis < x + size; ++xThis)
 							{
 								anyPower += calculatePower(xThis, yThis);
 							}
 						}
-						testCalculateAnyPower(x, y, anyPower);
+						testCalculateAnyPower(x, y, size, anyPower);
 						if (anyPower > maxPower)
 						{
 							maxPower = anyPower;
 							xMax = x;
 							yMax = y;
-							sizeMax = 3;
+							sizeMax = size;
 						}
 					}
 				}
@@ -101,12 +103,12 @@ namespace Advent2018
 			return resultString;
 		}
 
-		void testCalculateAnyPower(unsigned x, unsigned y, int anyPower)
+		void testCalculateAnyPower(unsigned x, unsigned y, unsigned size, int anyPower)
 		{
 			if (x == 90u && y == 269u && m_gridSerial == 18
 				|| x == 232u && y == 251u && m_gridSerial == 42)
 			{
-				std::cout << "test " << m_gridSerial << ": @(" << x << "," << y << ") -> ";
+				std::cout << "test " << m_gridSerial << ": @(" << x << "," << y << "," << size << ") -> ";
 				std::cout << anyPower << std::endl;
 			}
 		}
