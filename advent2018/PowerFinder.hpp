@@ -63,7 +63,7 @@ namespace Advent2018
 		std::string getMaxAnyPower()
 		{
 			const auto totalSize = 300u;
-			int powerValues[totalSize][totalSize] = { 0 };
+			int powerValues[totalSize+1][totalSize+1] = { 0 };
 			for (auto y = 1u; y <= totalSize; ++y)
 			{
 				for (auto x = 1u; x <= totalSize; ++x)
