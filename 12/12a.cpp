@@ -9,41 +9,48 @@ int main()
 {
 	// unit testing
 	{
-		BlankClass blank(0, 0, "");
-		blank.helper2("..#..", "..#..", false);
-		std::cout << "helper2 test 1: expected ....., actual " << blank.getField3() << std::endl;
+		BlankClass blank;
+		blank.executeRule("..#..", "..#..", '.');
+		std::cout << "executeRule test 1: for ..#.. => .  expected . actual " << blank.getRuleOutput() << std::endl;
 	}
 	{
-		BlankClass blank(0, 0, "");
-		blank.helper2("##.##", "##.##", false);
-		std::cout << "helper2 test 2: expected ##.##, actual " << blank.getField3() << std::endl;
+		BlankClass blank;
+		blank.executeRule("##.##", "##.##", '.');
+		std::cout << "executeRule test 2: for ##.## => .  expected . actual " << blank.getRuleOutput() << std::endl;
 	}
 	{
-		BlankClass blank(0, 0, "");
-		blank.helper2(".##.#", ".##.#", true);
-		std::cout << "helper2 test 3: expected .##.#, actual " << blank.getField3() << std::endl;
+		BlankClass blank;
+		blank.executeRule(".##.#", ".##.#", '#');
+		std::cout << "executeRule test 3: for .##.# => #  expected # actual " << blank.getRuleOutput() << std::endl;
 	}
 	{
-		BlankClass blank(0, 0, "");
-		blank.method1(0u, 0, "");
-		std::cout << "method1 test 1: expected 0, actual " << blank.getField1() << std::endl;
+		//BlankClass blank;
+		//blank.addRule(".##.#", false);
+		//std::cout << "addRule test 1: expected 0, actual " << blank.getCurrentState() << std::endl;
 	}
 
-	BlankClass blank(0, 0, "");
+	char line[200 + 1] = { 0 };
+	std::cin.getline(line, _countof(line));
+	char initialState[120 + 1] = { 0 };
+	(void)sscanf_s(line, "initial state: %s", initialState, 121);
+	BlankClass blank(initialState);
+	std::cin.getline(line, _countof(line));
 	do
 	{
-		char line[80 + 1] = { 0 };
 		std::cin.getline(line, _countof(line));
-		auto first = 0u;
-		auto second = 0;
-		char third[10 + 1] = { 0 };
-		(void)sscanf_s(line, "unsigned %u, int %d, string %10s",
-						&first, &second, third, 10);
-		blank.method1(first, second, third);
+		char pattern[5 + 1] = { 0 };
+		char outcome = 0;
+		(void)sscanf_s(line, "%s %*s %c", pattern, 6, &outcome);
+		blank.addRule(pattern, outcome);
 	} while (!std::cin.eof());
 
-	blank.method2();
-	std::cout << blank.getField1() << ", " << blank.getField2() << ", |" << blank.getField3() << "|" << std::endl;
-	std::cout << blank.getField1() << std::endl;
+	//blank.method2();
+	//std::cout << blank.getCurrentState() << ", " << blank.getField2() << ", |" << blank.getRuleOutput() << "|" << std::endl;
+	std::cout << blank.getCurrentState() << std::endl;
+	for (int i = 1; i <= 20; ++i)
+	{
+		blank.processState();
+		std::cout << blank.getCurrentState() << std::endl;
+	}
 	return 0;
 }
