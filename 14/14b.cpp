@@ -1,28 +1,39 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "../advent2018/StarMessageFinder.hpp"
+#include "../advent2018/BlankClass.hpp"
 
 using namespace Advent2018;
 
 int main()
 {
-	StarMessageFinder finder;
+	// unit testing
+	{
+		BlankClass blank(0, 0, "");
+		blank.helper1(0u, 0, "");
+		std::cout << "helper1 test 1: expected 0, actual " << blank.getField1() << std::endl;
+	}
+	{
+		BlankClass blank(0, 0, "");
+		blank.method1(0u, 0, "");
+		std::cout << "method1 test 1: expected 0, actual " << blank.getField1() << std::endl;
+	}
+
+	BlankClass blank(0, 0, "");
 	do
 	{
 		char line[80 + 1] = { 0 };
 		std::cin.getline(line, _countof(line));
-		auto xPos = 0, yPos = 0;
-		auto xVel = 0, yVel = 0;
-		(void)sscanf_s(line, "position=< %d, %d> velocity=< %d, %d>",
-								&xPos, &yPos, &xVel, &yVel);
-		finder.addPoint(xPos, yPos, xVel, yVel);
+		auto first = 0u;
+		auto second = 0;
+		char third[10 + 1] = { 0 };
+		(void)sscanf_s(line, "unsigned %u, int %d, string %10s",
+						&first, &second, third, 10);
+		blank.method1(first, second, third);
 	} while (!std::cin.eof());
 
-	//std::cout << finder.drawPointsSimple() << std::endl;
-	//for (int i = 0; i < 4; ++i)
-	//{
-	//	std::cout << finder.drawPointsSimple() << std::endl;
-	//}
+	blank.method2();
+	std::cout << blank.getField1() << ", " << blank.getField2() << ", |" << blank.getField3() << "|" << std::endl;
+	std::cout << blank.getField1() << std::endl;
 	return 0;
 }
