@@ -84,6 +84,7 @@ namespace Advent2018
 		}
 
 		const char *getCurrentState() { return m_currentState.c_str(); }
+		size_t getCurrentSize() { return m_currentState.size(); }
 		char getRuleOutput() { return m_ruleOutput; }
 		size_t getNumPlants() { return m_numPlants; }
 

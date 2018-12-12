@@ -23,9 +23,14 @@ int main()
 	} while (!std::cin.eof());
 
 	std::cout << forecaster.getCurrentState() << std::endl;
-	for (int i = 1; i <= 20 * 1000; ++i)
+	for (int i = 1; i <= 200 * 1000; ++i)
 	{
 		forecaster.processState();
+		if (i % (10 * 1000) == 0)
+		{
+			std::cout << "after " << i << " iterations,";
+			std::cout << " # pots = " << forecaster.getCurrentSize() << std::endl;
+		}
 		//std::cout << forecaster.getCurrentState() << std::endl;
 		//std::cout << forecaster.getNumPlants() << std::endl;
 	}
