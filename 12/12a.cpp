@@ -10,8 +10,18 @@ int main()
 	// unit testing
 	{
 		BlankClass blank(0, 0, "");
-		blank.helper1(0u, 0, "");
-		std::cout << "helper1 test 1: expected 0, actual " << blank.getField1() << std::endl;
+		blank.helper2("..#..", "..#..", false);
+		std::cout << "helper2 test 1: expected ....., actual " << blank.getField3() << std::endl;
+	}
+	{
+		BlankClass blank(0, 0, "");
+		blank.helper2("##.##", "##.##", false);
+		std::cout << "helper2 test 2: expected ##.##, actual " << blank.getField3() << std::endl;
+	}
+	{
+		BlankClass blank(0, 0, "");
+		blank.helper2(".##.#", ".##.#", true);
+		std::cout << "helper2 test 3: expected .##.#, actual " << blank.getField3() << std::endl;
 	}
 	{
 		BlankClass blank(0, 0, "");

@@ -35,8 +35,15 @@ namespace Advent2018
 		{
 		}
 
-		void helper2()
+		void helper2(const char *input, const char *pattern, bool outcome)
 		{
+			m_field3.assign(input);
+			std::string inputStr(input);
+			//std::string patternStr(pattern);
+			if (inputStr.compare(pattern) == 0)
+			{
+				m_field3[2] = outcome ? '#' : '.';
+			}
 		}
 
 		unsigned getField1() { return m_field1; }
