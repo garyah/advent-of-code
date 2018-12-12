@@ -60,6 +60,7 @@ namespace Advent2018
 			while ((pos = result.find('#', pos)) != std::string::npos) ++pos, ++count;
 
 			m_numPlants += count;
+			std::cout << result << "\t\t\t" << count << "\t" << m_numPlants << std::endl;
 			m_currentState.assign(result);
 		}
 
