@@ -1,27 +1,35 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "../advent2018/BlankClass.hpp"
+#include "../advent2018/PlantForecaster.hpp"
 
 using namespace Advent2018;
 
 int main()
 {
-	BlankClass blank(0, 0, "");
+	char line[200 + 1] = { 0 };
+	std::cin.getline(line, _countof(line));
+	char initialState[120 + 1] = { 0 };
+	(void)sscanf_s(line, "initial state: %s", initialState, 121);
+	PlantForecaster forecaster(initialState);
+	std::cin.getline(line, _countof(line));
 	do
 	{
-		char line[80 + 1] = { 0 };
 		std::cin.getline(line, _countof(line));
-		auto first = 0u;
-		auto second = 0;
-		char third[10 + 1] = { 0 };
-		(void)sscanf_s(line, "unsigned %u, int %d, string %10s",
-			&first, &second, third, 10);
-		blank.method1(first, second, third);
+		char pattern[5 + 1] = { 0 };
+		char outcome = 0;
+		(void)sscanf_s(line, "%s %*s %c", pattern, 6, &outcome);
+		forecaster.addRule(pattern, outcome);
 	} while (!std::cin.eof());
 
-	blank.method2();
-	std::cout << blank.getField1() << ", " << blank.getField2() << ", |" << blank.getField3() << "|" << std::endl;
-	std::cout << blank.getField1() << std::endl;
+	std::cout << forecaster.getCurrentState() << std::endl;
+	for (int i = 1; i <= 20 * 1000; ++i)
+	{
+		forecaster.processState();
+		//std::cout << forecaster.getCurrentState() << std::endl;
+		//std::cout << forecaster.getNumPlants() << std::endl;
+	}
+	forecaster.countPlants();
+	std::cout << forecaster.getNumPlants() << std::endl;
 	return 0;
 }
