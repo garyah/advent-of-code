@@ -24,7 +24,7 @@ namespace Advent2018
 				   //const char *field3 = "",
 				   int dummy = 0) :
 				m_currentState("..."),
-				//m_field2(field2),
+				m_numPlants(0),
 				m_dummy(dummy)
 		{
 			m_currentState += initialState;
@@ -51,8 +51,15 @@ namespace Advent2018
 				result += m_ruleOutput;
 			}
 			result += m_currentState.substr(i, 2);
+
 			if (result[2] == '#') (void)result.insert(result.begin(), '.');
 			if (result[result.size() - 1 - 2] == '#') result += '.';
+
+			auto count = 0u;
+			size_t pos = 0;
+			while ((pos = result.find('#', pos)) != std::string::npos) ++pos, ++count;
+
+			m_numPlants += count;
 			m_currentState.assign(result);
 		}
 
@@ -80,13 +87,13 @@ namespace Advent2018
 		}
 
 		const char *getCurrentState() { return m_currentState.c_str(); }
-		//int getField2() { return m_field2; }
 		char getRuleOutput() { return m_ruleOutput; }
+		unsigned getNumPlants() { return m_numPlants; }
 
     private:
 		std::string m_currentState;
-		//int m_field2;
 		char m_ruleOutput;
+		unsigned m_numPlants;
 		int m_dummy;
 
 		Rules m_rules;

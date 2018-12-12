@@ -50,6 +50,8 @@ int main()
 	{
 		blank.processState();
 		std::cout << blank.getCurrentState() << std::endl;
+		//std::cout << blank.getNumPlants() << std::endl;
 	}
+	std::cout << blank.getNumPlants() << std::endl;
 	return 0;
 }
