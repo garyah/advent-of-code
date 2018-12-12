@@ -49,9 +49,10 @@ int main()
 	for (int i = 1; i <= 20; ++i)
 	{
 		blank.processState();
-		//std::cout << blank.getCurrentState() << std::endl;
+		std::cout << blank.getCurrentState() << std::endl;
 		//std::cout << blank.getNumPlants() << std::endl;
 	}
+	blank.countPlants();
 	std::cout << blank.getNumPlants() << std::endl;
 	return 0;
 }
