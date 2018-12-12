@@ -1,40 +1,56 @@
 #include <unordered_map>
 #include <unordered_set>
-#include <stdint.h>
+#include <string>
 #include <vector>
 
 namespace Advent2018
 {
-    class BlankClass
+	class BlankClass
     {
     public:
-        BlankClass() :
-            m_someField(0)
+		typedef std::vector<unsigned> SomeVector;
+		typedef std::unordered_set<unsigned> SomeSet;
+		typedef std::unordered_map<unsigned, unsigned> SomeMap;
+
+		BlankClass(unsigned field1 = 0,
+				   int field2 = 0,
+				   const char *field3 = "",
+				   int dummy = 0) :
+			m_field1(field1),
+			m_field2(field2),
+			m_field3(field3),
+			m_dummy(dummy)
+		{
+        }
+
+        void method1(unsigned first = 0u, int second = 0, const char *third = "")
         {
         }
 
-        void method1(const char *input)
+		void method2()
         {
-            int64_t someVariable = 0;
-            (void)sscanf_s(input, "%lld", &someVariable);
-            m_someField = someVariable;
         }
 
-        int64_t method2()
-        {
-            return m_someField;
-        }
+		void helper1(unsigned first = 0u, int second = 0, const char *third = "")
+		{
+		}
 
-        int64_t getSomeField() { return m_someField; }
+		void helper2()
+		{
+		}
+
+		unsigned getField1() { return m_field1; }
+		int getField2() { return m_field2; }
+		const char *getField3() { return m_field3.c_str(); }
 
     private:
-        typedef std::vector<int64_t> SomeVectorType;
-        typedef std::unordered_set<int64_t> SomeSetType;
-        typedef std::unordered_map<int64_t, unsigned> SomeMapType;
+		unsigned m_field1;
+		int m_field2;
+		std::string m_field3;
+		int m_dummy;
 
-        int64_t m_someField;
-        SomeVectorType m_someVector;
-        SomeSetType m_someSet;
-        SomeMapType m_someMap;
+		SomeVector m_someVector;
+        SomeSet m_someSet;
+        SomeMap m_someMap;
     };
 }
