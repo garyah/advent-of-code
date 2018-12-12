@@ -23,12 +23,12 @@ namespace Advent2018
 				   //int field2 = 0,
 				   //const char *field3 = "",
 				   int dummy = 0) :
-				m_currentState(".."),
+				m_currentState("..."),
 				//m_field2(field2),
 				m_dummy(dummy)
 		{
 			m_currentState += initialState;
-			m_currentState += "..";
+			m_currentState += "...";
 		}
 
         void addRule(const char *pattern, char outcome)
@@ -51,6 +51,8 @@ namespace Advent2018
 				result += m_ruleOutput;
 			}
 			result += m_currentState.substr(i, 2);
+			if (result[2] == '#') (void)result.insert(result.begin(), '.');
+			if (result[result.size() - 1 - 2] == '#') result += '.';
 			m_currentState.assign(result);
 		}
 

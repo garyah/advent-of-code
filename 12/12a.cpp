@@ -45,7 +45,6 @@ int main()
 	} while (!std::cin.eof());
 
 	//blank.method2();
-	//std::cout << blank.getCurrentState() << ", " << blank.getField2() << ", |" << blank.getRuleOutput() << "|" << std::endl;
 	std::cout << blank.getCurrentState() << std::endl;
 	for (int i = 1; i <= 20; ++i)
 	{
