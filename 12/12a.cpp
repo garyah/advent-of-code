@@ -23,11 +23,6 @@ int main()
 		blank.executeRule(".##.#", ".##.#", '#');
 		std::cout << "executeRule test 3: for .##.# => #  expected # actual " << blank.getRuleOutput() << std::endl;
 	}
-	{
-		//BlankClass blank;
-		//blank.addRule(".##.#", false);
-		//std::cout << "addRule test 1: expected 0, actual " << blank.getCurrentState() << std::endl;
-	}
 
 	char line[200 + 1] = { 0 };
 	std::cin.getline(line, _countof(line));
@@ -44,7 +39,6 @@ int main()
 		blank.addRule(pattern, outcome);
 	} while (!std::cin.eof());
 
-	//blank.method2();
 	std::cout << blank.getCurrentState() << std::endl;
 	for (int i = 1; i <= 20; ++i)
 	{

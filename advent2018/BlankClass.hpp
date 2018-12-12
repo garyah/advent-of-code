@@ -1,4 +1,3 @@
-//#include <list>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -15,18 +14,13 @@ namespace Advent2018
 			char outcome;
 		} Rule;
 		typedef std::vector<Rule> Rules;
-		//typedef std::list<bool> Pots;
 		typedef std::unordered_set<unsigned> SomeSet;
 		typedef std::unordered_map<unsigned, unsigned> SomeMap;
 
-		BlankClass(const char *initialState = "",
-				   //int field2 = 0,
-				   //const char *field3 = "",
-				   int dummy = 0) :
+		BlankClass(const char *initialState = "") :
 				m_currentState("..."),
 				m_padding(3),
-				m_numPlants(0),
-				m_dummy(dummy)
+				m_numPlants(0)
 		{
 			m_currentState += initialState;
 			m_currentState += "...";
@@ -36,10 +30,6 @@ namespace Advent2018
         {
 			Rule rule = {pattern, outcome};
 			m_rules.push_back(rule);
-        }
-
-		void method2()
-        {
         }
 
 		void processState()
@@ -60,12 +50,6 @@ namespace Advent2018
 			}
 			if (result[result.size() - 1 - 2] == '#') result += '.';
 
-			//auto count = 0u;
-			//size_t pos = 0;
-			//while ((pos = result.find('#', pos)) != std::string::npos) ++pos, ++count;
-
-			//m_numPlants += count;
-			//std::cout << result << "\t\t\t" << count << "\t" << m_numPlants << std::endl;
 			m_currentState.assign(result);
 		}
 
@@ -111,8 +95,5 @@ namespace Advent2018
 		int m_dummy;
 
 		Rules m_rules;
-		//Pots m_pots;
-        //SomeSet m_someSet;
-        //SomeMap m_someMap;
     };
 }
