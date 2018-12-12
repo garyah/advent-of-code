@@ -1,22 +1,22 @@
 ...#..#.#..##......###...###...
-after 10000 iterations, # pots = 10022
-after 20000 iterations, # pots = 20022
-after 30000 iterations, # pots = 30022
-after 40000 iterations, # pots = 40022
-after 50000 iterations, # pots = 50022
-after 60000 iterations, # pots = 60022
-after 70000 iterations, # pots = 70022
-after 80000 iterations, # pots = 80022
-after 90000 iterations, # pots = 90022
-after 100000 iterations, # pots = 100022
-after 110000 iterations, # pots = 110022
-after 120000 iterations, # pots = 120022
-after 130000 iterations, # pots = 130022
-after 140000 iterations, # pots = 140022
-after 150000 iterations, # pots = 150022
-after 160000 iterations, # pots = 160022
-after 170000 iterations, # pots = 170022
-after 180000 iterations, # pots = 180022
-after 190000 iterations, # pots = 190022
-after 200000 iterations, # pots = 200022
-3999374
+after 100 iterations, # pots = 122
+after 200 iterations, # pots = 222
+after 300 iterations, # pots = 322
+after 400 iterations, # pots = 422
+after 500 iterations, # pots = 522
+after 600 iterations, # pots = 622
+after 700 iterations, # pots = 722
+after 800 iterations, # pots = 822
+after 900 iterations, # pots = 922
+after 1000 iterations, # pots = 1022
+after 1100 iterations, # pots = 1122
+after 1200 iterations, # pots = 1222
+after 1300 iterations, # pots = 1322
+after 1400 iterations, # pots = 1422
+after 1500 iterations, # pots = 1522
+after 1600 iterations, # pots = 1622
+after 1700 iterations, # pots = 1722
+after 1800 iterations, # pots = 1822
+after 1900 iterations, # pots = 1922
+after 2000 iterations, # pots = 2022
+39374

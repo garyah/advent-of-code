@@ -20,7 +20,7 @@ namespace Advent2018
 		PlantForecaster(const char *initialState = "") :
 				m_currentState("..."),
 				m_padding(3),
-				m_numPlants(0)
+				m_sumPlants(0)
 		{
 			m_currentState += initialState;
 			m_currentState += "...";
@@ -53,11 +53,11 @@ namespace Advent2018
 			m_currentState.assign(result);
 		}
 
-		void countPlants()
+		void sumPlants()
 		{
 			size_t sum = 0, pos = 0;
 			while ((pos = m_currentState.find('#', pos)) != std::string::npos) sum += pos++ - m_padding;
-			m_numPlants = sum;
+			m_sumPlants = sum;
 		}
 
 		void executeRules(const char *input)
@@ -86,13 +86,13 @@ namespace Advent2018
 		const char *getCurrentState() { return m_currentState.c_str(); }
 		size_t getCurrentSize() { return m_currentState.size(); }
 		char getRuleOutput() { return m_ruleOutput; }
-		size_t getNumPlants() { return m_numPlants; }
+		size_t getNumPlants() { return m_sumPlants; }
 
     private:
 		std::string m_currentState;
 		char m_ruleOutput;
 		size_t m_padding;
-		size_t m_numPlants;
+		size_t m_sumPlants;
 		int m_dummy;
 
 		Rules m_rules;

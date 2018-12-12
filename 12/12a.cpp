@@ -44,9 +44,10 @@ int main()
 	{
 		forecaster.processState();
 		std::cout << forecaster.getCurrentState() << std::endl;
+		//forecaster.sumPlants();
 		//std::cout << forecaster.getNumPlants() << std::endl;
 	}
-	forecaster.countPlants();
+	forecaster.sumPlants();
 	std::cout << forecaster.getNumPlants() << std::endl;
 	return 0;
 }
