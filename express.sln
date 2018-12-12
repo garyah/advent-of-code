@@ -1,0 +1,108 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26823.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{90091C3D-E1C9-4A6F-88FE-312A369D54D5}"
+	ProjectSection(SolutionItems) = preProject
+		common\InputReader.hpp = common\InputReader.hpp
+		common\md5.c = common\md5.c
+		common\md5.h = common\md5.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2016", "advent2016", "{B1AFED1B-8EF2-4060-B719-23D1ADFAA713}"
+	ProjectSection(SolutionItems) = preProject
+		advent2016\ChecksumGenerator.hpp = advent2016\ChecksumGenerator.hpp
+		advent2016\ErrorCorrector.hpp = advent2016\ErrorCorrector.hpp
+		advent2016\GoodIPFinder.hpp = advent2016\GoodIPFinder.hpp
+		advent2016\GridMoveParser.hpp = advent2016\GridMoveParser.hpp
+		advent2016\HashInputGenerator.hpp = advent2016\HashInputGenerator.hpp
+		advent2016\KeypadMoveParser.hpp = advent2016\KeypadMoveParser.hpp
+		advent2016\PasswordGenerator.hpp = advent2016\PasswordGenerator.hpp
+		advent2016\PasswordScrambler.hpp = advent2016\PasswordScrambler.hpp
+		advent2016\RoomValidator.hpp = advent2016\RoomValidator.hpp
+		advent2016\SafeTileCounter.hpp = advent2016\SafeTileCounter.hpp
+		advent2016\TriangleValidator.hpp = advent2016\TriangleValidator.hpp
+		advent2016\ViableNodePairCounter.hpp = advent2016\ViableNodePairCounter.hpp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11-15", "11-15", "{A89778CE-E809-41EF-94E8-39EB4FDD909B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2017", "advent2017", "{3C93F4C5-015F-4DB1-A041-C9E31B934C71}"
+	ProjectSection(SolutionItems) = preProject
+		advent2017\AssemblyParser.hpp = advent2017\AssemblyParser.hpp
+		advent2017\BridgeBuilder.hpp = advent2017\BridgeBuilder.hpp
+		advent2017\CaptchaDigitSummer.hpp = advent2017\CaptchaDigitSummer.hpp
+		advent2017\Day23AssemblyParser.hpp = advent2017\Day23AssemblyParser.hpp
+		advent2017\GeneratorDriver.hpp = advent2017\GeneratorDriver.hpp
+		advent2017\NumberGenerator.hpp = advent2017\NumberGenerator.hpp
+		advent2017\PathFinder.hpp = advent2017\PathFinder.hpp
+		advent2017\ProgramDancer.hpp = advent2017\ProgramDancer.hpp
+		advent2017\Spinlock.hpp = advent2017\Spinlock.hpp
+		advent2017\StreamProcessor.hpp = advent2017\StreamProcessor.hpp
+		advent2017\VirusCarrier.hpp = advent2017\VirusCarrier.hpp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2018", "advent2018", "{93A18934-BD3D-472E-A8FA-D82523D728CC}"
+	ProjectSection(SolutionItems) = preProject
+		advent2018\BlankClass.hpp = advent2018\BlankClass.hpp
+		advent2018\CheckSummer.hpp = advent2018\CheckSummer.hpp
+		advent2018\ChronalOptimizer.hpp = advent2018\ChronalOptimizer.hpp
+		advent2018\FabricOverlapCalculator.hpp = advent2018\FabricOverlapCalculator.hpp
+		advent2018\FrequencyCalibrator.hpp = advent2018\FrequencyCalibrator.hpp
+		advent2018\GuardTimeTracker.hpp = advent2018\GuardTimeTracker.hpp
+		advent2018\MarbleGame.hpp = advent2018\MarbleGame.hpp
+		advent2018\PolymerReactor.hpp = advent2018\PolymerReactor.hpp
+		advent2018\PowerFinder.hpp = advent2018\PowerFinder.hpp
+		advent2018\StarMessageFinder.hpp = advent2018\StarMessageFinder.hpp
+		advent2018\StepSorter.hpp = advent2018\StepSorter.hpp
+		advent2018\TreeBuilder.hpp = advent2018\TreeBuilder.hpp
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "12a", "12\12a.vcxproj", "{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "12b", "12\12b.vcxproj", "{C8C6136C-BAE1-4BAC-AB8A-040256A15265}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}.Debug|Any CPU.Build.0 = Debug|Win32
+		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}.Debug|x64.ActiveCfg = Debug|x64
+		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}.Debug|x64.Build.0 = Debug|x64
+		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}.Debug|x86.ActiveCfg = Debug|Win32
+		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}.Debug|x86.Build.0 = Debug|Win32
+		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}.Release|Any CPU.ActiveCfg = Release|Win32
+		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}.Release|x64.ActiveCfg = Release|x64
+		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}.Release|x64.Build.0 = Release|x64
+		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}.Release|x86.ActiveCfg = Release|Win32
+		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}.Release|x86.Build.0 = Release|Win32
+		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Debug|x64.ActiveCfg = Debug|x64
+		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Debug|x64.Build.0 = Debug|x64
+		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Debug|x86.ActiveCfg = Debug|Win32
+		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Debug|x86.Build.0 = Debug|Win32
+		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Release|Any CPU.ActiveCfg = Release|Win32
+		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Release|x64.ActiveCfg = Release|x64
+		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Release|x64.Build.0 = Release|x64
+		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Release|x86.ActiveCfg = Release|Win32
+		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA} = {A89778CE-E809-41EF-94E8-39EB4FDD909B}
+		{C8C6136C-BAE1-4BAC-AB8A-040256A15265} = {A89778CE-E809-41EF-94E8-39EB4FDD909B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {812E15DC-BEBE-424A-BBAA-2679DE05FF6B}
+	EndGlobalSection
+EndGlobal
