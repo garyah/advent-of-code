@@ -1,0 +1,22 @@
+...##..#..##....#..#..#..##.#.###.######..#..###.#.#..##.###.#.##..###..#.#..#.##.##..###.#.#...#.##.....
+after 100 iterations, # pots = 204
+after 200 iterations, # pots = 304
+after 300 iterations, # pots = 404
+after 400 iterations, # pots = 504
+after 500 iterations, # pots = 604
+after 600 iterations, # pots = 704
+after 700 iterations, # pots = 804
+after 800 iterations, # pots = 904
+after 900 iterations, # pots = 1004
+after 1000 iterations, # pots = 1104
+after 1100 iterations, # pots = 1204
+after 1200 iterations, # pots = 1304
+after 1300 iterations, # pots = 1404
+after 1400 iterations, # pots = 1504
+after 1500 iterations, # pots = 1604
+after 1600 iterations, # pots = 1704
+after 1700 iterations, # pots = 1804
+after 1800 iterations, # pots = 1904
+after 1900 iterations, # pots = 2004
+after 2000 iterations, # pots = 2104
+174414
