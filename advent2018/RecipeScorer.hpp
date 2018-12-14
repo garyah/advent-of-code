@@ -25,9 +25,18 @@ namespace Advent2018
 			m_scoreBoard.push_back(7);
         }
 
-        void method1(unsigned first = 0u, int second = 0, const char *third = "")
+        void getTenScoresAfterSkipping(int numScoresToSkip, std::string& tenScores)
         {
-        }
+			while (m_scoreBoard.size() < numScoresToSkip + 10)
+			{
+				updateScoreBoard();
+			}
+			tenScores.empty();
+			for (size_t i = numScoresToSkip; i < numScoresToSkip + 10; ++i)
+			{
+				tenScores += (char)m_scoreBoard[i] + '0';
+			}
+		}
 
 		void method2()
         {
@@ -80,7 +89,7 @@ namespace Advent2018
 		int m_dummy;
 
 		ScoreBoard m_scoreBoard;
-        SomeSet m_someSet;
-        SomeMap m_someMap;
+        //SomeSet m_someSet;
+        //SomeMap m_someMap;
     };
 }

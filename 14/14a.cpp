@@ -10,17 +10,17 @@ int main()
 	// unit testing
 	{
 		RecipeScorer scorer(0, 0, "");
-		auto firstScore = -1, secondScore = -1;
-		scorer.makeNewScores(3, 7, firstScore, secondScore);
+		auto numScoresToSkipScore = -1, secondScore = -1;
+		scorer.makeNewScores(3, 7, numScoresToSkipScore, secondScore);
 		std::cout << "makeNewScores test 1: expected 1 and 0, actual ";
-		std::cout << firstScore << " and " << secondScore << std::endl;
+		std::cout << numScoresToSkipScore << " and " << secondScore << std::endl;
 	}
 	{
 		RecipeScorer scorer(0, 0, "");
-		auto firstScore = -1, secondScore = -1;
-		scorer.makeNewScores(2, 3, firstScore, secondScore);
+		auto numScoresToSkipScore = -1, secondScore = -1;
+		scorer.makeNewScores(2, 3, numScoresToSkipScore, secondScore);
 		std::cout << "makeNewScores test 2: expected 5 and -1, actual ";
-		std::cout << firstScore << " and " << secondScore << std::endl;
+		std::cout << numScoresToSkipScore << " and " << secondScore << std::endl;
 	}
 	{
 		RecipeScorer scorer;
@@ -66,21 +66,23 @@ int main()
 		std::cout << scorer.getScoreBoard()[scorer.getSecondElfCurrentIndex()] << std::endl;
 	}
 
-	RecipeScorer scorer(0, 0, "");
-	do
-	{
-		char line[80 + 1] = { 0 };
-		std::cin.getline(line, _countof(line));
-		auto first = 0u;
-		auto second = 0;
-		char third[10 + 1] = { 0 };
-		(void)sscanf_s(line, "unsigned %u, int %d, string %10s",
-						&first, &second, third, 10);
-		scorer.method1(first, second, third);
-	} while (!std::cin.eof());
+	RecipeScorer scorer;
+	//do
+	//{
+	//	//char line[80 + 1] = { 0 };
+	//	//std::cin.getline(line, _countof(line));
+	//	auto numScoresToSkip = 0u;
+	//	//auto second = 0;
+	//	//char third[10 + 1] = { 0 };
+	//	//(void)sscanf_s(line, "unsigned %u, int %d, string %10s",
+	//	//				&numScoresToSkip, &second, third, 10);
+	//	scorer.getTenScoresAfterSkipping(numScoresToSkip);
+	//} while (!std::cin.eof());
 
-	scorer.method2();
-	std::cout << scorer.getFirstElfCurrentIndex() << ", " << scorer.getSecondElfCurrentIndex() << ", |" << scorer.getField3() << "|" << std::endl;
-	std::cout << scorer.getFirstElfCurrentIndex() << std::endl;
+	int numScoresToSkip = 0;
+	std::cin >> numScoresToSkip;
+	std::string tenScores;
+	scorer.getTenScoresAfterSkipping(numScoresToSkip, tenScores);
+	std::cout << tenScores << std::endl;
 	return 0;
 }
