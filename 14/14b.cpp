@@ -11,7 +11,7 @@ int main()
 
 	std::string scoresToFind;
 	std::cin >> scoresToFind;
-	int scoresSkipped = 0;
+	int scoresSkipped = -1;
 	scorer.getNumScoresSkipped(scoresToFind, scoresSkipped);
 	std::cout << scoresSkipped << std::endl;
 	return 0;
