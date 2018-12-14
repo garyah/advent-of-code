@@ -1,22 +1,107 @@
 ...##..#..##....#..#..#..##.#.###.######..#..###.#.#..##.###.#.##..###..#.#..#.##.##..###.#.#...#.##.....
-after 100 iterations, # pots = 204
-after 200 iterations, # pots = 304
-after 300 iterations, # pots = 404
-after 400 iterations, # pots = 504
-after 500 iterations, # pots = 604
-after 600 iterations, # pots = 704
-after 700 iterations, # pots = 804
-after 800 iterations, # pots = 904
-after 900 iterations, # pots = 1004
-after 1000 iterations, # pots = 1104
-after 1100 iterations, # pots = 1204
-after 1200 iterations, # pots = 1304
-after 1300 iterations, # pots = 1404
-after 1400 iterations, # pots = 1504
-after 1500 iterations, # pots = 1604
-after 1600 iterations, # pots = 1704
-after 1700 iterations, # pots = 1804
-after 1800 iterations, # pots = 1904
-after 1900 iterations, # pots = 2004
-after 2000 iterations, # pots = 2104
-174414
+after 100 iterations, # pots = 204, sum of pot numbers with plants = 10154
+after 200 iterations, # pots = 304, sum of pot numbers with plants = 19614
+after 300 iterations, # pots = 404, sum of pot numbers with plants = 28214
+after 400 iterations, # pots = 504, sum of pot numbers with plants = 36814
+after 500 iterations, # pots = 604, sum of pot numbers with plants = 45414
+after 600 iterations, # pots = 704, sum of pot numbers with plants = 54014
+after 700 iterations, # pots = 804, sum of pot numbers with plants = 62614
+after 800 iterations, # pots = 904, sum of pot numbers with plants = 71214
+after 900 iterations, # pots = 1004, sum of pot numbers with plants = 79814
+after 1000 iterations, # pots = 1104, sum of pot numbers with plants = 88414
+after 1100 iterations, # pots = 1204, sum of pot numbers with plants = 97014
+after 1200 iterations, # pots = 1304, sum of pot numbers with plants = 105614
+after 1300 iterations, # pots = 1404, sum of pot numbers with plants = 114214
+after 1400 iterations, # pots = 1504, sum of pot numbers with plants = 122814
+after 1500 iterations, # pots = 1604, sum of pot numbers with plants = 131414
+after 1600 iterations, # pots = 1704, sum of pot numbers with plants = 140014
+after 1700 iterations, # pots = 1804, sum of pot numbers with plants = 148614
+after 1800 iterations, # pots = 1904, sum of pot numbers with plants = 157214
+after 1900 iterations, # pots = 2004, sum of pot numbers with plants = 165814
+after 2000 iterations, # pots = 2104, sum of pot numbers with plants = 174414
+after 2100 iterations, # pots = 2204, sum of pot numbers with plants = 183014
+after 2200 iterations, # pots = 2304, sum of pot numbers with plants = 191614
+after 2300 iterations, # pots = 2404, sum of pot numbers with plants = 200214
+after 2400 iterations, # pots = 2504, sum of pot numbers with plants = 208814
+after 2500 iterations, # pots = 2604, sum of pot numbers with plants = 217414
+after 2600 iterations, # pots = 2704, sum of pot numbers with plants = 226014
+after 2700 iterations, # pots = 2804, sum of pot numbers with plants = 234614
+after 2800 iterations, # pots = 2904, sum of pot numbers with plants = 243214
+after 2900 iterations, # pots = 3004, sum of pot numbers with plants = 251814
+after 3000 iterations, # pots = 3104, sum of pot numbers with plants = 260414
+after 3100 iterations, # pots = 3204, sum of pot numbers with plants = 269014
+after 3200 iterations, # pots = 3304, sum of pot numbers with plants = 277614
+after 3300 iterations, # pots = 3404, sum of pot numbers with plants = 286214
+after 3400 iterations, # pots = 3504, sum of pot numbers with plants = 294814
+after 3500 iterations, # pots = 3604, sum of pot numbers with plants = 303414
+after 3600 iterations, # pots = 3704, sum of pot numbers with plants = 312014
+after 3700 iterations, # pots = 3804, sum of pot numbers with plants = 320614
+after 3800 iterations, # pots = 3904, sum of pot numbers with plants = 329214
+after 3900 iterations, # pots = 4004, sum of pot numbers with plants = 337814
+after 4000 iterations, # pots = 4104, sum of pot numbers with plants = 346414
+after 4100 iterations, # pots = 4204, sum of pot numbers with plants = 355014
+after 4200 iterations, # pots = 4304, sum of pot numbers with plants = 363614
+after 4300 iterations, # pots = 4404, sum of pot numbers with plants = 372214
+after 4400 iterations, # pots = 4504, sum of pot numbers with plants = 380814
+after 4500 iterations, # pots = 4604, sum of pot numbers with plants = 389414
+after 4600 iterations, # pots = 4704, sum of pot numbers with plants = 398014
+after 4700 iterations, # pots = 4804, sum of pot numbers with plants = 406614
+after 4800 iterations, # pots = 4904, sum of pot numbers with plants = 415214
+after 4900 iterations, # pots = 5004, sum of pot numbers with plants = 423814
+after 5000 iterations, # pots = 5104, sum of pot numbers with plants = 432414
+after 5100 iterations, # pots = 5204, sum of pot numbers with plants = 441014
+after 5200 iterations, # pots = 5304, sum of pot numbers with plants = 449614
+after 5300 iterations, # pots = 5404, sum of pot numbers with plants = 458214
+after 5400 iterations, # pots = 5504, sum of pot numbers with plants = 466814
+after 5500 iterations, # pots = 5604, sum of pot numbers with plants = 475414
+after 5600 iterations, # pots = 5704, sum of pot numbers with plants = 484014
+after 5700 iterations, # pots = 5804, sum of pot numbers with plants = 492614
+after 5800 iterations, # pots = 5904, sum of pot numbers with plants = 501214
+after 5900 iterations, # pots = 6004, sum of pot numbers with plants = 509814
+after 6000 iterations, # pots = 6104, sum of pot numbers with plants = 518414
+after 6100 iterations, # pots = 6204, sum of pot numbers with plants = 527014
+after 6200 iterations, # pots = 6304, sum of pot numbers with plants = 535614
+after 6300 iterations, # pots = 6404, sum of pot numbers with plants = 544214
+after 6400 iterations, # pots = 6504, sum of pot numbers with plants = 552814
+after 6500 iterations, # pots = 6604, sum of pot numbers with plants = 561414
+after 6600 iterations, # pots = 6704, sum of pot numbers with plants = 570014
+after 6700 iterations, # pots = 6804, sum of pot numbers with plants = 578614
+after 6800 iterations, # pots = 6904, sum of pot numbers with plants = 587214
+after 6900 iterations, # pots = 7004, sum of pot numbers with plants = 595814
+after 7000 iterations, # pots = 7104, sum of pot numbers with plants = 604414
+after 7100 iterations, # pots = 7204, sum of pot numbers with plants = 613014
+after 7200 iterations, # pots = 7304, sum of pot numbers with plants = 621614
+after 7300 iterations, # pots = 7404, sum of pot numbers with plants = 630214
+after 7400 iterations, # pots = 7504, sum of pot numbers with plants = 638814
+after 7500 iterations, # pots = 7604, sum of pot numbers with plants = 647414
+after 7600 iterations, # pots = 7704, sum of pot numbers with plants = 656014
+after 7700 iterations, # pots = 7804, sum of pot numbers with plants = 664614
+after 7800 iterations, # pots = 7904, sum of pot numbers with plants = 673214
+after 7900 iterations, # pots = 8004, sum of pot numbers with plants = 681814
+after 8000 iterations, # pots = 8104, sum of pot numbers with plants = 690414
+after 8100 iterations, # pots = 8204, sum of pot numbers with plants = 699014
+after 8200 iterations, # pots = 8304, sum of pot numbers with plants = 707614
+after 8300 iterations, # pots = 8404, sum of pot numbers with plants = 716214
+after 8400 iterations, # pots = 8504, sum of pot numbers with plants = 724814
+after 8500 iterations, # pots = 8604, sum of pot numbers with plants = 733414
+after 8600 iterations, # pots = 8704, sum of pot numbers with plants = 742014
+after 8700 iterations, # pots = 8804, sum of pot numbers with plants = 750614
+after 8800 iterations, # pots = 8904, sum of pot numbers with plants = 759214
+after 8900 iterations, # pots = 9004, sum of pot numbers with plants = 767814
+after 9000 iterations, # pots = 9104, sum of pot numbers with plants = 776414
+after 9100 iterations, # pots = 9204, sum of pot numbers with plants = 785014
+after 9200 iterations, # pots = 9304, sum of pot numbers with plants = 793614
+after 9300 iterations, # pots = 9404, sum of pot numbers with plants = 802214
+after 9400 iterations, # pots = 9504, sum of pot numbers with plants = 810814
+after 9500 iterations, # pots = 9604, sum of pot numbers with plants = 819414
+after 9600 iterations, # pots = 9704, sum of pot numbers with plants = 828014
+after 9700 iterations, # pots = 9804, sum of pot numbers with plants = 836614
+after 9800 iterations, # pots = 9904, sum of pot numbers with plants = 845214
+after 9900 iterations, # pots = 10004, sum of pot numbers with plants = 853814
+after 10000 iterations, # pots = 10104, sum of pot numbers with plants = 862414
+862414
+
+Number changes by 86 * 100 for every 100 iterations.  And always has 14 in least significant digits.
+So, can calculate with 50 billion - 10 thousand / 100 * 86 * 100 + 862414
+= 49,999,990,000 * 86 + 862414
+4300000002414
