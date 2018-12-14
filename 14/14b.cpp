@@ -9,10 +9,10 @@ int main()
 {
 	RecipeScorer scorer;
 
-	int numScoresToSkip = 0;
-	std::cin >> numScoresToSkip;
-	std::string tenScores;
-	scorer.getTenScoresAfterSkipping(numScoresToSkip, tenScores);
-	std::cout << tenScores << std::endl;
+	std::string scoresToFind;
+	std::cin >> scoresToFind;
+	int scoresSkipped = 0;
+	scorer.getNumScoresSkipped(scoresToFind, scoresSkipped);
+	std::cout << scoresSkipped << std::endl;
 	return 0;
 }
