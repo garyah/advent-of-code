@@ -46,18 +46,19 @@ namespace Advent2018
 			{
 				updateScoreBoard();
 				auto length = m_scoreBoard.length();
-				if (length < (500u * 1000u * 1000u)) continue;
-				if ((length % (10u * 1000u * 1000u)) < 5)
-				{
+
+				//if (length < (500u * 1000u * 1000u)) continue;
+				if ((length % (2u * 1000u * 1000u)) < 5)
 					std::cout << length << " recipes on board..." << std::endl;
-				}
-				if (length > (1000u * 1000u * 1000u)) break;
-				auto searchLength = scoresToFind.length();
+				if (length > (100u * 1000u * 1000u)) break;
+
+				auto searchLength = scoresToFind.length() + 1;
 				if (length >= searchLength)
 					foundIndex = m_scoreBoard.find(scoresToFind, length - searchLength);
 			} while (foundIndex == std::string::npos);
+
 			if (foundIndex != std::string::npos)
-				std::cout << "found it, first index = " << m_scoreBoard.find(scoresToFind) << std::endl;
+				std::cout << "found it, first index is really = " << m_scoreBoard.find(scoresToFind) << std::endl;
 			scoresSkipped = (int)foundIndex;
         }
 
