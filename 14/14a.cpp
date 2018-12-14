@@ -67,17 +67,6 @@ int main()
 	}
 
 	RecipeScorer scorer;
-	//do
-	//{
-	//	//char line[80 + 1] = { 0 };
-	//	//std::cin.getline(line, _countof(line));
-	//	auto numScoresToSkip = 0u;
-	//	//auto second = 0;
-	//	//char third[10 + 1] = { 0 };
-	//	//(void)sscanf_s(line, "unsigned %u, int %d, string %10s",
-	//	//				&numScoresToSkip, &second, third, 10);
-	//	scorer.getTenScoresAfterSkipping(numScoresToSkip);
-	//} while (!std::cin.eof());
 
 	int numScoresToSkip = 0;
 	std::cin >> numScoresToSkip;
