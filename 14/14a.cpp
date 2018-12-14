@@ -31,6 +31,18 @@ int main()
 		std::cout << *(scorer.getScoreBoard().cend() - 1) << std::endl;
 	}
 	{
+		RecipeScorer scorer;
+		size_t index = 0;
+		scorer.advanceElf(index, 1 + 3, 4);
+		std::cout << "advanceElf test 1: expected index 0, actual " << index << std::endl;
+	}
+	{
+		RecipeScorer scorer;
+		size_t index = 1;
+		scorer.advanceElf(index, 1 + 7, 4);
+		std::cout << "advanceElf test 2: expected index 1, actual " << index << std::endl;
+	}
+	{
 		RecipeScorer scorer(0, 0, "");
 		scorer.method1(0u, 0, "");
 		//std::cout << "method1 test 1: expected 0, actual " << scorer.getFirstElfCurrentIndex() << std::endl;
