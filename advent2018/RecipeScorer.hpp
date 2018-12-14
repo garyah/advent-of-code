@@ -8,9 +8,10 @@ namespace Advent2018
 	class RecipeScorer
     {
     public:
-		typedef std::vector<int> ScoreBoard;
-		typedef std::unordered_set<unsigned> SomeSet;
-		typedef std::unordered_map<unsigned, unsigned> SomeMap;
+		//typedef std::vector<int> ScoreBoard;
+		typedef std::string ScoreBoard;
+		//typedef std::unordered_set<unsigned> SomeSet;
+		//typedef std::unordered_map<unsigned, unsigned> SomeMap;
 
 		RecipeScorer(size_t firstElfCurrentIndex = 0,
 				     size_t secondElfCurrentIndex = 1,
@@ -21,8 +22,8 @@ namespace Advent2018
 			m_field3(field3),
 			m_dummy(dummy)
 		{
-			m_scoreBoard.push_back(3);
-			m_scoreBoard.push_back(7);
+			m_scoreBoard.push_back('3');
+			m_scoreBoard.push_back('7');
         }
 
         void getTenScoresAfterSkipping(int numScoresToSkip, std::string& tenScores)
@@ -34,19 +35,23 @@ namespace Advent2018
 			tenScores.empty();
 			for (size_t i = numScoresToSkip; i < numScoresToSkip + 10; ++i)
 			{
-				tenScores += (char)m_scoreBoard[i] + '0';
+				tenScores += m_scoreBoard[i];
 			}
 		}
 
-		void method2()
+		void getNumScoresSkipped(const std::string& scoresToFind, int& scoresSkipped)
         {
+			do
+			{
+				updateScoreBoard();
+			} while (0);
         }
 
 		void updateScoreBoard()
 		{
 			addNewScoresToBoard();
-			advanceElf(m_firstElfCurrentIndex, m_scoreBoard[m_firstElfCurrentIndex] + 1, m_scoreBoard.size());
-			advanceElf(m_secondElfCurrentIndex, m_scoreBoard[m_secondElfCurrentIndex] + 1, m_scoreBoard.size());
+			advanceElf(m_firstElfCurrentIndex, m_scoreBoard[m_firstElfCurrentIndex] - '0' + 1, m_scoreBoard.size());
+			advanceElf(m_secondElfCurrentIndex, m_scoreBoard[m_secondElfCurrentIndex] - '0' + 1, m_scoreBoard.size());
 		}
 
 		void advanceElf(size_t& elfIndex, int numSteps, size_t boardSize)
@@ -58,10 +63,10 @@ namespace Advent2018
 		void addNewScoresToBoard()
 		{
 			auto firstScore = -1, secondScore = -1;
-			makeNewScores(m_scoreBoard[m_firstElfCurrentIndex], m_scoreBoard[m_secondElfCurrentIndex],
+			makeNewScores(m_scoreBoard[m_firstElfCurrentIndex] - '0', m_scoreBoard[m_secondElfCurrentIndex] - '0',
 						  firstScore, secondScore);
-			m_scoreBoard.push_back(firstScore);
-			if (secondScore >= 0) m_scoreBoard.push_back(secondScore);
+			m_scoreBoard.push_back((char)firstScore + '0');
+			if (secondScore >= 0) m_scoreBoard.push_back((char)secondScore + '0');
 		}
 
 		void makeNewScores(int firstCurrentScore, int secondCurrentScore,
