@@ -33,6 +33,10 @@ namespace Advent2018
         {
         }
 
+		void updateScoreBoard()
+		{
+		}
+
 		void advanceElf(size_t& elfIndex, int numSteps, size_t boardSize)
 		{
 			elfIndex += numSteps;
