@@ -35,6 +35,9 @@ namespace Advent2018
 
 		void updateScoreBoard()
 		{
+			addNewScoresToBoard();
+			advanceElf(m_firstElfCurrentIndex, m_scoreBoard[m_firstElfCurrentIndex] + 1, m_scoreBoard.size());
+			advanceElf(m_secondElfCurrentIndex, m_scoreBoard[m_secondElfCurrentIndex] + 1, m_scoreBoard.size());
 		}
 
 		void advanceElf(size_t& elfIndex, int numSteps, size_t boardSize)

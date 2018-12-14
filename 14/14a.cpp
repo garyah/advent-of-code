@@ -56,6 +56,15 @@ int main()
 		std::cout << scorer.getScoreBoard()[scorer.getFirstElfCurrentIndex()] << " and ";
 		std::cout << scorer.getScoreBoard()[scorer.getSecondElfCurrentIndex()] << std::endl;
 	}
+	{
+		RecipeScorer scorer;
+		scorer.updateScoreBoard();
+		scorer.updateScoreBoard();
+		std::cout << "updateScoreBoard test 2: called twice, expected score board size of 6 with current elf scores of 1 and 0, actual ";
+		std::cout << "size of " << scorer.getScoreBoard().size() << " with scores of ";
+		std::cout << scorer.getScoreBoard()[scorer.getFirstElfCurrentIndex()] << " and ";
+		std::cout << scorer.getScoreBoard()[scorer.getSecondElfCurrentIndex()] << std::endl;
+	}
 
 	RecipeScorer scorer(0, 0, "");
 	do
