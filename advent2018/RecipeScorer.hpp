@@ -41,14 +41,23 @@ namespace Advent2018
 
 		void getNumScoresSkipped(const std::string& scoresToFind, int& scoresSkipped)
         {
-			size_t foundIndex = 0;
+			size_t foundIndex = std::string::npos;
 			do
 			{
 				updateScoreBoard();
-				auto size = m_scoreBoard.size();
-				if (size % 1000 == 0) std::cout << size << "iterations...";
-				if (size > 10 * 1000 * 1000) break;
-			} while ((foundIndex = m_scoreBoard.find(scoresToFind)) == std::string::npos);
+				auto length = m_scoreBoard.length();
+				if (length < (500u * 1000u * 1000u)) continue;
+				if ((length % (10u * 1000u * 1000u)) < 5)
+				{
+					std::cout << length << " recipes on board..." << std::endl;
+				}
+				if (length > (1000u * 1000u * 1000u)) break;
+				auto searchLength = scoresToFind.length();
+				if (length >= searchLength)
+					foundIndex = m_scoreBoard.find(scoresToFind, length - searchLength);
+			} while (foundIndex == std::string::npos);
+			if (foundIndex != std::string::npos)
+				std::cout << "found it, first index = " << m_scoreBoard.find(scoresToFind) << std::endl;
 			scoresSkipped = (int)foundIndex;
         }
 
