@@ -1,4 +1,5 @@
-helper1 test 1: expected 0, actual 0
-method1 test 1: expected 0, actual 0
+makeNewScores test 1: expected 1 and 0, actual 1 and 0
+makeNewScores test 2: expected 5 and -1, actual 5 and -1
+addNewScoresToBoard test 1: expected score board size of 4 ending with 1 and 0, actual size of 4 ending with 1 and 0
 0, 0, ||
 0
