@@ -45,13 +45,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2017", "advent2017", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2018", "advent2018", "{93A18934-BD3D-472E-A8FA-D82523D728CC}"
 	ProjectSection(SolutionItems) = preProject
-		advent2018\PlantForecaster.hpp = advent2018\PlantForecaster.hpp
+		advent2018\RecipeScorer.hpp = advent2018\RecipeScorer.hpp
 		advent2018\CheckSummer.hpp = advent2018\CheckSummer.hpp
 		advent2018\ChronalOptimizer.hpp = advent2018\ChronalOptimizer.hpp
 		advent2018\FabricOverlapCalculator.hpp = advent2018\FabricOverlapCalculator.hpp
 		advent2018\FrequencyCalibrator.hpp = advent2018\FrequencyCalibrator.hpp
 		advent2018\GuardTimeTracker.hpp = advent2018\GuardTimeTracker.hpp
 		advent2018\MarbleGame.hpp = advent2018\MarbleGame.hpp
+		advent2018\PlantForecaster.hpp = advent2018\PlantForecaster.hpp
 		advent2018\PolymerReactor.hpp = advent2018\PolymerReactor.hpp
 		advent2018\PowerFinder.hpp = advent2018\PowerFinder.hpp
 		advent2018\StarMessageFinder.hpp = advent2018\StarMessageFinder.hpp
@@ -62,6 +63,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "12a", "12\12a.vcxproj", "{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "12b", "12\12b.vcxproj", "{C8C6136C-BAE1-4BAC-AB8A-040256A15265}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "14a", "14\14a.vcxproj", "{19A83C6F-16D7-4B85-BBA5-4E76820E0769}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "14b", "14\14b.vcxproj", "{3DD8215F-ED72-485C-867B-C182E4003ECB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +99,26 @@ Global
 		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Release|x64.Build.0 = Release|x64
 		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Release|x86.ActiveCfg = Release|Win32
 		{C8C6136C-BAE1-4BAC-AB8A-040256A15265}.Release|x86.Build.0 = Release|Win32
+		{19A83C6F-16D7-4B85-BBA5-4E76820E0769}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{19A83C6F-16D7-4B85-BBA5-4E76820E0769}.Debug|x64.ActiveCfg = Debug|x64
+		{19A83C6F-16D7-4B85-BBA5-4E76820E0769}.Debug|x64.Build.0 = Debug|x64
+		{19A83C6F-16D7-4B85-BBA5-4E76820E0769}.Debug|x86.ActiveCfg = Debug|Win32
+		{19A83C6F-16D7-4B85-BBA5-4E76820E0769}.Debug|x86.Build.0 = Debug|Win32
+		{19A83C6F-16D7-4B85-BBA5-4E76820E0769}.Release|Any CPU.ActiveCfg = Release|Win32
+		{19A83C6F-16D7-4B85-BBA5-4E76820E0769}.Release|x64.ActiveCfg = Release|x64
+		{19A83C6F-16D7-4B85-BBA5-4E76820E0769}.Release|x64.Build.0 = Release|x64
+		{19A83C6F-16D7-4B85-BBA5-4E76820E0769}.Release|x86.ActiveCfg = Release|Win32
+		{19A83C6F-16D7-4B85-BBA5-4E76820E0769}.Release|x86.Build.0 = Release|Win32
+		{3DD8215F-ED72-485C-867B-C182E4003ECB}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{3DD8215F-ED72-485C-867B-C182E4003ECB}.Debug|x64.ActiveCfg = Debug|x64
+		{3DD8215F-ED72-485C-867B-C182E4003ECB}.Debug|x64.Build.0 = Debug|x64
+		{3DD8215F-ED72-485C-867B-C182E4003ECB}.Debug|x86.ActiveCfg = Debug|Win32
+		{3DD8215F-ED72-485C-867B-C182E4003ECB}.Debug|x86.Build.0 = Debug|Win32
+		{3DD8215F-ED72-485C-867B-C182E4003ECB}.Release|Any CPU.ActiveCfg = Release|Win32
+		{3DD8215F-ED72-485C-867B-C182E4003ECB}.Release|x64.ActiveCfg = Release|x64
+		{3DD8215F-ED72-485C-867B-C182E4003ECB}.Release|x64.Build.0 = Release|x64
+		{3DD8215F-ED72-485C-867B-C182E4003ECB}.Release|x86.ActiveCfg = Release|Win32
+		{3DD8215F-ED72-485C-867B-C182E4003ECB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +126,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C7AC0C9C-0C00-4BAB-BAD0-82780416B5BA} = {A89778CE-E809-41EF-94E8-39EB4FDD909B}
 		{C8C6136C-BAE1-4BAC-AB8A-040256A15265} = {A89778CE-E809-41EF-94E8-39EB4FDD909B}
+		{19A83C6F-16D7-4B85-BBA5-4E76820E0769} = {A89778CE-E809-41EF-94E8-39EB4FDD909B}
+		{3DD8215F-ED72-485C-867B-C182E4003ECB} = {A89778CE-E809-41EF-94E8-39EB4FDD909B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {812E15DC-BEBE-424A-BBAA-2679DE05FF6B}

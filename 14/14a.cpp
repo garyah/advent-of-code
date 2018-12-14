@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "../advent2018/BlankClass.hpp"
+#include "../advent2018/RecipeScorer.hpp"
 
 using namespace Advent2018;
 
@@ -9,17 +9,17 @@ int main()
 {
 	// unit testing
 	{
-		BlankClass blank(0, 0, "");
-		blank.helper1(0u, 0, "");
-		std::cout << "helper1 test 1: expected 0, actual " << blank.getField1() << std::endl;
+		RecipeScorer scorer(0, 0, "");
+		scorer.helper1(0u, 0, "");
+		std::cout << "helper1 test 1: expected 0, actual " << scorer.getField1() << std::endl;
 	}
 	{
-		BlankClass blank(0, 0, "");
-		blank.method1(0u, 0, "");
-		std::cout << "method1 test 1: expected 0, actual " << blank.getField1() << std::endl;
+		RecipeScorer scorer(0, 0, "");
+		scorer.method1(0u, 0, "");
+		std::cout << "method1 test 1: expected 0, actual " << scorer.getField1() << std::endl;
 	}
 
-	BlankClass blank(0, 0, "");
+	RecipeScorer scorer(0, 0, "");
 	do
 	{
 		char line[80 + 1] = { 0 };
@@ -29,11 +29,11 @@ int main()
 		char third[10 + 1] = { 0 };
 		(void)sscanf_s(line, "unsigned %u, int %d, string %10s",
 						&first, &second, third, 10);
-		blank.method1(first, second, third);
+		scorer.method1(first, second, third);
 	} while (!std::cin.eof());
 
-	blank.method2();
-	std::cout << blank.getField1() << ", " << blank.getField2() << ", |" << blank.getField3() << "|" << std::endl;
-	std::cout << blank.getField1() << std::endl;
+	scorer.method2();
+	std::cout << scorer.getField1() << ", " << scorer.getField2() << ", |" << scorer.getField3() << "|" << std::endl;
+	std::cout << scorer.getField1() << std::endl;
 	return 0;
 }
