@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26823.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01a", "01\01a.vcxproj", "{BD987412-10F8-4101-BE89-2A9BB2C84E0A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{90091C3D-E1C9-4A6F-88FE-312A369D54D5}"
 	ProjectSection(SolutionItems) = preProject
 		common\InputReader.hpp = common\InputReader.hpp
@@ -28,6 +26,46 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2016", "advent2016", 
 		advent2016\ViableNodePairCounter.hpp = advent2016\ViableNodePairCounter.hpp
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2017", "advent2017", "{3C93F4C5-015F-4DB1-A041-C9E31B934C71}"
+	ProjectSection(SolutionItems) = preProject
+		advent2017\AssemblyParser.hpp = advent2017\AssemblyParser.hpp
+		advent2017\BridgeBuilder.hpp = advent2017\BridgeBuilder.hpp
+		advent2017\CaptchaDigitSummer.hpp = advent2017\CaptchaDigitSummer.hpp
+		advent2017\Day23AssemblyParser.hpp = advent2017\Day23AssemblyParser.hpp
+		advent2017\GeneratorDriver.hpp = advent2017\GeneratorDriver.hpp
+		advent2017\NumberGenerator.hpp = advent2017\NumberGenerator.hpp
+		advent2017\PathFinder.hpp = advent2017\PathFinder.hpp
+		advent2017\ProgramDancer.hpp = advent2017\ProgramDancer.hpp
+		advent2017\Spinlock.hpp = advent2017\Spinlock.hpp
+		advent2017\StreamProcessor.hpp = advent2017\StreamProcessor.hpp
+		advent2017\VirusCarrier.hpp = advent2017\VirusCarrier.hpp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2018", "advent2018", "{93A18934-BD3D-472E-A8FA-D82523D728CC}"
+	ProjectSection(SolutionItems) = preProject
+		advent2018\BlankClass.hpp = advent2018\BlankClass.hpp
+		advent2018\CheckSummer.hpp = advent2018\CheckSummer.hpp
+		advent2018\ChronalOptimizer.hpp = advent2018\ChronalOptimizer.hpp
+		advent2018\CombatGame.hpp = advent2018\CombatGame.hpp
+		advent2018\FabricOverlapCalculator.hpp = advent2018\FabricOverlapCalculator.hpp
+		advent2018\FrequencyCalibrator.hpp = advent2018\FrequencyCalibrator.hpp
+		advent2018\GuardTimeTracker.hpp = advent2018\GuardTimeTracker.hpp
+		advent2018\MarbleGame.hpp = advent2018\MarbleGame.hpp
+		advent2018\PlantForecaster.hpp = advent2018\PlantForecaster.hpp
+		advent2018\PolymerReactor.hpp = advent2018\PolymerReactor.hpp
+		advent2018\PowerFinder.hpp = advent2018\PowerFinder.hpp
+		advent2018\RecipeScorer.hpp = advent2018\RecipeScorer.hpp
+		advent2018\StarMessageFinder.hpp = advent2018\StarMessageFinder.hpp
+		advent2018\StepSorter.hpp = advent2018\StepSorter.hpp
+		advent2018\TreeBuilder.hpp = advent2018\TreeBuilder.hpp
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "advent2016-tests", "advent2016-tests\advent2016-tests.vcxproj", "{40B987ED-C973-453C-A08D-C051901765A7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "advent2017-tests", "advent2017-tests\advent2017-tests.vcxproj", "{E6C90EEA-F7E6-4814-AD57-6AF548F0ED4C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "advent2018-tests", "advent2018-tests\advent2018-tests.vcxproj", "{6933C586-DA68-4413-9909-C3BD1A9CB1FA}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "template", "template\template.vcxproj", "{8ACAF4E0-E496-4DEE-858B-CEB990EEDD84}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-05", "01-05", "{D10AE141-88EB-41BB-8722-9EE0C83705B0}"
@@ -39,6 +77,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "16-20", "16-20", "{644D4EE4-4A43-45F4-A026-D41507182C7B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "21-25", "21-25", "{6EF6E453-B74A-47AF-9202-5D067226A091}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01a", "01\01a.vcxproj", "{BD987412-10F8-4101-BE89-2A9BB2C84E0A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "02a", "02\02a.vcxproj", "{FB2603C3-8184-4CC5-80BA-5B8DA927BF43}"
 EndProject
@@ -57,8 +97,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04b", "04\04b.vcxproj", "{1FF2EA11-63DF-4E5C-9B93-62607849B6D1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05b", "05\05b.vcxproj", "{3AACD5E0-CA96-460C-B16E-9E98045B7C98}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "advent2016-tests", "advent2016-tests\advent2016-tests.vcxproj", "{40B987ED-C973-453C-A08D-C051901765A7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "21a", "21\21a.vcxproj", "{6813B0A9-90D8-4646-8A33-6857A2A6EE8E}"
 EndProject
@@ -98,44 +136,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "20b", "20\20b.vcxproj", "{4
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "18b", "18\18b.vcxproj", "{19F00250-E635-40E5-AFDB-4B4041032083}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2017", "advent2017", "{3C93F4C5-015F-4DB1-A041-C9E31B934C71}"
-	ProjectSection(SolutionItems) = preProject
-		advent2017\AssemblyParser.hpp = advent2017\AssemblyParser.hpp
-		advent2017\BridgeBuilder.hpp = advent2017\BridgeBuilder.hpp
-		advent2017\CaptchaDigitSummer.hpp = advent2017\CaptchaDigitSummer.hpp
-		advent2017\Day23AssemblyParser.hpp = advent2017\Day23AssemblyParser.hpp
-		advent2017\GeneratorDriver.hpp = advent2017\GeneratorDriver.hpp
-		advent2017\NumberGenerator.hpp = advent2017\NumberGenerator.hpp
-		advent2017\PathFinder.hpp = advent2017\PathFinder.hpp
-		advent2017\ProgramDancer.hpp = advent2017\ProgramDancer.hpp
-		advent2017\Spinlock.hpp = advent2017\Spinlock.hpp
-		advent2017\StreamProcessor.hpp = advent2017\StreamProcessor.hpp
-		advent2017\VirusCarrier.hpp = advent2017\VirusCarrier.hpp
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "advent2017-tests", "advent2017-tests\advent2017-tests.vcxproj", "{E6C90EEA-F7E6-4814-AD57-6AF548F0ED4C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2018", "advent2018", "{93A18934-BD3D-472E-A8FA-D82523D728CC}"
-	ProjectSection(SolutionItems) = preProject
-		advent2018\BlankClass.hpp = advent2018\BlankClass.hpp
-		advent2018\CheckSummer.hpp = advent2018\CheckSummer.hpp
-		advent2018\ChronalOptimizer.hpp = advent2018\ChronalOptimizer.hpp
-		advent2018\CombatGame.hpp = advent2018\CombatGame.hpp
-		advent2018\FabricOverlapCalculator.hpp = advent2018\FabricOverlapCalculator.hpp
-		advent2018\FrequencyCalibrator.hpp = advent2018\FrequencyCalibrator.hpp
-		advent2018\GuardTimeTracker.hpp = advent2018\GuardTimeTracker.hpp
-		advent2018\MarbleGame.hpp = advent2018\MarbleGame.hpp
-		advent2018\PlantForecaster.hpp = advent2018\PlantForecaster.hpp
-		advent2018\PolymerReactor.hpp = advent2018\PolymerReactor.hpp
-		advent2018\PowerFinder.hpp = advent2018\PowerFinder.hpp
-		advent2018\RecipeScorer.hpp = advent2018\RecipeScorer.hpp
-		advent2018\StarMessageFinder.hpp = advent2018\StarMessageFinder.hpp
-		advent2018\StepSorter.hpp = advent2018\StepSorter.hpp
-		advent2018\TreeBuilder.hpp = advent2018\TreeBuilder.hpp
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "advent2018-tests", "advent2018-tests\advent2018-tests.vcxproj", "{6933C586-DA68-4413-9909-C3BD1A9CB1FA}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "15a", "15\15a.vcxproj", "{73119547-F773-4B49-AEED-56D63D49A12B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "15b", "15\15b.vcxproj", "{22ABA85C-123E-49F7-A19B-2DEE65094E0F}"
@@ -145,12 +145,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "09a", "09\09a.vcxproj", "{5DED7C71-AE28-4B64-AEEC-C92679F46891}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "09b", "09\09b.vcxproj", "{5FF9CDB8-A0E2-4EBD-9106-7796FCBA3A72}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSharp", "CSharp", "{7368BE27-F685-4163-B8EE-0211C13239BD}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-05", "01-05", "{3543507C-E08C-4A01-986B-EF6DF8F3A751}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01a", "CSharp\01\01a.csproj", "{8C7F5A8D-1D50-4FB8-BCB2-4A1F1549589D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07a", "07\07a.vcxproj", "{3675F1E7-E101-4BCF-865F-1A8EE1D0771D}"
 EndProject
@@ -183,6 +177,12 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "19a", "19\19a.vcxproj", "{BAC42230-46FD-46DD-94B0-5805FC3D2417}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "19b", "19\19b.vcxproj", "{DB4BF177-D3C2-4365-8259-1B3A798D2AB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSharp", "CSharp", "{7368BE27-F685-4163-B8EE-0211C13239BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-05", "01-05", "{3543507C-E08C-4A01-986B-EF6DF8F3A751}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01a", "CSharp\01\01a.csproj", "{8C7F5A8D-1D50-4FB8-BCB2-4A1F1549589D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
