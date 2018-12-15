@@ -7,18 +7,6 @@ using namespace Advent2018;
 
 int main()
 {
-	// unit testing
-	{
-		BlankClass blank(0, 0, "");
-		blank.helper1(0u, 0, "");
-		std::cout << "helper1 test 1: expected 0, actual " << blank.getField1() << std::endl;
-	}
-	{
-		BlankClass blank(0, 0, "");
-		blank.method1(0u, 0, "");
-		std::cout << "method1 test 1: expected 0, actual " << blank.getField1() << std::endl;
-	}
-
 	BlankClass blank(0, 0, "");
 	do
 	{
@@ -33,7 +21,7 @@ int main()
 	} while (!std::cin.eof());
 
 	blank.method2();
-	std::cout << blank.getField1() << ", " << blank.getField2() << ", |" << blank.getField3() << "|" << std::endl;
-	std::cout << blank.getField1() << std::endl;
+	std::cout << blank._field1 << ", " << blank._field2 << ", |" << blank._field3 << "|" << std::endl;
+	std::cout << blank._field1 << std::endl;
 	return 0;
 }

@@ -21,7 +21,7 @@ int main()
 	} while (!std::cin.eof());
 
 	game.method2();
-	std::cout << game.getField1() << ", " << game.getField2() << ", |" << game.getField3() << "|" << std::endl;
-	std::cout << game.getField1() << std::endl;
+	std::cout << game._field1 << ", " << game._field2 << ", |" << game._field3 << "|" << std::endl;
+	std::cout << game._field1 << std::endl;
 	return 0;
 }
