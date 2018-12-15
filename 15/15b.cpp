@@ -1,15 +1,27 @@
-#include <limits.h>
-#include <stdint.h>
+#include <iostream>
 #include <stdio.h>
 
-#include "../advent2017/GeneratorDriver.hpp"
+#include "../advent2018/CombatGame.hpp"
 
-using namespace Advent2017;
+using namespace Advent2018;
 
 int main()
 {
-    auto generatorAInitial = 618u;
-    auto generatorBInitial = 814u;
-    (void)printf("%u\n", GeneratorDriver::DriveAndReturnNumberOfMatches(generatorAInitial, generatorBInitial, 5u*1000u*1000u, true));
-    return 0;
+	CombatGame game(0, 0, "");
+	do
+	{
+		char line[80 + 1] = { 0 };
+		std::cin.getline(line, _countof(line));
+		auto first = 0u;
+		auto second = 0;
+		char third[10 + 1] = { 0 };
+		(void)sscanf_s(line, "unsigned %u, int %d, string %10s",
+			&first, &second, third, 10);
+		game.method1(first, second, third);
+	} while (!std::cin.eof());
+
+	game.method2();
+	std::cout << game.getField1() << ", " << game.getField2() << ", |" << game.getField3() << "|" << std::endl;
+	std::cout << game.getField1() << std::endl;
+	return 0;
 }
