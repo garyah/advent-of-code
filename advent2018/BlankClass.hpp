@@ -5,11 +5,13 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 namespace Advent2018
 {
-	typedef std::vector<unsigned> SomeVector;
-	typedef std::unordered_set<unsigned> SomeSet;
-	typedef std::unordered_map<unsigned, unsigned> SomeMap;
+	typedef vector<unsigned> SomeVector;
+	typedef unordered_set<unsigned> SomeSet;
+	typedef unordered_map<unsigned, unsigned> SomeMap;
 
 	struct BlankClass
 	{
@@ -35,7 +37,7 @@ namespace Advent2018
 		{
 		}
 
-		void helper1(unsigned arg1, int arg2, unsigned& out1, std::string& out2)
+		void helper1(unsigned arg1, int arg2, unsigned& out1, string& out2)
 		{
 			out1 = 0;
 			out2.empty();
@@ -47,7 +49,7 @@ namespace Advent2018
 
 		unsigned _field1;
 		int _field2;
-		std::string _field3;
+		string _field3;
 		int _dummy;
 
 		SomeVector _someVector;
