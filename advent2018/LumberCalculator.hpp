@@ -1,7 +1,4 @@
 #include <iostream>
-#include <unordered_map>
-#include <unordered_set>
-#include <stdio.h>
 #include <string>
 #include <vector>
 
@@ -10,8 +7,6 @@ using namespace std;
 namespace Advent2018
 {
 	typedef vector<string> LumberArea;
-	typedef unordered_set<unsigned> SomeSet;
-	typedef unordered_map<unsigned, unsigned> SomeMap;
 
 	struct LumberCalculator
 	{
@@ -132,7 +127,5 @@ namespace Advent2018
 		int _dummy;
 
 		LumberArea _lumberArea;
-		SomeSet _someSet;
-		SomeMap _someMap;
 	};
 }
