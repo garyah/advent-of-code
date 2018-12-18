@@ -86,7 +86,14 @@ namespace Advent2018
 		char updateToThreeOrMoreAdjacent(char currentState, char adjacentState, size_t rowCurrentIndex, size_t colCurrentIndex, size_t width, size_t height)
 		{
 			auto numAdjacent = getNumberAdjacent(adjacentState, rowCurrentIndex, colCurrentIndex, width, height);
-			if (numAdjacent >= 3) return adjacentState;
+			if (numAdjacent >= 3)
+			{
+				if (currentState == '.') --_numOpen;
+				if (currentState == '|') --_numWithTrees;
+				if (adjacentState == '|') ++_numWithTrees;
+				if (adjacentState == '#') ++_numYards;
+				return adjacentState;
+			}
 			return currentState;
 		}
 
@@ -95,6 +102,8 @@ namespace Advent2018
 			auto numAdjacentYards = getNumberAdjacent('#', rowCurrentIndex, colCurrentIndex, width, height);
 			auto numAdjacentWithTrees = getNumberAdjacent('|', rowCurrentIndex, colCurrentIndex, width, height);
 			if (numAdjacentYards >= 1 && numAdjacentWithTrees >= 1) return '#';
+			--_numYards;
+			++_numOpen;
 			return '.';
 		}
 
