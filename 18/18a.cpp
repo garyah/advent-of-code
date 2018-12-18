@@ -31,6 +31,11 @@ int main()
 		calculator.addRow(line);
 	} while (!cin.eof());
 
+	for (int n = 1; n <= 1; ++n)
+	{
+		calculator.updateArea();
+	}
+
 	cout << calculator._numOpen << ", " << calculator._numWithTrees << ", " << calculator._numYards << endl;
 	unsigned resourceValue;
 	calculator.getResourceValue(resourceValue);
