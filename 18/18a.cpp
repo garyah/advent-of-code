@@ -31,7 +31,7 @@ int main()
 		calculator.addRow(line);
 	} while (!cin.eof());
 
-	for (int n = 1; n <= 1; ++n)
+	for (int n = 1; n <= 10; ++n)
 	{
 		calculator.updateArea();
 	}
