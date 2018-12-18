@@ -9,50 +9,62 @@ using namespace std;
 
 namespace Advent2018
 {
-	typedef vector<unsigned> SomeVector;
+	typedef vector<string> LumberArea;
 	typedef unordered_set<unsigned> SomeSet;
 	typedef unordered_map<unsigned, unsigned> SomeMap;
 
 	struct LumberCalculator
 	{
-		LumberCalculator(unsigned field1 = 0,
-			int field2 = 0,
-			const char *field3 = "",
-			int dummy = 0) :
-			_field1(field1),
+		LumberCalculator(unsigned numOpen = 0,
+						 unsigned numWithTrees = 0,
+						 unsigned numYards = 0,
+						 int field2 = 0,
+						 const char *field3 = "",
+						 int dummy = 0) :
+			_numOpen(numOpen),
+			_numWithTrees(numWithTrees),
+			_numYards(numYards),
 			_field2(field2),
 			_field3(field3),
 			_dummy(dummy)
 		{
 		}
 
-		void method1(unsigned arg1 = 0u, int arg2 = 0, const char *arg3 = "")
+		void addRow(const char *row)
 		{
-			_field1 = arg1;
-			_field2 = arg2;
-			_field3 = arg3;
+			_lumberArea.push_back(row);
+			updateCountsForNewRow();
+
 		}
 
-		void method2()
+		void getResourceValue(unsigned &resourceValue)
 		{
+			resourceValue = _numWithTrees * _numYards;
 		}
 
-		void helper1(unsigned arg1, int arg2, unsigned& out1, string& out2)
+		void updateCountsForNewRow()
 		{
-			out1 = 0;
-			out2.empty();
+			auto newRow = _lumberArea.back();
+			for (size_t i = 0; i < newRow.size(); ++i)
+			{
+				if (newRow[i] == '.') ++_numOpen;
+				if (newRow[i] == '|') ++_numWithTrees;
+				if (newRow[i] == '#') ++_numYards;
+			}
 		}
 
 		void helper2()
 		{
 		}
 
-		unsigned _field1;
+		unsigned _numOpen;
+		unsigned _numWithTrees;
+		unsigned _numYards;
 		int _field2;
 		string _field3;
 		int _dummy;
 
-		SomeVector _someVector;
+		LumberArea _lumberArea;
 		SomeSet _someSet;
 		SomeMap _someMap;
 	};

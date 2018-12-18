@@ -1,4 +1,2 @@
-helper1 test 1: expected 0 and ||, actual 0 and ||
-method1 test 1: expected 0, actual 0
-0, 0, ||
-0
+56, 27, 17
+resource value = 459
