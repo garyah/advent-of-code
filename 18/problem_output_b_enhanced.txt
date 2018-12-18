@@ -15,7 +15,7 @@ resource value = 226501
 100008: 1504, 644, 352
 resource value = 226688
 100009: 1506, 636, 358
-resource value = 227688
+resource value = 227688  <<-- turned out to be correct value!  Just delta 100001 to 10 billion, divide by 28, and then offset!
 100010: 1512, 628, 360
 resource value = 226080
 100011: 1524, 618, 358

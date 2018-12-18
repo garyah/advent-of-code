@@ -8,21 +8,27 @@ using namespace Advent2018;
 
 int main()
 {
-	LumberCalculator calculator(0, 0, "");
+	LumberCalculator calculator;
 	do
 	{
 		char line[80 + 1] = { 0 };
 		cin.getline(line, _countof(line));
-		auto first = 0u;
-		auto second = 0;
-		char third[10 + 1] = { 0 };
-		(void)sscanf_s(line, "unsigned %u, int %d, string %10s",
-			&first, &second, third, 10);
-		calculator.method1(first, second, third);
+		calculator.addRow(line);
 	} while (!cin.eof());
 
-	calculator.method2();
-	cout << calculator._field1 << ", " << calculator._field2 << ", |" << calculator._field3 << "|" << endl;
-	cout << calculator._field1 << endl;
+	int n1 = 1;
+	for (; n1 <= 100 * 1000; ++n1)
+	{
+		calculator.updateArea();
+	}
+
+	for (int n2 = n1; n2 < n1 + 200; ++n2)
+	{
+		cout << n2 << ": " << calculator._numOpen << ", " << calculator._numWithTrees << ", " << calculator._numYards << endl;
+		unsigned resourceValue;
+		calculator.getResourceValue(resourceValue);
+		cout << "resource value = " << resourceValue << endl;
+		calculator.updateArea();
+	}
 	return 0;
 }
