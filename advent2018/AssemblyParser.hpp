@@ -90,7 +90,7 @@ namespace Advent2018
             for (size_t programCounter = 0; programCounter >= 0 && programCounter < m_program.size(); ++programCounter)
             {
                 programCounter = executeInstructionReturningProgramCounter(programCounter, m_program[programCounter]);
-                if (m_valueRecovered) break;
+                //if (m_valueRecovered) break;
             }
         }
 
@@ -115,6 +115,7 @@ namespace Advent2018
             }
         }
 
+		int64_t getRegisterZero() { return m_registers[0][0]; }
         int64_t getFirstRecoveryValue() { return m_firstRecoveryValue; }
 
         unsigned getnumberOfSends() { return m_numberOfSends; }
@@ -140,8 +141,8 @@ namespace Advent2018
             auto secondOperand = secondOperandValue(instruction, processId);
             switch (instruction.operation)
             {
-            case Set: setRegister(instruction, secondOperand, processId);
-                logTwoOperandExecution("set", firstOperand, secondOperand, processId);
+            case Set: setRegister(instruction, firstOperand, processId);
+				logOneOperandExecution("set", firstOperand, processId);
                 break;
             case Add: setRegister(instruction, firstOperand + secondOperand, processId);
                 logTwoOperandExecution("add", firstOperand, secondOperand, processId);
@@ -193,18 +194,17 @@ namespace Advent2018
 
         void logOneOperandExecution(const char *instructionName, int64_t operandValue, size_t processId)
         {
-            //(void)printf("%zu: %s %lld\n", processId, instructionName, operandValue);
+            (void)printf("%zu: %s %lld\n", processId, instructionName, operandValue);
         }
 
         void logTwoOperandExecution(const char *instructionName, int64_t firstOperandValue, int64_t secondOperandValue, size_t processId)
         {
-            //(void)printf("%zu: %s %lld %lld\n", processId, instructionName, firstOperandValue, secondOperandValue);
+            (void)printf("%zu: %s %lld %lld\n", processId, instructionName, firstOperandValue, secondOperandValue);
         }
 
         void setRegister(const AssemblyParserInstruction& instruction, int64_t value, size_t processId)
         {
-            if (instruction.isFirstOperandRegister)
-                m_registers[instruction.firstOperand][processId] = value;
+            m_registers[instruction.thirdOperand][processId] = value;
         }
 
         int64_t firstOperandValue(const AssemblyParserInstruction& instruction, size_t processId)
@@ -223,7 +223,7 @@ namespace Advent2018
         }
 
         std::vector<AssemblyParserInstruction> m_program;
-        int64_t m_registers[26][2];
+        int64_t m_registers[6][1];
         bool m_soundPlayed;
         int64_t m_mostRecentSndValue;
         bool m_valueRecovered;
