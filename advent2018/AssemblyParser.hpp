@@ -7,13 +7,13 @@ namespace Advent2018
 {
     enum AssemblyParserOperation
     {
-        Snd,
+        //Snd,
         Set,
         Add,
         Mul,
-        Mod,
-        Rcv,
-        Jgz
+        //Mod,
+        //Rcv,
+        //Jgz
     };
 
     struct AssemblyParserInstruction
@@ -22,8 +22,9 @@ namespace Advent2018
         bool isFirstOperandRegister;
         int64_t firstOperand;
         bool isSecondOperandRegister;
-        int64_t secondOperand;
-    };
+		int64_t secondOperand;
+		int64_t thirdOperand;
+	};
 
     class AssemblyParser
     {
@@ -47,30 +48,39 @@ namespace Advent2018
                 (void)memset(&instruction, 0, sizeof(instruction));
                 do
                 {
-                    if (strcmp(instructionToken, "snd") == 0) { instruction.operation = Snd; break; }
-                    if (strcmp(instructionToken, "set") == 0) { instruction.operation = Set; break; }
-                    if (strcmp(instructionToken, "add") == 0) { instruction.operation = Add; break; }
-                    if (strcmp(instructionToken, "mul") == 0) { instruction.operation = Mul; break; }
-                    if (strcmp(instructionToken, "mod") == 0) { instruction.operation = Mod; break; }
-                    if (strcmp(instructionToken, "rcv") == 0) { instruction.operation = Rcv; break; }
-                    if (strcmp(instructionToken, "jgz") == 0) { instruction.operation = Jgz; break; }
+					instruction.isFirstOperandRegister = true;
+					instruction.isSecondOperandRegister = false;
+                    //if (strcmp(instructionToken, "snd") == 0) { instruction.operation = Snd; break; }
+					if (strcmp(instructionToken, "setr") == 0) { instruction.operation = Set; instruction.isFirstOperandRegister = true; break; }
+					if (strcmp(instructionToken, "seti") == 0) { instruction.operation = Set; instruction.isFirstOperandRegister = false; break; }
+					if (strcmp(instructionToken, "addr") == 0) { instruction.operation = Add; instruction.isSecondOperandRegister = true; break; }
+					if (strcmp(instructionToken, "addi") == 0) { instruction.operation = Add; instruction.isSecondOperandRegister = false; break; }
+					if (strcmp(instructionToken, "mulr") == 0) { instruction.operation = Mul; instruction.isSecondOperandRegister = true; break; }
+					if (strcmp(instructionToken, "muli") == 0) { instruction.operation = Mul; instruction.isSecondOperandRegister = false; break; }
+					//if (strcmp(instructionToken, "mod") == 0) { instruction.operation = Mod; break; }
+                    //if (strcmp(instructionToken, "rcv") == 0) { instruction.operation = Rcv; break; }
+                    //if (strcmp(instructionToken, "jgz") == 0) { instruction.operation = Jgz; break; }
                 } while (0);
 
                 auto nextToken = strtok_s(nullptr, " \t", &context);
                 if (nextToken != nullptr)
                 {
-                    instruction.isFirstOperandRegister = isalpha(nextToken[0]) ? true : false;
-                    instruction.firstOperand = isalpha(nextToken[0]) ? toupper(nextToken[0]) - 'A' : atoi(nextToken);
+                    instruction.firstOperand = instruction.isFirstOperandRegister ? nextToken[0] - '0' : atoi(nextToken);
                 }
 
                 nextToken = strtok_s(nullptr, " \t", &context);
                 if (nextToken != nullptr)
                 {
-                    instruction.isSecondOperandRegister = isalpha(nextToken[0]) ? true : false;
-                    instruction.secondOperand = isalpha(nextToken[0]) ? toupper(nextToken[0]) - 'A' : atoi(nextToken);
+                    instruction.secondOperand = instruction.isSecondOperandRegister ? nextToken[0] - '0' : atoi(nextToken);
                 }
 
-                m_program.push_back(instruction);
+				nextToken = strtok_s(nullptr, " \t", &context);
+				if (nextToken != nullptr)
+				{
+					instruction.thirdOperand = nextToken[0] - '0';
+				}
+
+				m_program.push_back(instruction);
             }
         }
 
@@ -139,42 +149,42 @@ namespace Advent2018
             case Mul: setRegister(instruction, firstOperand * secondOperand, processId);
                 logTwoOperandExecution("mul", firstOperand, secondOperand, processId);
                 break;
-            case Mod: setRegister(instruction, firstOperand % secondOperand, processId);
-                logTwoOperandExecution("mod", firstOperand, secondOperand, processId);
-                break;
-            case Snd:
-                if (multiProcess)
-                {
-                    m_interProcessQueue[processId ? 0 : 1].push(firstOperand);
-                    if (processId == 1) ++m_numberOfSends;
-                }
-                if (!multiProcess)
-                {
-                    m_mostRecentSndValue = firstOperand; m_soundPlayed = true;
-                }
-                logOneOperandExecution("snd", firstOperand, processId);
-                break;
-            case Rcv:
-                if (multiProcess)
-                {
-                    if (m_interProcessQueue[processId].empty()) --programCounter;
-                    if (!m_interProcessQueue[processId].empty())
-                    {
-                        setRegister(instruction, m_interProcessQueue[processId].front(), processId);
-                        m_interProcessQueue[processId].pop();
-                    }
-                }
-                if (!multiProcess && m_soundPlayed && firstOperand != 0)
-                {
-                    m_firstRecoveryValue = m_mostRecentSndValue; m_valueRecovered = true;
-                }
-                logOneOperandExecution("rcv", firstOperand, processId);
-                break;
-            case Jgz:
-                if (firstOperand > 0 && (secondOperand < 0 || secondOperand > 1))
-                    --programCounter += secondOperand;
-                logTwoOperandExecution("jgz", firstOperand, secondOperand, processId);
-                break;
+            //case Mod: setRegister(instruction, firstOperand % secondOperand, processId);
+            //    logTwoOperandExecution("mod", firstOperand, secondOperand, processId);
+            //    break;
+            //case Snd:
+            //    if (multiProcess)
+            //    {
+            //        m_interProcessQueue[processId ? 0 : 1].push(firstOperand);
+            //        if (processId == 1) ++m_numberOfSends;
+            //    }
+            //    if (!multiProcess)
+            //    {
+            //        m_mostRecentSndValue = firstOperand; m_soundPlayed = true;
+            //    }
+            //    logOneOperandExecution("snd", firstOperand, processId);
+            //    break;
+            //case Rcv:
+            //    if (multiProcess)
+            //    {
+            //        if (m_interProcessQueue[processId].empty()) --programCounter;
+            //        if (!m_interProcessQueue[processId].empty())
+            //        {
+            //            setRegister(instruction, m_interProcessQueue[processId].front(), processId);
+            //            m_interProcessQueue[processId].pop();
+            //        }
+            //    }
+            //    if (!multiProcess && m_soundPlayed && firstOperand != 0)
+            //    {
+            //        m_firstRecoveryValue = m_mostRecentSndValue; m_valueRecovered = true;
+            //    }
+            //    logOneOperandExecution("rcv", firstOperand, processId);
+            //    break;
+            //case Jgz:
+            //    if (firstOperand > 0 && (secondOperand < 0 || secondOperand > 1))
+            //        --programCounter += secondOperand;
+            //    logTwoOperandExecution("jgz", firstOperand, secondOperand, processId);
+            //    break;
             default:
                 break;
             }
