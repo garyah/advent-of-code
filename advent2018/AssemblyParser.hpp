@@ -156,6 +156,8 @@ namespace Advent2018
 
         size_t executeInstructionReturningProgramCounter(size_t programCounter, const AssemblyParserInstruction& instruction, bool multiProcess = false, size_t processId = 0)
         {
+			m_registers[m_ipRegNum][0] = programCounter;
+
 			cout << " " << instruction.sourceCode << " ";
             auto firstOperand = firstOperandValue(instruction, processId);
             auto secondOperand = secondOperandValue(instruction, processId);
@@ -209,7 +211,8 @@ namespace Advent2018
             default:
                 break;
             }
-            return programCounter;
+
+			return m_registers[m_ipRegNum][0];
         }
 
         void logOneOperandExecution(const char *instructionName, int64_t operandValue, size_t processId)
