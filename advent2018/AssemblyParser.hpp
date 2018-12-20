@@ -102,11 +102,11 @@ namespace Advent2018
             clearState();
             for (size_t programCounter = 0; programCounter >= 0 && programCounter < m_program.size(); ++programCounter)
             {
-				cout << "ip=" << programCounter << " ";
-				logRegisters();
+				//cout << "ip=" << programCounter << " ";
+				//logRegisters();
                 programCounter = executeInstructionReturningProgramCounter(programCounter, m_program[programCounter]);
-				logRegisters();
-				cout << endl;
+				//logRegisters();
+				//cout << endl;
 				//if (m_valueRecovered) break;
             }
         }
@@ -166,7 +166,7 @@ namespace Advent2018
         {
 			m_registers[m_ipRegNum][0] = programCounter;
 
-			cout << " " << instruction.sourceCode << " ";
+			//cout << " " << instruction.sourceCode << " ";
             auto firstOperand = firstOperandValue(instruction, processId);
             auto secondOperand = secondOperandValue(instruction, processId);
             switch (instruction.operation)
