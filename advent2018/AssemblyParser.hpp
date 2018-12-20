@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 namespace Advent2018
 {
     enum AssemblyParserOperation
@@ -19,6 +21,7 @@ namespace Advent2018
     struct AssemblyParserInstruction
     {
         AssemblyParserOperation operation;
+		char sourceCode[80 + 1];
         bool isFirstOperandRegister;
         int64_t firstOperand;
         bool isSecondOperandRegister;
@@ -39,7 +42,7 @@ namespace Advent2018
 
         void parseInstruction(const char *line)
         {
-            char mutableLine[80] = {0};
+            char mutableLine[80 + 1] = {0};
             (void)strncpy_s(mutableLine, line, _countof(mutableLine));
             char *context = nullptr;
             auto instructionToken = strtok_s(mutableLine, " \t", &context);
@@ -47,6 +50,7 @@ namespace Advent2018
             {
                 AssemblyParserInstruction instruction;
                 (void)memset(&instruction, 0, sizeof(instruction));
+				(void)strcpy_s(instruction.sourceCode, _countof(instruction.sourceCode), line);
                 do
                 {
 					instruction.isFirstOperandRegister = true;
@@ -90,8 +94,12 @@ namespace Advent2018
             clearState();
             for (size_t programCounter = 0; programCounter >= 0 && programCounter < m_program.size(); ++programCounter)
             {
+				cout << "ip=" << programCounter << " ";
+				logRegisters();
                 programCounter = executeInstructionReturningProgramCounter(programCounter, m_program[programCounter]);
-                //if (m_valueRecovered) break;
+				logRegisters();
+				cout << endl;
+				//if (m_valueRecovered) break;
             }
         }
 
@@ -138,8 +146,17 @@ namespace Advent2018
             m_numberOfSends = 0;
         }
 
+		void logRegisters()
+		{
+			cout << "[";
+			for (size_t i = 0; i < _countof(m_registers); ++i)
+				cout << ((i != 0) ? ", " : "") << m_registers[i][0];
+			cout << "]";
+		}
+
         size_t executeInstructionReturningProgramCounter(size_t programCounter, const AssemblyParserInstruction& instruction, bool multiProcess = false, size_t processId = 0)
         {
+			cout << " " << instruction.sourceCode << " ";
             auto firstOperand = firstOperandValue(instruction, processId);
             auto secondOperand = secondOperandValue(instruction, processId);
             switch (instruction.operation)
@@ -197,12 +214,12 @@ namespace Advent2018
 
         void logOneOperandExecution(const char *instructionName, int64_t operandValue, size_t processId)
         {
-            (void)printf("%zu: %s %lld\n", processId, instructionName, operandValue);
+            //(void)printf("%zu: %s %lld\n", processId, instructionName, operandValue);
         }
 
         void logTwoOperandExecution(const char *instructionName, int64_t firstOperandValue, int64_t secondOperandValue, size_t processId)
         {
-            (void)printf("%zu: %s %lld %lld\n", processId, instructionName, firstOperandValue, secondOperandValue);
+            //(void)printf("%zu: %s %lld %lld\n", processId, instructionName, firstOperandValue, secondOperandValue);
         }
 
         void setRegister(const AssemblyParserInstruction& instruction, int64_t value, size_t processId)
