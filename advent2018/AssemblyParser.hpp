@@ -14,7 +14,8 @@ namespace Advent2018
         Add,
         Mul,
 		Eq,
-        //Mod,
+		Gt,
+		//Mod,
         //Rcv,
         //Jgz
     };
@@ -66,6 +67,9 @@ namespace Advent2018
 					if (strcmp(instructionToken, "eqir") == 0) { instruction.operation = Eq;  instruction.isFirstOperandRegister = false; instruction.isSecondOperandRegister = true; break; }
 					if (strcmp(instructionToken, "eqri") == 0) { instruction.operation = Eq;  instruction.isFirstOperandRegister = true; instruction.isSecondOperandRegister = false; break; }
 					if (strcmp(instructionToken, "eqrr") == 0) { instruction.operation = Eq;  instruction.isFirstOperandRegister = true; instruction.isSecondOperandRegister = true; break; }
+					if (strcmp(instructionToken, "gtir") == 0) { instruction.operation = Gt;  instruction.isFirstOperandRegister = false; instruction.isSecondOperandRegister = true; break; }
+					if (strcmp(instructionToken, "gtri") == 0) { instruction.operation = Gt;  instruction.isFirstOperandRegister = true; instruction.isSecondOperandRegister = false; break; }
+					if (strcmp(instructionToken, "gtrr") == 0) { instruction.operation = Gt;  instruction.isFirstOperandRegister = true; instruction.isSecondOperandRegister = true; break; }
 					//if (strcmp(instructionToken, "mod") == 0) { instruction.operation = Mod; break; }
                     //if (strcmp(instructionToken, "rcv") == 0) { instruction.operation = Rcv; break; }
                     //if (strcmp(instructionToken, "jgz") == 0) { instruction.operation = Jgz; break; }
@@ -177,7 +181,10 @@ namespace Advent2018
                 logTwoOperandExecution("mul", firstOperand, secondOperand, processId);
                 break;
 			case  Eq: setRegister(instruction, (firstOperand == secondOperand) ? 1 : 0, processId);
-                logTwoOperandExecution("mul", firstOperand, secondOperand, processId);
+				logTwoOperandExecution("eq", firstOperand, secondOperand, processId);
+				break;
+			case  Gt: setRegister(instruction, (firstOperand > secondOperand) ? 1 : 0, processId);
+                logTwoOperandExecution("gt", firstOperand, secondOperand, processId);
                 break;
             //case Mod: setRegister(instruction, firstOperand % secondOperand, processId);
             //    logTwoOperandExecution("mod", firstOperand, secondOperand, processId);
