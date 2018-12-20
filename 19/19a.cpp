@@ -32,16 +32,10 @@ int main()
 	do
 	{
 		cin.getline(line, _countof(line));
-		//auto first = 0u;
-		//auto second = 0;
-		//char third[10 + 1] = { 0 };
-		//(void)sscanf_s(line, "unsigned %u, int %d, string %10s",
-		//	&first, &second, third, 10);
 		parser.parseInstruction(line);
 	} while (!cin.eof());
 
 	parser.executeProgram();
-	//cout << parser._field1 << ", " << parser._field2 << ", |" << parser._field3 << "|" << endl;
 	cout << parser.getRegisterZero() << endl;
 	return 0;
 }

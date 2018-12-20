@@ -97,9 +97,10 @@ namespace Advent2018
             }
         }
 
-        void executeProgram()
+        void executeProgram(int64_t initialRegisterZeroValue = 0)
         {
             clearState();
+			m_registers[0][0] = initialRegisterZeroValue;
             for (size_t programCounter = 0; programCounter >= 0 && programCounter < m_program.size(); ++programCounter)
             {
 				//cout << "ip=" << programCounter << " ";

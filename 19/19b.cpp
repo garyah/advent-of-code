@@ -9,20 +9,18 @@ using namespace Advent2018;
 int main()
 {
 	AssemblyParser parser;
+	char line[80 + 1] = { 0 };
+	cin.getline(line, _countof(line));
+	auto ipRegNum = 0u;
+	(void)sscanf_s(line, "#ip %u", &ipRegNum);
+	parser.setIpRegNum(ipRegNum);
 	do
 	{
-		char line[80 + 1] = { 0 };
 		cin.getline(line, _countof(line));
-		auto first = 0u;
-		auto second = 0;
-		char third[10 + 1] = { 0 };
-		(void)sscanf_s(line, "unsigned %u, int %d, string %10s",
-			&first, &second, third, 10);
-		//parser.method1(first, second, third);
+		parser.parseInstruction(line);
 	} while (!cin.eof());
 
-	//parser.method2();
-	//cout << parser._field1 << ", " << parser._field2 << ", |" << parser._field3 << "|" << endl;
-	//cout << parser._field1 << endl;
+	parser.executeProgram(1);
+	cout << parser.getRegisterZero() << endl;
 	return 0;
 }
