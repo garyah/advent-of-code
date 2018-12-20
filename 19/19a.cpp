@@ -26,6 +26,9 @@ int main()
 	AssemblyParser parser;
 	char line[80 + 1] = { 0 };
 	cin.getline(line, _countof(line));
+	auto ipRegNum = 0u;
+	(void)sscanf_s(line, "#ip %u", &ipRegNum);
+	parser.setIpRegNum(ipRegNum);
 	do
 	{
 		cin.getline(line, _countof(line));

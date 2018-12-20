@@ -30,6 +30,7 @@ namespace Advent2018
     {
     public:
         AssemblyParser() :
+			m_ipRegNum(0),
             m_soundPlayed(false),
             m_valueRecovered(false),
             m_numberOfSends(0)
@@ -115,7 +116,9 @@ namespace Advent2018
             }
         }
 
+		void setIpRegNum(unsigned value) { m_ipRegNum = value; }
 		int64_t getRegisterZero() { return m_registers[0][0]; }
+
         int64_t getFirstRecoveryValue() { return m_firstRecoveryValue; }
 
         unsigned getnumberOfSends() { return m_numberOfSends; }
@@ -223,6 +226,7 @@ namespace Advent2018
         }
 
         std::vector<AssemblyParserInstruction> m_program;
+		unsigned m_ipRegNum;
         int64_t m_registers[6][1];
         bool m_soundPlayed;
         int64_t m_mostRecentSndValue;
