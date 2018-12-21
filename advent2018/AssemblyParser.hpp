@@ -17,6 +17,8 @@ namespace Advent2018
         Mul,
 		Eq,
 		Gt,
+		Ban,
+		Bor,
 		//Mod,
         //Rcv,
         //Jgz
@@ -66,6 +68,10 @@ namespace Advent2018
 					if (strcmp(instructionToken, "addi") == 0) { instruction.operation = Add; instruction.isSecondOperandRegister = false; break; }
 					if (strcmp(instructionToken, "mulr") == 0) { instruction.operation = Mul; instruction.isSecondOperandRegister = true; break; }
 					if (strcmp(instructionToken, "muli") == 0) { instruction.operation = Mul; instruction.isSecondOperandRegister = false; break; }
+					if (strcmp(instructionToken, "banr") == 0) { instruction.operation = Ban; instruction.isSecondOperandRegister = true; break; }
+					if (strcmp(instructionToken, "bani") == 0) { instruction.operation = Ban; instruction.isSecondOperandRegister = false; break; }
+					if (strcmp(instructionToken, "borr") == 0) { instruction.operation = Bor; instruction.isSecondOperandRegister = true; break; }
+					if (strcmp(instructionToken, "bori") == 0) { instruction.operation = Bor; instruction.isSecondOperandRegister = false; break; }
 					if (strcmp(instructionToken, "eqir") == 0) { instruction.operation = Eq;  instruction.isFirstOperandRegister = false; instruction.isSecondOperandRegister = true; break; }
 					if (strcmp(instructionToken, "eqri") == 0) { instruction.operation = Eq;  instruction.isFirstOperandRegister = true; instruction.isSecondOperandRegister = false; break; }
 					if (strcmp(instructionToken, "eqrr") == 0) { instruction.operation = Eq;  instruction.isFirstOperandRegister = true; instruction.isSecondOperandRegister = true; break; }
@@ -179,9 +185,15 @@ namespace Advent2018
             case Add: setRegister(instruction, firstOperand + secondOperand, processId);
                 logTwoOperandExecution("add", firstOperand, secondOperand, processId);
                 break;
-            case Mul: setRegister(instruction, firstOperand * secondOperand, processId);
-                logTwoOperandExecution("mul", firstOperand, secondOperand, processId);
-                break;
+			case Mul: setRegister(instruction, firstOperand * secondOperand, processId);
+				logTwoOperandExecution("mul", firstOperand, secondOperand, processId);
+				break;
+			case Ban: setRegister(instruction, firstOperand & secondOperand, processId);
+				logTwoOperandExecution("ban", firstOperand, secondOperand, processId);
+				break;
+			case Bor: setRegister(instruction, firstOperand | secondOperand, processId);
+				logTwoOperandExecution("bor", firstOperand, secondOperand, processId);
+				break;
 			case  Eq: setRegister(instruction, (firstOperand == secondOperand) ? 1 : 0, processId);
 				logTwoOperandExecution("eq", firstOperand, secondOperand, processId);
 				break;
