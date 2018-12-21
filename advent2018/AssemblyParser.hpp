@@ -109,14 +109,17 @@ namespace Advent2018
         {
             clearState();
 			m_registers[0][0] = initialRegisterZeroValue;
+			auto numExecuted = 0u;
             for (size_t programCounter = 0; programCounter >= 0 && programCounter < m_program.size(); ++programCounter)
             {
-				cout << "ip=" << programCounter << " ";
+				//cout << "ip=" << programCounter << " ";
 				//logRegisters();
                 programCounter = executeInstructionReturningProgramCounter(programCounter, m_program[programCounter]);
+				cout << "numExecuted=" << numExecuted << ", ip=" << programCounter << " ";
 				logRegisters();
 				//cout << endl;
 				(void)printf("                    \r");
+				++numExecuted;
             }
         }
 
