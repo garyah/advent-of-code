@@ -1,5 +1,5 @@
 #include <queue>
-#include <stdint.h>
+//#include <stdint.h>
 #include <string>
 #include <vector>
 
@@ -7,6 +7,8 @@ using namespace std;
 
 namespace Advent2018
 {
+	typedef unsigned int64_t;
+
     enum AssemblyParserOperation
     {
         //Snd,
@@ -103,12 +105,11 @@ namespace Advent2018
 			m_registers[0][0] = initialRegisterZeroValue;
             for (size_t programCounter = 0; programCounter >= 0 && programCounter < m_program.size(); ++programCounter)
             {
-				//cout << "ip=" << programCounter << " ";
-				//logRegisters();
+				cout << "ip=" << programCounter << " ";
+				logRegisters();
                 programCounter = executeInstructionReturningProgramCounter(programCounter, m_program[programCounter]);
-				//logRegisters();
-				//cout << endl;
-				//if (m_valueRecovered) break;
+				logRegisters();
+				cout << endl;
             }
         }
 
@@ -167,7 +168,7 @@ namespace Advent2018
         {
 			m_registers[m_ipRegNum][0] = programCounter;
 
-			//cout << " " << instruction.sourceCode << " ";
+			cout << " " << instruction.sourceCode << " ";
             auto firstOperand = firstOperandValue(instruction, processId);
             auto secondOperand = secondOperandValue(instruction, processId);
             switch (instruction.operation)
