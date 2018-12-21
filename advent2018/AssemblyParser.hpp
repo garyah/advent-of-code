@@ -1,5 +1,5 @@
 #include <queue>
-//#include <stdint.h>
+#include <stdint.h>
 #include <string>
 #include <vector>
 
@@ -7,8 +7,8 @@ using namespace std;
 
 namespace Advent2018
 {
-	//typedef int64_t regType;
-	typedef unsigned regType;
+	typedef int64_t regType;
+	//typedef unsigned regType;
 
     enum AssemblyParserOperation
     {
@@ -115,11 +115,20 @@ namespace Advent2018
             {
 				//cout << "ip=" << programCounter << " ";
 				//logRegisters();
+				if (programCounter == 28)
+				{
+					cout << "reached magic instruction at ip=28!" << " ";
+					logRegisters();
+					cout << endl;
+					//return;
+				}
                 programCounter = executeInstructionReturningProgramCounter(programCounter, m_program[programCounter]);
-				if (numExecuted % (10 * 1000 * 1000) == 0)
+				if (numExecuted % (10 * 1000 * 1000) == 0 && false)
 				{
 					cout << "numExecuted=" << numExecuted << ", ip=" << programCounter << " ";
 					logRegisters();
+					cout << " ";
+					logRegisterMinMaxValues();
 					//cout << endl;
 					(void)printf("                    \r");
 				}
@@ -184,7 +193,15 @@ namespace Advent2018
 			cout << "]";
 		}
 
-        size_t executeInstructionReturningProgramCounter(size_t programCounter, const AssemblyParserInstruction& instruction, bool multiProcess = false, size_t processId = 0)
+		void logRegisterMinMaxValues()
+		{
+			cout << "{";
+			for (size_t i = 0; i < _countof(m_registers); ++i)
+				cout << ((i != 0) ? ", " : "") << m_minRegisterValues[i] << "-" << m_maxRegisterValues[i];
+			cout << "}";
+		}
+
+		size_t executeInstructionReturningProgramCounter(size_t programCounter, const AssemblyParserInstruction& instruction, bool multiProcess = false, size_t processId = 0)
         {
 			m_registers[m_ipRegNum][0] = programCounter;
 
@@ -269,8 +286,12 @@ namespace Advent2018
 
         void setRegister(const AssemblyParserInstruction& instruction, regType value, size_t processId)
         {
-            m_registers[instruction.thirdOperand][processId] = value;
-        }
+			auto third = instruction.thirdOperand;
+			if (third == 5) cout << "register 5 set with " << value << endl;
+            m_registers[third][processId] = value;
+			if (value < m_minRegisterValues[third]) m_minRegisterValues[third] = value;
+			if (value > m_maxRegisterValues[third]) m_maxRegisterValues[third] = value;
+		}
 
         regType firstOperandValue(const AssemblyParserInstruction& instruction, size_t processId)
         {
