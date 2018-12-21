@@ -1,0 +1,19 @@
+register 5 set with 123
+register 5 set with 72
+register 5 set with 1
+register 5 set with 0
+register 5 set with 13159625
+register 5 set with 13159625
+register 5 set with 13159625
+register 5 set with 867206127875
+register 5 set with 8610051
+register 5 set with 8610051
+register 5 set with 8610051
+register 5 set with 567393750849
+register 5 set with 5082945
+register 5 set with 5082946
+register 5 set with 5082946
+register 5 set with 334961058454
+register 5 set with 3941014
+reached magic instruction at ip=28! [3941014, 27, 1, 1, 1, 3941014]
+3941014
