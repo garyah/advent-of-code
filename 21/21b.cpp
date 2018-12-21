@@ -12,7 +12,8 @@ int main()
 	char line[80 + 1] = { 0 };
 	cin.getline(line, _countof(line));
 	auto ipRegNum = 0u;
-	(void)sscanf_s(line, "#ip %u", &ipRegNum);
+	auto initialRegisterZeroValue = 0u;
+	(void)sscanf_s(line, "#ip %u, %u", &ipRegNum, &initialRegisterZeroValue);
 	parser.setIpRegNum(ipRegNum);
 	do
 	{
@@ -20,7 +21,7 @@ int main()
 		parser.parseInstruction(line);
 	} while (!cin.eof());
 
-	parser.executeProgram(1);
+	parser.executeProgram(initialRegisterZeroValue);
 	cout << parser.getRegisterZero() << endl;
 	return 0;
 }
