@@ -7,7 +7,8 @@ using namespace std;
 
 namespace Advent2018
 {
-	typedef unsigned int64_t;
+	//typedef int64_t regType;
+	typedef unsigned regType;
 
     enum AssemblyParserOperation
     {
@@ -29,10 +30,10 @@ namespace Advent2018
         AssemblyParserOperation operation;
 		char sourceCode[80 + 1];
         bool isFirstOperandRegister;
-        int64_t firstOperand;
+        regType firstOperand;
         bool isSecondOperandRegister;
-		int64_t secondOperand;
-		int64_t thirdOperand;
+		regType secondOperand;
+		regType thirdOperand;
 	};
 
     class AssemblyParser
@@ -105,7 +106,7 @@ namespace Advent2018
             }
         }
 
-        void executeProgram(int64_t initialRegisterZeroValue = 0)
+        void executeProgram(regType initialRegisterZeroValue = 0)
         {
             clearState();
 			m_registers[0][0] = initialRegisterZeroValue;
@@ -115,10 +116,13 @@ namespace Advent2018
 				//cout << "ip=" << programCounter << " ";
 				//logRegisters();
                 programCounter = executeInstructionReturningProgramCounter(programCounter, m_program[programCounter]);
-				cout << "numExecuted=" << numExecuted << ", ip=" << programCounter << " ";
-				logRegisters();
-				//cout << endl;
-				(void)printf("                    \r");
+				if (numExecuted % (10 * 1000 * 1000) == 0)
+				{
+					cout << "numExecuted=" << numExecuted << ", ip=" << programCounter << " ";
+					logRegisters();
+					//cout << endl;
+					(void)printf("                    \r");
+				}
 				++numExecuted;
             }
         }
@@ -145,9 +149,9 @@ namespace Advent2018
         }
 
 		void setIpRegNum(unsigned value) { m_ipRegNum = value; }
-		int64_t getRegisterZero() { return m_registers[0][0]; }
+		regType getRegisterZero() { return m_registers[0][0]; }
 
-        int64_t getFirstRecoveryValue() { return m_firstRecoveryValue; }
+        regType getFirstRecoveryValue() { return m_firstRecoveryValue; }
 
         unsigned getnumberOfSends() { return m_numberOfSends; }
 
@@ -157,6 +161,12 @@ namespace Advent2018
             for (size_t i = 0; i < _countof(m_registers); ++i)
                 for (size_t j = 0; j < _countof(m_registers[0]); ++j)
                     m_registers[i][j] = 0;
+
+			for (size_t i = 0; i < _countof(m_registers); ++i)
+			{
+				m_minRegisterValues[i] = (regType)-1;
+				m_maxRegisterValues[i] = 0;
+			}
 
             m_soundPlayed = m_valueRecovered = false;
             m_mostRecentSndValue = m_firstRecoveryValue = 0;
@@ -247,45 +257,47 @@ namespace Advent2018
 			return m_registers[m_ipRegNum][0];
         }
 
-        void logOneOperandExecution(const char *instructionName, int64_t operandValue, size_t processId)
+        void logOneOperandExecution(const char *instructionName, regType operandValue, size_t processId)
         {
             //(void)printf("%zu: %s %lld\n", processId, instructionName, operandValue);
         }
 
-        void logTwoOperandExecution(const char *instructionName, int64_t firstOperandValue, int64_t secondOperandValue, size_t processId)
+        void logTwoOperandExecution(const char *instructionName, regType firstOperandValue, regType secondOperandValue, size_t processId)
         {
             //(void)printf("%zu: %s %lld %lld\n", processId, instructionName, firstOperandValue, secondOperandValue);
         }
 
-        void setRegister(const AssemblyParserInstruction& instruction, int64_t value, size_t processId)
+        void setRegister(const AssemblyParserInstruction& instruction, regType value, size_t processId)
         {
             m_registers[instruction.thirdOperand][processId] = value;
         }
 
-        int64_t firstOperandValue(const AssemblyParserInstruction& instruction, size_t processId)
+        regType firstOperandValue(const AssemblyParserInstruction& instruction, size_t processId)
         {
             return operandValue(instruction.isFirstOperandRegister, instruction.firstOperand, processId);
         }
 
-        int64_t secondOperandValue(const AssemblyParserInstruction& instruction, size_t processId)
+        regType secondOperandValue(const AssemblyParserInstruction& instruction, size_t processId)
         {
             return operandValue(instruction.isSecondOperandRegister, instruction.secondOperand, processId);
         }
 
-        int64_t operandValue(bool isOperandRegister, int64_t operand, size_t processId)
+        regType operandValue(bool isOperandRegister, regType operand, size_t processId)
         {
             return isOperandRegister ? m_registers[operand][processId] : operand;
         }
 
         std::vector<AssemblyParserInstruction> m_program;
 		unsigned m_ipRegNum;
-        int64_t m_registers[6][1];
-        bool m_soundPlayed;
-        int64_t m_mostRecentSndValue;
+		regType m_registers[6][1];
+		regType m_minRegisterValues[6];
+		regType m_maxRegisterValues[6];
+		bool m_soundPlayed;
+        regType m_mostRecentSndValue;
         bool m_valueRecovered;
-        int64_t m_firstRecoveryValue;
+        regType m_firstRecoveryValue;
 
-        std::queue<int64_t> m_interProcessQueue[2];
+        std::queue<regType> m_interProcessQueue[2];
         unsigned m_numberOfSends;
     };
 }
