@@ -18,8 +18,14 @@ namespace Advent2018
 	{
 		regType opCode; regType operand1; regType operand2; regType operand3;
 	} Instruction;
+	typedef struct
+	{
+		RegisterFile before;
+		Instruction instruction;
+		RegisterFile after;
+	} InstructionRun;
 
-	typedef vector<unsigned> SomeVector;
+	typedef vector<InstructionRun> ProgramRun;
 	typedef unordered_set<unsigned> SomeSet;
 	typedef unordered_map<unsigned, unsigned> SomeMap;
 
@@ -46,6 +52,13 @@ namespace Advent2018
 			(void)printf("After: [%u, %u, %u, %u]\n",
 				after.reg0, after.reg1, after.reg2, after.reg3);
 
+			InstructionRun instructionRun = {
+				before,
+				instruction,
+				after
+			};
+			_programRun.push_back(instructionRun);
+
 			//_field1 = arg1;
 			//_field2 = arg2;
 			//_field3 = arg3;
@@ -70,7 +83,7 @@ namespace Advent2018
 		string _field3;
 		int _dummy;
 
-		SomeVector _someVector;
+		ProgramRun _programRun;
 		SomeSet _someSet;
 		SomeMap _someMap;
 	};
