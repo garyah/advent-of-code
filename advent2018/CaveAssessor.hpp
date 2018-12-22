@@ -36,15 +36,29 @@ namespace Advent2018
 		{
 		}
 
-		void helper1(unsigned arg1, int arg2, unsigned& out1, string& out2)
+		int64_t calculateErosionLevelFromAdjacent(int64_t leftErosionLevel, int64_t upErosionLevel)
 		{
-			out1 = 0;
-			out2.empty();
+			return (leftErosionLevel * upErosionLevel + (int64_t)_depth) % (int64_t)erosionModuloValue;
 		}
 
-		void helper2()
+		int64_t calculateErosionLevelForY0(unsigned x)
 		{
+			return calculateErosionLevelForZeroCoordinate(x, 16807);
 		}
+
+		int64_t calculateErosionLevelForX0(unsigned y)
+		{
+			return calculateErosionLevelForZeroCoordinate(y, 48271);
+		}
+
+		int64_t calculateErosionLevelForZeroCoordinate(unsigned nonZeroCoordinate, unsigned multiplier)
+		{
+			return (int64_t)((nonZeroCoordinate * multiplier + _depth) % erosionModuloValue);
+		}
+
+		const unsigned y0MultiplierValue = 16807;
+		const unsigned x0MultiplierValue = 48271;
+		const unsigned erosionModuloValue = 20183;
 
 		unsigned _depth;
 		unsigned _targetX;
