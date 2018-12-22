@@ -7,4 +7,4 @@ type sample_output_1a.txt
 @REM ..\x64\Debug\16a.exe < sample_input_4.txt > sample_output_4a.txt
 @REM type sample_output_4a.txt
 ..\x64\Debug\16a.exe < problem_input.txt > problem_output_a.txt
-@REM type problem_output_a.txt
+type problem_output_a.txt

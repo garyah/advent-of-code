@@ -14,6 +14,11 @@ namespace Advent2018
 	{
 		regType reg0; regType reg1; regType reg2; regType reg3;
 	} RegisterFile;
+	typedef union
+	{
+		RegisterFile file;
+		regType reg[4];
+	} RegisterFileAccess;
 	typedef struct
 	{
 		regType opCode; regType operand1; regType operand2; regType operand3;
@@ -56,7 +61,7 @@ namespace Advent2018
 			_programRun.push_back(instructionRun);
 			auto numPossibleOperations = 0u;
 			analyzeInstruction(instructionRun, numPossibleOperations);
-			if (numPossibleOperations >= 3) ++_numRunsAtLeastThreePossible;
+			if (numPossibleOperations >= 1) ++_numRunsAtLeastThreePossible;
 		}
 
 		void method2()
@@ -66,11 +71,89 @@ namespace Advent2018
 		void analyzeInstruction(InstructionRun instructionRun, unsigned& numPossibleOperations)
 		{
 			numPossibleOperations = 0;
-			//if (possibleAddr(instructionRun)) ++numPossibleOperations;
+			if (possibleAddr(instructionRun)) ++numPossibleOperations;
+			if (possibleAddi(instructionRun)) ++numPossibleOperations;
 		}
 
-		void helper2()
+		bool possibleAddr(InstructionRun instructionRun)
 		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] + beforeAccessor->reg[instructionRun.instruction.operand2]
+				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			return false;
+		}
+
+		bool possibleAddi(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] + instructionRun.instruction.operand2
+				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			return false;
+		}
+
+		bool possibleMulr(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] * beforeAccessor->reg[instructionRun.instruction.operand2]
+				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			return false;
+		}
+
+		bool possibleMuli(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] * instructionRun.instruction.operand2
+				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			return false;
+		}
+
+		bool possibleBan(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] + beforeAccessor->reg[instructionRun.instruction.operand2]
+				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			return false;
+		}
+
+		bool possibleBor(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] + beforeAccessor->reg[instructionRun.instruction.operand2]
+				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			return false;
+		}
+
+		bool possibleSet(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] + beforeAccessor->reg[instructionRun.instruction.operand2]
+				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			return false;
+		}
+
+		bool possibleGt(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] + beforeAccessor->reg[instructionRun.instruction.operand2]
+				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			return false;
+		}
+
+		bool possibleEq(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] + beforeAccessor->reg[instructionRun.instruction.operand2]
+				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			return false;
 		}
 
 		unsigned _numRunsAtLeastThreePossible;
