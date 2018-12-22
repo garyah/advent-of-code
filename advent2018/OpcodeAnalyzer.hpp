@@ -61,7 +61,7 @@ namespace Advent2018
 			_programRun.push_back(instructionRun);
 			auto numPossibleOperations = 0u;
 			analyzeInstruction(instructionRun, numPossibleOperations);
-			if (numPossibleOperations >= 1) ++_numRunsAtLeastThreePossible;
+			if (numPossibleOperations >= 3) ++_numRunsAtLeastThreePossible;
 		}
 
 		void method2()
@@ -79,6 +79,8 @@ namespace Advent2018
 			if (possibleBani(instructionRun)) ++numPossibleOperations;
 			if (possibleBorr(instructionRun)) ++numPossibleOperations;
 			if (possibleBori(instructionRun)) ++numPossibleOperations;
+			if (possibleSetr(instructionRun)) ++numPossibleOperations;
+			if (possibleSeti(instructionRun)) ++numPossibleOperations;
 		}
 
 		bool possibleAddr(InstructionRun instructionRun)
@@ -121,7 +123,7 @@ namespace Advent2018
 		{
 			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
 			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
-			if (beforeAccessor->reg[instructionRun.instruction.operand1] & beforeAccessor->reg[instructionRun.instruction.operand2]
+			if ((beforeAccessor->reg[instructionRun.instruction.operand1] & beforeAccessor->reg[instructionRun.instruction.operand2])
 				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
 			return false;
 		}
@@ -130,7 +132,7 @@ namespace Advent2018
 		{
 			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
 			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
-			if (beforeAccessor->reg[instructionRun.instruction.operand1] & instructionRun.instruction.operand2
+			if ((beforeAccessor->reg[instructionRun.instruction.operand1] & instructionRun.instruction.operand2)
 				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
 			return false;
 		}
@@ -139,7 +141,7 @@ namespace Advent2018
 		{
 			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
 			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
-			if (beforeAccessor->reg[instructionRun.instruction.operand1] | beforeAccessor->reg[instructionRun.instruction.operand2]
+			if ((beforeAccessor->reg[instructionRun.instruction.operand1] | beforeAccessor->reg[instructionRun.instruction.operand2])
 				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
 			return false;
 		}
@@ -148,16 +150,25 @@ namespace Advent2018
 		{
 			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
 			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
-			if (beforeAccessor->reg[instructionRun.instruction.operand1] | instructionRun.instruction.operand2
+			if ((beforeAccessor->reg[instructionRun.instruction.operand1] | instructionRun.instruction.operand2)
 				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
 			return false;
 		}
 
-		bool possibleSet(InstructionRun instructionRun)
+		bool possibleSetr(InstructionRun instructionRun)
 		{
 			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
 			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
-			if (beforeAccessor->reg[instructionRun.instruction.operand1] + beforeAccessor->reg[instructionRun.instruction.operand2]
+			if (beforeAccessor->reg[instructionRun.instruction.operand1]
+				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			return false;
+		}
+
+		bool possibleSeti(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (instructionRun.instruction.operand1
 				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
 			return false;
 		}
