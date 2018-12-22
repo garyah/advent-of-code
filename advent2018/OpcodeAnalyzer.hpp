@@ -9,6 +9,16 @@ using namespace std;
 
 namespace Advent2018
 {
+	typedef unsigned regType;
+	typedef struct
+	{
+		regType reg0; regType reg1; regType reg2; regType reg3;
+	} RegisterFile;
+	typedef struct
+	{
+		regType opCode; regType operand1; regType operand2; regType operand3;
+	} Instruction;
+
 	typedef vector<unsigned> SomeVector;
 	typedef unordered_set<unsigned> SomeSet;
 	typedef unordered_map<unsigned, unsigned> SomeMap;
@@ -26,11 +36,19 @@ namespace Advent2018
 		{
 		}
 
-		void method1(unsigned arg1 = 0u, int arg2 = 0, const char *arg3 = "")
+		void addInstruction(RegisterFile before, Instruction instruction, RegisterFile after)
 		{
-			_field1 = arg1;
-			_field2 = arg2;
-			_field3 = arg3;
+			(void)printf("Before: [%u, %u, %u, %u]\n",
+				before.reg0, before.reg1, before.reg2, before.reg3);
+			(void)printf("%u %u %u %u\n",
+				instruction.opCode,
+				instruction.operand1, instruction.operand2, instruction.operand3);
+			(void)printf("After: [%u, %u, %u, %u]\n",
+				after.reg0, after.reg1, after.reg2, after.reg3);
+
+			//_field1 = arg1;
+			//_field2 = arg2;
+			//_field3 = arg3;
 		}
 
 		void method2()
