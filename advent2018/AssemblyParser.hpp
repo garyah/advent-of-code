@@ -12,17 +12,13 @@ namespace Advent2018
 
     enum AssemblyParserOperation
     {
-        //Snd,
         Set,
         Add,
         Mul,
 		Eq,
 		Gt,
 		Ban,
-		Bor,
-		//Mod,
-        //Rcv,
-        //Jgz
+		Bor
     };
 
     struct AssemblyParserInstruction
@@ -62,7 +58,6 @@ namespace Advent2018
                 {
 					instruction.isFirstOperandRegister = true;
 					instruction.isSecondOperandRegister = false;
-                    //if (strcmp(instructionToken, "snd") == 0) { instruction.operation = Snd; break; }
 					if (strcmp(instructionToken, "setr") == 0) { instruction.operation = Set; instruction.isFirstOperandRegister = true; break; }
 					if (strcmp(instructionToken, "seti") == 0) { instruction.operation = Set; instruction.isFirstOperandRegister = false; break; }
 					if (strcmp(instructionToken, "addr") == 0) { instruction.operation = Add; instruction.isSecondOperandRegister = true; break; }
@@ -79,9 +74,6 @@ namespace Advent2018
 					if (strcmp(instructionToken, "gtir") == 0) { instruction.operation = Gt;  instruction.isFirstOperandRegister = false; instruction.isSecondOperandRegister = true; break; }
 					if (strcmp(instructionToken, "gtri") == 0) { instruction.operation = Gt;  instruction.isFirstOperandRegister = true; instruction.isSecondOperandRegister = false; break; }
 					if (strcmp(instructionToken, "gtrr") == 0) { instruction.operation = Gt;  instruction.isFirstOperandRegister = true; instruction.isSecondOperandRegister = true; break; }
-					//if (strcmp(instructionToken, "mod") == 0) { instruction.operation = Mod; break; }
-                    //if (strcmp(instructionToken, "rcv") == 0) { instruction.operation = Rcv; break; }
-                    //if (strcmp(instructionToken, "jgz") == 0) { instruction.operation = Jgz; break; }
                 } while (0);
 
                 auto nextToken = strtok_s(nullptr, " \t", &context);
@@ -163,7 +155,6 @@ namespace Advent2018
 		regType getRegisterZero() { return m_registers[0][0]; }
 
         regType getFirstRecoveryValue() { return m_firstRecoveryValue; }
-
         unsigned getnumberOfSends() { return m_numberOfSends; }
 
     private:
@@ -233,42 +224,6 @@ namespace Advent2018
 			case  Gt: setRegister(instruction, (firstOperand > secondOperand) ? 1 : 0, processId);
                 logTwoOperandExecution("gt", firstOperand, secondOperand, processId);
                 break;
-            //case Mod: setRegister(instruction, firstOperand % secondOperand, processId);
-            //    logTwoOperandExecution("mod", firstOperand, secondOperand, processId);
-            //    break;
-            //case Snd:
-            //    if (multiProcess)
-            //    {
-            //        m_interProcessQueue[processId ? 0 : 1].push(firstOperand);
-            //        if (processId == 1) ++m_numberOfSends;
-            //    }
-            //    if (!multiProcess)
-            //    {
-            //        m_mostRecentSndValue = firstOperand; m_soundPlayed = true;
-            //    }
-            //    logOneOperandExecution("snd", firstOperand, processId);
-            //    break;
-            //case Rcv:
-            //    if (multiProcess)
-            //    {
-            //        if (m_interProcessQueue[processId].empty()) --programCounter;
-            //        if (!m_interProcessQueue[processId].empty())
-            //        {
-            //            setRegister(instruction, m_interProcessQueue[processId].front(), processId);
-            //            m_interProcessQueue[processId].pop();
-            //        }
-            //    }
-            //    if (!multiProcess && m_soundPlayed && firstOperand != 0)
-            //    {
-            //        m_firstRecoveryValue = m_mostRecentSndValue; m_valueRecovered = true;
-            //    }
-            //    logOneOperandExecution("rcv", firstOperand, processId);
-            //    break;
-            //case Jgz:
-            //    if (firstOperand > 0 && (secondOperand < 0 || secondOperand > 1))
-            //        --programCounter += secondOperand;
-            //    logTwoOperandExecution("jgz", firstOperand, secondOperand, processId);
-            //    break;
             default:
                 break;
             }
