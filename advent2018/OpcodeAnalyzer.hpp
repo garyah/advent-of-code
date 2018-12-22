@@ -81,6 +81,10 @@ namespace Advent2018
 			if (possibleBori(instructionRun)) ++numPossibleOperations;
 			if (possibleSetr(instructionRun)) ++numPossibleOperations;
 			if (possibleSeti(instructionRun)) ++numPossibleOperations;
+			if (possibleGtr(instructionRun)) ++numPossibleOperations;
+			if (possibleGti(instructionRun)) ++numPossibleOperations;
+			if (possibleEqr(instructionRun)) ++numPossibleOperations;
+			if (possibleEqi(instructionRun)) ++numPossibleOperations;
 		}
 
 		bool possibleAddr(InstructionRun instructionRun)
@@ -173,21 +177,43 @@ namespace Advent2018
 			return false;
 		}
 
-		bool possibleGt(InstructionRun instructionRun)
+		bool possibleGtr(InstructionRun instructionRun)
 		{
 			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
 			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
-			if (beforeAccessor->reg[instructionRun.instruction.operand1] + beforeAccessor->reg[instructionRun.instruction.operand2]
-				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] > beforeAccessor->reg[instructionRun.instruction.operand2]
+				&& afterAccessor->reg[instructionRun.instruction.operand3] == 1) return true;
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] <= beforeAccessor->reg[instructionRun.instruction.operand2]
+				&& afterAccessor->reg[instructionRun.instruction.operand3] == 0) return true;
 			return false;
 		}
 
-		bool possibleEq(InstructionRun instructionRun)
+		bool possibleGti(InstructionRun instructionRun)
 		{
 			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
 			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
-			if (beforeAccessor->reg[instructionRun.instruction.operand1] + beforeAccessor->reg[instructionRun.instruction.operand2]
-				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] > instructionRun.instruction.operand2
+				&& afterAccessor->reg[instructionRun.instruction.operand3] == 1) return true;
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] <= instructionRun.instruction.operand2
+				&& afterAccessor->reg[instructionRun.instruction.operand3] == 0) return true;
+			return false;
+		}
+
+		bool possibleEqr(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] == beforeAccessor->reg[instructionRun.instruction.operand2]
+				&& afterAccessor->reg[instructionRun.instruction.operand3] == 1) return true;
+			return false;
+		}
+
+		bool possibleEqi(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] == instructionRun.instruction.operand2
+				&& afterAccessor->reg[instructionRun.instruction.operand3] == 1) return true;
 			return false;
 		}
 
