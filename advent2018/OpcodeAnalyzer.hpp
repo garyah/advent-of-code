@@ -73,6 +73,12 @@ namespace Advent2018
 			numPossibleOperations = 0;
 			if (possibleAddr(instructionRun)) ++numPossibleOperations;
 			if (possibleAddi(instructionRun)) ++numPossibleOperations;
+			if (possibleMulr(instructionRun)) ++numPossibleOperations;
+			if (possibleMuli(instructionRun)) ++numPossibleOperations;
+			if (possibleBanr(instructionRun)) ++numPossibleOperations;
+			if (possibleBani(instructionRun)) ++numPossibleOperations;
+			if (possibleBorr(instructionRun)) ++numPossibleOperations;
+			if (possibleBori(instructionRun)) ++numPossibleOperations;
 		}
 
 		bool possibleAddr(InstructionRun instructionRun)
@@ -111,20 +117,38 @@ namespace Advent2018
 			return false;
 		}
 
-		bool possibleBan(InstructionRun instructionRun)
+		bool possibleBanr(InstructionRun instructionRun)
 		{
 			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
 			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
-			if (beforeAccessor->reg[instructionRun.instruction.operand1] + beforeAccessor->reg[instructionRun.instruction.operand2]
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] & beforeAccessor->reg[instructionRun.instruction.operand2]
 				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
 			return false;
 		}
 
-		bool possibleBor(InstructionRun instructionRun)
+		bool possibleBani(InstructionRun instructionRun)
 		{
 			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
 			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
-			if (beforeAccessor->reg[instructionRun.instruction.operand1] + beforeAccessor->reg[instructionRun.instruction.operand2]
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] & instructionRun.instruction.operand2
+				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			return false;
+		}
+
+		bool possibleBorr(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] | beforeAccessor->reg[instructionRun.instruction.operand2]
+				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
+			return false;
+		}
+
+		bool possibleBori(InstructionRun instructionRun)
+		{
+			RegisterFileAccess *beforeAccessor = (RegisterFileAccess*)(&instructionRun.before);
+			RegisterFileAccess *afterAccessor = (RegisterFileAccess*)(&instructionRun.after);
+			if (beforeAccessor->reg[instructionRun.instruction.operand1] | instructionRun.instruction.operand2
 				== afterAccessor->reg[instructionRun.instruction.operand3]) return true;
 			return false;
 		}
