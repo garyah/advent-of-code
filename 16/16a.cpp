@@ -21,7 +21,7 @@ int main()
 	//{
 	//	OpcodeAnalyzer analyzer(0, 0, "");
 	//	analyzer.addInstruction(0u, 0, "");
-	//	cout << "addInstruction test 1: expected 0, actual " << analyzer._field1 << endl;
+	//	cout << "addInstruction test 1: expected 0, actual " << analyzer._numRunsAtLeastThreePossible << endl;
 	//}
 
 	OpcodeAnalyzer analyzer(0, 0, "");
@@ -53,7 +53,7 @@ int main()
 	} while (!cin.eof());
 
 	//analyzer.method2();
-	//cout << analyzer._field1 << ", " << analyzer._field2 << ", |" << analyzer._field3 << "|" << endl;
-	//cout << analyzer._field1 << endl;
+	//cout << analyzer._numRunsAtLeastThreePossible << ", " << analyzer._field2 << ", |" << analyzer._field3 << "|" << endl;
+	cout << analyzer._numRunsAtLeastThreePossible << endl;
 	return 0;
 }

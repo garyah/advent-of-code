@@ -31,11 +31,11 @@ namespace Advent2018
 
 	struct OpcodeAnalyzer
 	{
-		OpcodeAnalyzer(unsigned field1 = 0,
+		OpcodeAnalyzer(unsigned numRunsAtLeastThreePossible = 0,
 			int field2 = 0,
 			const char *field3 = "",
 			int dummy = 0) :
-			_field1(field1),
+			_numRunsAtLeastThreePossible(numRunsAtLeastThreePossible),
 			_field2(field2),
 			_field3(field3),
 			_dummy(dummy)
@@ -44,41 +44,36 @@ namespace Advent2018
 
 		void addInstruction(RegisterFile before, Instruction instruction, RegisterFile after)
 		{
-			(void)printf("Before: [%u, %u, %u, %u]\n",
-				before.reg0, before.reg1, before.reg2, before.reg3);
-			(void)printf("%u %u %u %u\n",
-				instruction.opCode,
-				instruction.operand1, instruction.operand2, instruction.operand3);
-			(void)printf("After: [%u, %u, %u, %u]\n",
-				after.reg0, after.reg1, after.reg2, after.reg3);
+			//(void)printf("Before: [%u, %u, %u, %u]\n",
+			//	before.reg0, before.reg1, before.reg2, before.reg3);
+			//(void)printf("%u %u %u %u\n",
+			//	instruction.opCode,
+			//	instruction.operand1, instruction.operand2, instruction.operand3);
+			//(void)printf("After: [%u, %u, %u, %u]\n",
+			//	after.reg0, after.reg1, after.reg2, after.reg3);
 
-			InstructionRun instructionRun = {
-				before,
-				instruction,
-				after
-			};
+			InstructionRun instructionRun = { before, instruction, after };
 			_programRun.push_back(instructionRun);
-
-			//_field1 = arg1;
-			//_field2 = arg2;
-			//_field3 = arg3;
+			auto numPossibleOperations = 0u;
+			analyzeInstruction(instructionRun, numPossibleOperations);
+			if (numPossibleOperations >= 3) ++_numRunsAtLeastThreePossible;
 		}
 
 		void method2()
 		{
 		}
 
-		void helper1(unsigned arg1, int arg2, unsigned& out1, string& out2)
+		void analyzeInstruction(InstructionRun instructionRun, unsigned& numPossibleOperations)
 		{
-			out1 = 0;
-			out2.empty();
+			numPossibleOperations = 0;
+			//if (possibleAddr(instructionRun)) ++numPossibleOperations;
 		}
 
 		void helper2()
 		{
 		}
 
-		unsigned _field1;
+		unsigned _numRunsAtLeastThreePossible;
 		int _field2;
 		string _field3;
 		int _dummy;
