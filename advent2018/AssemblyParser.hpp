@@ -110,20 +110,22 @@ namespace Advent2018
         {
             clearState();
 			m_registers[0][0] = initialRegisterZeroValue;
-			auto numExecuted = 0u;
+			auto numExecuted = 0u, num28Reached = 0u;
             for (size_t programCounter = 0; programCounter >= 0 && programCounter < m_program.size(); ++programCounter)
             {
 				//cout << "ip=" << programCounter << " ";
 				//logRegisters();
 				if (programCounter == 28)
 				{
-					cout << "reached magic instruction at ip=28!" << " ";
-					logRegisters();
+					//cout << "reached magic instruction at ip=28!" << " ";
+					//logRegisters();
+					cout << m_registers[5][0];
 					cout << endl;
-					//return;
+					++num28Reached;
+					if (num28Reached == 100 * 1000) return;
 				}
                 programCounter = executeInstructionReturningProgramCounter(programCounter, m_program[programCounter]);
-				if (numExecuted % (10 * 1000 * 1000) == 0 && false)
+				if (false && numExecuted % (10 * 1000 * 1000) == 0)
 				{
 					cout << "numExecuted=" << numExecuted << ", ip=" << programCounter << " ";
 					logRegisters();
@@ -287,7 +289,7 @@ namespace Advent2018
         void setRegister(const AssemblyParserInstruction& instruction, regType value, size_t processId)
         {
 			auto third = instruction.thirdOperand;
-			if (third == 5) cout << "register 5 set with " << value << endl;
+			// if (third == 5) cout << "register 5 set with " << value << endl;
             m_registers[third][processId] = value;
 			if (value < m_minRegisterValues[third]) m_minRegisterValues[third] = value;
 			if (value > m_maxRegisterValues[third]) m_maxRegisterValues[third] = value;

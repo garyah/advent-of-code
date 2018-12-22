@@ -22,6 +22,6 @@ int main()
 	} while (!cin.eof());
 
 	parser.executeProgram(initialRegisterZeroValue);
-	cout << parser.getRegisterZero() << endl;
+	//cout << parser.getRegisterZero() << endl;
 	return 0;
 }
