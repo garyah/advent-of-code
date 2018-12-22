@@ -46,7 +46,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "advent2018", "advent2018", "{93A18934-BD3D-472E-A8FA-D82523D728CC}"
 	ProjectSection(SolutionItems) = preProject
 		advent2018\AssemblyParser.hpp = advent2018\AssemblyParser.hpp
-		advent2018\BlankClass.hpp = advent2018\BlankClass.hpp
+		advent2018\CaveAssessor.hpp = advent2018\CaveAssessor.hpp
 		advent2018\CheckSummer.hpp = advent2018\CheckSummer.hpp
 		advent2018\ChronalOptimizer.hpp = advent2018\ChronalOptimizer.hpp
 		advent2018\CombatGame.hpp = advent2018\CombatGame.hpp
