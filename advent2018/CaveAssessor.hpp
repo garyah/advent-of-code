@@ -48,7 +48,7 @@ namespace Advent2018
 			{
 				_erosionLevelGrid[0][colIdx] = updateRisk(erosionLevelForY0(colIdx));
 			}
-			for (size_t rowIdx = 1; rowIdx <= _targetX; ++rowIdx)
+			for (size_t rowIdx = 1; rowIdx <= _targetY; ++rowIdx)
 			{
 				_erosionLevelGrid[rowIdx][0] = updateRisk(erosionLevelForX0(rowIdx));
 			}
