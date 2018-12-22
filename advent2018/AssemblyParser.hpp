@@ -1,5 +1,6 @@
 #include <queue>
 #include <stdint.h>
+#include <stdio.h>
 #include <string>
 #include <vector>
 
@@ -36,10 +37,7 @@ namespace Advent2018
     {
     public:
         AssemblyParser() :
-			m_ipRegNum(0),
-            m_soundPlayed(false),
-            m_valueRecovered(false),
-            m_numberOfSends(0)
+			m_ipRegNum(0)
         {
         }
 
@@ -130,32 +128,8 @@ namespace Advent2018
             }
         }
 
-        void executeProgramV2()
-        {
-            clearState();
-            m_registers['P' - 'A'][0] = 0;
-            m_registers['P' - 'A'][1] = 1;
-            for (size_t programCounter0 = 0, programCounter1 = 0;
-                programCounter0 >= 0 && programCounter0 < m_program.size()
-                || programCounter1 >= 0 && programCounter1 < m_program.size();
-                ++programCounter0, ++programCounter1)
-            {
-                auto savedCounter0 = programCounter0;
-                auto savedCounter1 = programCounter1;
-                if (programCounter0 >= 0 && programCounter0 < m_program.size())
-                    programCounter0 = executeInstructionReturningProgramCounter(programCounter0, m_program[programCounter0], true, 0);
-                if (programCounter1 >= 0 && programCounter1 < m_program.size())
-                    programCounter1 = executeInstructionReturningProgramCounter(programCounter1, m_program[programCounter1], true, 1);
-                if (programCounter0 - savedCounter0 == -1 && programCounter1 - savedCounter1 == -1)   // DEADLOCK!
-                    break;
-            }
-        }
-
 		void setIpRegNum(unsigned value) { m_ipRegNum = value; }
 		regType getRegisterZero() { return m_registers[0][0]; }
-
-        regType getFirstRecoveryValue() { return m_firstRecoveryValue; }
-        unsigned getnumberOfSends() { return m_numberOfSends; }
 
     private:
         void clearState()
@@ -169,13 +143,6 @@ namespace Advent2018
 				m_minRegisterValues[i] = (regType)-1;
 				m_maxRegisterValues[i] = 0;
 			}
-
-            m_soundPlayed = m_valueRecovered = false;
-            m_mostRecentSndValue = m_firstRecoveryValue = 0;
-
-            while (!m_interProcessQueue[0].empty()) m_interProcessQueue[0].pop();
-            while (!m_interProcessQueue[1].empty()) m_interProcessQueue[1].pop();
-            m_numberOfSends = 0;
         }
 
 		void logRegisters()
@@ -270,12 +237,5 @@ namespace Advent2018
 		regType m_registers[6][1];
 		regType m_minRegisterValues[6];
 		regType m_maxRegisterValues[6];
-		bool m_soundPlayed;
-        regType m_mostRecentSndValue;
-        bool m_valueRecovered;
-        regType m_firstRecoveryValue;
-
-        std::queue<regType> m_interProcessQueue[2];
-        unsigned m_numberOfSends;
     };
 }

@@ -35,7 +35,6 @@ int main()
 	CaveAssessor assessor(depth, targetX, targetY);
 
 	assessor.calculateErosionLevels();
-	//cout << assessor._field1 << ", " << assessor._field2 << ", |" << assessor._field3 << "|" << endl;
 	cout << assessor._risk << endl;
 	return 0;
 }
