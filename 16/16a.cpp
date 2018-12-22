@@ -53,7 +53,6 @@ int main()
 	} while (!cin.eof());
 
 	//analyzer.method2();
-	//cout << analyzer._numRunsAtLeastThreePossible << ", " << analyzer._field2 << ", |" << analyzer._field3 << "|" << endl;
 	cout << analyzer._numRunsAtLeastThreePossible << endl;
 	return 0;
 }

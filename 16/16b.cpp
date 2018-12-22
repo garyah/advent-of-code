@@ -13,16 +13,30 @@ int main()
 	{
 		char line[80 + 1] = { 0 };
 		cin.getline(line, _countof(line));
-		auto first = 0u;
-		auto second = 0;
-		char third[10 + 1] = { 0 };
-		(void)sscanf_s(line, "unsigned %u, int %d, string %10s",
-			&first, &second, third, 10);
-		//analyzer.method1(first, second, third);
+		if (strlen(line) == 0)
+		{
+			cin.getline(line, _countof(line));
+			if (strlen(line) == 0) break;
+		};
+
+		RegisterFile before = { 0, 0, 0, 0 };
+		(void)sscanf_s(line, "Before: [%u, %u, %u, %u]",
+			&before.reg0, &before.reg1, &before.reg2, &before.reg3);
+
+		cin.getline(line, _countof(line));
+		Instruction instruction = { 0, 0, 0, 0 };
+		(void)sscanf_s(line, "%u %u %u %u",
+			&instruction.opCode,
+			&instruction.operand1, &instruction.operand2, &instruction.operand3);
+
+		cin.getline(line, _countof(line));
+		RegisterFile after = { 0, 0, 0, 0 };
+		(void)sscanf_s(line, "After: [%u, %u, %u, %u]",
+			&after.reg0, &after.reg1, &after.reg2, &after.reg3);
+		analyzer.addInstruction(before, instruction, after);
 	} while (!cin.eof());
 
 	//analyzer.method2();
-	//cout << analyzer._field1 << ", " << analyzer._field2 << ", |" << analyzer._field3 << "|" << endl;
-	//cout << analyzer._field1 << endl;
+	cout << analyzer._numRunsAtLeastThreePossible << endl;
 	return 0;
 }
