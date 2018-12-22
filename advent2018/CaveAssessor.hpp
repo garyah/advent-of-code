@@ -16,22 +16,20 @@ namespace Advent2018
 
 	struct CaveAssessor
 	{
-		CaveAssessor(unsigned field1 = 0,
-			int field2 = 0,
-			const char *field3 = "",
+		CaveAssessor(
+			unsigned depth,
+			unsigned targetX,
+			unsigned targetY,
 			int dummy = 0) :
-			_field1(field1),
-			_field2(field2),
-			_field3(field3),
+			_depth(depth),
+			_targetX(targetX),
+			_targetY(targetY),
 			_dummy(dummy)
 		{
 		}
 
 		void method1(unsigned arg1 = 0u, int arg2 = 0, const char *arg3 = "")
 		{
-			_field1 = arg1;
-			_field2 = arg2;
-			_field3 = arg3;
 		}
 
 		void method2()
@@ -48,9 +46,9 @@ namespace Advent2018
 		{
 		}
 
-		unsigned _field1;
-		int _field2;
-		string _field3;
+		unsigned _depth;
+		unsigned _targetX;
+		unsigned _targetY;
 		int _dummy;
 
 		SomeVector _someVector;
