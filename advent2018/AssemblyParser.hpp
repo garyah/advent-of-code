@@ -100,19 +100,20 @@ namespace Advent2018
         {
             clearState();
 			m_registers[0][0] = initialRegisterZeroValue;
-			auto numExecuted = 0u, num28Reached = 0u;
+			size_t breakpointProgramCounter = 13;
+			auto numExecuted = 0u, numBreakpointReached = 0u;
             for (size_t programCounter = 0; programCounter >= 0 && programCounter < m_program.size(); ++programCounter)
             {
 				//cout << "ip=" << programCounter << " ";
 				//logRegisters();
-				if (programCounter == 28)
+				if (programCounter == breakpointProgramCounter)
 				{
-					//cout << "reached magic instruction at ip=28!" << " ";
-					//logRegisters();
-					cout << m_registers[5][0];
+					cout << "reached breakpoint: " << " ";
+					logRegisters();
+					//cout << m_registers[5][0];
 					cout << endl;
-					++num28Reached;
-					if (num28Reached == 100 * 1000) return;
+					++numBreakpointReached;
+					if (numBreakpointReached == 100) return;
 				}
                 programCounter = executeInstructionReturningProgramCounter(programCounter, m_program[programCounter]);
 				if (false && numExecuted % (10 * 1000 * 1000) == 0)
