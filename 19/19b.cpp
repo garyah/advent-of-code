@@ -12,7 +12,12 @@ int main()
 	char line[80 + 1] = { 0 };
 	cin.getline(line, _countof(line));
 	auto ipRegNum = 0u;
-	(void)sscanf_s(line, "#ip %u", &ipRegNum);
+	size_t initialProgramCounter = 0;
+	regType initialRegisterValues[6] = { 0 };
+	(void)sscanf_s(line, "#ip %u, %zu, %llu, %llu, %llu, %llu, %llu, %llu",
+				   &ipRegNum, &initialProgramCounter,
+				   &initialRegisterValues[0], &initialRegisterValues[1], &initialRegisterValues[2],
+				   &initialRegisterValues[3], &initialRegisterValues[4], &initialRegisterValues[5]);
 	parser.setIpRegNum(ipRegNum);
 	do
 	{
@@ -20,7 +25,7 @@ int main()
 		parser.parseInstruction(line);
 	} while (!cin.eof());
 
-	parser.executeProgram(1);
+	parser.executeProgram(1, initialProgramCounter, initialRegisterValues);
 	cout << parser.getRegisterZero() << endl;
 	return 0;
 }

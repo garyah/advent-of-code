@@ -96,13 +96,18 @@ namespace Advent2018
             }
         }
 
-        void executeProgram(regType initialRegisterZeroValue = 0)
+		void executeProgram(regType initialRegisterZeroValue = 0,
+							size_t initialProgramCounter = 0, regType initialRegisterValues[6] = {0})
         {
             clearState();
 			m_registers[0][0] = initialRegisterZeroValue;
+			for (size_t i = 0; i < _countof(m_registers); ++i)
+				m_registers[i][0] = initialRegisterValues[i];
 			size_t breakpointProgramCounter = 13;
 			auto numExecuted = 0u, numBreakpointReached = 0u;
-            for (size_t programCounter = 0; programCounter >= 0 && programCounter < m_program.size(); ++programCounter)
+            for (size_t programCounter = initialRegisterZeroValue;
+				 programCounter >= 0 && programCounter < m_program.size();
+				 ++programCounter)
             {
 				//cout << "ip=" << programCounter << " ";
 				//logRegisters();
