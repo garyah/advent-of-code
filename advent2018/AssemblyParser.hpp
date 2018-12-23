@@ -96,32 +96,32 @@ namespace Advent2018
             }
         }
 
-		void executeProgram(regType initialRegisterZeroValue = 0,
+		void executeProgram(//regType initialRegisterZeroValue = 0,
 							size_t initialProgramCounter = 0, regType initialRegisterValues[6] = {0})
         {
             clearState();
-			m_registers[0][0] = initialRegisterZeroValue;
+			//m_registers[0][0] = initialRegisterZeroValue;
 			for (size_t i = 0; i < _countof(m_registers); ++i)
 				m_registers[i][0] = initialRegisterValues[i];
 			size_t breakpointProgramCounter = 13;
 			auto numExecuted = 0u, numBreakpointReached = 0u;
-            for (size_t programCounter = initialRegisterZeroValue;
+            for (size_t programCounter = initialProgramCounter;
 				 programCounter >= 0 && programCounter < m_program.size();
 				 ++programCounter)
             {
 				//cout << "ip=" << programCounter << " ";
 				//logRegisters();
-				if (programCounter == breakpointProgramCounter)
+				if (false && programCounter == breakpointProgramCounter)
 				{
 					cout << "reached breakpoint: " << " ";
 					logRegisters();
 					//cout << m_registers[5][0];
 					cout << endl;
 					++numBreakpointReached;
-					if (numBreakpointReached == 100) return;
+					if (numBreakpointReached == 10) return;
 				}
                 programCounter = executeInstructionReturningProgramCounter(programCounter, m_program[programCounter]);
-				if (false && numExecuted % (10 * 1000 * 1000) == 0)
+				if (true && numExecuted % (10 * 1000 * 1000) == 0)
 				{
 					cout << "numExecuted=" << numExecuted << ", ip=" << programCounter << " ";
 					logRegisters();

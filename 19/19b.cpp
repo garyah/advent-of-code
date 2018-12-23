@@ -25,7 +25,7 @@ int main()
 		parser.parseInstruction(line);
 	} while (!cin.eof());
 
-	parser.executeProgram(1, initialProgramCounter, initialRegisterValues);
+	parser.executeProgram(initialProgramCounter, initialRegisterValues);
 	cout << parser.getRegisterZero() << endl;
 	return 0;
 }
