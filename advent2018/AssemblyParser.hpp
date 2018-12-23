@@ -8,8 +8,9 @@ using namespace std;
 
 namespace Advent2018
 {
-	typedef int64_t regType;
 	//typedef unsigned regType;
+	//typedef int64_t regType;
+	typedef uint64_t regType;
 
     enum AssemblyParserOperation
     {
@@ -102,7 +103,7 @@ namespace Advent2018
             clearState();
 			//m_registers[0][0] = initialRegisterZeroValue;
 			for (size_t i = 0; i < _countof(m_registers); ++i)
-				m_registers[i][0] = initialRegisterValues[i];
+				m_registers[i][0] = m_minRegisterValues[i] = m_maxRegisterValues[i] = initialRegisterValues[i];
 			size_t breakpointProgramCounter = 13;
 			auto numExecuted = 0u, numBreakpointReached = 0u;
             for (size_t programCounter = initialProgramCounter;
@@ -146,8 +147,7 @@ namespace Advent2018
 
 			for (size_t i = 0; i < _countof(m_registers); ++i)
 			{
-				m_minRegisterValues[i] = (regType)-1;
-				m_maxRegisterValues[i] = 0;
+				m_minRegisterValues[i] = m_maxRegisterValues[i] = 0;
 			}
         }
 
