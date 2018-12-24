@@ -9,7 +9,31 @@ using namespace std;
 
 namespace Advent2018
 {
-	typedef vector<unsigned> SomeVector;
+	typedef enum
+	{
+		Cold = 1 << 0,
+		Fire = 1 << 1,
+		Radiation = 1 << 2,
+		Bludgeoning = 1 << 3,
+		Slashing = 1 << 4,
+	} AttackType;
+	typedef enum
+	{
+		ImmuneSystem = 0,
+		Infection = 1,
+		InvalidType
+	} GroupType;
+	typedef struct
+	{
+		unsigned numUnits;
+		unsigned hitPoints;
+		unsigned immunities;
+		unsigned weaknesses;
+		unsigned attackDamage;
+		AttackType attackType;
+		unsigned initiative;
+	} Group;
+	typedef vector<Group> Army;
 	typedef unordered_set<unsigned> SomeSet;
 	typedef unordered_map<unsigned, unsigned> SomeMap;
 
@@ -26,7 +50,7 @@ namespace Advent2018
 		{
 		}
 
-		void method1(unsigned arg1 = 0u, int arg2 = 0, const char *arg3 = "")
+		void addGroup(unsigned arg1 = 0u, int arg2 = 0, const char *arg3 = "")
 		{
 			_field1 = arg1;
 			_field2 = arg2;
@@ -52,7 +76,8 @@ namespace Advent2018
 		string _field3;
 		int _dummy;
 
-		SomeVector _someVector;
+		Army _immuneSystem;
+		Army _infection;
 		SomeSet _someSet;
 		SomeMap _someMap;
 	};
