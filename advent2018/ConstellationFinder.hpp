@@ -33,6 +33,7 @@ namespace Advent2018
 		void addPoint(int x, int y, int z, int t)
 		{
 			Point point = {x, y, z, t};
+			_points.push_back(point);
 			//_field1 = arg1;
 			//_field2 = arg2;
 			//_field3 = arg3;
