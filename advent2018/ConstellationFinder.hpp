@@ -25,11 +25,11 @@ namespace Advent2018
 	struct ConstellationFinder
 	{
 		ConstellationFinder(unsigned numCloseDistances = 0,
-			int field2 = 0,
+			int numConstellations = 0,
 			const char *field3 = "",
 			int dummy = 0) :
 			_numCloseDistances(numCloseDistances),
-			_field2(field2),
+			_numConstellations(numConstellations),
 			_field3(field3),
 			_dummy(dummy)
 		{
@@ -39,17 +39,42 @@ namespace Advent2018
 		{
 			Point point = {x, y, z, t};
 			_points.push_back(point);
-			//_numCloseDistances = arg1;
-			//_field2 = arg2;
-			//_field3 = arg3;
 		}
 
 		void method2()
 		{
 		}
 
-		void statsForDistanceBetweenAnyTwoPoints()
+		void countConstellations()
 		{
+			_numConstellations = 0;
+			countCloseDistances();
+			ClosePointPairs closePointPairs = _closePointPairs;
+			while (closePointPairs.size() != 0)
+			{
+				traverseNeighbors(closePointPairs, (size_t)-1, closePointPairs.begin()->first);
+				++_numConstellations;
+			}
+		}
+
+		void traverseNeighbors(ClosePointPairs& closePointPairs, size_t parentPoint, size_t rootPoint)
+		{
+			auto neighbors = closePointPairs.equal_range(rootPoint);
+			while (neighbors.first != closePointPairs.end())
+			{
+				auto nextNeighbor = neighbors.first->second;
+				closePointPairs.erase(neighbors.first);
+				if (parentPoint == (size_t)-1 || nextNeighbor != parentPoint)
+				{
+					traverseNeighbors(closePointPairs, rootPoint, nextNeighbor);
+				}
+				neighbors = closePointPairs.equal_range(rootPoint);
+			}
+		}
+
+		void countCloseDistances()
+		{
+			_numCloseDistances = 0;
 			for (size_t i = 0; i < _points.size(); ++i)
 				for (size_t j = 0; j < _points.size(); ++j)
 				{
@@ -68,9 +93,10 @@ namespace Advent2018
 					auto distance
 						= distanceBetweenTwoPoints(_points[i].x, _points[i].y, _points[i].z, _points[i].t,
 							_points[j].x, _points[j].y, _points[j].z, _points[j].t);
-					if (distance < 3)
+					if (distance <= 3)
 					{
 						_closePointPairs.insert({ i, j });
+						_closePointPairs.insert({ j, i });
 						++_numCloseDistances;
 					}
 				}
@@ -79,16 +105,10 @@ namespace Advent2018
 		int distanceBetweenTwoPoints(int x1, int y1, int z1, int t1, int x2, int y2, int z2, int t2)
 		{
 			return abs(x2 - x1) + abs(y2 - y1) + abs(z2 - z1) + abs(t2 - t1);
-			//out1 = 0;
-			//out2.empty();
-		}
-
-		void helper2()
-		{
 		}
 
 		unsigned _numCloseDistances;
-		int _field2;
+		unsigned _numConstellations;
 		string _field3;
 		int _dummy;
 

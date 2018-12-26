@@ -28,13 +28,14 @@ int main()
 	{
 		char line[80 + 1] = { 0 };
 		cin.getline(line, _countof(line));
+		if (strlen(line) == 0) break;
 		auto x = 0, y = 0, z = 0, t = 0;
 		(void)sscanf_s(line, "%u, %u, %u, %u", &x, &y, &z, &t);
 		finder.addPoint(x, y, z, t);
 	} while (!cin.eof());
 
-	finder.statsForDistanceBetweenAnyTwoPoints();
-	//cout << finder._field1 << ", " << finder._field2 << ", |" << finder._field3 << "|" << endl;
+	finder.countConstellations();
 	cout << finder._numCloseDistances << endl;
+	cout << finder._numConstellations << endl;
 	return 0;
 }
