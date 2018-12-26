@@ -33,8 +33,8 @@ int main()
 		finder.addPoint(x, y, z, t);
 	} while (!cin.eof());
 
-	//finder.method2();
+	finder.statsForDistanceBetweenAnyTwoPoints();
 	//cout << finder._field1 << ", " << finder._field2 << ", |" << finder._field3 << "|" << endl;
-	//cout << finder._field1 << endl;
+	cout << finder._numCloseDistances << endl;
 	return 0;
 }
