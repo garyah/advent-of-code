@@ -66,9 +66,11 @@ namespace Advent2018
 
 		void traverseNeighbors(ClosePointPairs& closePointPairs, size_t parentPoint, size_t rootPoint)
 		{
-			for (auto i = 0u; i < _traversalDepth; ++i) cout << " ";
-			cout << "traverseNeighbors: depth = " << _traversalDepth;
-			cout << ": parentPoint = " << (int)parentPoint << ", rootPoint = " << rootPoint << endl;
+			// DEBUG
+			//for (auto i = 0u; i < _traversalDepth; ++i) cout << " ";
+			//cout << "traverseNeighbors: depth = " << _traversalDepth;
+			//cout << ": parentPoint = " << (int)parentPoint << ", rootPoint = " << rootPoint << endl;
+
 			auto neighbors = closePointPairs.equal_range(rootPoint);
 			while (neighbors.first != closePointPairs.end())
 			{
@@ -99,7 +101,10 @@ namespace Advent2018
 					{
 						_closePointPairs.insert({ i, j });
 						_closePointPairs.insert({ j, i });
-						cout << "distance of " << distance << " between points " << i << " and " << j << endl;
+
+						// DEBUG
+						//cout << "distance of " << distance << " between points " << i << " and " << j << endl;
+
 						++_numCloseDistances;
 					}
 				}

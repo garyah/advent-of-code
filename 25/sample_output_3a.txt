@@ -1,17 +1,2 @@
-distance of 3 between points 2 and 1
-distance of 3 between points 4 and 1
-distance of 3 between points 5 and 2
-distance of 2 between points 8 and 0
-distance of 3 between points 8 and 4
-distance of 2 between points 8 and 7
-distance of 3 between points 9 and 2
-traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 2
- traverseNeighbors: depth = 1: parentPoint = 2, rootPoint = 1
-  traverseNeighbors: depth = 2: parentPoint = 1, rootPoint = 4
-   traverseNeighbors: depth = 3: parentPoint = 4, rootPoint = 8
-    traverseNeighbors: depth = 4: parentPoint = 8, rootPoint = 0
-    traverseNeighbors: depth = 4: parentPoint = 8, rootPoint = 7
- traverseNeighbors: depth = 1: parentPoint = 2, rootPoint = 5
- traverseNeighbors: depth = 1: parentPoint = 2, rootPoint = 9
 7
 3
