@@ -23,7 +23,7 @@ int main()
 	//	cout << "addPoint test 1: expected 0, actual " << finder._field1 << endl;
 	//}
 
-	ConstellationFinder finder(0, 0, "");
+	ConstellationFinder finder;
 	do
 	{
 		char line[80 + 1] = { 0 };

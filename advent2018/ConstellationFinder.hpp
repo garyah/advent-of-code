@@ -25,11 +25,13 @@ namespace Advent2018
 	struct ConstellationFinder
 	{
 		ConstellationFinder(unsigned numCloseDistances = 0,
-			int numConstellations = 0,
+			unsigned numConstellations = 0,
+			unsigned traversalDepth = 0,
 			const char *field3 = "",
 			int dummy = 0) :
 			_numCloseDistances(numCloseDistances),
 			_numConstellations(numConstellations),
+			_traversalDepth(traversalDepth),
 			_field3(field3),
 			_dummy(dummy)
 		{
@@ -47,8 +49,9 @@ namespace Advent2018
 
 		void countConstellations()
 		{
-			_numConstellations = 0;
 			countCloseDistances();
+			_numConstellations = 0;
+			_traversalDepth = 0;
 			ClosePointPairs closePointPairs = _closePointPairs;
 			while (closePointPairs.size() != 0)
 			{
@@ -59,6 +62,9 @@ namespace Advent2018
 
 		void traverseNeighbors(ClosePointPairs& closePointPairs, size_t parentPoint, size_t rootPoint)
 		{
+			for (auto i = 0u; i < _traversalDepth; ++i) cout << " ";
+			cout << "traverseNeighbors: depth = " << _traversalDepth;
+			cout << ": parentPoint = " << (int)parentPoint << ", rootPoint = " << rootPoint << endl;
 			auto neighbors = closePointPairs.equal_range(rootPoint);
 			while (neighbors.first != closePointPairs.end())
 			{
@@ -66,7 +72,9 @@ namespace Advent2018
 				closePointPairs.erase(neighbors.first);
 				if (parentPoint == (size_t)-1 || nextNeighbor != parentPoint)
 				{
+					++_traversalDepth;
 					traverseNeighbors(closePointPairs, rootPoint, nextNeighbor);
+					--_traversalDepth;
 				}
 				neighbors = closePointPairs.equal_range(rootPoint);
 			}
@@ -92,11 +100,12 @@ namespace Advent2018
 
 					auto distance
 						= distanceBetweenTwoPoints(_points[i].x, _points[i].y, _points[i].z, _points[i].t,
-							_points[j].x, _points[j].y, _points[j].z, _points[j].t);
+												   _points[j].x, _points[j].y, _points[j].z, _points[j].t);
 					if (distance <= 3)
 					{
 						_closePointPairs.insert({ i, j });
 						_closePointPairs.insert({ j, i });
+						cout << "distance of " << distance << " between points " << i << " and " << j << endl;
 						++_numCloseDistances;
 					}
 				}
@@ -109,6 +118,7 @@ namespace Advent2018
 
 		unsigned _numCloseDistances;
 		unsigned _numConstellations;
+		unsigned _traversalDepth;
 		string _field3;
 		int _dummy;
 

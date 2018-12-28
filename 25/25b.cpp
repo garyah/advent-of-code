@@ -8,7 +8,7 @@ using namespace Advent2018;
 
 int main()
 {
-	ConstellationFinder finder(0, 0, "");
+	ConstellationFinder finder;
 	do
 	{
 		char line[80 + 1] = { 0 };
