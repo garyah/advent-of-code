@@ -1,0 +1,1772 @@
+distance of 2 between points 15 and 0
+distance of 3 between points 20 and 8
+distance of 2 between points 60 and 53
+distance of 3 between points 61 and 41
+distance of 3 between points 73 and 38
+distance of 3 between points 83 and 24
+distance of 3 between points 88 and 52
+distance of 3 between points 96 and 78
+distance of 3 between points 102 and 33
+distance of 2 between points 110 and 16
+distance of 2 between points 117 and 33
+distance of 3 between points 119 and 89
+distance of 3 between points 127 and 8
+distance of 3 between points 128 and 28
+distance of 3 between points 132 and 72
+distance of 3 between points 136 and 26
+distance of 2 between points 144 and 71
+distance of 3 between points 146 and 119
+distance of 3 between points 156 and 105
+distance of 1 between points 162 and 158
+distance of 2 between points 166 and 102
+distance of 3 between points 166 and 117
+distance of 2 between points 181 and 123
+distance of 3 between points 187 and 133
+distance of 3 between points 190 and 129
+distance of 3 between points 191 and 104
+distance of 2 between points 206 and 134
+distance of 3 between points 212 and 163
+distance of 3 between points 217 and 124
+distance of 3 between points 218 and 210
+distance of 1 between points 222 and 140
+distance of 3 between points 232 and 121
+distance of 3 between points 234 and 203
+distance of 1 between points 236 and 125
+distance of 3 between points 236 and 141
+distance of 2 between points 237 and 55
+distance of 3 between points 239 and 201
+distance of 3 between points 248 and 60
+distance of 3 between points 252 and 87
+distance of 3 between points 254 and 115
+distance of 1 between points 255 and 92
+distance of 2 between points 259 and 189
+distance of 3 between points 261 and 33
+distance of 2 between points 263 and 72
+distance of 3 between points 263 and 132
+distance of 3 between points 264 and 184
+distance of 3 between points 266 and 42
+distance of 3 between points 267 and 33
+distance of 3 between points 267 and 117
+distance of 2 between points 268 and 112
+distance of 2 between points 269 and 202
+distance of 3 between points 270 and 195
+distance of 1 between points 272 and 194
+distance of 3 between points 279 and 107
+distance of 3 between points 286 and 29
+distance of 2 between points 287 and 158
+distance of 3 between points 287 and 162
+distance of 3 between points 288 and 161
+distance of 1 between points 288 and 184
+distance of 1 between points 290 and 213
+distance of 3 between points 302 and 126
+distance of 3 between points 304 and 139
+distance of 1 between points 307 and 82
+distance of 3 between points 312 and 216
+distance of 1 between points 313 and 233
+distance of 1 between points 314 and 278
+distance of 2 between points 316 and 303
+distance of 3 between points 320 and 135
+distance of 3 between points 320 and 283
+distance of 2 between points 324 and 300
+distance of 2 between points 325 and 143
+distance of 3 between points 328 and 46
+distance of 3 between points 329 and 38
+distance of 3 between points 329 and 187
+distance of 3 between points 330 and 268
+distance of 3 between points 330 and 286
+distance of 3 between points 333 and 102
+distance of 3 between points 333 and 166
+distance of 3 between points 333 and 194
+distance of 2 between points 333 and 272
+distance of 3 between points 334 and 206
+distance of 2 between points 336 and 163
+distance of 3 between points 337 and 210
+distance of 3 between points 338 and 98
+distance of 3 between points 341 and 266
+distance of 2 between points 349 and 214
+distance of 3 between points 349 and 292
+distance of 3 between points 350 and 274
+distance of 3 between points 351 and 314
+distance of 3 between points 358 and 296
+distance of 2 between points 359 and 303
+distance of 2 between points 361 and 299
+distance of 1 between points 362 and 138
+distance of 2 between points 365 and 150
+distance of 2 between points 366 and 33
+distance of 2 between points 366 and 117
+distance of 3 between points 366 and 241
+distance of 3 between points 366 and 261
+distance of 3 between points 370 and 304
+distance of 3 between points 373 and 53
+distance of 3 between points 374 and 180
+distance of 3 between points 375 and 97
+distance of 3 between points 375 and 193
+distance of 3 between points 376 and 307
+distance of 3 between points 377 and 335
+distance of 3 between points 381 and 373
+distance of 2 between points 382 and 203
+distance of 3 between points 382 and 234
+distance of 3 between points 385 and 63
+distance of 1 between points 388 and 42
+distance of 3 between points 388 and 254
+distance of 3 between points 389 and 32
+distance of 2 between points 390 and 62
+distance of 3 between points 394 and 307
+distance of 3 between points 394 and 392
+distance of 3 between points 404 and 198
+distance of 3 between points 406 and 249
+distance of 3 between points 406 and 399
+distance of 3 between points 407 and 12
+distance of 3 between points 409 and 28
+distance of 3 between points 409 and 140
+distance of 3 between points 410 and 15
+distance of 1 between points 411 and 100
+distance of 2 between points 412 and 16
+distance of 2 between points 412 and 110
+distance of 3 between points 413 and 35
+distance of 1 between points 414 and 183
+distance of 2 between points 415 and 399
+distance of 2 between points 416 and 35
+distance of 3 between points 416 and 413
+distance of 3 between points 422 and 184
+distance of 2 between points 425 and 128
+distance of 2 between points 429 and 17
+distance of 2 between points 432 and 274
+distance of 3 between points 432 and 350
+distance of 3 between points 432 and 390
+distance of 3 between points 436 and 165
+distance of 2 between points 437 and 159
+distance of 3 between points 439 and 188
+distance of 3 between points 439 and 388
+distance of 3 between points 444 and 228
+distance of 3 between points 446 and 283
+distance of 1 between points 447 and 250
+distance of 3 between points 449 and 301
+distance of 3 between points 452 and 304
+distance of 2 between points 452 and 370
+distance of 2 between points 456 and 81
+distance of 3 between points 459 and 0
+distance of 3 between points 459 and 15
+distance of 2 between points 461 and 165
+distance of 2 between points 463 and 195
+distance of 3 between points 463 and 270
+distance of 3 between points 465 and 123
+distance of 3 between points 467 and 293
+distance of 3 between points 467 and 392
+distance of 3 between points 470 and 130
+distance of 3 between points 472 and 157
+distance of 1 between points 474 and 438
+distance of 3 between points 475 and 102
+distance of 3 between points 475 and 261
+distance of 3 between points 475 and 424
+distance of 3 between points 476 and 375
+distance of 1 between points 476 and 419
+distance of 2 between points 477 and 456
+distance of 3 between points 480 and 36
+distance of 3 between points 480 and 409
+distance of 2 between points 482 and 349
+distance of 3 between points 483 and 159
+distance of 2 between points 487 and 45
+distance of 3 between points 487 and 254
+distance of 3 between points 489 and 363
+distance of 3 between points 490 and 387
+distance of 2 between points 491 and 257
+distance of 2 between points 492 and 424
+distance of 2 between points 493 and 446
+distance of 3 between points 496 and 393
+distance of 3 between points 496 and 485
+distance of 3 between points 499 and 331
+distance of 3 between points 500 and 285
+distance of 3 between points 500 and 351
+distance of 2 between points 502 and 244
+distance of 3 between points 505 and 53
+distance of 3 between points 505 and 60
+distance of 3 between points 505 and 76
+distance of 2 between points 506 and 353
+distance of 3 between points 507 and 278
+distance of 3 between points 507 and 351
+distance of 3 between points 510 and 221
+distance of 1 between points 510 and 457
+distance of 2 between points 512 and 189
+distance of 2 between points 513 and 37
+distance of 3 between points 514 and 114
+distance of 3 between points 517 and 2
+distance of 3 between points 517 and 352
+distance of 3 between points 518 and 173
+distance of 1 between points 520 and 22
+distance of 3 between points 521 and 117
+distance of 2 between points 521 and 131
+distance of 2 between points 521 and 166
+distance of 2 between points 521 and 424
+distance of 3 between points 524 and 193
+distance of 3 between points 525 and 70
+distance of 3 between points 530 and 5
+distance of 3 between points 530 and 220
+distance of 3 between points 532 and 346
+distance of 3 between points 533 and 203
+distance of 2 between points 535 and 227
+distance of 2 between points 536 and 44
+distance of 3 between points 537 and 446
+distance of 3 between points 545 and 403
+distance of 3 between points 546 and 176
+distance of 1 between points 548 and 2
+distance of 3 between points 548 and 198
+distance of 3 between points 550 and 121
+distance of 2 between points 553 and 322
+distance of 3 between points 558 and 405
+distance of 3 between points 565 and 435
+distance of 2 between points 568 and 108
+distance of 3 between points 570 and 320
+distance of 3 between points 576 and 163
+distance of 3 between points 576 and 336
+distance of 3 between points 577 and 430
+distance of 3 between points 578 and 252
+distance of 3 between points 578 and 340
+distance of 3 between points 578 and 539
+distance of 1 between points 580 and 355
+distance of 3 between points 581 and 76
+distance of 2 between points 581 and 373
+distance of 3 between points 581 and 381
+distance of 2 between points 583 and 60
+distance of 1 between points 584 and 251
+distance of 3 between points 584 and 271
+distance of 3 between points 586 and 40
+distance of 3 between points 586 and 330
+distance of 3 between points 588 and 578
+distance of 3 between points 589 and 253
+distance of 2 between points 593 and 559
+distance of 3 between points 594 and 113
+distance of 3 between points 594 and 351
+distance of 3 between points 596 and 175
+distance of 3 between points 596 and 294
+distance of 2 between points 599 and 91
+distance of 2 between points 600 and 501
+distance of 3 between points 602 and 396
+distance of 2 between points 604 and 540
+distance of 3 between points 607 and 20
+distance of 2 between points 608 and 83
+distance of 3 between points 609 and 390
+distance of 2 between points 610 and 368
+distance of 1 between points 611 and 343
+distance of 3 between points 612 and 339
+distance of 3 between points 615 and 481
+distance of 3 between points 617 and 485
+distance of 2 between points 617 and 496
+distance of 3 between points 620 and 549
+distance of 2 between points 623 and 245
+distance of 3 between points 624 and 216
+distance of 3 between points 626 and 285
+distance of 3 between points 628 and 73
+distance of 3 between points 628 and 410
+distance of 3 between points 633 and 78
+distance of 2 between points 633 and 96
+distance of 3 between points 634 and 74
+distance of 2 between points 637 and 317
+distance of 2 between points 640 and 137
+distance of 3 between points 640 and 341
+distance of 3 between points 641 and 435
+distance of 2 between points 642 and 24
+distance of 3 between points 644 and 193
+distance of 3 between points 644 and 256
+distance of 3 between points 645 and 118
+distance of 3 between points 646 and 173
+distance of 3 between points 647 and 315
+distance of 3 between points 649 and 78
+distance of 2 between points 650 and 282
+distance of 2 between points 650 and 346
+distance of 3 between points 651 and 199
+distance of 3 between points 652 and 293
+distance of 3 between points 653 and 113
+distance of 3 between points 654 and 216
+distance of 2 between points 655 and 186
+distance of 3 between points 657 and 76
+distance of 3 between points 657 and 367
+distance of 2 between points 657 and 505
+distance of 3 between points 660 and 343
+distance of 3 between points 662 and 6
+distance of 3 between points 662 and 83
+distance of 2 between points 664 and 139
+distance of 3 between points 664 and 304
+distance of 2 between points 667 and 553
+distance of 2 between points 668 and 657
+distance of 3 between points 669 and 502
+distance of 3 between points 670 and 340
+distance of 1 between points 670 and 539
+distance of 2 between points 670 and 578
+distance of 3 between points 670 and 588
+distance of 2 between points 672 and 125
+distance of 3 between points 672 and 147
+distance of 2 between points 672 and 155
+distance of 3 between points 672 and 236
+distance of 3 between points 672 and 492
+distance of 3 between points 673 and 379
+distance of 3 between points 675 and 313
+distance of 3 between points 676 and 78
+distance of 3 between points 676 and 141
+distance of 3 between points 676 and 268
+distance of 2 between points 679 and 437
+distance of 3 between points 681 and 380
+distance of 2 between points 682 and 377
+distance of 3 between points 683 and 268
+distance of 2 between points 683 and 330
+distance of 3 between points 683 and 586
+distance of 2 between points 684 and 465
+distance of 2 between points 685 and 200
+distance of 2 between points 686 and 347
+distance of 3 between points 688 and 41
+distance of 3 between points 688 and 371
+distance of 3 between points 691 and 66
+distance of 1 between points 692 and 113
+distance of 3 between points 695 and 299
+distance of 3 between points 696 and 363
+distance of 3 between points 697 and 69
+distance of 2 between points 697 and 463
+distance of 3 between points 697 and 508
+distance of 3 between points 698 and 387
+distance of 3 between points 700 and 74
+distance of 2 between points 700 and 634
+distance of 3 between points 700 and 658
+distance of 3 between points 701 and 540
+distance of 3 between points 701 and 604
+distance of 3 between points 702 and 559
+distance of 3 between points 702 and 593
+distance of 3 between points 703 and 86
+distance of 2 between points 704 and 39
+distance of 3 between points 705 and 198
+distance of 2 between points 705 and 642
+distance of 2 between points 706 and 122
+distance of 2 between points 709 and 443
+distance of 3 between points 710 and 166
+distance of 3 between points 710 and 424
+distance of 3 between points 710 and 521
+distance of 2 between points 714 and 441
+distance of 3 between points 715 and 202
+distance of 2 between points 717 and 542
+distance of 2 between points 718 and 126
+distance of 3 between points 718 and 302
+distance of 2 between points 719 and 518
+distance of 3 between points 719 and 668
+distance of 2 between points 720 and 2
+distance of 3 between points 720 and 517
+distance of 1 between points 720 and 548
+distance of 3 between points 722 and 655
+distance of 3 between points 723 and 179
+distance of 3 between points 723 and 352
+distance of 3 between points 723 and 362
+distance of 3 between points 723 and 680
+distance of 3 between points 724 and 298
+distance of 3 between points 724 and 391
+distance of 3 between points 725 and 328
+distance of 3 between points 725 and 724
+distance of 2 between points 726 and 133
+distance of 3 between points 727 and 492
+distance of 3 between points 727 and 680
+distance of 2 between points 729 and 597
+distance of 3 between points 730 and 475
+distance of 3 between points 730 and 592
+distance of 3 between points 731 and 351
+distance of 2 between points 732 and 523
+distance of 3 between points 736 and 227
+distance of 2 between points 737 and 86
+distance of 3 between points 737 and 144
+distance of 3 between points 737 and 519
+distance of 2 between points 738 and 64
+distance of 2 between points 738 and 728
+distance of 3 between points 741 and 59
+distance of 3 between points 741 and 554
+distance of 3 between points 744 and 132
+distance of 1 between points 745 and 478
+distance of 3 between points 746 and 335
+distance of 3 between points 748 and 623
+distance of 2 between points 750 and 65
+distance of 3 between points 750 and 295
+distance of 3 between points 750 and 484
+distance of 3 between points 751 and 6
+distance of 3 between points 751 and 83
+distance of 3 between points 751 and 608
+distance of 2 between points 751 and 662
+distance of 3 between points 753 and 46
+distance of 3 between points 753 and 298
+distance of 2 between points 753 and 724
+distance of 3 between points 753 and 725
+distance of 3 between points 755 and 595
+distance of 3 between points 757 and 111
+distance of 2 between points 757 and 458
+distance of 3 between points 758 and 630
+distance of 3 between points 759 and 282
+distance of 3 between points 759 and 346
+distance of 2 between points 759 and 532
+distance of 2 between points 762 and 360
+distance of 2 between points 763 and 131
+distance of 2 between points 763 and 521
+distance of 3 between points 763 and 592
+distance of 3 between points 763 and 710
+distance of 1 between points 766 and 49
+distance of 3 between points 767 and 33
+distance of 3 between points 767 and 117
+distance of 2 between points 767 and 241
+distance of 2 between points 767 and 261
+distance of 1 between points 767 and 366
+distance of 3 between points 768 and 25
+distance of 2 between points 770 and 196
+distance of 2 between points 771 and 202
+distance of 3 between points 771 and 584
+distance of 3 between points 771 and 715
+distance of 3 between points 773 and 163
+distance of 3 between points 774 and 150
+distance of 3 between points 774 and 697
+distance of 3 between points 775 and 539
+distance of 2 between points 775 and 579
+distance of 1 between points 779 and 449
+distance of 3 between points 780 and 288
+distance of 3 between points 780 and 614
+distance of 3 between points 787 and 261
+distance of 3 between points 787 and 767
+distance of 2 between points 790 and 53
+distance of 2 between points 790 and 76
+distance of 3 between points 790 and 373
+distance of 3 between points 790 and 505
+distance of 3 between points 790 and 657
+distance of 3 between points 793 and 342
+distance of 3 between points 793 and 713
+distance of 3 between points 794 and 280
+distance of 3 between points 794 and 708
+distance of 3 between points 795 and 457
+distance of 3 between points 795 and 546
+distance of 2 between points 797 and 442
+distance of 2 between points 798 and 316
+distance of 1 between points 799 and 266
+distance of 3 between points 799 and 554
+distance of 3 between points 800 and 326
+distance of 3 between points 800 and 638
+distance of 2 between points 801 and 747
+distance of 2 between points 802 and 25
+distance of 3 between points 804 and 105
+distance of 3 between points 805 and 368
+distance of 3 between points 805 and 610
+distance of 1 between points 806 and 240
+distance of 3 between points 807 and 396
+distance of 2 between points 807 and 602
+distance of 1 between points 809 and 616
+distance of 3 between points 809 and 626
+distance of 3 between points 810 and 499
+distance of 3 between points 811 and 547
+distance of 3 between points 812 and 52
+distance of 1 between points 813 and 381
+distance of 3 between points 814 and 565
+distance of 3 between points 814 and 641
+distance of 1 between points 815 and 274
+distance of 3 between points 815 and 432
+distance of 2 between points 816 and 473
+distance of 2 between points 816 and 582
+distance of 1 between points 818 and 185
+distance of 2 between points 820 and 762
+distance of 3 between points 821 and 396
+distance of 3 between points 821 and 435
+distance of 3 between points 823 and 27
+distance of 3 between points 823 and 444
+distance of 3 between points 826 and 548
+distance of 3 between points 827 and 18
+distance of 2 between points 828 and 367
+distance of 3 between points 829 and 568
+distance of 3 between points 830 and 133
+distance of 2 between points 830 and 166
+distance of 3 between points 830 and 592
+distance of 3 between points 830 and 710
+distance of 2 between points 830 and 763
+distance of 3 between points 831 and 76
+distance of 2 between points 831 and 505
+distance of 2 between points 832 and 528
+distance of 2 between points 833 and 31
+distance of 2 between points 833 and 760
+distance of 2 between points 834 and 127
+distance of 3 between points 834 and 606
+distance of 3 between points 835 and 272
+distance of 3 between points 835 and 333
+distance of 3 between points 835 and 534
+distance of 3 between points 836 and 382
+distance of 2 between points 837 and 155
+distance of 3 between points 839 and 127
+distance of 3 between points 839 and 350
+distance of 3 between points 840 and 67
+distance of 2 between points 842 and 30
+distance of 3 between points 843 and 638
+distance of 2 between points 845 and 739
+distance of 3 between points 848 and 95
+distance of 3 between points 848 and 191
+distance of 3 between points 852 and 657
+distance of 3 between points 853 and 423
+distance of 3 between points 854 and 529
+distance of 3 between points 854 and 575
+distance of 3 between points 855 and 564
+distance of 2 between points 858 and 484
+distance of 2 between points 859 and 209
+distance of 3 between points 859 and 404
+distance of 3 between points 860 and 589
+distance of 2 between points 861 and 568
+distance of 3 between points 861 and 725
+distance of 3 between points 861 and 829
+distance of 2 between points 863 and 72
+distance of 3 between points 863 and 609
+distance of 3 between points 865 and 213
+distance of 2 between points 865 and 290
+distance of 3 between points 868 and 291
+distance of 2 between points 868 and 420
+distance of 3 between points 870 and 418
+distance of 3 between points 872 and 358
+distance of 3 between points 873 and 132
+distance of 2 between points 873 and 547
+distance of 3 between points 874 and 245
+distance of 1 between points 874 and 623
+distance of 2 between points 874 and 748
+distance of 3 between points 875 and 134
+distance of 3 between points 875 and 206
+distance of 3 between points 875 and 498
+distance of 3 between points 875 and 708
+distance of 1 between points 877 and 473
+distance of 3 between points 877 and 582
+distance of 1 between points 877 and 816
+distance of 3 between points 878 and 456
+distance of 3 between points 878 and 477
+distance of 1 between points 879 and 180
+distance of 3 between points 880 and 571
+distance of 3 between points 881 and 672
+distance of 3 between points 881 and 727
+distance of 3 between points 881 and 804
+distance of 1 between points 882 and 825
+distance of 3 between points 883 and 189
+distance of 1 between points 883 and 512
+distance of 1 between points 884 and 207
+distance of 2 between points 885 and 326
+distance of 3 between points 885 and 800
+distance of 2 between points 886 and 194
+distance of 3 between points 886 and 272
+distance of 3 between points 886 and 387
+distance of 2 between points 886 and 490
+distance of 3 between points 887 and 420
+distance of 3 between points 887 and 593
+distance of 3 between points 887 and 868
+distance of 1 between points 888 and 774
+distance of 3 between points 888 and 867
+distance of 2 between points 889 and 11
+distance of 2 between points 890 and 317
+distance of 3 between points 890 and 558
+distance of 2 between points 890 and 637
+distance of 3 between points 891 and 611
+distance of 3 between points 892 and 60
+distance of 2 between points 892 and 248
+distance of 2 between points 894 and 268
+distance of 3 between points 894 and 330
+distance of 3 between points 895 and 535
+distance of 3 between points 896 and 550
+distance of 3 between points 898 and 531
+distance of 3 between points 899 and 525
+distance of 3 between points 900 and 241
+distance of 3 between points 901 and 232
+distance of 3 between points 902 and 428
+distance of 2 between points 903 and 193
+distance of 3 between points 904 and 105
+distance of 3 between points 904 and 128
+distance of 2 between points 910 and 450
+distance of 3 between points 911 and 375
+distance of 3 between points 911 and 419
+distance of 3 between points 911 and 644
+distance of 1 between points 913 and 827
+distance of 3 between points 914 and 202
+distance of 3 between points 914 and 269
+distance of 1 between points 914 and 771
+distance of 2 between points 915 and 121
+distance of 3 between points 915 and 232
+distance of 2 between points 915 and 714
+distance of 3 between points 917 and 676
+distance of 1 between points 918 and 209
+distance of 3 between points 918 and 859
+distance of 3 between points 919 and 481
+distance of 3 between points 919 and 665
+distance of 3 between points 920 and 685
+distance of 3 between points 921 and 140
+distance of 2 between points 921 and 222
+distance of 3 between points 923 and 185
+distance of 2 between points 923 and 818
+distance of 3 between points 924 and 71
+distance of 3 between points 924 and 144
+distance of 3 between points 924 and 327
+distance of 3 between points 924 and 476
+distance of 3 between points 925 and 574
+distance of 2 between points 926 and 613
+distance of 2 between points 927 and 691
+distance of 2 between points 929 and 327
+distance of 3 between points 929 and 898
+distance of 3 between points 931 and 491
+distance of 2 between points 933 and 105
+distance of 3 between points 933 and 156
+distance of 3 between points 933 and 804
+distance of 3 between points 935 and 24
+distance of 2 between points 935 and 352
+distance of 3 between points 935 and 642
+distance of 3 between points 935 and 705
+distance of 3 between points 935 and 723
+distance of 2 between points 936 and 461
+distance of 3 between points 937 and 256
+distance of 1 between points 938 and 638
+distance of 2 between points 938 and 843
+distance of 3 between points 939 and 803
+distance of 3 between points 940 and 66
+distance of 2 between points 940 and 691
+distance of 2 between points 940 and 841
+distance of 3 between points 943 and 41
+distance of 1 between points 943 and 299
+distance of 3 between points 943 and 361
+distance of 2 between points 943 and 695
+distance of 3 between points 945 and 642
+distance of 3 between points 945 and 652
+distance of 2 between points 946 and 14
+distance of 3 between points 947 and 202
+distance of 3 between points 947 and 271
+distance of 2 between points 947 and 715
+distance of 3 between points 947 and 771
+distance of 3 between points 949 and 630
+distance of 2 between points 949 and 758
+distance of 3 between points 951 and 143
+distance of 3 between points 951 and 325
+distance of 3 between points 951 and 756
+distance of 3 between points 952 and 227
+distance of 3 between points 952 and 342
+distance of 3 between points 952 and 535
+distance of 3 between points 954 and 274
+distance of 3 between points 954 and 691
+distance of 3 between points 954 and 841
+distance of 3 between points 954 and 940
+distance of 3 between points 955 and 112
+distance of 3 between points 955 and 242
+distance of 3 between points 956 and 53
+distance of 3 between points 956 and 60
+distance of 3 between points 956 and 507
+distance of 1 between points 956 and 583
+distance of 3 between points 956 and 790
+distance of 2 between points 957 and 489
+distance of 3 between points 959 and 155
+distance of 3 between points 959 and 415
+distance of 3 between points 960 and 371
+distance of 3 between points 963 and 464
+distance of 3 between points 964 and 252
+distance of 3 between points 964 and 318
+distance of 3 between points 967 and 872
+distance of 3 between points 968 and 142
+distance of 3 between points 970 and 704
+distance of 2 between points 971 and 63
+distance of 3 between points 971 and 721
+distance of 2 between points 972 and 71
+distance of 2 between points 972 and 144
+distance of 2 between points 973 and 636
+distance of 3 between points 974 and 641
+distance of 2 between points 974 and 909
+distance of 3 between points 975 and 475
+distance of 3 between points 975 and 692
+distance of 3 between points 976 and 254
+distance of 3 between points 976 and 509
+distance of 3 between points 977 and 49
+distance of 3 between points 977 and 104
+distance of 3 between points 980 and 128
+distance of 3 between points 980 and 921
+distance of 1 between points 981 and 125
+distance of 2 between points 981 and 236
+distance of 3 between points 981 and 672
+distance of 3 between points 983 and 244
+distance of 3 between points 983 and 502
+distance of 3 between points 983 and 942
+distance of 3 between points 985 and 194
+distance of 3 between points 985 and 698
+distance of 3 between points 985 and 835
+distance of 3 between points 985 and 886
+distance of 3 between points 986 and 261
+distance of 3 between points 986 and 267
+distance of 3 between points 986 and 300
+distance of 3 between points 986 and 767
+distance of 3 between points 987 and 378
+distance of 3 between points 988 and 120
+distance of 2 between points 993 and 634
+distance of 2 between points 995 and 597
+distance of 2 between points 995 and 702
+distance of 3 between points 996 and 39
+distance of 2 between points 996 and 179
+distance of 3 between points 996 and 242
+distance of 1 between points 997 and 317
+distance of 3 between points 997 and 637
+distance of 1 between points 997 and 890
+distance of 3 between points 1000 and 503
+distance of 3 between points 1001 and 266
+distance of 2 between points 1001 and 534
+distance of 3 between points 1003 and 19
+distance of 1 between points 1004 and 423
+distance of 2 between points 1004 and 853
+distance of 3 between points 1004 and 999
+distance of 2 between points 1006 and 497
+distance of 2 between points 1007 and 243
+distance of 2 between points 1008 and 469
+distance of 3 between points 1009 and 645
+distance of 2 between points 1009 and 811
+distance of 3 between points 1010 and 778
+distance of 2 between points 1010 and 870
+distance of 3 between points 1011 and 368
+distance of 1 between points 1011 and 610
+distance of 2 between points 1011 and 805
+distance of 3 between points 1013 and 354
+distance of 1 between points 1014 and 66
+distance of 3 between points 1017 and 287
+distance of 3 between points 1017 and 577
+distance of 3 between points 1017 and 653
+distance of 1 between points 1018 and 244
+distance of 3 between points 1018 and 397
+distance of 3 between points 1018 and 502
+distance of 3 between points 1020 and 122
+distance of 1 between points 1020 and 706
+distance of 3 between points 1020 and 871
+distance of 3 between points 1020 and 950
+distance of 3 between points 1021 and 32
+distance of 3 between points 1021 and 659
+distance of 2 between points 1023 and 95
+distance of 3 between points 1023 and 511
+distance of 3 between points 1026 and 563
+distance of 3 between points 1028 and 53
+distance of 3 between points 1028 and 60
+distance of 1 between points 1028 and 507
+distance of 3 between points 1028 and 583
+distance of 3 between points 1028 and 790
+distance of 2 between points 1028 and 956
+distance of 2 between points 1029 and 427
+distance of 3 between points 1030 and 220
+distance of 2 between points 1030 and 994
+distance of 3 between points 1031 and 283
+distance of 3 between points 1031 and 668
+distance of 3 between points 1032 and 133
+distance of 2 between points 1032 and 187
+distance of 3 between points 1032 and 329
+distance of 3 between points 1032 and 503
+distance of 3 between points 1033 and 300
+distance of 3 between points 1033 and 819
+distance of 3 between points 1034 and 955
+distance of 3 between points 1036 and 329
+distance of 3 between points 1037 and 798
+distance of 1 between points 1037 and 989
+distance of 3 between points 1039 and 372
+distance of 2 between points 1039 and 420
+distance of 2 between points 1039 and 868
+distance of 1 between points 1040 and 52
+distance of 3 between points 1040 and 54
+distance of 2 between points 1040 and 812
+distance of 1 between points 1042 and 156
+distance of 3 between points 1043 and 138
+distance of 2 between points 1043 and 179
+distance of 2 between points 1044 and 33
+distance of 3 between points 1044 and 102
+distance of 2 between points 1044 and 117
+distance of 3 between points 1044 and 152
+distance of 3 between points 1044 and 166
+distance of 3 between points 1044 and 267
+distance of 3 between points 1045 and 386
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 15
+ traverseNeighbors: depth = 1: parentPoint = 15, rootPoint = 0
+  traverseNeighbors: depth = 2: parentPoint = 0, rootPoint = 459
+   traverseNeighbors: depth = 3: parentPoint = 459, rootPoint = 15
+    traverseNeighbors: depth = 4: parentPoint = 15, rootPoint = 410
+     traverseNeighbors: depth = 5: parentPoint = 410, rootPoint = 628
+      traverseNeighbors: depth = 6: parentPoint = 628, rootPoint = 73
+       traverseNeighbors: depth = 7: parentPoint = 73, rootPoint = 38
+        traverseNeighbors: depth = 8: parentPoint = 38, rootPoint = 329
+         traverseNeighbors: depth = 9: parentPoint = 329, rootPoint = 187
+          traverseNeighbors: depth = 10: parentPoint = 187, rootPoint = 133
+           traverseNeighbors: depth = 11: parentPoint = 133, rootPoint = 726
+           traverseNeighbors: depth = 11: parentPoint = 133, rootPoint = 830
+            traverseNeighbors: depth = 12: parentPoint = 830, rootPoint = 166
+             traverseNeighbors: depth = 13: parentPoint = 166, rootPoint = 102
+              traverseNeighbors: depth = 14: parentPoint = 102, rootPoint = 33
+               traverseNeighbors: depth = 15: parentPoint = 33, rootPoint = 117
+                traverseNeighbors: depth = 16: parentPoint = 117, rootPoint = 166
+                 traverseNeighbors: depth = 17: parentPoint = 166, rootPoint = 333
+                  traverseNeighbors: depth = 18: parentPoint = 333, rootPoint = 102
+                   traverseNeighbors: depth = 19: parentPoint = 102, rootPoint = 166
+                    traverseNeighbors: depth = 20: parentPoint = 166, rootPoint = 521
+                     traverseNeighbors: depth = 21: parentPoint = 521, rootPoint = 117
+                      traverseNeighbors: depth = 22: parentPoint = 117, rootPoint = 267
+                       traverseNeighbors: depth = 23: parentPoint = 267, rootPoint = 33
+                        traverseNeighbors: depth = 24: parentPoint = 33, rootPoint = 261
+                         traverseNeighbors: depth = 25: parentPoint = 261, rootPoint = 366
+                          traverseNeighbors: depth = 26: parentPoint = 366, rootPoint = 33
+                           traverseNeighbors: depth = 27: parentPoint = 33, rootPoint = 267
+                            traverseNeighbors: depth = 28: parentPoint = 267, rootPoint = 117
+                             traverseNeighbors: depth = 29: parentPoint = 117, rootPoint = 366
+                              traverseNeighbors: depth = 30: parentPoint = 366, rootPoint = 241
+                               traverseNeighbors: depth = 31: parentPoint = 241, rootPoint = 767
+                                traverseNeighbors: depth = 32: parentPoint = 767, rootPoint = 33
+                                 traverseNeighbors: depth = 33: parentPoint = 33, rootPoint = 366
+                                  traverseNeighbors: depth = 34: parentPoint = 366, rootPoint = 261
+                                   traverseNeighbors: depth = 35: parentPoint = 261, rootPoint = 475
+                                    traverseNeighbors: depth = 36: parentPoint = 475, rootPoint = 102
+                                     traverseNeighbors: depth = 37: parentPoint = 102, rootPoint = 333
+                                      traverseNeighbors: depth = 38: parentPoint = 333, rootPoint = 166
+                                       traverseNeighbors: depth = 39: parentPoint = 166, rootPoint = 710
+                                        traverseNeighbors: depth = 40: parentPoint = 710, rootPoint = 424
+                                         traverseNeighbors: depth = 41: parentPoint = 424, rootPoint = 475
+                                          traverseNeighbors: depth = 42: parentPoint = 475, rootPoint = 261
+                                           traverseNeighbors: depth = 43: parentPoint = 261, rootPoint = 767
+                                            traverseNeighbors: depth = 44: parentPoint = 767, rootPoint = 117
+                                             traverseNeighbors: depth = 45: parentPoint = 117, rootPoint = 521
+                                              traverseNeighbors: depth = 46: parentPoint = 521, rootPoint = 131
+                                               traverseNeighbors: depth = 47: parentPoint = 131, rootPoint = 763
+                                                traverseNeighbors: depth = 48: parentPoint = 763, rootPoint = 521
+                                                 traverseNeighbors: depth = 49: parentPoint = 521, rootPoint = 166
+                                                  traverseNeighbors: depth = 50: parentPoint = 166, rootPoint = 830
+                                                   traverseNeighbors: depth = 51: parentPoint = 830, rootPoint = 592
+                                                    traverseNeighbors: depth = 52: parentPoint = 592, rootPoint = 730
+                                                     traverseNeighbors: depth = 53: parentPoint = 730, rootPoint = 475
+                                                      traverseNeighbors: depth = 54: parentPoint = 475, rootPoint = 424
+                                                       traverseNeighbors: depth = 55: parentPoint = 424, rootPoint = 492
+                                                        traverseNeighbors: depth = 56: parentPoint = 492, rootPoint = 672
+                                                         traverseNeighbors: depth = 57: parentPoint = 672, rootPoint = 125
+                                                          traverseNeighbors: depth = 58: parentPoint = 125, rootPoint = 236
+                                                           traverseNeighbors: depth = 59: parentPoint = 236, rootPoint = 141
+                                                            traverseNeighbors: depth = 60: parentPoint = 141, rootPoint = 676
+                                                             traverseNeighbors: depth = 61: parentPoint = 676, rootPoint = 78
+                                                              traverseNeighbors: depth = 62: parentPoint = 78, rootPoint = 96
+                                                               traverseNeighbors: depth = 63: parentPoint = 96, rootPoint = 633
+                                                                traverseNeighbors: depth = 64: parentPoint = 633, rootPoint = 78
+                                                                 traverseNeighbors: depth = 65: parentPoint = 78, rootPoint = 649
+                                                                 traverseNeighbors: depth = 65: parentPoint = 78, rootPoint = 676
+                                                                  traverseNeighbors: depth = 66: parentPoint = 676, rootPoint = 141
+                                                                  traverseNeighbors: depth = 66: parentPoint = 676, rootPoint = 268
+                                                                   traverseNeighbors: depth = 67: parentPoint = 268, rootPoint = 112
+                                                                    traverseNeighbors: depth = 68: parentPoint = 112, rootPoint = 955
+                                                                     traverseNeighbors: depth = 69: parentPoint = 955, rootPoint = 242
+                                                                      traverseNeighbors: depth = 70: parentPoint = 242, rootPoint = 996
+                                                                       traverseNeighbors: depth = 71: parentPoint = 996, rootPoint = 39
+                                                                        traverseNeighbors: depth = 72: parentPoint = 39, rootPoint = 704
+                                                                         traverseNeighbors: depth = 73: parentPoint = 704, rootPoint = 970
+                                                                       traverseNeighbors: depth = 71: parentPoint = 996, rootPoint = 179
+                                                                        traverseNeighbors: depth = 72: parentPoint = 179, rootPoint = 723
+                                                                         traverseNeighbors: depth = 73: parentPoint = 723, rootPoint = 352
+                                                                          traverseNeighbors: depth = 74: parentPoint = 352, rootPoint = 517
+                                                                           traverseNeighbors: depth = 75: parentPoint = 517, rootPoint = 2
+                                                                            traverseNeighbors: depth = 76: parentPoint = 2, rootPoint = 548
+                                                                             traverseNeighbors: depth = 77: parentPoint = 548, rootPoint = 198
+                                                                              traverseNeighbors: depth = 78: parentPoint = 198, rootPoint = 404
+                                                                               traverseNeighbors: depth = 79: parentPoint = 404, rootPoint = 859
+                                                                                traverseNeighbors: depth = 80: parentPoint = 859, rootPoint = 209
+                                                                                 traverseNeighbors: depth = 81: parentPoint = 209, rootPoint = 918
+                                                                                  traverseNeighbors: depth = 82: parentPoint = 918, rootPoint = 859
+                                                                                   traverseNeighbors: depth = 83: parentPoint = 859, rootPoint = 404
+                                                                              traverseNeighbors: depth = 78: parentPoint = 198, rootPoint = 705
+                                                                               traverseNeighbors: depth = 79: parentPoint = 705, rootPoint = 642
+                                                                                traverseNeighbors: depth = 80: parentPoint = 642, rootPoint = 24
+                                                                                 traverseNeighbors: depth = 81: parentPoint = 24, rootPoint = 83
+                                                                                  traverseNeighbors: depth = 82: parentPoint = 83, rootPoint = 608
+                                                                                   traverseNeighbors: depth = 83: parentPoint = 608, rootPoint = 751
+                                                                                    traverseNeighbors: depth = 84: parentPoint = 751, rootPoint = 6
+                                                                                     traverseNeighbors: depth = 85: parentPoint = 6, rootPoint = 662
+                                                                                      traverseNeighbors: depth = 86: parentPoint = 662, rootPoint = 83
+                                                                                       traverseNeighbors: depth = 87: parentPoint = 83, rootPoint = 751
+                                                                                        traverseNeighbors: depth = 88: parentPoint = 751, rootPoint = 608
+                                                                                        traverseNeighbors: depth = 88: parentPoint = 751, rootPoint = 662
+                                                                                 traverseNeighbors: depth = 81: parentPoint = 24, rootPoint = 935
+                                                                                  traverseNeighbors: depth = 82: parentPoint = 935, rootPoint = 352
+                                                                                   traverseNeighbors: depth = 83: parentPoint = 352, rootPoint = 723
+                                                                                    traverseNeighbors: depth = 84: parentPoint = 723, rootPoint = 362
+                                                                                     traverseNeighbors: depth = 85: parentPoint = 362, rootPoint = 138
+                                                                                      traverseNeighbors: depth = 86: parentPoint = 138, rootPoint = 1043
+                                                                                       traverseNeighbors: depth = 87: parentPoint = 1043, rootPoint = 179
+                                                                                        traverseNeighbors: depth = 88: parentPoint = 179, rootPoint = 996
+                                                                                         traverseNeighbors: depth = 89: parentPoint = 996, rootPoint = 242
+                                                                                    traverseNeighbors: depth = 84: parentPoint = 723, rootPoint = 680
+                                                                                     traverseNeighbors: depth = 85: parentPoint = 680, rootPoint = 727
+                                                                                      traverseNeighbors: depth = 86: parentPoint = 727, rootPoint = 492
+                                                                                      traverseNeighbors: depth = 86: parentPoint = 727, rootPoint = 881
+                                                                                       traverseNeighbors: depth = 87: parentPoint = 881, rootPoint = 672
+                                                                                        traverseNeighbors: depth = 88: parentPoint = 672, rootPoint = 147
+                                                                                        traverseNeighbors: depth = 88: parentPoint = 672, rootPoint = 155
+                                                                                         traverseNeighbors: depth = 89: parentPoint = 155, rootPoint = 837
+                                                                                         traverseNeighbors: depth = 89: parentPoint = 155, rootPoint = 959
+                                                                                          traverseNeighbors: depth = 90: parentPoint = 959, rootPoint = 415
+                                                                                           traverseNeighbors: depth = 91: parentPoint = 415, rootPoint = 399
+                                                                                            traverseNeighbors: depth = 92: parentPoint = 399, rootPoint = 406
+                                                                                             traverseNeighbors: depth = 93: parentPoint = 406, rootPoint = 249
+                                                                                        traverseNeighbors: depth = 88: parentPoint = 672, rootPoint = 236
+                                                                                         traverseNeighbors: depth = 89: parentPoint = 236, rootPoint = 981
+                                                                                          traverseNeighbors: depth = 90: parentPoint = 981, rootPoint = 125
+                                                                                           traverseNeighbors: depth = 91: parentPoint = 125, rootPoint = 672
+                                                                                            traverseNeighbors: depth = 92: parentPoint = 672, rootPoint = 492
+                                                                                            traverseNeighbors: depth = 92: parentPoint = 672, rootPoint = 881
+                                                                                             traverseNeighbors: depth = 93: parentPoint = 881, rootPoint = 727
+                                                                                             traverseNeighbors: depth = 93: parentPoint = 881, rootPoint = 804
+                                                                                              traverseNeighbors: depth = 94: parentPoint = 804, rootPoint = 105
+                                                                                               traverseNeighbors: depth = 95: parentPoint = 105, rootPoint = 156
+                                                                                                traverseNeighbors: depth = 96: parentPoint = 156, rootPoint = 933
+                                                                                                 traverseNeighbors: depth = 97: parentPoint = 933, rootPoint = 105
+                                                                                                  traverseNeighbors: depth = 98: parentPoint = 105, rootPoint = 804
+                                                                                                   traverseNeighbors: depth = 99: parentPoint = 804, rootPoint = 881
+                                                                                                   traverseNeighbors: depth = 99: parentPoint = 804, rootPoint = 933
+                                                                                                    traverseNeighbors: depth = 100: parentPoint = 933, rootPoint = 156
+                                                                                                     traverseNeighbors: depth = 101: parentPoint = 156, rootPoint = 1042
+                                                                                                  traverseNeighbors: depth = 98: parentPoint = 105, rootPoint = 904
+                                                                                                   traverseNeighbors: depth = 99: parentPoint = 904, rootPoint = 128
+                                                                                                    traverseNeighbors: depth = 100: parentPoint = 128, rootPoint = 28
+                                                                                                     traverseNeighbors: depth = 101: parentPoint = 28, rootPoint = 409
+                                                                                                      traverseNeighbors: depth = 102: parentPoint = 409, rootPoint = 140
+                                                                                                       traverseNeighbors: depth = 103: parentPoint = 140, rootPoint = 222
+                                                                                                        traverseNeighbors: depth = 104: parentPoint = 222, rootPoint = 921
+                                                                                                         traverseNeighbors: depth = 105: parentPoint = 921, rootPoint = 140
+                                                                                                          traverseNeighbors: depth = 106: parentPoint = 140, rootPoint = 409
+                                                                                                           traverseNeighbors: depth = 107: parentPoint = 409, rootPoint = 480
+                                                                                                            traverseNeighbors: depth = 108: parentPoint = 480, rootPoint = 36
+                                                                                                         traverseNeighbors: depth = 105: parentPoint = 921, rootPoint = 980
+                                                                                                          traverseNeighbors: depth = 106: parentPoint = 980, rootPoint = 128
+                                                                                                           traverseNeighbors: depth = 107: parentPoint = 128, rootPoint = 425
+                                                                                                           traverseNeighbors: depth = 107: parentPoint = 128, rootPoint = 904
+                                                                                            traverseNeighbors: depth = 92: parentPoint = 672, rootPoint = 981
+                                                                                             traverseNeighbors: depth = 93: parentPoint = 981, rootPoint = 236
+                                                                                    traverseNeighbors: depth = 84: parentPoint = 723, rootPoint = 935
+                                                                                     traverseNeighbors: depth = 85: parentPoint = 935, rootPoint = 642
+                                                                                      traverseNeighbors: depth = 86: parentPoint = 642, rootPoint = 705
+                                                                                       traverseNeighbors: depth = 87: parentPoint = 705, rootPoint = 935
+                                                                                        traverseNeighbors: depth = 88: parentPoint = 935, rootPoint = 723
+                                                                                      traverseNeighbors: depth = 86: parentPoint = 642, rootPoint = 945
+                                                                                       traverseNeighbors: depth = 87: parentPoint = 945, rootPoint = 652
+                                                                                        traverseNeighbors: depth = 88: parentPoint = 652, rootPoint = 293
+                                                                                         traverseNeighbors: depth = 89: parentPoint = 293, rootPoint = 467
+                                                                                          traverseNeighbors: depth = 90: parentPoint = 467, rootPoint = 392
+                                                                                           traverseNeighbors: depth = 91: parentPoint = 392, rootPoint = 394
+                                                                                            traverseNeighbors: depth = 92: parentPoint = 394, rootPoint = 307
+                                                                                             traverseNeighbors: depth = 93: parentPoint = 307, rootPoint = 82
+                                                                                             traverseNeighbors: depth = 93: parentPoint = 307, rootPoint = 376
+                                                                             traverseNeighbors: depth = 77: parentPoint = 548, rootPoint = 720
+                                                                              traverseNeighbors: depth = 78: parentPoint = 720, rootPoint = 2
+                                                                              traverseNeighbors: depth = 78: parentPoint = 720, rootPoint = 517
+                                                                               traverseNeighbors: depth = 79: parentPoint = 517, rootPoint = 352
+                                                                             traverseNeighbors: depth = 77: parentPoint = 548, rootPoint = 826
+                                                                     traverseNeighbors: depth = 69: parentPoint = 955, rootPoint = 1034
+                                                                   traverseNeighbors: depth = 67: parentPoint = 268, rootPoint = 330
+                                                                    traverseNeighbors: depth = 68: parentPoint = 330, rootPoint = 286
+                                                                     traverseNeighbors: depth = 69: parentPoint = 286, rootPoint = 29
+                                                                    traverseNeighbors: depth = 68: parentPoint = 330, rootPoint = 586
+                                                                     traverseNeighbors: depth = 69: parentPoint = 586, rootPoint = 40
+                                                                     traverseNeighbors: depth = 69: parentPoint = 586, rootPoint = 683
+                                                                      traverseNeighbors: depth = 70: parentPoint = 683, rootPoint = 268
+                                                                       traverseNeighbors: depth = 71: parentPoint = 268, rootPoint = 676
+                                                                        traverseNeighbors: depth = 72: parentPoint = 676, rootPoint = 917
+                                                                       traverseNeighbors: depth = 71: parentPoint = 268, rootPoint = 894
+                                                                        traverseNeighbors: depth = 72: parentPoint = 894, rootPoint = 330
+                                                                         traverseNeighbors: depth = 73: parentPoint = 330, rootPoint = 683
+                                                                          traverseNeighbors: depth = 74: parentPoint = 683, rootPoint = 586
+                                                       traverseNeighbors: depth = 55: parentPoint = 424, rootPoint = 521
+                                                        traverseNeighbors: depth = 56: parentPoint = 521, rootPoint = 710
+                                                         traverseNeighbors: depth = 57: parentPoint = 710, rootPoint = 763
+                                                          traverseNeighbors: depth = 58: parentPoint = 763, rootPoint = 592
+                                                           traverseNeighbors: depth = 59: parentPoint = 592, rootPoint = 830
+                                                            traverseNeighbors: depth = 60: parentPoint = 830, rootPoint = 710
+                                                            traverseNeighbors: depth = 60: parentPoint = 830, rootPoint = 763
+                                                             traverseNeighbors: depth = 61: parentPoint = 763, rootPoint = 710
+                                                        traverseNeighbors: depth = 56: parentPoint = 521, rootPoint = 763
+                                                       traverseNeighbors: depth = 55: parentPoint = 424, rootPoint = 710
+                                                      traverseNeighbors: depth = 54: parentPoint = 475, rootPoint = 975
+                                                       traverseNeighbors: depth = 55: parentPoint = 975, rootPoint = 692
+                                                        traverseNeighbors: depth = 56: parentPoint = 692, rootPoint = 113
+                                                         traverseNeighbors: depth = 57: parentPoint = 113, rootPoint = 594
+                                                          traverseNeighbors: depth = 58: parentPoint = 594, rootPoint = 351
+                                                           traverseNeighbors: depth = 59: parentPoint = 351, rootPoint = 314
+                                                            traverseNeighbors: depth = 60: parentPoint = 314, rootPoint = 278
+                                                             traverseNeighbors: depth = 61: parentPoint = 278, rootPoint = 507
+                                                              traverseNeighbors: depth = 62: parentPoint = 507, rootPoint = 351
+                                                               traverseNeighbors: depth = 63: parentPoint = 351, rootPoint = 500
+                                                                traverseNeighbors: depth = 64: parentPoint = 500, rootPoint = 285
+                                                                 traverseNeighbors: depth = 65: parentPoint = 285, rootPoint = 626
+                                                                  traverseNeighbors: depth = 66: parentPoint = 626, rootPoint = 809
+                                                                   traverseNeighbors: depth = 67: parentPoint = 809, rootPoint = 616
+                                                               traverseNeighbors: depth = 63: parentPoint = 351, rootPoint = 594
+                                                               traverseNeighbors: depth = 63: parentPoint = 351, rootPoint = 731
+                                                              traverseNeighbors: depth = 62: parentPoint = 507, rootPoint = 956
+                                                               traverseNeighbors: depth = 63: parentPoint = 956, rootPoint = 53
+                                                                traverseNeighbors: depth = 64: parentPoint = 53, rootPoint = 60
+                                                                 traverseNeighbors: depth = 65: parentPoint = 60, rootPoint = 248
+                                                                  traverseNeighbors: depth = 66: parentPoint = 248, rootPoint = 892
+                                                                   traverseNeighbors: depth = 67: parentPoint = 892, rootPoint = 60
+                                                                    traverseNeighbors: depth = 68: parentPoint = 60, rootPoint = 505
+                                                                     traverseNeighbors: depth = 69: parentPoint = 505, rootPoint = 53
+                                                                      traverseNeighbors: depth = 70: parentPoint = 53, rootPoint = 373
+                                                                       traverseNeighbors: depth = 71: parentPoint = 373, rootPoint = 381
+                                                                        traverseNeighbors: depth = 72: parentPoint = 381, rootPoint = 581
+                                                                         traverseNeighbors: depth = 73: parentPoint = 581, rootPoint = 76
+                                                                          traverseNeighbors: depth = 74: parentPoint = 76, rootPoint = 505
+                                                                           traverseNeighbors: depth = 75: parentPoint = 505, rootPoint = 60
+                                                                            traverseNeighbors: depth = 76: parentPoint = 60, rootPoint = 583
+                                                                             traverseNeighbors: depth = 77: parentPoint = 583, rootPoint = 956
+                                                                              traverseNeighbors: depth = 78: parentPoint = 956, rootPoint = 60
+                                                                               traverseNeighbors: depth = 79: parentPoint = 60, rootPoint = 892
+                                                                                traverseNeighbors: depth = 80: parentPoint = 892, rootPoint = 248
+                                                                               traverseNeighbors: depth = 79: parentPoint = 60, rootPoint = 1028
+                                                                                traverseNeighbors: depth = 80: parentPoint = 1028, rootPoint = 53
+                                                                                 traverseNeighbors: depth = 81: parentPoint = 53, rootPoint = 505
+                                                                                  traverseNeighbors: depth = 82: parentPoint = 505, rootPoint = 76
+                                                                                   traverseNeighbors: depth = 83: parentPoint = 76, rootPoint = 581
+                                                                                    traverseNeighbors: depth = 84: parentPoint = 581, rootPoint = 373
+                                                                                     traverseNeighbors: depth = 85: parentPoint = 373, rootPoint = 790
+                                                                                      traverseNeighbors: depth = 86: parentPoint = 790, rootPoint = 53
+                                                                                       traverseNeighbors: depth = 87: parentPoint = 53, rootPoint = 956
+                                                                                        traverseNeighbors: depth = 88: parentPoint = 956, rootPoint = 507
+                                                                                         traverseNeighbors: depth = 89: parentPoint = 507, rootPoint = 1028
+                                                                                          traverseNeighbors: depth = 90: parentPoint = 1028, rootPoint = 60
+                                                                                          traverseNeighbors: depth = 90: parentPoint = 1028, rootPoint = 583
+                                                                                          traverseNeighbors: depth = 90: parentPoint = 1028, rootPoint = 790
+                                                                                           traverseNeighbors: depth = 91: parentPoint = 790, rootPoint = 76
+                                                                                            traverseNeighbors: depth = 92: parentPoint = 76, rootPoint = 657
+                                                                                             traverseNeighbors: depth = 93: parentPoint = 657, rootPoint = 367
+                                                                                              traverseNeighbors: depth = 94: parentPoint = 367, rootPoint = 828
+                                                                                             traverseNeighbors: depth = 93: parentPoint = 657, rootPoint = 505
+                                                                                              traverseNeighbors: depth = 94: parentPoint = 505, rootPoint = 790
+                                                                                               traverseNeighbors: depth = 95: parentPoint = 790, rootPoint = 373
+                                                                                               traverseNeighbors: depth = 95: parentPoint = 790, rootPoint = 657
+                                                                                                traverseNeighbors: depth = 96: parentPoint = 657, rootPoint = 668
+                                                                                                 traverseNeighbors: depth = 97: parentPoint = 668, rootPoint = 719
+                                                                                                  traverseNeighbors: depth = 98: parentPoint = 719, rootPoint = 518
+                                                                                                   traverseNeighbors: depth = 99: parentPoint = 518, rootPoint = 173
+                                                                                                    traverseNeighbors: depth = 100: parentPoint = 173, rootPoint = 646
+                                                                                                 traverseNeighbors: depth = 97: parentPoint = 668, rootPoint = 1031
+                                                                                                  traverseNeighbors: depth = 98: parentPoint = 1031, rootPoint = 283
+                                                                                                   traverseNeighbors: depth = 99: parentPoint = 283, rootPoint = 320
+                                                                                                    traverseNeighbors: depth = 100: parentPoint = 320, rootPoint = 135
+                                                                                                    traverseNeighbors: depth = 100: parentPoint = 320, rootPoint = 570
+                                                                                                   traverseNeighbors: depth = 99: parentPoint = 283, rootPoint = 446
+                                                                                                    traverseNeighbors: depth = 100: parentPoint = 446, rootPoint = 493
+                                                                                                    traverseNeighbors: depth = 100: parentPoint = 446, rootPoint = 537
+                                                                                                traverseNeighbors: depth = 96: parentPoint = 657, rootPoint = 852
+                                                                                               traverseNeighbors: depth = 95: parentPoint = 790, rootPoint = 956
+                                                                                                traverseNeighbors: depth = 96: parentPoint = 956, rootPoint = 583
+                                                                                                traverseNeighbors: depth = 96: parentPoint = 956, rootPoint = 1028
+                                                                                               traverseNeighbors: depth = 95: parentPoint = 790, rootPoint = 1028
+                                                                                              traverseNeighbors: depth = 94: parentPoint = 505, rootPoint = 831
+                                                                                               traverseNeighbors: depth = 95: parentPoint = 831, rootPoint = 76
+                                                                                                traverseNeighbors: depth = 96: parentPoint = 76, rootPoint = 790
+                                                                                       traverseNeighbors: depth = 87: parentPoint = 53, rootPoint = 1028
+                                                                                    traverseNeighbors: depth = 84: parentPoint = 581, rootPoint = 381
+                                                                                     traverseNeighbors: depth = 85: parentPoint = 381, rootPoint = 813
+                                                         traverseNeighbors: depth = 57: parentPoint = 113, rootPoint = 653
+                                                          traverseNeighbors: depth = 58: parentPoint = 653, rootPoint = 1017
+                                                           traverseNeighbors: depth = 59: parentPoint = 1017, rootPoint = 287
+                                                            traverseNeighbors: depth = 60: parentPoint = 287, rootPoint = 158
+                                                             traverseNeighbors: depth = 61: parentPoint = 158, rootPoint = 162
+                                                              traverseNeighbors: depth = 62: parentPoint = 162, rootPoint = 287
+                                                               traverseNeighbors: depth = 63: parentPoint = 287, rootPoint = 1017
+                                                                traverseNeighbors: depth = 64: parentPoint = 1017, rootPoint = 577
+                                                                 traverseNeighbors: depth = 65: parentPoint = 577, rootPoint = 430
+                                                                traverseNeighbors: depth = 64: parentPoint = 1017, rootPoint = 653
+                                                  traverseNeighbors: depth = 50: parentPoint = 166, rootPoint = 1044
+                                                   traverseNeighbors: depth = 51: parentPoint = 1044, rootPoint = 33
+                                                    traverseNeighbors: depth = 52: parentPoint = 33, rootPoint = 767
+                                                     traverseNeighbors: depth = 53: parentPoint = 767, rootPoint = 241
+                                                      traverseNeighbors: depth = 54: parentPoint = 241, rootPoint = 900
+                                                     traverseNeighbors: depth = 53: parentPoint = 767, rootPoint = 261
+                                                      traverseNeighbors: depth = 54: parentPoint = 261, rootPoint = 787
+                                                       traverseNeighbors: depth = 55: parentPoint = 787, rootPoint = 767
+                                                        traverseNeighbors: depth = 56: parentPoint = 767, rootPoint = 366
+                                                        traverseNeighbors: depth = 56: parentPoint = 767, rootPoint = 986
+                                                         traverseNeighbors: depth = 57: parentPoint = 986, rootPoint = 261
+                                                         traverseNeighbors: depth = 57: parentPoint = 986, rootPoint = 267
+                                                          traverseNeighbors: depth = 58: parentPoint = 267, rootPoint = 1044
+                                                           traverseNeighbors: depth = 59: parentPoint = 1044, rootPoint = 102
+                                                            traverseNeighbors: depth = 60: parentPoint = 102, rootPoint = 475
+                                                           traverseNeighbors: depth = 59: parentPoint = 1044, rootPoint = 117
+                                                            traverseNeighbors: depth = 60: parentPoint = 117, rootPoint = 767
+                                                           traverseNeighbors: depth = 59: parentPoint = 1044, rootPoint = 152
+                                                           traverseNeighbors: depth = 59: parentPoint = 1044, rootPoint = 166
+                                                         traverseNeighbors: depth = 57: parentPoint = 986, rootPoint = 300
+                                                          traverseNeighbors: depth = 58: parentPoint = 300, rootPoint = 324
+                                                          traverseNeighbors: depth = 58: parentPoint = 300, rootPoint = 1033
+                                                           traverseNeighbors: depth = 59: parentPoint = 1033, rootPoint = 819
+                                      traverseNeighbors: depth = 38: parentPoint = 333, rootPoint = 194
+                                       traverseNeighbors: depth = 39: parentPoint = 194, rootPoint = 272
+                                        traverseNeighbors: depth = 40: parentPoint = 272, rootPoint = 333
+                                         traverseNeighbors: depth = 41: parentPoint = 333, rootPoint = 835
+                                          traverseNeighbors: depth = 42: parentPoint = 835, rootPoint = 272
+                                           traverseNeighbors: depth = 43: parentPoint = 272, rootPoint = 886
+                                            traverseNeighbors: depth = 44: parentPoint = 886, rootPoint = 194
+                                             traverseNeighbors: depth = 45: parentPoint = 194, rootPoint = 333
+                                             traverseNeighbors: depth = 45: parentPoint = 194, rootPoint = 985
+                                              traverseNeighbors: depth = 46: parentPoint = 985, rootPoint = 698
+                                               traverseNeighbors: depth = 47: parentPoint = 698, rootPoint = 387
+                                                traverseNeighbors: depth = 48: parentPoint = 387, rootPoint = 490
+                                                 traverseNeighbors: depth = 49: parentPoint = 490, rootPoint = 886
+                                                  traverseNeighbors: depth = 50: parentPoint = 886, rootPoint = 272
+                                                  traverseNeighbors: depth = 50: parentPoint = 886, rootPoint = 387
+                                                   traverseNeighbors: depth = 51: parentPoint = 387, rootPoint = 698
+                                                    traverseNeighbors: depth = 52: parentPoint = 698, rootPoint = 985
+                                                     traverseNeighbors: depth = 53: parentPoint = 985, rootPoint = 835
+                                                      traverseNeighbors: depth = 54: parentPoint = 835, rootPoint = 333
+                                                      traverseNeighbors: depth = 54: parentPoint = 835, rootPoint = 534
+                                                       traverseNeighbors: depth = 55: parentPoint = 534, rootPoint = 1001
+                                                        traverseNeighbors: depth = 56: parentPoint = 1001, rootPoint = 266
+                                                         traverseNeighbors: depth = 57: parentPoint = 266, rootPoint = 42
+                                                          traverseNeighbors: depth = 58: parentPoint = 42, rootPoint = 388
+                                                           traverseNeighbors: depth = 59: parentPoint = 388, rootPoint = 254
+                                                            traverseNeighbors: depth = 60: parentPoint = 254, rootPoint = 115
+                                                            traverseNeighbors: depth = 60: parentPoint = 254, rootPoint = 487
+                                                             traverseNeighbors: depth = 61: parentPoint = 487, rootPoint = 45
+                                                            traverseNeighbors: depth = 60: parentPoint = 254, rootPoint = 976
+                                                             traverseNeighbors: depth = 61: parentPoint = 976, rootPoint = 509
+                                                           traverseNeighbors: depth = 59: parentPoint = 388, rootPoint = 439
+                                                            traverseNeighbors: depth = 60: parentPoint = 439, rootPoint = 188
+                                                         traverseNeighbors: depth = 57: parentPoint = 266, rootPoint = 341
+                                                          traverseNeighbors: depth = 58: parentPoint = 341, rootPoint = 640
+                                                           traverseNeighbors: depth = 59: parentPoint = 640, rootPoint = 137
+                                                         traverseNeighbors: depth = 57: parentPoint = 266, rootPoint = 799
+                                                          traverseNeighbors: depth = 58: parentPoint = 799, rootPoint = 554
+                                                           traverseNeighbors: depth = 59: parentPoint = 554, rootPoint = 741
+                                                            traverseNeighbors: depth = 60: parentPoint = 741, rootPoint = 59
+                                                     traverseNeighbors: depth = 53: parentPoint = 985, rootPoint = 886
+                                                      traverseNeighbors: depth = 54: parentPoint = 886, rootPoint = 490
+           traverseNeighbors: depth = 11: parentPoint = 133, rootPoint = 1032
+            traverseNeighbors: depth = 12: parentPoint = 1032, rootPoint = 187
+             traverseNeighbors: depth = 13: parentPoint = 187, rootPoint = 329
+              traverseNeighbors: depth = 14: parentPoint = 329, rootPoint = 1032
+               traverseNeighbors: depth = 15: parentPoint = 1032, rootPoint = 503
+                traverseNeighbors: depth = 16: parentPoint = 503, rootPoint = 1000
+              traverseNeighbors: depth = 14: parentPoint = 329, rootPoint = 1036
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 793
+ traverseNeighbors: depth = 1: parentPoint = 793, rootPoint = 342
+  traverseNeighbors: depth = 2: parentPoint = 342, rootPoint = 952
+   traverseNeighbors: depth = 3: parentPoint = 952, rootPoint = 227
+    traverseNeighbors: depth = 4: parentPoint = 227, rootPoint = 535
+     traverseNeighbors: depth = 5: parentPoint = 535, rootPoint = 895
+     traverseNeighbors: depth = 5: parentPoint = 535, rootPoint = 952
+      traverseNeighbors: depth = 6: parentPoint = 952, rootPoint = 342
+    traverseNeighbors: depth = 4: parentPoint = 227, rootPoint = 736
+ traverseNeighbors: depth = 1: parentPoint = 793, rootPoint = 713
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 136
+ traverseNeighbors: depth = 1: parentPoint = 136, rootPoint = 26
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 72
+ traverseNeighbors: depth = 1: parentPoint = 72, rootPoint = 132
+  traverseNeighbors: depth = 2: parentPoint = 132, rootPoint = 263
+   traverseNeighbors: depth = 3: parentPoint = 263, rootPoint = 72
+    traverseNeighbors: depth = 4: parentPoint = 72, rootPoint = 863
+     traverseNeighbors: depth = 5: parentPoint = 863, rootPoint = 609
+      traverseNeighbors: depth = 6: parentPoint = 609, rootPoint = 390
+       traverseNeighbors: depth = 7: parentPoint = 390, rootPoint = 62
+       traverseNeighbors: depth = 7: parentPoint = 390, rootPoint = 432
+        traverseNeighbors: depth = 8: parentPoint = 432, rootPoint = 274
+         traverseNeighbors: depth = 9: parentPoint = 274, rootPoint = 350
+          traverseNeighbors: depth = 10: parentPoint = 350, rootPoint = 432
+           traverseNeighbors: depth = 11: parentPoint = 432, rootPoint = 390
+            traverseNeighbors: depth = 12: parentPoint = 390, rootPoint = 609
+             traverseNeighbors: depth = 13: parentPoint = 609, rootPoint = 863
+           traverseNeighbors: depth = 11: parentPoint = 432, rootPoint = 815
+            traverseNeighbors: depth = 12: parentPoint = 815, rootPoint = 274
+             traverseNeighbors: depth = 13: parentPoint = 274, rootPoint = 432
+             traverseNeighbors: depth = 13: parentPoint = 274, rootPoint = 954
+              traverseNeighbors: depth = 14: parentPoint = 954, rootPoint = 691
+               traverseNeighbors: depth = 15: parentPoint = 691, rootPoint = 66
+                traverseNeighbors: depth = 16: parentPoint = 66, rootPoint = 940
+                 traverseNeighbors: depth = 17: parentPoint = 940, rootPoint = 691
+                  traverseNeighbors: depth = 18: parentPoint = 691, rootPoint = 927
+                  traverseNeighbors: depth = 18: parentPoint = 691, rootPoint = 954
+                   traverseNeighbors: depth = 19: parentPoint = 954, rootPoint = 841
+                    traverseNeighbors: depth = 20: parentPoint = 841, rootPoint = 940
+                     traverseNeighbors: depth = 21: parentPoint = 940, rootPoint = 954
+                traverseNeighbors: depth = 16: parentPoint = 66, rootPoint = 1014
+          traverseNeighbors: depth = 10: parentPoint = 350, rootPoint = 839
+           traverseNeighbors: depth = 11: parentPoint = 839, rootPoint = 127
+            traverseNeighbors: depth = 12: parentPoint = 127, rootPoint = 8
+             traverseNeighbors: depth = 13: parentPoint = 8, rootPoint = 20
+              traverseNeighbors: depth = 14: parentPoint = 20, rootPoint = 607
+            traverseNeighbors: depth = 12: parentPoint = 127, rootPoint = 834
+             traverseNeighbors: depth = 13: parentPoint = 834, rootPoint = 606
+  traverseNeighbors: depth = 2: parentPoint = 132, rootPoint = 744
+  traverseNeighbors: depth = 2: parentPoint = 132, rootPoint = 873
+   traverseNeighbors: depth = 3: parentPoint = 873, rootPoint = 547
+    traverseNeighbors: depth = 4: parentPoint = 547, rootPoint = 811
+     traverseNeighbors: depth = 5: parentPoint = 811, rootPoint = 1009
+      traverseNeighbors: depth = 6: parentPoint = 1009, rootPoint = 645
+       traverseNeighbors: depth = 7: parentPoint = 645, rootPoint = 118
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 407
+ traverseNeighbors: depth = 1: parentPoint = 407, rootPoint = 12
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 124
+ traverseNeighbors: depth = 1: parentPoint = 124, rootPoint = 217
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 212
+ traverseNeighbors: depth = 1: parentPoint = 212, rootPoint = 163
+  traverseNeighbors: depth = 2: parentPoint = 163, rootPoint = 336
+   traverseNeighbors: depth = 3: parentPoint = 336, rootPoint = 576
+    traverseNeighbors: depth = 4: parentPoint = 576, rootPoint = 163
+     traverseNeighbors: depth = 5: parentPoint = 163, rootPoint = 773
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 403
+ traverseNeighbors: depth = 1: parentPoint = 403, rootPoint = 545
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 61
+ traverseNeighbors: depth = 1: parentPoint = 61, rootPoint = 41
+  traverseNeighbors: depth = 2: parentPoint = 41, rootPoint = 688
+   traverseNeighbors: depth = 3: parentPoint = 688, rootPoint = 371
+    traverseNeighbors: depth = 4: parentPoint = 371, rootPoint = 960
+  traverseNeighbors: depth = 2: parentPoint = 41, rootPoint = 943
+   traverseNeighbors: depth = 3: parentPoint = 943, rootPoint = 299
+    traverseNeighbors: depth = 4: parentPoint = 299, rootPoint = 361
+     traverseNeighbors: depth = 5: parentPoint = 361, rootPoint = 943
+      traverseNeighbors: depth = 6: parentPoint = 943, rootPoint = 695
+       traverseNeighbors: depth = 7: parentPoint = 695, rootPoint = 299
+        traverseNeighbors: depth = 8: parentPoint = 299, rootPoint = 943
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 302
+ traverseNeighbors: depth = 1: parentPoint = 302, rootPoint = 126
+  traverseNeighbors: depth = 2: parentPoint = 126, rootPoint = 718
+   traverseNeighbors: depth = 3: parentPoint = 718, rootPoint = 302
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 181
+ traverseNeighbors: depth = 1: parentPoint = 181, rootPoint = 123
+  traverseNeighbors: depth = 2: parentPoint = 123, rootPoint = 465
+   traverseNeighbors: depth = 3: parentPoint = 465, rootPoint = 684
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 920
+ traverseNeighbors: depth = 1: parentPoint = 920, rootPoint = 685
+  traverseNeighbors: depth = 2: parentPoint = 685, rootPoint = 200
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 732
+ traverseNeighbors: depth = 1: parentPoint = 732, rootPoint = 523
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 429
+ traverseNeighbors: depth = 1: parentPoint = 429, rootPoint = 17
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 88
+ traverseNeighbors: depth = 1: parentPoint = 88, rootPoint = 52
+  traverseNeighbors: depth = 2: parentPoint = 52, rootPoint = 812
+   traverseNeighbors: depth = 3: parentPoint = 812, rootPoint = 1040
+    traverseNeighbors: depth = 4: parentPoint = 1040, rootPoint = 52
+    traverseNeighbors: depth = 4: parentPoint = 1040, rootPoint = 54
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 435
+ traverseNeighbors: depth = 1: parentPoint = 435, rootPoint = 565
+  traverseNeighbors: depth = 2: parentPoint = 565, rootPoint = 814
+   traverseNeighbors: depth = 3: parentPoint = 814, rootPoint = 641
+    traverseNeighbors: depth = 4: parentPoint = 641, rootPoint = 435
+     traverseNeighbors: depth = 5: parentPoint = 435, rootPoint = 821
+      traverseNeighbors: depth = 6: parentPoint = 821, rootPoint = 396
+       traverseNeighbors: depth = 7: parentPoint = 396, rootPoint = 602
+        traverseNeighbors: depth = 8: parentPoint = 602, rootPoint = 807
+         traverseNeighbors: depth = 9: parentPoint = 807, rootPoint = 396
+          traverseNeighbors: depth = 10: parentPoint = 396, rootPoint = 821
+           traverseNeighbors: depth = 11: parentPoint = 821, rootPoint = 435
+    traverseNeighbors: depth = 4: parentPoint = 641, rootPoint = 974
+     traverseNeighbors: depth = 5: parentPoint = 974, rootPoint = 909
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 206
+ traverseNeighbors: depth = 1: parentPoint = 206, rootPoint = 134
+  traverseNeighbors: depth = 2: parentPoint = 134, rootPoint = 875
+   traverseNeighbors: depth = 3: parentPoint = 875, rootPoint = 206
+    traverseNeighbors: depth = 4: parentPoint = 206, rootPoint = 334
+   traverseNeighbors: depth = 3: parentPoint = 875, rootPoint = 498
+   traverseNeighbors: depth = 3: parentPoint = 875, rootPoint = 708
+    traverseNeighbors: depth = 4: parentPoint = 708, rootPoint = 794
+     traverseNeighbors: depth = 5: parentPoint = 794, rootPoint = 280
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 848
+ traverseNeighbors: depth = 1: parentPoint = 848, rootPoint = 95
+  traverseNeighbors: depth = 2: parentPoint = 95, rootPoint = 1023
+   traverseNeighbors: depth = 3: parentPoint = 1023, rootPoint = 511
+ traverseNeighbors: depth = 1: parentPoint = 848, rootPoint = 191
+  traverseNeighbors: depth = 2: parentPoint = 191, rootPoint = 104
+   traverseNeighbors: depth = 3: parentPoint = 104, rootPoint = 977
+    traverseNeighbors: depth = 4: parentPoint = 977, rootPoint = 49
+     traverseNeighbors: depth = 5: parentPoint = 49, rootPoint = 766
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 501
+ traverseNeighbors: depth = 1: parentPoint = 501, rootPoint = 600
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 110
+ traverseNeighbors: depth = 1: parentPoint = 110, rootPoint = 16
+  traverseNeighbors: depth = 2: parentPoint = 16, rootPoint = 412
+   traverseNeighbors: depth = 3: parentPoint = 412, rootPoint = 110
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 865
+ traverseNeighbors: depth = 1: parentPoint = 865, rootPoint = 213
+  traverseNeighbors: depth = 2: parentPoint = 213, rootPoint = 290
+   traverseNeighbors: depth = 3: parentPoint = 290, rootPoint = 865
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 144
+ traverseNeighbors: depth = 1: parentPoint = 144, rootPoint = 71
+  traverseNeighbors: depth = 2: parentPoint = 71, rootPoint = 924
+   traverseNeighbors: depth = 3: parentPoint = 924, rootPoint = 144
+    traverseNeighbors: depth = 4: parentPoint = 144, rootPoint = 737
+     traverseNeighbors: depth = 5: parentPoint = 737, rootPoint = 86
+      traverseNeighbors: depth = 6: parentPoint = 86, rootPoint = 703
+     traverseNeighbors: depth = 5: parentPoint = 737, rootPoint = 519
+    traverseNeighbors: depth = 4: parentPoint = 144, rootPoint = 972
+     traverseNeighbors: depth = 5: parentPoint = 972, rootPoint = 71
+   traverseNeighbors: depth = 3: parentPoint = 924, rootPoint = 327
+    traverseNeighbors: depth = 4: parentPoint = 327, rootPoint = 929
+     traverseNeighbors: depth = 5: parentPoint = 929, rootPoint = 898
+      traverseNeighbors: depth = 6: parentPoint = 898, rootPoint = 531
+   traverseNeighbors: depth = 3: parentPoint = 924, rootPoint = 476
+    traverseNeighbors: depth = 4: parentPoint = 476, rootPoint = 375
+     traverseNeighbors: depth = 5: parentPoint = 375, rootPoint = 97
+     traverseNeighbors: depth = 5: parentPoint = 375, rootPoint = 193
+      traverseNeighbors: depth = 6: parentPoint = 193, rootPoint = 524
+      traverseNeighbors: depth = 6: parentPoint = 193, rootPoint = 644
+       traverseNeighbors: depth = 7: parentPoint = 644, rootPoint = 256
+        traverseNeighbors: depth = 8: parentPoint = 256, rootPoint = 937
+       traverseNeighbors: depth = 7: parentPoint = 644, rootPoint = 911
+        traverseNeighbors: depth = 8: parentPoint = 911, rootPoint = 375
+         traverseNeighbors: depth = 9: parentPoint = 375, rootPoint = 476
+          traverseNeighbors: depth = 10: parentPoint = 476, rootPoint = 419
+           traverseNeighbors: depth = 11: parentPoint = 419, rootPoint = 911
+            traverseNeighbors: depth = 12: parentPoint = 911, rootPoint = 644
+          traverseNeighbors: depth = 10: parentPoint = 476, rootPoint = 924
+      traverseNeighbors: depth = 6: parentPoint = 193, rootPoint = 903
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 119
+ traverseNeighbors: depth = 1: parentPoint = 119, rootPoint = 89
+ traverseNeighbors: depth = 1: parentPoint = 119, rootPoint = 146
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 338
+ traverseNeighbors: depth = 1: parentPoint = 338, rootPoint = 98
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 968
+ traverseNeighbors: depth = 1: parentPoint = 968, rootPoint = 142
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 304
+ traverseNeighbors: depth = 1: parentPoint = 304, rootPoint = 139
+  traverseNeighbors: depth = 2: parentPoint = 139, rootPoint = 664
+   traverseNeighbors: depth = 3: parentPoint = 664, rootPoint = 304
+    traverseNeighbors: depth = 4: parentPoint = 304, rootPoint = 370
+     traverseNeighbors: depth = 5: parentPoint = 370, rootPoint = 452
+      traverseNeighbors: depth = 6: parentPoint = 452, rootPoint = 304
+       traverseNeighbors: depth = 7: parentPoint = 304, rootPoint = 664
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 877
+ traverseNeighbors: depth = 1: parentPoint = 877, rootPoint = 473
+  traverseNeighbors: depth = 2: parentPoint = 473, rootPoint = 816
+   traverseNeighbors: depth = 3: parentPoint = 816, rootPoint = 582
+    traverseNeighbors: depth = 4: parentPoint = 582, rootPoint = 877
+     traverseNeighbors: depth = 5: parentPoint = 877, rootPoint = 816
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 411
+ traverseNeighbors: depth = 1: parentPoint = 411, rootPoint = 100
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 218
+ traverseNeighbors: depth = 1: parentPoint = 218, rootPoint = 210
+  traverseNeighbors: depth = 2: parentPoint = 210, rootPoint = 337
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 481
+ traverseNeighbors: depth = 1: parentPoint = 481, rootPoint = 615
+ traverseNeighbors: depth = 1: parentPoint = 481, rootPoint = 919
+  traverseNeighbors: depth = 2: parentPoint = 919, rootPoint = 665
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 316
+ traverseNeighbors: depth = 1: parentPoint = 316, rootPoint = 303
+  traverseNeighbors: depth = 2: parentPoint = 303, rootPoint = 359
+ traverseNeighbors: depth = 1: parentPoint = 316, rootPoint = 798
+  traverseNeighbors: depth = 2: parentPoint = 798, rootPoint = 1037
+   traverseNeighbors: depth = 3: parentPoint = 1037, rootPoint = 989
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 190
+ traverseNeighbors: depth = 1: parentPoint = 190, rootPoint = 129
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 232
+ traverseNeighbors: depth = 1: parentPoint = 232, rootPoint = 121
+  traverseNeighbors: depth = 2: parentPoint = 121, rootPoint = 550
+   traverseNeighbors: depth = 3: parentPoint = 550, rootPoint = 896
+  traverseNeighbors: depth = 2: parentPoint = 121, rootPoint = 915
+   traverseNeighbors: depth = 3: parentPoint = 915, rootPoint = 232
+    traverseNeighbors: depth = 4: parentPoint = 232, rootPoint = 901
+   traverseNeighbors: depth = 3: parentPoint = 915, rootPoint = 714
+    traverseNeighbors: depth = 4: parentPoint = 714, rootPoint = 441
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 889
+ traverseNeighbors: depth = 1: parentPoint = 889, rootPoint = 11
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 292
+ traverseNeighbors: depth = 1: parentPoint = 292, rootPoint = 349
+  traverseNeighbors: depth = 2: parentPoint = 349, rootPoint = 214
+  traverseNeighbors: depth = 2: parentPoint = 349, rootPoint = 482
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 797
+ traverseNeighbors: depth = 1: parentPoint = 797, rootPoint = 442
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 234
+ traverseNeighbors: depth = 1: parentPoint = 234, rootPoint = 203
+  traverseNeighbors: depth = 2: parentPoint = 203, rootPoint = 382
+   traverseNeighbors: depth = 3: parentPoint = 382, rootPoint = 234
+   traverseNeighbors: depth = 3: parentPoint = 382, rootPoint = 836
+  traverseNeighbors: depth = 2: parentPoint = 203, rootPoint = 533
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 1004
+ traverseNeighbors: depth = 1: parentPoint = 1004, rootPoint = 423
+  traverseNeighbors: depth = 2: parentPoint = 423, rootPoint = 853
+   traverseNeighbors: depth = 3: parentPoint = 853, rootPoint = 1004
+    traverseNeighbors: depth = 4: parentPoint = 1004, rootPoint = 999
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 358
+ traverseNeighbors: depth = 1: parentPoint = 358, rootPoint = 296
+ traverseNeighbors: depth = 1: parentPoint = 358, rootPoint = 872
+  traverseNeighbors: depth = 2: parentPoint = 872, rootPoint = 967
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 237
+ traverseNeighbors: depth = 1: parentPoint = 237, rootPoint = 55
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 239
+ traverseNeighbors: depth = 1: parentPoint = 239, rootPoint = 201
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 322
+ traverseNeighbors: depth = 1: parentPoint = 322, rootPoint = 553
+  traverseNeighbors: depth = 2: parentPoint = 553, rootPoint = 667
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 845
+ traverseNeighbors: depth = 1: parentPoint = 845, rootPoint = 739
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 252
+ traverseNeighbors: depth = 1: parentPoint = 252, rootPoint = 87
+ traverseNeighbors: depth = 1: parentPoint = 252, rootPoint = 578
+  traverseNeighbors: depth = 2: parentPoint = 578, rootPoint = 340
+   traverseNeighbors: depth = 3: parentPoint = 340, rootPoint = 670
+    traverseNeighbors: depth = 4: parentPoint = 670, rootPoint = 539
+     traverseNeighbors: depth = 5: parentPoint = 539, rootPoint = 578
+      traverseNeighbors: depth = 6: parentPoint = 578, rootPoint = 588
+       traverseNeighbors: depth = 7: parentPoint = 588, rootPoint = 670
+        traverseNeighbors: depth = 8: parentPoint = 670, rootPoint = 578
+     traverseNeighbors: depth = 5: parentPoint = 539, rootPoint = 775
+      traverseNeighbors: depth = 6: parentPoint = 775, rootPoint = 579
+ traverseNeighbors: depth = 1: parentPoint = 252, rootPoint = 964
+  traverseNeighbors: depth = 2: parentPoint = 964, rootPoint = 318
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 368
+ traverseNeighbors: depth = 1: parentPoint = 368, rootPoint = 610
+  traverseNeighbors: depth = 2: parentPoint = 610, rootPoint = 805
+   traverseNeighbors: depth = 3: parentPoint = 805, rootPoint = 368
+    traverseNeighbors: depth = 4: parentPoint = 368, rootPoint = 1011
+     traverseNeighbors: depth = 5: parentPoint = 1011, rootPoint = 610
+     traverseNeighbors: depth = 5: parentPoint = 1011, rootPoint = 805
+      traverseNeighbors: depth = 6: parentPoint = 805, rootPoint = 610
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 255
+ traverseNeighbors: depth = 1: parentPoint = 255, rootPoint = 92
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 259
+ traverseNeighbors: depth = 1: parentPoint = 259, rootPoint = 189
+  traverseNeighbors: depth = 2: parentPoint = 189, rootPoint = 512
+   traverseNeighbors: depth = 3: parentPoint = 512, rootPoint = 883
+    traverseNeighbors: depth = 4: parentPoint = 883, rootPoint = 189
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 264
+ traverseNeighbors: depth = 1: parentPoint = 264, rootPoint = 184
+  traverseNeighbors: depth = 2: parentPoint = 184, rootPoint = 288
+   traverseNeighbors: depth = 3: parentPoint = 288, rootPoint = 161
+   traverseNeighbors: depth = 3: parentPoint = 288, rootPoint = 780
+    traverseNeighbors: depth = 4: parentPoint = 780, rootPoint = 614
+  traverseNeighbors: depth = 2: parentPoint = 184, rootPoint = 422
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 700
+ traverseNeighbors: depth = 1: parentPoint = 700, rootPoint = 74
+  traverseNeighbors: depth = 2: parentPoint = 74, rootPoint = 634
+   traverseNeighbors: depth = 3: parentPoint = 634, rootPoint = 700
+    traverseNeighbors: depth = 4: parentPoint = 700, rootPoint = 658
+   traverseNeighbors: depth = 3: parentPoint = 634, rootPoint = 993
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 269
+ traverseNeighbors: depth = 1: parentPoint = 269, rootPoint = 202
+  traverseNeighbors: depth = 2: parentPoint = 202, rootPoint = 715
+   traverseNeighbors: depth = 3: parentPoint = 715, rootPoint = 771
+    traverseNeighbors: depth = 4: parentPoint = 771, rootPoint = 202
+     traverseNeighbors: depth = 5: parentPoint = 202, rootPoint = 914
+      traverseNeighbors: depth = 6: parentPoint = 914, rootPoint = 269
+      traverseNeighbors: depth = 6: parentPoint = 914, rootPoint = 771
+       traverseNeighbors: depth = 7: parentPoint = 771, rootPoint = 584
+        traverseNeighbors: depth = 8: parentPoint = 584, rootPoint = 251
+        traverseNeighbors: depth = 8: parentPoint = 584, rootPoint = 271
+         traverseNeighbors: depth = 9: parentPoint = 271, rootPoint = 947
+          traverseNeighbors: depth = 10: parentPoint = 947, rootPoint = 202
+          traverseNeighbors: depth = 10: parentPoint = 947, rootPoint = 715
+          traverseNeighbors: depth = 10: parentPoint = 947, rootPoint = 771
+           traverseNeighbors: depth = 11: parentPoint = 771, rootPoint = 715
+           traverseNeighbors: depth = 11: parentPoint = 771, rootPoint = 914
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 270
+ traverseNeighbors: depth = 1: parentPoint = 270, rootPoint = 195
+  traverseNeighbors: depth = 2: parentPoint = 195, rootPoint = 463
+   traverseNeighbors: depth = 3: parentPoint = 463, rootPoint = 270
+   traverseNeighbors: depth = 3: parentPoint = 463, rootPoint = 697
+    traverseNeighbors: depth = 4: parentPoint = 697, rootPoint = 69
+    traverseNeighbors: depth = 4: parentPoint = 697, rootPoint = 508
+    traverseNeighbors: depth = 4: parentPoint = 697, rootPoint = 774
+     traverseNeighbors: depth = 5: parentPoint = 774, rootPoint = 150
+      traverseNeighbors: depth = 6: parentPoint = 150, rootPoint = 365
+     traverseNeighbors: depth = 5: parentPoint = 774, rootPoint = 888
+      traverseNeighbors: depth = 6: parentPoint = 888, rootPoint = 867
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 159
+ traverseNeighbors: depth = 1: parentPoint = 159, rootPoint = 437
+  traverseNeighbors: depth = 2: parentPoint = 437, rootPoint = 679
+ traverseNeighbors: depth = 1: parentPoint = 159, rootPoint = 483
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 279
+ traverseNeighbors: depth = 1: parentPoint = 279, rootPoint = 107
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 175
+ traverseNeighbors: depth = 1: parentPoint = 175, rootPoint = 596
+  traverseNeighbors: depth = 2: parentPoint = 596, rootPoint = 294
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 312
+ traverseNeighbors: depth = 1: parentPoint = 312, rootPoint = 216
+  traverseNeighbors: depth = 2: parentPoint = 216, rootPoint = 624
+  traverseNeighbors: depth = 2: parentPoint = 216, rootPoint = 654
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 546
+ traverseNeighbors: depth = 1: parentPoint = 546, rootPoint = 176
+ traverseNeighbors: depth = 1: parentPoint = 546, rootPoint = 795
+  traverseNeighbors: depth = 2: parentPoint = 795, rootPoint = 457
+   traverseNeighbors: depth = 3: parentPoint = 457, rootPoint = 510
+    traverseNeighbors: depth = 4: parentPoint = 510, rootPoint = 221
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 313
+ traverseNeighbors: depth = 1: parentPoint = 313, rootPoint = 233
+ traverseNeighbors: depth = 1: parentPoint = 313, rootPoint = 675
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 157
+ traverseNeighbors: depth = 1: parentPoint = 157, rootPoint = 472
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 325
+ traverseNeighbors: depth = 1: parentPoint = 325, rootPoint = 143
+  traverseNeighbors: depth = 2: parentPoint = 143, rootPoint = 951
+   traverseNeighbors: depth = 3: parentPoint = 951, rootPoint = 325
+   traverseNeighbors: depth = 3: parentPoint = 951, rootPoint = 756
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 328
+ traverseNeighbors: depth = 1: parentPoint = 328, rootPoint = 46
+  traverseNeighbors: depth = 2: parentPoint = 46, rootPoint = 753
+   traverseNeighbors: depth = 3: parentPoint = 753, rootPoint = 298
+    traverseNeighbors: depth = 4: parentPoint = 298, rootPoint = 724
+     traverseNeighbors: depth = 5: parentPoint = 724, rootPoint = 391
+     traverseNeighbors: depth = 5: parentPoint = 724, rootPoint = 725
+      traverseNeighbors: depth = 6: parentPoint = 725, rootPoint = 328
+      traverseNeighbors: depth = 6: parentPoint = 725, rootPoint = 753
+       traverseNeighbors: depth = 7: parentPoint = 753, rootPoint = 724
+      traverseNeighbors: depth = 6: parentPoint = 725, rootPoint = 861
+       traverseNeighbors: depth = 7: parentPoint = 861, rootPoint = 568
+        traverseNeighbors: depth = 8: parentPoint = 568, rootPoint = 108
+        traverseNeighbors: depth = 8: parentPoint = 568, rootPoint = 829
+         traverseNeighbors: depth = 9: parentPoint = 829, rootPoint = 861
+          traverseNeighbors: depth = 10: parentPoint = 861, rootPoint = 725
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 760
+ traverseNeighbors: depth = 1: parentPoint = 760, rootPoint = 833
+  traverseNeighbors: depth = 2: parentPoint = 833, rootPoint = 31
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 489
+ traverseNeighbors: depth = 1: parentPoint = 489, rootPoint = 363
+  traverseNeighbors: depth = 2: parentPoint = 363, rootPoint = 696
+ traverseNeighbors: depth = 1: parentPoint = 489, rootPoint = 957
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 183
+ traverseNeighbors: depth = 1: parentPoint = 183, rootPoint = 414
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 245
+ traverseNeighbors: depth = 1: parentPoint = 245, rootPoint = 623
+  traverseNeighbors: depth = 2: parentPoint = 623, rootPoint = 748
+   traverseNeighbors: depth = 3: parentPoint = 748, rootPoint = 874
+    traverseNeighbors: depth = 4: parentPoint = 874, rootPoint = 245
+    traverseNeighbors: depth = 4: parentPoint = 874, rootPoint = 623
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 253
+ traverseNeighbors: depth = 1: parentPoint = 253, rootPoint = 589
+  traverseNeighbors: depth = 2: parentPoint = 589, rootPoint = 860
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 374
+ traverseNeighbors: depth = 1: parentPoint = 374, rootPoint = 180
+  traverseNeighbors: depth = 2: parentPoint = 180, rootPoint = 879
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 377
+ traverseNeighbors: depth = 1: parentPoint = 377, rootPoint = 335
+  traverseNeighbors: depth = 2: parentPoint = 335, rootPoint = 746
+ traverseNeighbors: depth = 1: parentPoint = 377, rootPoint = 682
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 385
+ traverseNeighbors: depth = 1: parentPoint = 385, rootPoint = 63
+  traverseNeighbors: depth = 2: parentPoint = 63, rootPoint = 971
+   traverseNeighbors: depth = 3: parentPoint = 971, rootPoint = 721
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 389
+ traverseNeighbors: depth = 1: parentPoint = 389, rootPoint = 32
+  traverseNeighbors: depth = 2: parentPoint = 32, rootPoint = 1021
+   traverseNeighbors: depth = 3: parentPoint = 1021, rootPoint = 659
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 613
+ traverseNeighbors: depth = 1: parentPoint = 613, rootPoint = 926
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 22
+ traverseNeighbors: depth = 1: parentPoint = 22, rootPoint = 520
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 413
+ traverseNeighbors: depth = 1: parentPoint = 413, rootPoint = 35
+  traverseNeighbors: depth = 2: parentPoint = 35, rootPoint = 416
+   traverseNeighbors: depth = 3: parentPoint = 416, rootPoint = 413
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 728
+ traverseNeighbors: depth = 1: parentPoint = 728, rootPoint = 738
+  traverseNeighbors: depth = 2: parentPoint = 738, rootPoint = 64
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 513
+ traverseNeighbors: depth = 1: parentPoint = 513, rootPoint = 37
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 436
+ traverseNeighbors: depth = 1: parentPoint = 436, rootPoint = 165
+  traverseNeighbors: depth = 2: parentPoint = 165, rootPoint = 461
+   traverseNeighbors: depth = 3: parentPoint = 461, rootPoint = 936
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 444
+ traverseNeighbors: depth = 1: parentPoint = 444, rootPoint = 228
+ traverseNeighbors: depth = 1: parentPoint = 444, rootPoint = 823
+  traverseNeighbors: depth = 2: parentPoint = 823, rootPoint = 27
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 525
+ traverseNeighbors: depth = 1: parentPoint = 525, rootPoint = 70
+ traverseNeighbors: depth = 1: parentPoint = 525, rootPoint = 899
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 885
+ traverseNeighbors: depth = 1: parentPoint = 885, rootPoint = 326
+  traverseNeighbors: depth = 2: parentPoint = 326, rootPoint = 800
+   traverseNeighbors: depth = 3: parentPoint = 800, rootPoint = 638
+    traverseNeighbors: depth = 4: parentPoint = 638, rootPoint = 843
+     traverseNeighbors: depth = 5: parentPoint = 843, rootPoint = 938
+      traverseNeighbors: depth = 6: parentPoint = 938, rootPoint = 638
+   traverseNeighbors: depth = 3: parentPoint = 800, rootPoint = 885
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 447
+ traverseNeighbors: depth = 1: parentPoint = 447, rootPoint = 250
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 449
+ traverseNeighbors: depth = 1: parentPoint = 449, rootPoint = 301
+ traverseNeighbors: depth = 1: parentPoint = 449, rootPoint = 779
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 604
+ traverseNeighbors: depth = 1: parentPoint = 604, rootPoint = 540
+  traverseNeighbors: depth = 2: parentPoint = 540, rootPoint = 701
+   traverseNeighbors: depth = 3: parentPoint = 701, rootPoint = 604
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 597
+ traverseNeighbors: depth = 1: parentPoint = 597, rootPoint = 729
+ traverseNeighbors: depth = 1: parentPoint = 597, rootPoint = 995
+  traverseNeighbors: depth = 2: parentPoint = 995, rootPoint = 702
+   traverseNeighbors: depth = 3: parentPoint = 702, rootPoint = 559
+    traverseNeighbors: depth = 4: parentPoint = 559, rootPoint = 593
+     traverseNeighbors: depth = 5: parentPoint = 593, rootPoint = 702
+      traverseNeighbors: depth = 6: parentPoint = 702, rootPoint = 995
+     traverseNeighbors: depth = 5: parentPoint = 593, rootPoint = 887
+      traverseNeighbors: depth = 6: parentPoint = 887, rootPoint = 420
+       traverseNeighbors: depth = 7: parentPoint = 420, rootPoint = 868
+        traverseNeighbors: depth = 8: parentPoint = 868, rootPoint = 291
+        traverseNeighbors: depth = 8: parentPoint = 868, rootPoint = 887
+         traverseNeighbors: depth = 9: parentPoint = 887, rootPoint = 593
+        traverseNeighbors: depth = 8: parentPoint = 868, rootPoint = 1039
+         traverseNeighbors: depth = 9: parentPoint = 1039, rootPoint = 372
+         traverseNeighbors: depth = 9: parentPoint = 1039, rootPoint = 420
+          traverseNeighbors: depth = 10: parentPoint = 420, rootPoint = 887
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 456
+ traverseNeighbors: depth = 1: parentPoint = 456, rootPoint = 81
+ traverseNeighbors: depth = 1: parentPoint = 456, rootPoint = 477
+  traverseNeighbors: depth = 2: parentPoint = 477, rootPoint = 878
+   traverseNeighbors: depth = 3: parentPoint = 878, rootPoint = 456
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 470
+ traverseNeighbors: depth = 1: parentPoint = 470, rootPoint = 130
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 681
+ traverseNeighbors: depth = 1: parentPoint = 681, rootPoint = 380
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 474
+ traverseNeighbors: depth = 1: parentPoint = 474, rootPoint = 438
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 491
+ traverseNeighbors: depth = 1: parentPoint = 491, rootPoint = 257
+ traverseNeighbors: depth = 1: parentPoint = 491, rootPoint = 931
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 637
+ traverseNeighbors: depth = 1: parentPoint = 637, rootPoint = 317
+  traverseNeighbors: depth = 2: parentPoint = 317, rootPoint = 890
+   traverseNeighbors: depth = 3: parentPoint = 890, rootPoint = 558
+    traverseNeighbors: depth = 4: parentPoint = 558, rootPoint = 405
+   traverseNeighbors: depth = 3: parentPoint = 890, rootPoint = 637
+    traverseNeighbors: depth = 4: parentPoint = 637, rootPoint = 997
+     traverseNeighbors: depth = 5: parentPoint = 997, rootPoint = 317
+     traverseNeighbors: depth = 5: parentPoint = 997, rootPoint = 890
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 496
+ traverseNeighbors: depth = 1: parentPoint = 496, rootPoint = 393
+ traverseNeighbors: depth = 1: parentPoint = 496, rootPoint = 485
+  traverseNeighbors: depth = 2: parentPoint = 485, rootPoint = 617
+   traverseNeighbors: depth = 3: parentPoint = 617, rootPoint = 496
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 499
+ traverseNeighbors: depth = 1: parentPoint = 499, rootPoint = 331
+ traverseNeighbors: depth = 1: parentPoint = 499, rootPoint = 810
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 502
+ traverseNeighbors: depth = 1: parentPoint = 502, rootPoint = 244
+  traverseNeighbors: depth = 2: parentPoint = 244, rootPoint = 983
+   traverseNeighbors: depth = 3: parentPoint = 983, rootPoint = 502
+    traverseNeighbors: depth = 4: parentPoint = 502, rootPoint = 669
+    traverseNeighbors: depth = 4: parentPoint = 502, rootPoint = 1018
+     traverseNeighbors: depth = 5: parentPoint = 1018, rootPoint = 244
+     traverseNeighbors: depth = 5: parentPoint = 1018, rootPoint = 397
+   traverseNeighbors: depth = 3: parentPoint = 983, rootPoint = 942
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 114
+ traverseNeighbors: depth = 1: parentPoint = 114, rootPoint = 514
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 506
+ traverseNeighbors: depth = 1: parentPoint = 506, rootPoint = 353
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 988
+ traverseNeighbors: depth = 1: parentPoint = 988, rootPoint = 120
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 530
+ traverseNeighbors: depth = 1: parentPoint = 530, rootPoint = 5
+ traverseNeighbors: depth = 1: parentPoint = 530, rootPoint = 220
+  traverseNeighbors: depth = 2: parentPoint = 220, rootPoint = 1030
+   traverseNeighbors: depth = 3: parentPoint = 1030, rootPoint = 994
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 532
+ traverseNeighbors: depth = 1: parentPoint = 532, rootPoint = 346
+  traverseNeighbors: depth = 2: parentPoint = 346, rootPoint = 650
+   traverseNeighbors: depth = 3: parentPoint = 650, rootPoint = 282
+    traverseNeighbors: depth = 4: parentPoint = 282, rootPoint = 759
+     traverseNeighbors: depth = 5: parentPoint = 759, rootPoint = 346
+     traverseNeighbors: depth = 5: parentPoint = 759, rootPoint = 532
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 536
+ traverseNeighbors: depth = 1: parentPoint = 536, rootPoint = 44
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 549
+ traverseNeighbors: depth = 1: parentPoint = 549, rootPoint = 620
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 580
+ traverseNeighbors: depth = 1: parentPoint = 580, rootPoint = 355
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 599
+ traverseNeighbors: depth = 1: parentPoint = 599, rootPoint = 91
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 611
+ traverseNeighbors: depth = 1: parentPoint = 611, rootPoint = 343
+  traverseNeighbors: depth = 2: parentPoint = 343, rootPoint = 660
+ traverseNeighbors: depth = 1: parentPoint = 611, rootPoint = 891
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 612
+ traverseNeighbors: depth = 1: parentPoint = 612, rootPoint = 339
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 647
+ traverseNeighbors: depth = 1: parentPoint = 647, rootPoint = 315
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 651
+ traverseNeighbors: depth = 1: parentPoint = 651, rootPoint = 199
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 655
+ traverseNeighbors: depth = 1: parentPoint = 655, rootPoint = 186
+ traverseNeighbors: depth = 1: parentPoint = 655, rootPoint = 722
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 673
+ traverseNeighbors: depth = 1: parentPoint = 673, rootPoint = 379
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 464
+ traverseNeighbors: depth = 1: parentPoint = 464, rootPoint = 963
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 686
+ traverseNeighbors: depth = 1: parentPoint = 686, rootPoint = 347
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 706
+ traverseNeighbors: depth = 1: parentPoint = 706, rootPoint = 122
+  traverseNeighbors: depth = 2: parentPoint = 122, rootPoint = 1020
+   traverseNeighbors: depth = 3: parentPoint = 1020, rootPoint = 706
+   traverseNeighbors: depth = 3: parentPoint = 1020, rootPoint = 871
+   traverseNeighbors: depth = 3: parentPoint = 1020, rootPoint = 950
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 709
+ traverseNeighbors: depth = 1: parentPoint = 709, rootPoint = 443
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 717
+ traverseNeighbors: depth = 1: parentPoint = 717, rootPoint = 542
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 745
+ traverseNeighbors: depth = 1: parentPoint = 745, rootPoint = 478
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 750
+ traverseNeighbors: depth = 1: parentPoint = 750, rootPoint = 65
+ traverseNeighbors: depth = 1: parentPoint = 750, rootPoint = 295
+ traverseNeighbors: depth = 1: parentPoint = 750, rootPoint = 484
+  traverseNeighbors: depth = 2: parentPoint = 484, rootPoint = 858
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 1008
+ traverseNeighbors: depth = 1: parentPoint = 1008, rootPoint = 469
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 755
+ traverseNeighbors: depth = 1: parentPoint = 755, rootPoint = 595
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 757
+ traverseNeighbors: depth = 1: parentPoint = 757, rootPoint = 111
+ traverseNeighbors: depth = 1: parentPoint = 757, rootPoint = 458
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 758
+ traverseNeighbors: depth = 1: parentPoint = 758, rootPoint = 630
+  traverseNeighbors: depth = 2: parentPoint = 630, rootPoint = 949
+   traverseNeighbors: depth = 3: parentPoint = 949, rootPoint = 758
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 762
+ traverseNeighbors: depth = 1: parentPoint = 762, rootPoint = 360
+ traverseNeighbors: depth = 1: parentPoint = 762, rootPoint = 820
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 768
+ traverseNeighbors: depth = 1: parentPoint = 768, rootPoint = 25
+  traverseNeighbors: depth = 2: parentPoint = 25, rootPoint = 802
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 770
+ traverseNeighbors: depth = 1: parentPoint = 770, rootPoint = 196
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 801
+ traverseNeighbors: depth = 1: parentPoint = 801, rootPoint = 747
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 806
+ traverseNeighbors: depth = 1: parentPoint = 806, rootPoint = 240
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 818
+ traverseNeighbors: depth = 1: parentPoint = 818, rootPoint = 185
+  traverseNeighbors: depth = 2: parentPoint = 185, rootPoint = 923
+   traverseNeighbors: depth = 3: parentPoint = 923, rootPoint = 818
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 827
+ traverseNeighbors: depth = 1: parentPoint = 827, rootPoint = 18
+ traverseNeighbors: depth = 1: parentPoint = 827, rootPoint = 913
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 832
+ traverseNeighbors: depth = 1: parentPoint = 832, rootPoint = 528
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 840
+ traverseNeighbors: depth = 1: parentPoint = 840, rootPoint = 67
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 842
+ traverseNeighbors: depth = 1: parentPoint = 842, rootPoint = 30
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 854
+ traverseNeighbors: depth = 1: parentPoint = 854, rootPoint = 529
+ traverseNeighbors: depth = 1: parentPoint = 854, rootPoint = 575
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 855
+ traverseNeighbors: depth = 1: parentPoint = 855, rootPoint = 564
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 870
+ traverseNeighbors: depth = 1: parentPoint = 870, rootPoint = 418
+ traverseNeighbors: depth = 1: parentPoint = 870, rootPoint = 1010
+  traverseNeighbors: depth = 2: parentPoint = 1010, rootPoint = 778
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 880
+ traverseNeighbors: depth = 1: parentPoint = 880, rootPoint = 571
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 882
+ traverseNeighbors: depth = 1: parentPoint = 882, rootPoint = 825
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 884
+ traverseNeighbors: depth = 1: parentPoint = 884, rootPoint = 207
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 902
+ traverseNeighbors: depth = 1: parentPoint = 902, rootPoint = 428
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 910
+ traverseNeighbors: depth = 1: parentPoint = 910, rootPoint = 450
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 925
+ traverseNeighbors: depth = 1: parentPoint = 925, rootPoint = 574
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 939
+ traverseNeighbors: depth = 1: parentPoint = 939, rootPoint = 803
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 946
+ traverseNeighbors: depth = 1: parentPoint = 946, rootPoint = 14
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 973
+ traverseNeighbors: depth = 1: parentPoint = 973, rootPoint = 636
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 987
+ traverseNeighbors: depth = 1: parentPoint = 987, rootPoint = 378
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 1003
+ traverseNeighbors: depth = 1: parentPoint = 1003, rootPoint = 19
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 1006
+ traverseNeighbors: depth = 1: parentPoint = 1006, rootPoint = 497
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 1007
+ traverseNeighbors: depth = 1: parentPoint = 1007, rootPoint = 243
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 1013
+ traverseNeighbors: depth = 1: parentPoint = 1013, rootPoint = 354
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 1026
+ traverseNeighbors: depth = 1: parentPoint = 1026, rootPoint = 563
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 1029
+ traverseNeighbors: depth = 1: parentPoint = 1029, rootPoint = 427
+traverseNeighbors: depth = 0: parentPoint = -1, rootPoint = 1045
+ traverseNeighbors: depth = 1: parentPoint = 1045, rootPoint = 386
+767
+430
