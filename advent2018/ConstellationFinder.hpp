@@ -24,12 +24,15 @@ namespace Advent2018
 
 	struct ConstellationFinder
 	{
-		ConstellationFinder(unsigned numCloseDistances = 0,
+		ConstellationFinder(
+			unsigned numCloseDistances = 0,
+			unsigned numIsolatedPoints = 0,
 			unsigned numConstellations = 0,
 			unsigned traversalDepth = 0,
 			const char *field3 = "",
 			int dummy = 0) :
 			_numCloseDistances(numCloseDistances),
+			_numIsolatedPoints(numIsolatedPoints),
 			_numConstellations(numConstellations),
 			_traversalDepth(traversalDepth),
 			_field3(field3),
@@ -50,7 +53,8 @@ namespace Advent2018
 		void countConstellations()
 		{
 			countCloseDistances();
-			_numConstellations = 0;
+			countIsolatedPoints();
+			_numConstellations = _numIsolatedPoints;
 			_traversalDepth = 0;
 			ClosePointPairs closePointPairs = _closePointPairs;
 			while (closePointPairs.size() != 0)
@@ -87,16 +91,6 @@ namespace Advent2018
 				for (size_t j = 0; j < _points.size(); ++j)
 				{
 					if (i == j) break;
-					//ClosePointPair otherClosePointPair
-					//	= { _points[j].x, _points[j].y, _points[j].z, _points[j].t,
-					//		_points[i].x, _points[i].y, _points[i].z, _points[i].t };
-					//auto pointsFound = false;
-					//auto pointFoundRange = _closePointPairs.equal_range(j);
-					//for (auto it = pointFoundRange.first; it != pointFoundRange.second; ++it)
-					//{
-					//	if (it->second == i) pointsFound = true;
-					//}
-					//if (pointsFound) continue;
 
 					auto distance
 						= distanceBetweenTwoPoints(_points[i].x, _points[i].y, _points[i].z, _points[i].t,
@@ -111,12 +105,21 @@ namespace Advent2018
 				}
 		}
 
+		// must be called after countCloseDistances()!
+		void countIsolatedPoints()
+		{
+			_numIsolatedPoints = 0;
+			for (size_t i = 0; i < _points.size(); ++i)
+				if (_closePointPairs.equal_range(i).first == _closePointPairs.end()) ++_numIsolatedPoints;
+		}
+
 		int distanceBetweenTwoPoints(int x1, int y1, int z1, int t1, int x2, int y2, int z2, int t2)
 		{
 			return abs(x2 - x1) + abs(y2 - y1) + abs(z2 - z1) + abs(t2 - t1);
 		}
 
 		unsigned _numCloseDistances;
+		unsigned _numIsolatedPoints;
 		unsigned _numConstellations;
 		unsigned _traversalDepth;
 		string _field3;
