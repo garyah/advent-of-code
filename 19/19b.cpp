@@ -25,7 +25,21 @@ int main()
 		parser.parseInstruction(line);
 	} while (!cin.eof());
 
-	parser.executeProgram(initialProgramCounter, initialRegisterValues);
-	cout << parser.getRegisterZero() << endl;
+	//parser.executeProgram(initialProgramCounter, initialRegisterValues);
+	//cout << parser.getRegisterZero() << endl;
+
+	regType bigNumber = 10551287;
+	regType firstPrimeFactor = 0, secondPrimeFactor = 0;
+	for (regType testFactor = 2; testFactor < bigNumber; ++testFactor)
+	{
+		if ((bigNumber % testFactor) == 0)
+		{
+			firstPrimeFactor = testFactor;
+			secondPrimeFactor = bigNumber / testFactor;
+		}
+	}
+	cout << "firstPrimeFactor = " << firstPrimeFactor;
+	cout << ", secondPrimeFactor = " << secondPrimeFactor << endl;
+	cout << "sum of all factors = " << 1 + firstPrimeFactor + secondPrimeFactor + bigNumber << endl;
 	return 0;
 }
