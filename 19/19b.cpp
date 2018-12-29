@@ -29,17 +29,16 @@ int main()
 	//cout << parser.getRegisterZero() << endl;
 
 	regType bigNumber = 10551287;
-	regType firstPrimeFactor = 0, secondPrimeFactor = 0;
-	for (regType testFactor = 2; testFactor < bigNumber; ++testFactor)
+	regType sumFirstFactors = 0;
+	for (regType testFactor = 1; testFactor <= bigNumber; ++testFactor)
 	{
 		if ((bigNumber % testFactor) == 0)
 		{
-			firstPrimeFactor = testFactor;
-			secondPrimeFactor = bigNumber / testFactor;
+			cout << "first factor = " << testFactor;
+			cout << ", second factor = " << bigNumber / testFactor << endl;
+			sumFirstFactors += testFactor;
 		}
 	}
-	cout << "firstPrimeFactor = " << firstPrimeFactor;
-	cout << ", secondPrimeFactor = " << secondPrimeFactor << endl;
-	cout << "sum of all factors = " << 1 + firstPrimeFactor + secondPrimeFactor + bigNumber << endl;
+	cout << "sum of all first factors = " << sumFirstFactors << endl;
 	return 0;
 }
