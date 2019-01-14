@@ -1,0 +1,1267 @@
+
+ghilde@ghilde-sbook MINGW64 ~
+$ which unique
+which: no unique in (/c/Users/ghilde/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/ghilde/bin:/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/c/ProgramData/Oracle/Java/javapath:/c/Python27:/c/Python27/Scripts:/c/Program Files/Common Files/Microsoft Shared/Microsoft Online Services:/c/Program Files (x86)/Common Files/Microsoft Shared/Microsoft Online Services:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/ProgramData/chocolatey/bin:/c/WINDOWS/system32/config/systemprofile/.dnx/bin:/c/Program Files/Microsoft DNX/Dnvm:/c/Program Files/Microsoft SQL Server/120/Tools/Binn:/c/Program Files/Microsoft SQL Server/130/Tools/Binn:/c/Program Files/Git LFS:/c/Program Files/TortoiseSVN/bin:/c/Program Files (x86)/Brackets/command:/cmd:/c/Program Files/dotnet:/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit:/c/WINDOWS/SysWOW64/WindowsPowerShell/v1.0/Modules/TShell/TShell:/c/Program Files/Microsoft VS Code/bin:/c/WINDOWS/System32/OpenSSH:/c/Program Files/nodejs:/c/Users/ghilde/bin:/c/Users/ghilde/AppData/Local/Microsoft/WindowsApps:/c/Program Files/Microsoft VS Code/bin:/c/Users/ghilde/AppData/Local/Programs/Microsoft VS Code/bin:/c/Users/ghilde/AppData/Roaming/npm:/usr/bin/vendor_perl:/usr/bin/core_perl)
+
+ghilde@ghilde-sbook MINGW64 ~
+$ which sort
+/usr/bin/sort
+
+ghilde@ghilde-sbook MINGW64 ~
+$ which uniq
+/usr/bin/uniq
+
+ghilde@ghilde-sbook MINGW64 ~
+$ pwd
+/c/Users/ghilde
+
+ghilde@ghilde-sbook MINGW64 ~
+$ cd ws
+
+ghilde@ghilde-sbook MINGW64 ~/ws
+$ cd advent/
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent
+$ cd 2018-advent/
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent (master)
+$ cd 21
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ uniq < problem_output_b.txt
+5026
+18580
+20340
+58687
+61607
+64412
+77823
+82038
+125357
+126174
+137384
+140249
+149458
+157506
+162339
+166406
+179965
+228234
+238435
+284752
+288677
+303857
+310155
+334493
+341829
+359494
+389578
+402290
+421885
+429150
+429784
+484437
+493768
+493964
+500841
+503555
+519073
+522535
+548893
+555134
+591797
+645143
+646920
+654264
+670590
+676284
+693682
+722549
+745022
+756787
+772444
+788186
+793227
+802997
+816088
+845905
+869437
+872108
+874311
+875416
+882383
+894420
+936178
+938697
+961103
+964067
+979621
+985780
+1010932
+1014757
+1026606
+1050649
+1068967
+1125003
+1150806
+1184502
+1215266
+1228469
+1243731
+1254396
+1260622
+1296799
+1330621
+1354724
+1395099
+1398382
+1420165
+1422661
+1425961
+1433756
+1467731
+1492436
+1493095
+1494809
+1525320
+1563589
+1572103
+1576352
+1592426
+1595549
+1607977
+1621030
+1625929
+1651673
+1691397
+1706620
+1725948
+1728942
+1765459
+1862801
+1880399
+1966715
+1975024
+2016174
+2053598
+2064654
+2074380
+2075793
+2107549
+2123876
+2124312
+2129794
+2131876
+2133611
+2133702
+2135114
+2147055
+2148994
+2163199
+2169570
+2184824
+2237419
+2241326
+2255290
+2317791
+2335441
+2395311
+2419818
+2433679
+2439950
+2440198
+2444334
+2454681
+2455191
+2497535
+2502478
+2506633
+2547934
+2563714
+2570754
+2585047
+2588427
+2606800
+2626672
+2655480
+2663730
+2694596
+2699076
+2703121
+2704507
+2711598
+2721099
+2760953
+2761952
+2785205
+2788428
+2791452
+2804918
+2805918
+2819321
+2841609
+2844702
+2854387
+2884770
+2920126
+2951527
+2986942
+2997090
+3040402
+3053063
+3105393
+3139961
+3151120
+3156406
+3170962
+3173753
+3175338
+3180820
+3184922
+3201601
+3205594
+3206445
+3239761
+3256596
+3271333
+3285109
+3287504
+3302358
+3307740
+3333645
+3348363
+3376159
+3434117
+3440900
+3465989
+3493973
+3513949
+3517142
+3520656
+3533125
+3542791
+3556352
+3559073
+3579890
+3588685
+3635971
+3637638
+3638550
+3650864
+3651914
+3659617
+3672339
+3674857
+3719122
+3792537
+3801424
+3812867
+3816281
+3846389
+3856736
+3862907
+3910186
+3930396
+3932903
+3941014
+3955724
+3972676
+3992687
+3996053
+4012274
+4025873
+4035725
+4045533
+4050917
+4069655
+4107571
+4161523
+4165038
+4165825
+4174904
+4217445
+4219627
+4232860
+4233464
+4239173
+4257552
+4265733
+4268520
+4302466
+4319382
+4320331
+4324970
+4331233
+4331608
+4332445
+4344041
+4379695
+4384112
+4395103
+4460955
+4463737
+4475109
+4478391
+4519832
+4524125
+4527487
+4535453
+4569190
+4571095
+4578970
+4600641
+4610070
+4617361
+4646985
+4697514
+4757020
+4776806
+4779822
+4800112
+4809107
+4815296
+4821741
+4861993
+4862881
+4867207
+4870916
+4932144
+4932855
+4985565
+4985994
+4986512
+5120591
+5128419
+5131469
+5132827
+5167521
+5176513
+5188070
+5249096
+5262106
+5276576
+5298513
+5308562
+5308780
+5330584
+5340165
+5357999
+5362617
+5382969
+5389148
+5410957
+5411314
+5422267
+5451113
+5472470
+5488807
+5490186
+5496439
+5525522
+5529861
+5536259
+5546951
+5605131
+5615562
+5618498
+5643235
+5643862
+5649487
+5690457
+5693925
+5700929
+5726545
+5741881
+5751511
+5756412
+5760027
+5763393
+5776109
+5791519
+5794808
+5869086
+5873234
+5879407
+5895991
+5916946
+5942704
+5971363
+6037259
+6041469
+6074120
+6091336
+6093460
+6098876
+6108251
+6110244
+6110423
+6123443
+6154433
+6160632
+6167719
+6168186
+6208430
+6213079
+6263417
+6270497
+6281813
+6285675
+6288698
+6289498
+6299572
+6303347
+6305082
+6305733
+6311089
+6339448
+6354983
+6362475
+6376416
+6386576
+6399239
+6410779
+6410881
+6426418
+6448131
+6448608
+6473256
+6481073
+6513349
+6538089
+6589366
+6616594
+6625879
+6650625
+6666507
+6668155
+6715868
+6717165
+6729281
+6734265
+6749248
+6753585
+6754851
+6767873
+6773226
+6780670
+6791287
+6818161
+6821996
+6828198
+6874280
+6877528
+6894112
+6902370
+6906905
+6910912
+6918383
+6929597
+6947010
+6959647
+6969900
+6979084
+6987051
+7033533
+7038522
+7091726
+7094144
+7095245
+7103755
+7106364
+7116476
+7117714
+7130602
+7134547
+7139961
+7144143
+7147720
+7175718
+7179314
+7204627
+7215493
+7223784
+7225709
+7229434
+7245625
+7265176
+7284177
+7286203
+7355202
+7377385
+7391376
+7392360
+7395967
+7440835
+7476445
+7496963
+7525172
+7525306
+7532665
+7550362
+7553601
+7572374
+7602973
+7624643
+7639113
+7659554
+7665448
+7679594
+7680373
+7693964
+7703909
+7715884
+7731578
+7777160
+7793352
+7798525
+7828589
+7846115
+7870558
+7882253
+7882894
+7884264
+7891972
+7922224
+7922783
+7938771
+7957436
+7960905
+7997541
+8012764
+8014124
+8019736
+8051754
+8067564
+8074010
+8082026
+8098260
+8110464
+8118942
+8156692
+8192915
+8196087
+8215370
+8221927
+8249862
+8284083
+8315776
+8342125
+8357115
+8415259
+8418130
+8435139
+8450915
+8468766
+8470982
+8486378
+8515434
+8650566
+8658301
+8683182
+8704007
+8712728
+8729329
+8735607
+8744812
+8770345
+8780217
+8786572
+8791207
+8840907
+8844490
+8849992
+8928606
+8938414
+8939923
+8955367
+8971088
+8979072
+8988569
+9006489
+9056497
+9096190
+9105397
+9128961
+9166948
+9177407
+9180086
+9210923
+9216150
+9236283
+9254137
+9309570
+9334193
+9348036
+9368329
+9400600
+9420037
+9424531
+9458461
+9468629
+9499434
+9509738
+9512129
+9527716
+9536837
+9545619
+9583346
+9594248
+9617478
+9621217
+9646873
+9647508
+9648648
+9655964
+9724293
+9730118
+9740453
+9763640
+9773773
+9778102
+9780960
+9787855
+9793453
+9798697
+9804272
+9811228
+9857975
+9861553
+9868128
+9885024
+9902086
+9929795
+9942062
+9945727
+9951421
+9965989
+9990823
+10010942
+10012513
+10014900
+10041218
+10042645
+10116425
+10133346
+10135875
+10142801
+10165222
+10171931
+10173214
+10183739
+10184961
+10194686
+10198068
+10203491
+10209874
+10225580
+10232125
+10241195
+10251043
+10266043
+10280595
+10293425
+10308142
+10319177
+10331715
+10331794
+10369576
+10406609
+10414325
+10432371
+10433665
+10439456
+10452251
+10453465
+10465704
+10493137
+10494142
+10497713
+10513713
+10533256
+10551399
+10563227
+10568913
+10584236
+10619228
+10635175
+10637981
+10668782
+10673867
+10694238
+10698990
+10718292
+10725887
+10728796
+10733657
+10851048
+10861006
+10867987
+10886435
+10893581
+10894490
+10931211
+10937174
+10973835
+10981449
+10982241
+10998059
+11002186
+11051466
+11061888
+11078693
+11081040
+11107776
+11132858
+11143781
+11158436
+11187169
+11189972
+11207359
+11210340
+11212123
+11225644
+11258815
+11260413
+11267239
+11280206
+11305982
+11388534
+11398849
+11432241
+11435015
+11466956
+11468092
+11478691
+11486982
+11491472
+11501778
+11509914
+11529951
+11530139
+11536543
+11561750
+11566601
+11645606
+11660566
+11667835
+11682060
+11691373
+11697120
+11712517
+11716378
+11718100
+11725252
+11757771
+11759668
+11776770
+11809786
+11823436
+11830338
+11855537
+11862762
+11891203
+11894973
+11912083
+11939695
+11956942
+11960883
+11961432
+11971579
+12004508
+12051819
+12078391
+12097678
+12101769
+12111685
+12113339
+12126585
+12130134
+12140092
+12143366
+12168276
+12249951
+12281911
+12304003
+12306180
+12327226
+12344257
+12354151
+12370452
+12372290
+12376409
+12402972
+12417187
+12420953
+12448912
+12470629
+12495265
+12507399
+12540211
+12544350
+12555454
+12646326
+12659152
+12660311
+12680749
+12696271
+12719910
+12720842
+12727740
+12752608
+12760593
+12765403
+12766292
+12781248
+12786699
+12819281
+12850390
+12851622
+12868126
+12881100
+12892034
+12907719
+12932596
+12935240
+12960932
+12971547
+12982112
+13042118
+13068723
+13081597
+13090156
+13091985
+13135498
+13208575
+13211759
+13244300
+13280355
+13360156
+13377812
+13386358
+13387418
+13388890
+13397641
+13420312
+13469482
+13497545
+13501579
+13522815
+13601757
+13614648
+13669846
+13716784
+13719377
+13724805
+13735602
+13737540
+13740763
+13744488
+13772981
+13787126
+13790018
+13802197
+13837364
+13838412
+13843325
+13848957
+13901265
+13903721
+13915055
+13922187
+13940976
+13957497
+13986098
+14025584
+14060145
+14074413
+14093461
+14098899
+14113247
+14117725
+14128054
+14136708
+14159328
+14160021
+14189460
+14240833
+14242165
+14242809
+14243550
+14246714
+14258415
+14276970
+14295530
+14314484
+14327049
+14340887
+14353168
+14407780
+14410633
+14424949
+14443441
+14448215
+14484897
+14485384
+14488414
+14503678
+14505053
+14507825
+14515633
+14516412
+14525064
+14537865
+14612036
+14649332
+14657624
+14662110
+14695860
+14696965
+14699368
+14712066
+14785026
+14799354
+14879975
+14881376
+14883022
+14920017
+14927541
+14943941
+14962077
+15006799
+15025938
+15098247
+15102164
+15102494
+15124333
+15126893
+15186345
+15200841
+15202200
+15221778
+15241134
+15268704
+15282662
+15291389
+15295510
+15301163
+15323445
+15328640
+15362603
+15365311
+15387835
+15395124
+15397635
+15503747
+15541519
+15546090
+15549514
+15616625
+15619239
+15646068
+15661282
+15663639
+15664194
+15690427
+15707730
+15712733
+15736740
+15743686
+15795345
+15820362
+15820762
+15821556
+15834200
+15850076
+15854186
+15886478
+15935417
+15958976
+15989925
+15996631
+16001367
+16033625
+16034193
+16038255
+16058402
+16060930
+16064224
+16079588
+16094668
+16113633
+16139643
+16149554
+16150786
+16221646
+16230712
+16241858
+16249782
+16258924
+16261216
+16282168
+16286002
+16315597
+16332415
+16335860
+16338680
+16354715
+16360737
+16374925
+16386464
+16424072
+16492631
+16518032
+16550153
+16569405
+16571683
+16580818
+16583060
+16584845
+16592018
+16595209
+16616419
+16694219
+16694230
+16694648
+16713357
+16738815
+16744090
+16759420
+16772264
+16774689
+16775340
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ uniq < problem_output_b.txt |wc
+   1000    1000    9316
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc problem_output_b.txt
+ 999 1000 9315 problem_output_b.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc problem_output_b.txt
+10000 10000 93354 problem_output_b.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort < problem_output_b.txt |uniq|wc
+  10000   10000   93354
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort < problem_output_b.txt |uniq|head
+1000083
+10002605
+1000505
+10006995
+10010664
+10010942
+10012513
+10013013
+10013421
+10014900
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort < problem_output_b.txt |uniq|tail
+9980641
+9981643
+9982316
+9986737
+9989991
+9990095
+9990823
+9991250
+9995817
+9998843
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ man sort
+bash: man: command not found
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort --help
+Usage: sort [OPTION]... [FILE]...
+  or:  sort [OPTION]... --files0-from=F
+Write sorted concatenation of all FILE(s) to standard output.
+
+With no FILE, or when FILE is -, read standard input.
+
+Mandatory arguments to long options are mandatory for short options too.
+Ordering options:
+
+  -b, --ignore-leading-blanks  ignore leading blanks
+  -d, --dictionary-order      consider only blanks and alphanumeric characters
+  -f, --ignore-case           fold lower case to upper case characters
+  -g, --general-numeric-sort  compare according to general numerical value
+  -i, --ignore-nonprinting    consider only printable characters
+  -M, --month-sort            compare (unknown) < 'JAN' < ... < 'DEC'
+  -h, --human-numeric-sort    compare human readable numbers (e.g., 2K 1G)
+  -n, --numeric-sort          compare according to string numerical value
+  -R, --random-sort           shuffle, but group identical keys.  See shuf(1)
+      --random-source=FILE    get random bytes from FILE
+  -r, --reverse               reverse the result of comparisons
+      --sort=WORD             sort according to WORD:
+                                general-numeric -g, human-numeric -h, month -M,
+                                numeric -n, random -R, version -V
+  -V, --version-sort          natural sort of (version) numbers within text
+
+Other options:
+
+      --batch-size=NMERGE   merge at most NMERGE inputs at once;
+                            for more use temp files
+  -c, --check, --check=diagnose-first  check for sorted input; do not sort
+  -C, --check=quiet, --check=silent  like -c, but do not report first bad line
+      --compress-program=PROG  compress temporaries with PROG;
+                              decompress them with PROG -d
+      --debug               annotate the part of the line used to sort,
+                              and warn about questionable usage to stderr
+      --files0-from=F       read input from the files specified by
+                            NUL-terminated names in file F;
+                            If F is - then read names from standard input
+  -k, --key=KEYDEF          sort via a key; KEYDEF gives location and type
+  -m, --merge               merge already sorted files; do not sort
+  -o, --output=FILE         write result to FILE instead of standard output
+  -s, --stable              stabilize sort by disabling last-resort comparison
+  -S, --buffer-size=SIZE    use SIZE for main memory buffer
+  -t, --field-separator=SEP  use SEP instead of non-blank to blank transition
+  -T, --temporary-directory=DIR  use DIR for temporaries, not $TMPDIR or /tmp;
+                              multiple options specify multiple directories
+      --parallel=N          change the number of sorts run concurrently to N
+  -u, --unique              with -c, check for strict ordering;
+                              without -c, output only the first of an equal run
+  -z, --zero-terminated     line delimiter is NUL, not newline
+      --help     display this help and exit
+      --version  output version information and exit
+
+KEYDEF is F[.C][OPTS][,F[.C][OPTS]] for start and stop position, where F is a
+field number and C a character position in the field; both are origin 1, and
+the stop position defaults to the line's end.  If neither -t nor -b is in
+effect, characters in a field are counted from the beginning of the preceding
+whitespace.  OPTS is one or more single-letter ordering options [bdfgiMhnRrV],
+which override global ordering options for that key.  If no key is given, use
+the entire line as the key.  Use --debug to diagnose incorrect key usage.
+
+SIZE may be followed by the following multiplicative suffixes:
+% 1% of memory, b 1, K 1024 (default), and so on for M, G, T, P, E, Z, Y.
+
+*** WARNING ***
+The locale specified by the environment affects sort order.
+Set LC_ALL=C to get the traditional sort order that uses
+native byte values.
+
+GNU coreutils online help: <http://www.gnu.org/software/coreutils/>
+Full documentation at: <http://www.gnu.org/software/coreutils/sort>
+or available locally via: info '(coreutils) sort invocation'
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort -n < problem_output_b.txt |uniq|tail
+16768124
+16769050
+16770952
+16771348
+16772264
+16773955
+16774689
+16775201
+16775340
+16776040
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort -n < problem_output_b.txt |uniq|wc
+  10000   10000   93354
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort -n < problem_output_b.txt |uniq|head
+280
+601
+3094
+4001
+4829
+5026
+6382
+6670
+7914
+8985
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc problem_output_b.txt
+ 20867  20867 194787 problem_output_b.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc problem_output_b.txt
+ 27914  27914 260595 problem_output_b.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort -n < problem_output_b.txt |uniq|head
+280
+601
+3094
+4001
+4829
+5026
+6382
+6670
+7914
+8985
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort -n < problem_output_b.txt |uniq|wc
+  11449   11449  106894
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc problem_output_b.txt
+ 44927  44927 419445 problem_output_b.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort -n < problem_output_b.txt |uniq|wc
+  11449   11449  106894
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort -n < problem_output_b.txt |uniq|wc
+  11449   11449  106894
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc problem_output_b.txt
+ 81742  81742 763096 problem_output_b.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc problem_output_b.txt
+ 84144  84144 785550 problem_output_b.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort -n < problem_output_b.txt |uniq > problem_output_
+problem_output_a.txt  problem_output_b.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort -n < problem_output_b.txt |uniq > problem_output_b_sorted.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc junk.txt
+ 5813  5813 54282 junk.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc junk.txt
+ 7073  7073 66058 junk.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc junk.txt
+10006 10006 93411 junk.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc junk.txt
+ 11449  11449 106894 junk.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc junk.txt
+ 11449  11449 106894 junk.txt
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ wc junk.txt ^C
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+(reverse-i-search)`': sort ^C
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$ sort -n < junk.txt |uniq |wc
+  11449   11449  106894
+
+ghilde@ghilde-sbook MINGW64 ~/ws/advent/2018-advent/21 (master)
+$
