@@ -4,7 +4,7 @@
   "description": "Advent Of Code for All Years",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
   "homepage": "https://github.com/garyah/advent-of-code#readme",
   "dependencies": {
     "lodash": "4.17.15"
+  },
+  "devDependencies": {
+    "jasmine": "^3.5.0"
   }
 }
