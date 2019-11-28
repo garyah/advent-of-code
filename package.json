@@ -1,0 +1,24 @@
+{
+  "name": "garyah-advent-of-code",
+  "version": "0.0.1",
+  "description": "Advent Of Code for All Years",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garyah/advent-of-code.git"
+  },
+  "keywords": [
+    "advent",
+    "code",
+    "garyah"
+  ],
+  "author": "Gary Hildebrand",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garyah/advent-of-code/issues"
+  },
+  "homepage": "https://github.com/garyah/advent-of-code#readme"
+}
