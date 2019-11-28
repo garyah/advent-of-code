@@ -61,3 +61,5 @@ ipch
 *.suo
 .vs/
 *.user
+
+node_modules/

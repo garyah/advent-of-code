@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/garyah/advent-of-code/issues"
   },
-  "homepage": "https://github.com/garyah/advent-of-code#readme"
+  "homepage": "https://github.com/garyah/advent-of-code#readme",
+  "dependencies": {
+    "lodash": "4.17.15"
+  }
 }
