@@ -6,7 +6,7 @@ describe("TestBasic", function() {
     puzzle = new Puzzle();
   });
   xit("should be able solve with my input", function() {
-    var input = fs.readFileSync("advent2019/01/input.txt", 'utf8').split(/\r?\n/);
+    var input = fs.readFileSync("advent2019/02/input.txt", 'utf8').split(/\r?\n/);
     var data = puzzle.parse(input);
     var answer = puzzle.solve(data);
     expect(answer).toEqual(0);
