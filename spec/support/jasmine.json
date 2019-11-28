@@ -2,9 +2,10 @@
   "spec_dir": ".",
   "spec_files": [
     "!spec/**/*[sS]pec.js",
-    "advent2018/**/*[sS]pec.js",
-    "advent2017/**/*[sS]pec.js",
-    "advent2016/**/*[sS]pec.js"
+    "advent2019/**/*[sS]pec.js",
+    "!advent2018/**/*[sS]pec.js",
+    "!advent2017/**/*[sS]pec.js",
+    "!advent2016/**/*[sS]pec.js"
   ],
   "helpers": [
     "spec/helpers/**/*.js"
