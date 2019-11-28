@@ -1,10 +1,13 @@
 {
-  "spec_dir": "spec",
+  "spec_dir": ".",
   "spec_files": [
-    "**/*[sS]pec.js"
+    "!spec/**/*[sS]pec.js",
+    "advent2018/**/*[sS]pec.js",
+    "advent2017/**/*[sS]pec.js",
+    "advent2016/**/*[sS]pec.js"
   ],
   "helpers": [
-    "helpers/**/*.js"
+    "spec/helpers/**/*.js"
   ],
   "stopSpecOnExpectationFailure": false,
   "random": true
