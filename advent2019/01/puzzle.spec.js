@@ -5,11 +5,20 @@ describe("TestBasic", function() {
   beforeEach(function() {
     puzzle = new Puzzle();
   });
-  xit("should be able solve with my input", function() {
-    var input = fs.readFileSync("advent2019/01/input.txt", 'utf8').split(/\r?\n/);
-    var data = puzzle.parse(input);
-    var answer = puzzle.solve(data);
-    expect(answer).toEqual(0);
+  it("should be able solve with my input", function(done) {
+    // var readStream = fs.createReadStream("advent2019/01/input.txt", 'utf8');
+    var readStream = process.stdin;
+    var input;
+    readStream.on('data', (data) => {
+      input = input ? input + data : data;
+    });
+    readStream.on('end', () => {
+      input = input.toString().split(/\r?\n/);
+      var data = puzzle.parse(input);
+      var answer = puzzle.solve(data);
+      expect(answer).toEqual(0);
+      done();
+    });
   })
   it("should be able to parse input", function() {
     var data = puzzle.parse('+1 +3 +2'.split(' '));
