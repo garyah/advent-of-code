@@ -6,6 +6,14 @@
     {
       "type": "npm",
       "script": "test",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "run jasmine with file input",
+      "type": "process",
+      "command": "cmd",
+      "args": ["/c", "redirect", "advent2019/01/input.txt"],
       "group": {
         "kind": "build",
         "isDefault": true
