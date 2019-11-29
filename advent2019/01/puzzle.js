@@ -3,7 +3,8 @@ function Puzzle() {
 Puzzle.prototype.parse = function(lines) {
   var result = [];
   for (var line of lines) {
-    result.push(parseInt(line));
+    var num = parseInt(line);
+    if (num === num) result.push(num);
   }
   return result;
 };
