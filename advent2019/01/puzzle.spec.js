@@ -5,7 +5,7 @@ describe("TestBasic", function() {
   beforeEach(function() {
     puzzle = new Puzzle();
   });
-  it("should be able solve with my input", function(done) {
+  xit("should be able solve with my input", function(done) {
     // var readStream = fs.createReadStream("advent2019/01/input.txt", 'utf8');
     var readStream = process.stdin;
     var input;
