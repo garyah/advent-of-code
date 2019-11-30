@@ -19,6 +19,13 @@
         "isDefault": true
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Python: Current File",
+      "type": "process",
+      "command": "python",
+      "args": ["${file}"],
+      "group": "build"
     }
   ]
 }
