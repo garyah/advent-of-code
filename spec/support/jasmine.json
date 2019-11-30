@@ -6,7 +6,7 @@
     "!advent2018/**/*[sS]pec.js",
     "!advent2017/**/*[sS]pec.js",
     "!advent2016/**/*[sS]pec.js",
-    "advent2019/01/*[sS]pec.js",
+    "advent2019/**/*[sS]pec.js",
     "!common/*[sS]pec.js"
   ],
   "helpers": [
