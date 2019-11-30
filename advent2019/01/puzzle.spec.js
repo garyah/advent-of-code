@@ -1,20 +1,12 @@
-describe("TestBasic", function() {
-  var fs = require('fs');
+describe("puzzle", function() {
+  var Parser = require('../../common/parser');
   var Puzzle = require('./puzzle');
-  var puzzle;
-  beforeEach(function() {
-    puzzle = new Puzzle();
-  });
+  var parser = new Parser();
+  var puzzle = new Puzzle();
   xit("should be able solve with my input", function(done) {
-    // var readStream = fs.createReadStream("advent2019/01/input.txt", 'utf8');
-    var readStream = process.stdin;
-    var input;
-    readStream.on('data', (data) => {
-      input = input ? input + data : data;
-    });
-    readStream.on('end', () => {
-      input = input.toString().split(/\r?\n/);
-      var data = puzzle.parse(input);
+    // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
+    parser.readLines(undefined, (lines) => {
+      var data = puzzle.parse(lines);
       var answer = puzzle.solve(data);
       expect(answer).toEqual(0);
       done();
