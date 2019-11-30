@@ -1,20 +1,22 @@
 describe("puzzle", function() {
-  var Parser = require('../../common/parser');
-  var Puzzle = require('./puzzle');
-  var parser = new Parser();
-  var puzzle = new Puzzle();
+  const Parser = require('../../common/parser');
+  const Puzzle = require('./puzzle');
+  const parser = new Parser();
+  const puzzle = new Puzzle();
   it("should be able to solve puzzle", () => {
-    var data = [1, 1, -2];
-    expect(puzzle.solve(data)).toEqual(0);
+    const data = [[+1, +1, +1], [1, 1, -2], [-1, -2, -3]];
+    const actual = data.map((data) => puzzle.solve(data));
+    const expected = [3, 0, -6];
+    expect(actual).toEqual(expected);
   });
   it("should be able to parse input", () => {
-    var data = puzzle.parse('+1 +3 +2'.split(' '));
+    const data = puzzle.parse('+1 +3 +2'.split(' '));
     expect(data).toEqual([1, 3, 2]);
   });
   xit("should be able solve with my input", (done) => {
     // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
     parser.readLines(undefined, (lines) => {
-      var data = puzzle.parse(lines);
+      const data = puzzle.parse(lines);
       expect(puzzle.solve(data)).toEqual(0);
       done();
     });
