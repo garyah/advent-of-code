@@ -3,13 +3,18 @@ describe("puzzle", function() {
   const Puzzle = require('./puzzle');
   const parser = new Parser();
   const puzzle = new Puzzle();
+  const readInputFile = false; // change to true to read input file for all tests that need it
   let lines = [];
   beforeAll((done) => {
-    // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-    parser.readLines(undefined, (linesRead) => {
-      lines = linesRead;
-      done();
-    });
+    if (readInputFile) {
+      // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
+      parser.readLines(undefined, (linesRead) => {
+        lines = linesRead;
+        done();
+      });
+      return;
+    }
+    done();
   });
   it("should be able to solve puzzle", () => {
     const data = [[+1, +1, +1], [1, 1, -2], [-1, -2, -3]];
