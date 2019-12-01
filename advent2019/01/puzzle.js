@@ -1,7 +1,11 @@
 function Puzzle() {
 }
 Puzzle.prototype.solve = (data) => {
-  return data.reduce((sum, num) => sum + num);
+  return data.reduce((sum, mass) => {
+    const fuel = Math.floor(mass / 3) - 2;
+    return sum + fuel;
+    //console.log(sum + fuel);
+  }, 0);
 }
 Puzzle.prototype.parse = (lines) => {
   return lines.map((line) => parseInt(line)).filter((num) => num === num);
