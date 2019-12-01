@@ -18,4 +18,9 @@ describe("parser", function() {
     expect(parser.lineToChars("")).toEqual([]);
     expect(parser.lineToChars()).toEqual([]);
   });
+  it("linesToInts() converts specified array of strings to one of ints, empty array if array empty", () => {
+    expect(parser.linesToInts(["0", "+1", "2", "-3", ""])).toEqual([0, 1, 2, -3]);
+    expect(parser.linesToInts([])).toEqual([]);
+    expect(parser.linesToInts()).toEqual([]);
+  });
 });
