@@ -1,7 +1,6 @@
 function Puzzle() {
 }
 Puzzle.prototype.solve = (data = '') => {
-  // return -1;
   return [...data].reduce((sum, symbol) => {
     const move = symbol === "(" ? 1 : -1;
     return sum + move;
@@ -11,7 +10,6 @@ Puzzle.prototype.parse = (lines = ['']) => {
   return lines[0];
 };
 Puzzle.prototype.solve_p2 = (data = '') => {
-  // return -1;
   let result = 0, index = 1;
   [...data].reduce((sum, symbol) => {
     const move = symbol === "(" ? 1 : -1;

@@ -18,9 +18,9 @@ describe("2015 day 1", function() {
     done();
   });
   it("should be able to solve puzzle", () => {
-    const data = ["(())", "()()", "(((", "(()(()("];
+    const data = ["(())", "()()", "(((", "(()(()(", "))(((((", "())", "))(", ")))", ")())())"];
     const actual = data.map((data) => puzzle.solve(data));
-    const expected = [0, 0, 3, 3];
+    const expected = [0, 0, 3, 3, 3, -1, -1, -3, -3];
     expect(actual).toEqual(expected);
   });
   it("should be able to parse input", () => {
