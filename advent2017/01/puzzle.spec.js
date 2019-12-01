@@ -9,7 +9,7 @@ describe("2019 day ?", function() {
     console.log("2019 day ?:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines(undefined, (linesRead) => {
+      parser.readLines("advent2017/01/input.txt", (linesRead) => {
         lines = linesRead;
         done();
       });
