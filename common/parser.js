@@ -1,6 +1,6 @@
 function Parser() {
 }
-Parser.prototype.readLines = function(path = '', done) {
+Parser.prototype.readLines = (path = '', done) => {
   const fs = require('fs');
   const readStream = path ? fs.createReadStream(path, 'utf8') : process.stdin;
   let input;
