@@ -39,6 +39,6 @@ describe("puzzle", function() {
   // });
   it("should be able solve puzzle part 2 with my input", () => {
     const data = puzzle.parse(lines);
-    expect(puzzle.solve_p2(data)).toEqual(0);
+    expect(puzzle.solve_p2(data)).toEqual(5081802);
   });
 });
