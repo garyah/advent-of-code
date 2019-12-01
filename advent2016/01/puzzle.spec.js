@@ -1,4 +1,4 @@
-describe("2015 day 1", function() {
+describe("2016 day 1", function() {
   const Parser = require('../../common/parser');
   const Puzzle = require('./puzzle');
   const parser = new Parser();
@@ -6,10 +6,10 @@ describe("2015 day 1", function() {
   const readInputFile = true; // change to true to read input file for all tests that need it
   let lines = [];
   beforeAll((done) => {
-    console.log("2015 day 1:");
+    console.log("2016 day 1:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines("advent2015/01/input.txt", (linesRead) => {
+      parser.readLines("advent2016/01/input.txt", (linesRead) => {
         lines = linesRead;
         done();
       });
@@ -18,7 +18,7 @@ describe("2015 day 1", function() {
     done();
   });
   it("should be able to solve puzzle", () => {
-    const data = [[0], [0], [0]];
+    const data = [[], [], []];
     const actual = data.map((data) => puzzle.solve(data));
     const expected = [0, 0, 0];
     expect(actual).toEqual(expected);
@@ -34,7 +34,7 @@ describe("2015 day 1", function() {
     expect(answer).toEqual(0);
   });
   it("should be able to solve puzzle part 2", () => {
-    const data = [[0], [0], [0]];
+    const data = [[], [], []];
     const actual = data.map((data) => puzzle.solve_p2(data));
     const expected = [0, 0, 0];
     expect(actual).toEqual(expected);
