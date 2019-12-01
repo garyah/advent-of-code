@@ -33,16 +33,16 @@ describe("2015 day 1", function() {
     console.log("part 1 answer is " + answer);
     expect(answer).toEqual(232);
   });
-  // it("should be able to solve puzzle part 2", () => {
-  //   const data = [[0], [0], [0]];
-  //   const actual = data.map((data) => puzzle.solve_p2(data));
-  //   const expected = [0, 0, 0];
-  //   expect(actual).toEqual(expected);
-  // });
-  // it("should be able solve puzzle part 2 with my input", () => {
-  //   const data = puzzle.parse(lines);
-  //   const answer = puzzle.solve_p2(data);
-  //   console.log("part 2 answer is " + answer);
-  //   expect(answer).toEqual(0);
-  // });
+  it("should be able to solve puzzle part 2", () => {
+    const data = [")", "()())"];
+    const actual = data.map((data) => puzzle.solve_p2(data));
+    const expected = [1, 5];
+    expect(actual).toEqual(expected);
+  });
+  it("should be able solve puzzle part 2 with my input", () => {
+    const data = puzzle.parse(lines);
+    const answer = puzzle.solve_p2(data);
+    console.log("part 2 answer is " + answer);
+    expect(answer).toEqual(1783);
+  });
 });

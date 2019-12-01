@@ -10,16 +10,15 @@ Puzzle.prototype.solve = (data = '') => {
 Puzzle.prototype.parse = (lines = ['']) => {
   return lines[0];
 };
-Puzzle.prototype.solve_p2 = (changes) => {
-  return -1;
-  let seenFrequencies = new Set([0]);
-  let frequency = 0;
-  while (true) {
-    for (const change of changes) {
-      frequency += change;
-      if (seenFrequencies.has(frequency)) return frequency;
-      seenFrequencies.add(frequency);
-    }
-  }
+Puzzle.prototype.solve_p2 = (data = '') => {
+  // return -1;
+  let result = 0, index = 1;
+  [...data].reduce((sum, symbol) => {
+    const move = symbol === "(" ? 1 : -1;
+    if ((sum + move) === -1 && result === 0) result = index;
+    index++;
+    return sum + move;
+  }, 0);
+  return result;
 }
 module.exports = Puzzle;
