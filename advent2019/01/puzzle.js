@@ -4,7 +4,6 @@ Puzzle.prototype.solve = (masses) => {
   return masses.reduce((sum, mass) => {
     const fuel = Math.floor(mass / 3) - 2;
     return sum + fuel;
-    //console.log(sum + fuel);
   }, 0);
 }
 Puzzle.prototype.parse = (lines) => {
@@ -19,7 +18,6 @@ Puzzle.prototype.solve_p2 = (masses) => {
       fuel = Math.floor(fuel / 3) - 2;
     }
     return sum + fuelSum;
-    //console.log(sum + fuel);
   }, 0);
 }
 module.exports = Puzzle;
