@@ -37,8 +37,8 @@ describe("puzzle", function() {
   //   const expected = [0, 10, 5, 14];
   //   expect(actual).toEqual(expected);
   // });
-  // xit("should be able solve puzzle part 2 with my input", () => {
-  //   const data = puzzle.parse(lines);
-  //   expect(puzzle.solve_p2(data)).toEqual(0);
-  // });
+  it("should be able solve puzzle part 2 with my input", () => {
+    const data = puzzle.parse(lines);
+    expect(puzzle.solve_p2(data)).toEqual(0);
+  });
 });
