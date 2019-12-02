@@ -32,7 +32,8 @@ Puzzle.prototype.parse = (lines) => {
 function isPositionSeen(
     seenPositions = new Set(),
     position = {x: 0, y: 0}) {
-  const hashValue = position.x * 1000 + position.y;
+  // const hashValue = position.x * 1000 + position.y;
+  const hashValue = {x: position.x, y: position.y};
   if (seenPositions.has(hashValue)) return true;
   seenPositions.add(hashValue);
   return false;
