@@ -1,4 +1,4 @@
-describe("2019 day ?", function() {
+describe("2019 day 2", function() {
   const Parser = require('../../common/parser');
   const Puzzle = require('./puzzle');
   const parser = new Parser();
@@ -6,10 +6,10 @@ describe("2019 day ?", function() {
   const readInputFile = false; // change to true to read input file for all tests that need it
   let lines = [];
   beforeAll((done) => {
-    console.log("2019 day ?:");
+    console.log("2019 day 2:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines("adventYYYY/DD/input.txt", (linesRead) => {
+      parser.readLines("advent2019/02/input.txt", (linesRead) => {
         lines = linesRead;
         done();
       });
