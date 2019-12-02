@@ -43,6 +43,6 @@ describe("2016 day 1", function() {
     const data = puzzle.parse(lines);
     const answer = puzzle.solve_p2(data);
     console.log("part 2 answer is " + answer);
-    expect(answer).toEqual(0);
+    expect(answer).toEqual(284);
   });
 });
