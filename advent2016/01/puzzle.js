@@ -59,24 +59,24 @@ Puzzle.prototype.solve_p2 = (data = '') => {
     switch (heading) {
       case 0:
       default:
-        for (y = ++(position.y); y <= position.y + parseInt(move.substr(1)); ++y)
+        for (y = position.y + 1; y <= position.y + parseInt(move.substr(1)); ++y)
           updatePositions(seenPositions, firstRepeatedPosition, {x: position.x, y: y});
-        position.y = y;
+        position.y = y - 1;
         break;
       case 90:
-        for (x = ++(position.x); x <= position.x + parseInt(move.substr(1)); ++x)
+        for (x = position.x + 1; x <= position.x + parseInt(move.substr(1)); ++x)
           updatePositions(seenPositions, firstRepeatedPosition, {x: x, y: position.y});
-        position.x = x;
+        position.x = x - 1;
         break;
       case 180:
-        for (y = --(position.y); y >= position.y - parseInt(move.substr(1)); --y)
+        for (y = position.y - 1; y >= position.y - parseInt(move.substr(1)); --y)
           updatePositions(seenPositions, firstRepeatedPosition, {x: position.x, y: y});
-        position.y = y;
+        position.y = y + 1;
         break;
       case 270:
-        for (x = --(position.x); x >= position.x - parseInt(move.substr(1)); --x)
+        for (x = position.x - 1; x >= position.x - parseInt(move.substr(1)); --x)
           updatePositions(seenPositions, firstRepeatedPosition, {x: x, y: position.y});
-        position.x = x;
+        position.x = x + 1;
         break;
     }
     // updatePositions(seenPositions, firstRepeatedPosition, position);
