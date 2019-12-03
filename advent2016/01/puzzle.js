@@ -30,26 +30,26 @@ Puzzle.prototype.parse = (lines) => {
   return lines.map((line) => parseInt(line)).filter((num) => num === num);
 };
 function isPositionSeen(
-    seenPositions = new Set(),
+    seenPositions = new Map([[0, new Set([0])]]),
     position = {x: 0, y: 0}) {
   // const hashValue = position.x * 1000 + position.y;
-  const hashValue = {x: position.x, y: position.y};
-  if (seenPositions.has(hashValue)) return true;
-  seenPositions.add(hashValue);
+  if (seenPositions.has(position.x) && seenPositions.get(position.x).has(position.y)) return true;
+  if (!seenPositions.has(position.x)) seenPositions.set(position.x, new Set());
+  seenPositions.get(position.x).add(position.y);
   return false;
 }
 function updatePositions(
-    seenPositions = new Set(),
+    seenPositions = new Map([[0, new Set([0])]]),
     firstRepeatedPosition = {x: 0, y: 0},
     position = {x: 0, y: 0}) {
-  if (isPositionSeen(seenPositions, position)) {
+  if (firstRepeatedPosition.x === 0 && firstRepeatedPosition.y === 0
+      && isPositionSeen(seenPositions, position)) {
     firstRepeatedPosition.x = position.x;
     firstRepeatedPosition.y = position.y;
   }
 }
 Puzzle.prototype.solve_p2 = (data = '') => {
-  //return -1;
-  let seenPositions = new Set();
+  let seenPositions = new Map([[0, new Set([0])]]);
   let firstRepeatedPosition = {x: 0, y: 0};
   let position = {x: 0, y: 0};
   data.split(', ').reduce((heading, move) => {
@@ -80,7 +80,6 @@ Puzzle.prototype.solve_p2 = (data = '') => {
         position.x = x + 1;
         break;
     }
-    // updatePositions(seenPositions, firstRepeatedPosition, position);
     return heading;
   }, 0);
   return Math.abs(firstRepeatedPosition.x) + Math.abs(firstRepeatedPosition.y);

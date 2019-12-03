@@ -37,6 +37,7 @@ describe("2016 day 1", function() {
     const data = ["R8, R4, R4, R8"];
     const actual = data.map((data) => puzzle.solve_p2(data));
     const expected = [4];
+    // console.log("actual =", actual[0]);
     expect(actual).toEqual(expected);
   });
   it("should be able solve puzzle part 2 with my input", () => {
