@@ -1,4 +1,4 @@
-describe("2019 day ?", function() {
+describe("2019 day 3", function() {
   const Parser = require('../../common/parser');
   const Puzzle = require('./puzzle');
   const parser = new Parser();
@@ -17,22 +17,22 @@ describe("2019 day ?", function() {
     }
     done();
   });
-  // it("should be able to solve puzzle", () => {
-  //   const data = [[], [], []];
-  //   const actual = data.map((data) => puzzle.solve(data));
-  //   const expected = [1, 1, 1];
-  //   expect(actual).toEqual(expected);
-  // });
-  it("should be able to parse input", () => {
-    const data = puzzle.parse('+1 +3 +2'.split(' '));
-    expect(data).toEqual([1, 3, 2]);
+  it("should be able to solve puzzle", () => {
+    const data = [["R8,U5,L5,D3", "U7,R6,D4,L4"]];
+    const actual = data.map((data) => puzzle.solve(data));
+    const expected = [6];
+    expect(actual).toEqual(expected);
   });
-  // it("should be able solve puzzle with my input", () => {
-  //   const data = puzzle.parse(lines);
-  //   const answer = puzzle.solve(data);
-  //   console.log("part 1 answer is " + answer);
-  //   expect(answer).toEqual(0);
-  // });
+  it("should be able to parse input", () => {
+    const data = puzzle.parse(["R1000,U573,L25,U468", "R1000,U573,L25,U468"]);
+    expect(data).toEqual(data);
+  });
+  it("should be able solve puzzle with my input", () => {
+    const data = puzzle.parse(lines);
+    const answer = puzzle.solve(data);
+    console.log("part 1 answer is " + answer);
+    expect(answer).toEqual(0);
+  });
   // it("should be able to solve puzzle part 2", () => {
   //   const data = [[], [], []];
   //   const actual = data.map((data) => puzzle.solve_p2(data));
