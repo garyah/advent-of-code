@@ -5,8 +5,8 @@
     "!spec/**/*[sS]pec.js",
     "!advent2018/**/*[sS]pec.js",
     "!advent2017/**/*[sS]pec.js",
-    "advent2016/01/*[sS]pec.js",
-    "!advent2019/02/*[sS]pec.js",
+    "!advent2016/**/*[sS]pec.js",
+    "advent2019/03/*[sS]pec.js",
     "!common/*[sS]pec.js"
   ],
   "helpers": [
