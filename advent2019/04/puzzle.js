@@ -1,11 +1,11 @@
-function Puzzle() {
-}
-Puzzle.prototype.solve = (data = [0]) => {
+var junk = () => 1;
+solve = (data = [0]) => {
+  junk();
   return data.reduce((sum, num) => {
     return sum + num;
   }, 0);
 }
-Puzzle.prototype.parse = (lines = ['']) => {
+parse = (lines = ['']) => {
   return lines.map((line) => parseInt(line)).filter((num) => num === num);
 };
-module.exports = Puzzle;
+module.exports = {solve, parse};
