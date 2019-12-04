@@ -6,11 +6,30 @@ const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
 const fn2 = () => {
   return '';
 };
-const solve = (data = [0]) => {
-  fn1();
-  return data.reduce((sum, num) => {
-    return sum + num;
-  }, 0);
+const solve = (data = [1, 100]) => {
+  //fn1();
+  const low = data[0];
+  const high = data[1];
+  let count = 0;
+  for (let password = low; password <= high; password++) {
+    let foundDuplicate = false;
+    let digitsDecreased = false;
+    for (let idx = 0; idx < 5; idx++) {
+      passwordString = password.toString();
+      if (passwordString[idx] === passwordString[idx + 1]) {
+        foundDuplicate = true;
+      }
+      if (passwordString[idx + 1] < passwordString[idx]) {
+        digitsDecreased = true;
+      }
+    }
+    if (foundDuplicate && !digitsDecreased) count++;
+  }
+  return count;
+  // return data.reduce((numPasswords, num) => {
+  //   if ()
+  //   return numPasswords;
+  // }, 0);
 }
 const parse = (lines = ['']) => {
   // return lines[0]; // use for one line string input
