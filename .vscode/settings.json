@@ -1,0 +1,18 @@
+{
+    "saveAndRun": {
+        "commands": [
+          {
+            "match": "\\.json$",
+            "cmd": "jasmine",
+            "useShortcut": false,
+            "silent": false
+          },
+          {
+            "match": "\\.js$",
+            "cmd": "jasmine",
+            "useShortcut": false,
+            "silent": false
+          }
+        ]
+      }
+}
