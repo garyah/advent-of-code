@@ -16,8 +16,18 @@ const solve = (data = [1, 100]) => {
     let digitsDecreased = false;
     for (let idx = 0; idx < 5; idx++) {
       passwordString = password.toString();
-      if (passwordString[idx] === passwordString[idx + 1]) {
-        foundDuplicate = true;
+      let idx2 = idx + 1;
+      for (;
+        idx2 < 6 && passwordString[idx] === passwordString[idx2];
+        idx2++) {
+      }
+      if (idx2 - idx > 1) {
+        if (idx2 - idx === 2) {
+          foundDuplicate = true;
+          continue;
+        }
+        idx = idx2 - 2;
+        continue;
       }
       if (passwordString[idx + 1] < passwordString[idx]) {
         digitsDecreased = true;
@@ -26,10 +36,6 @@ const solve = (data = [1, 100]) => {
     if (foundDuplicate && !digitsDecreased) count++;
   }
   return count;
-  // return data.reduce((numPasswords, num) => {
-  //   if ()
-  //   return numPasswords;
-  // }, 0);
 }
 const parse = (lines = ['']) => {
   // return lines[0]; // use for one line string input
