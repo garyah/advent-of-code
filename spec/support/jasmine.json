@@ -10,6 +10,7 @@
     "advent2019/01/*[sS]pec.js",
     "advent2019/02/*[sS]pec.js",
     "advent2019/03/*[sS]pec.js",
+    "advent2019/04/*[sS]pec.js",
     "!common/*[sS]pec.js"
   ],
   "helpers": [
