@@ -1,6 +1,6 @@
-describe("2019 day 5 part 1", function() {
+describe("2019 day 5", function() {
   // code
-  let input = 5;
+  let input = 0;
   let output = 0;
   const transform = (program = []) => {
     for (let ip = 0; ip < program.length; ) {
@@ -22,7 +22,7 @@ describe("2019 day 5 part 1", function() {
         step = 2;
       } else if (opcode === 4) {
         output = mode_p1 ? program[ip+1] : program[program[ip+1]];
-        console.log(output);
+        // console.log(output);
         step = 2;
       } else if (opcode === 5) { // jump-if-true
         step = 3;
@@ -57,14 +57,15 @@ describe("2019 day 5 part 1", function() {
     // console.log('transformed program: ' + program);
     return program;
   };
-  const fn2 = () => {
-    return '';
-  };
   const solve = (program = []) => {
-    // program[1] = 12;
-    // program[2] = 2;
-    // return program[0];
-    return transform(program)[0];
+    input = 1;
+    transform(program);
+    return output;
+  }
+  const solve_p2 = (program = []) => {
+    input = 5;
+    transform(program);
+    return output;
   }
   const parse = (lines = ['']) => {
     return lines[0].split(',').map((value) => parseInt(value)).filter((num) => num === num);
@@ -82,49 +83,108 @@ describe("2019 day 5 part 1", function() {
 
 
 
+
+
   // tests
+  it("should be able to parse input", () => {
+    const data = parse(['1,2,3']);
+    expect(data).toEqual([1, 2, 3]);
+  });
   it("should be able to transform parsed input", () => {
+    input = 0;
     const data = [
-      // [1,9,10,3,2,3,11,0,99,30,40,50],
-      // [1,0,0,0,99], [2,3,0,3,99],
-      // [2,4,4,5,99,0], [1,1,1,4,99,5,6,0,99],
-      //[3,0,4,0,99],
+      [3,0,4,0,99],
       [1002,4,3,4,33]
     ];
     const actual = data.map((data) => transform(data));
     const expected = [
-      // [3500,9,10,70,
-      // 2,3,11,0,
-      // 99,
-      // 30,40,50],
-      // [2,0,0,0,99], [2,3,0,6,99],
-      // [2,4,4,5,99,9801], [30,1,1,4,2,5,6,0,99]
-      //[0,0,4,0,99],
+      [0,0,4,0,99],
       [1002,4,3,4,99]
     ];
     // console.log('actual: ', actual);
     // console.log('expected: ', expected);
     expect(actual).toEqual(expected);
   });
-  it('fn2() returns empty string', () => {
-    expect(fn2()).toEqual('');
-  });
-  it("should be able to solve puzzle", () => {
-    const data = [[], [], []];
-    const actual = data.map((data) => puzzle.solve(data));
-    const expected = [1, 1, 1];
-    // expect(actual).toEqual(expected);
-  });
-  it("should be able to parse input", () => {
-    const data = parse(['1,2,3']);
-    expect(data).toEqual([1, 2, 3]);
-  });
   it("should be able solve puzzle with my input", () => {
-    // const data = [0];
     const data = parse(lines);
     const answer = solve(data);
-    // console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(6327510);
+    console.log("part 1 answer is " + answer);
+    expect(answer).toEqual(2845163);
+  });
+  it("should be able to compare correctly", () => {
+    input = 0;
+    const data = [
+      [8, [3,9,8,9,10,9,4,9,99,-1,8]], [7, [3,9,8,9,10,9,4,9,99,-1,8]],
+      [7, [3,9,7,9,10,9,4,9,99,-1,8]], [8, [3,9,7,9,10,9,4,9,99,-1,8]],
+      [8, [3,3,1108,-1,8,3,4,3,99]], [7, [3,3,1108,-1,8,3,4,3,99]],
+      [7, [3,3,1107,-1,8,3,4,3,99]], [8, [3,3,1107,-1,8,3,4,3,99]],
+    ];
+    const actual = data.map(([inputValue, data]) => {
+      input = inputValue;
+      transform(data);
+      return output;
+    });
+    const expected = [
+      1, 0,
+      1, 0,
+      1, 0,
+      1, 0,
+    ];
+    // console.log('actual: ', actual);
+    // console.log('expected: ', expected);
+    expect(actual).toEqual(expected);
+  });
+  it("should be able to handle jumps correctly", () => {
+    input = 0;
+    const data = [
+      [1, [3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9]],
+      [0, [3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9]],
+      [1, [3,3,1105,-1,9,1101,0,0,12,4,12,99,1]],
+      [0, [3,3,1105,-1,9,1101,0,0,12,4,12,99,1]],
+    ];
+    const actual = data.map(([inputValue, data]) => {
+      input = inputValue;
+      transform(data);
+      return output;
+    });
+    const expected = [
+      1, 0,
+      1, 0,
+    ];
+    // console.log('actual: ', actual);
+    // console.log('expected: ', expected);
+    expect(actual).toEqual(expected);
+  });
+  it("should be able to handle complex programs", () => {
+    input = 0;
+    const data = [
+      [7, [3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+           1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+           999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99]],
+      [8, [3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+           1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+           999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99]],
+      [9, [3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+           1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+           999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99]],
+    ];
+    const actual = data.map(([inputValue, data]) => {
+      input = inputValue;
+      transform(data);
+      return output;
+    });
+    const expected = [
+      999, 1000, 1001
+    ];
+    // console.log('actual: ', actual);
+    // console.log('expected: ', expected);
+    expect(actual).toEqual(expected);
+  });
+  it("should be able solve puzzle part 2 with my input", () => {
+    const data = parse(lines);
+    const answer = solve_p2(data);
+    console.log("part 2 answer is " + answer);
+    expect(answer).toEqual(9436229);
   });
 
 
@@ -145,7 +205,7 @@ describe("2019 day 5 part 1", function() {
   const readInputFile = true; // change to true to read input file for all tests that need it
   let lines = [];
   beforeAll((done) => {
-    console.log("2019 day 5 part 1:");
+    console.log("2019 day 5:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
       parser.readLines("advent2019/05/input.txt", (linesRead) => {
