@@ -1,6 +1,6 @@
 describe("2019 day 5 part 1", function() {
   // code
-  let input = 1;
+  let input = 5;
   let output = 0;
   const transform = (program = []) => {
     for (let ip = 0; ip < program.length; ) {
@@ -9,19 +9,47 @@ describe("2019 day 5 part 1", function() {
       const mode_p1 = Math.floor(program[ip] / 100) % 10;
       const mode_p2 = Math.floor(program[ip] / 1000) % 10;
       const opcode = program[ip] % 100;
-      if (opcode === 1)
+      if (opcode === 1) {
         program[program[ip+3]]
           = (mode_p1 ? program[ip+1] : program[program[ip+1]])
             + (mode_p2 ? program[ip+2] : program[program[ip+2]]);
-      else if (opcode === 2)
+      } else if (opcode === 2) {
         program[program[ip+3]]
           = (mode_p1 ? program[ip+1] : program[program[ip+1]])
             * (mode_p2 ? program[ip+2] : program[program[ip+2]]);
-      else if (opcode == 3) { program[program[ip+1]] = input; step = 2; }
-      else if (opcode == 4) {
+      } else if (opcode === 3) {
+        program[program[ip+1]] = input;
+        step = 2;
+      } else if (opcode === 4) {
         output = mode_p1 ? program[ip+1] : program[program[ip+1]];
         console.log(output);
         step = 2;
+      } else if (opcode === 5) { // jump-if-true
+        step = 3;
+        if (mode_p1 ? program[ip+1] : program[program[ip+1]] !== 0) {
+          ip = (mode_p2 ? program[ip+2] : program[program[ip+2]]);
+          step = 0;
+        }
+      } else if (opcode === 6) { // jump-if-false
+        step = 3;
+        if ((mode_p1 ? program[ip+1] : program[program[ip+1]]) === 0) {
+          ip = (mode_p2 ? program[ip+2] : program[program[ip+2]]);
+          step = 0;
+        }
+      } else if (opcode === 7) { // less than
+        if ((mode_p1 ? program[ip+1] : program[program[ip+1]])
+            < (mode_p2 ? program[ip+2] : program[program[ip+2]])) {
+          program[program[ip+3]] = 1;
+        } else {
+          program[program[ip+3]] = 0;
+        }
+      } else if (opcode === 8) { // equals
+        if ((mode_p1 ? program[ip+1] : program[program[ip+1]])
+            === (mode_p2 ? program[ip+2] : program[program[ip+2]])) {
+          program[program[ip+3]] = 1;
+        } else {
+          program[program[ip+3]] = 0;
+        }
       }
       // console.log(program[ip]);
       ip += step;
