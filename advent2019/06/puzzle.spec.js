@@ -9,17 +9,26 @@ describe("2019 day 6", function() {
   let numTimesOneNodeCreated = 0;
   let numTimesZeroNodesCreated = 0;
   let numNodePairs = 0;
+  const countOrbits = () => {
+    if (!forest || forest.length !== 1) return 0;
+    if (!forest[0] || !(forest[0].root)) return 0;
+    return countOrbit(forest[0].root, -1);
+  };
+  const countOrbit = (node = {}, count = 0) => {
+    // console.log(node.name);
+    count++;
+    if (!node.children) return count;
+    const savedCount = count;
+    for (const childNode of node.children) {
+      count += countOrbit(childNode, savedCount);
+    }
+    return count;
+  };
   const buildForest = (nodePairs = [['', '']]) => {
     forest = [];
     for (const nodePair of nodePairs) {
       addNodePairToForest(nodePair[0], nodePair[1]);
     }
-    if (1) {}
-    else if (1) {}
-    else {}
-    for (let i = 0;; i++) { break; continue; }
-    for (const item of nodePairs) {}
-    //return 0;
   };
   const addNodePairToForest = (parentName = '', childName = '') => {
     if (!parentName || !childName) return;
@@ -471,15 +480,38 @@ describe("2019 day 6", function() {
       ''
       );
   });
-  it("can solve puzzle", () => {
+  it("can count direct and indiret orbits", () => {
+    console.log();
+    console.log('*** BEGIN TEST ***');
+    numNodesCreated = 0;
+    numTimesTwoNodesCreated = numTimesOneNodeCreated = numTimesZeroNodesCreated = 0;
+    numNodePairs = 0;
+    isTest = false;
     const data = [
-      [],
+      ['COM', 'B'],
+      ['B','C'],
+      ['C', 'D'],
+      ['D', 'E'],
+      ['E', 'F'],
+      ['B', 'G'],
+      ['G', 'H'],
+      ['D', 'I'],
+      ['E', 'J'],
+      ['J', 'K'],
+      ['K', 'L']
     ];
-    const actual = data.map((data) => solve(data));
-    const expected = [
-      1,
-    ];
-    // expect(actual).toEqual(expected);
+    buildForest(data);
+    console.log("forest:");
+    console.log(forest);
+    console.log("number of trees: ", forest.length);
+    console.log("number of nodes created: ", numNodesCreated);
+    console.log("number of times two nodes created: ", numTimesTwoNodesCreated);
+    console.log("number of times one node created: ", numTimesOneNodeCreated);
+    console.log("number of times zero nodes created: ", numTimesZeroNodesCreated);
+    console.log("number of node pairs processed: ", numNodePairs);
+    expect(countOrbits()).toEqual(42);
+    console.log('*** END TEST ***');
+    console.log();
   });
   it("can parse input", () => {
     const data = parse(
