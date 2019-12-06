@@ -2,6 +2,86 @@ describe("2019 day 6", function() {
   // new code
   let var1 = 0;
   let var2 = '';
+  let isTest = false;
+  let forest = [{}];
+  let numNodes = 0;
+  const buildForest = (nodePairs = [['', '']]) => {
+    forest = [];
+    for (const nodePair of nodePairs) {
+      addNodePairToForest(nodePair[0], nodePair[1]);
+    }
+    if (1) {}
+    else if (1) {}
+    else {}
+    for (let i = 0;; i++) { break; continue; }
+    for (const item of nodePairs) {}
+    //return 0;
+  };
+  const addNodePairToForest = (parentName = '', childName = '') => {
+    if (!parentName || !childName) return;
+    const parentNode = getNode(parentName);
+    const childNode = getNode(childName);
+    if (!parentNode && !childNode) {
+      const tree = {
+        root: {
+          name: parentName,
+        }
+      };
+      numNodes++;
+      addChildToNode(tree.root, childName);
+      if (!forest) forest = [];
+      forest.push(tree);
+      return;
+    }
+    if (childNode && childNode.parent) {
+      if (!isTest) console.log("ERROR!  child node found, won't add pair!");
+      return;
+    }
+    if (parentNode && !childNode) {
+      addChildToNode(parentNode, childName);
+      return;
+    }
+    // reparent when (parentNode && childNode)
+    addChildNode(parentNode, childNode);
+    forest = forest.filter((tree) => (tree.root !== childNode));
+    // if () {
+    //   ;
+    // }
+    // if (1) {}
+    // else if (1) {}
+    // else {}
+    // for (let i = 0;; i++) { break; continue; }
+    // for (const item of node) {}
+    // return 0;
+  };
+  const getNode = (name = '') => {
+    if (!forest || !forest.length) return undefined;
+    for (const tree of forest) {
+      if (!tree.root) continue;
+      let node = tree.root;
+      for ( ; node && node.name !== name; node = node.children && node.children[0]) {
+        // console.log(node.name);
+      }
+      if (node && node.name === name) return node;
+    }
+    return undefined;
+  };
+  const addChildToNode = (node = {}, childName = '') => {
+    const childNode = {
+      name: childName,
+    }
+    numNodes++;
+    return addChildNode(node, childNode);
+  };
+  const addChildNode = (parentNode = {}, childNode = {}) => {
+    childNode.parent = parentNode;
+    if (!parentNode.children) parentNode.children = [];
+    parentNode.children.push(childNode);
+    return parentNode;
+  };
+  const fn2 = () => {
+    return '';
+  };
   const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
     if (1) {}
     else if (1) {}
@@ -10,19 +90,16 @@ describe("2019 day 6", function() {
     for (const item of arg3) {}
     return 0;
   };
-  const fn2 = () => {
-    return '';
-  };
-  const solve = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
+  const solve = (data = [['', '']]) => {
+    buildForest(data);
+    // return data.reduce((sum, num) => {
+    //   return sum + num;
+    // }, 0);
   }
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
     // return lines;    // use for multi-line string input
-    return lines.map((line) => parseInt(line)).filter((num) => num === num);
+    return lines.map((line) => [line.substr(0,3), line.substr(4)]).filter(([first, second]) => first !== '' && second !== '');
   };
   // 2019 day 5 code (extended intcode computer, based on day 2)
   let input = 0;
@@ -192,9 +269,144 @@ describe("2019 day 6", function() {
 
 
   // new tests
-  it('fn1() returns number 0', () => {
-    expect(fn1()).toEqual(
-      0
+  it('buildForest() can build empty forest', () => {
+    buildForest();
+    expect(forest).toEqual(
+      []
+      );
+  });
+  it('buildForest() can build forest with single pair of nodes', () => {
+    buildForest([['TT5', 'Y6Q']]);
+    expect(forest.length).toEqual(1);
+    expect(forest[0].root.name).toEqual('TT5');
+    expect(forest[0].root.parent).toBeFalsy();
+    expect(forest[0].root.children.length).toEqual(1);
+    expect(forest[0].root.children[0].name).toEqual('Y6Q');
+    expect(forest[0].root.children[0].parent.name).toEqual('TT5');
+    expect(forest[0].root.children[0].children).toBeFalsy();
+  });
+  it('buildForest() can build forest with multiple pairs of nodes, no overlap', () => {
+    buildForest([['TT5', 'Y6Q'], ['ZBC', 'Z2R']]);
+    expect(forest.length).toEqual(2);
+    expect(forest[1].root.name).toEqual('ZBC');
+    expect(forest[1].root.children.length).toEqual(1);
+    expect(forest[1].root.children[0].name).toEqual('Z2R');
+    expect(forest[1].root.children[0].parent.name).toEqual('ZBC');
+    expect(forest[1].root.children[0].children).toBeFalsy();
+  });
+  it('buildForest() can build forest with two pairs of nodes, same parent', () => {
+    buildForest([['TT5', 'Y6Q'], ['TT5', 'Z2R']]);
+    expect(forest.length).toEqual(1);
+    expect(forest[0].root.name).toEqual('TT5');
+    expect(forest[0].root.children.length).toEqual(2);
+    expect(forest[0].root.children[0].name).toEqual('Y6Q');
+    expect(forest[0].root.children[0].parent.name).toEqual('TT5');
+    expect(forest[0].root.children[1].name).toEqual('Z2R');
+    expect(forest[0].root.children[1].parent.name).toEqual('TT5');
+  });
+  it('addNodePairToForest() adds pair of nodes to empty forest', () => {
+    forest = [];
+    addNodePairToForest('TT5', 'Y6Q');
+    expect(forest.length).toEqual(1);
+    expect(forest[0].root.name).toEqual('TT5');
+    expect(forest[0].root.parent).toBeFalsy();
+    expect(forest[0].root.children.length).toEqual(1);
+    expect(forest[0].root.children[0].name).toEqual('Y6Q');
+    expect(forest[0].root.children[0].parent.name).toEqual('TT5');
+    expect(forest[0].root.children[0].children).toBeFalsy();
+  });
+  it('addNodePairToForest() adds pair of nodes to forest with neither node', () => {
+    forest = [{ root: { name: 'foo' }}];
+    addNodePairToForest('TT5', 'Y6Q');
+    expect(forest.length).toEqual(2);
+    expect(forest[1].root.name).toEqual('TT5');
+    expect(forest[1].root.parent).toBeFalsy();
+    expect(forest[1].root.children.length).toEqual(1);
+    expect(forest[1].root.children[0].name).toEqual('Y6Q');
+    expect(forest[1].root.children[0].parent.name).toEqual('TT5');
+    expect(forest[1].root.children[0].children).toBeFalsy();
+  });
+  it('addNodePairToForest() adds child from pair of nodes to forest with parent node existing', () => {
+    let parent = { name: 'TT5' };
+    addChildToNode(parent, 'foo');
+    forest = [{ root: { name: 'bar' }}, { root: parent }];
+    addNodePairToForest('TT5', 'Y6Q');
+    expect(forest.length).toEqual(2);
+    expect(forest[1].root.name).toEqual('TT5');
+    expect(forest[1].root.parent).toBeFalsy();
+    expect(forest[1].root.children.length).toEqual(2);
+    expect(forest[1].root.children[1].name).toEqual('Y6Q');
+    expect(forest[1].root.children[1].parent.name).toEqual('TT5');
+    expect(forest[1].root.children[1].children).toBeFalsy();
+  });
+  it('addNodePairToForest() does not add already seen child from pair of nodes to forest, if child already parented', () => {
+    isTest = true;
+    let parent = { name: 'TT5' };
+    addChildToNode(parent, 'Y6Q');
+    forest = [{ root: { name: 'bar' }}, { root: parent }];
+    addNodePairToForest('foo', 'Y6Q');
+    expect(forest.length).toEqual(2);
+    expect(forest[1].root.name).toEqual('TT5');
+    expect(forest[1].root.parent).toBeFalsy();
+    expect(forest[1].root.children.length).toEqual(1);
+    expect(forest[1].root.children[0].name).toEqual('Y6Q');
+    expect(forest[1].root.children[0].parent.name).toEqual('TT5');
+    expect(forest[1].root.children[0].children).toBeFalsy();
+  });
+  it('addNodePairToForest() does add already seen child from pair of nodes to forest, merging trees, if child not already parented', () => {
+    isTest = true;
+    let parent = { name: 'TT5' };
+    addChildToNode(parent, 'Y6Q');
+    forest = [{ root: { name: 'bar' }}, { root: parent }];
+    addNodePairToForest('bar', 'TT5');
+    expect(forest.length).toEqual(1);
+    expect(forest[0].root.children).toBeTruthy();
+    expect(forest[0].root.children.length).toEqual(1);
+    expect(forest[0].root.children[0].name).toEqual('TT5');
+    expect(forest[0].root.children[0].parent.name).toEqual('bar');
+    expect(forest[0].root.children[0].children).toBeTruthy();
+    expect(forest[0].root.children[0].children.length).toBeTruthy();
+    expect(forest[0].root.children[0].children[0].name).toEqual('Y6Q');
+    expect(forest[0].root.children[0].children[0].parent.name).toEqual('TT5');
+  });
+  it('getNode() does not return a node if forest empty', () => {
+    forest = [];
+    expect(getNode()).toBeFalsy();
+  });
+  it('getNode() does not return a node if forest does not have it', () => {
+    forest = [{}];
+    expect(getNode()).toBeFalsy();
+    forest = [{ root: { name: 'foo' }}];
+    expect(getNode('bar')).toBeFalsy();
+  });
+  it('getNode() does return a node if forest has it as root of first tree', () => {
+    forest = [{ root: { name: 'foo' }}];
+    expect(getNode('foo')).toEqual(forest[0].root);
+  });
+  it('getNode() does return a node if forest has it as root of not first tree', () => {
+    const node1 = {};
+    forest = [{ root: { name: 'bar' }}, { root: { name: 'foo' }}];
+    expect(getNode('foo')).toEqual(forest[1].root);
+  });
+  it('getNode() does return a node if forest has it as non-root node of any tree', () => {
+    let parent = { name: 'bar' };
+    addChildToNode(parent, 'foo');
+    forest = [{ root: { name: 'bar' }}, { root: parent }];
+    expect(getNode('foo')).toEqual(forest[1].root.children[0]);
+  });
+  it('addChildToNode() adds child (as new node) to node, returning modified parent', () => {
+    let node = {
+      name: 'TT5',
+    }
+    const actual = addChildToNode(node, 'Y6Q');
+    expect(actual).toEqual(
+      {
+        name: 'TT5',
+        children: [{
+          name: 'Y6Q',
+          parent: node,
+        }],
+      }
       );
   });
   it('fn2() returns empty string', () => {
@@ -214,120 +426,129 @@ describe("2019 day 6", function() {
   });
   it("can parse input", () => {
     const data = parse(
-      '+1 +3 +2'
+      'TT5)Y6Q ZBC)Z2R 8MQ)51V'
       .split(
         ' '
         ));
-    expect(data).toEqual([1, 3, 2]);
+    expect(data).toEqual([['TT5', 'Y6Q'], ['ZBC', 'Z2R'], ['8MQ', '51V']]);
+  });
+  it("my input is valid", () => {
+    const data = parse(lines);
+    buildForest(data);
+    // console.log("forest:");
+    // console.log(forest);
+    console.log("number of trees: ", forest.length);
+    console.log("number of nodes: ", numNodes);
+    // expect(answer).toEqual(0);
   });
   it("can solve puzzle with my input", () => {
     // const data = [0];
-    const data = parse(lines);
-    const answer = solve(data);
-    console.log("part 1 answer is " + answer);
+    // const data = parse(lines);
+    // const answer = solve(data);
+    // console.log("part 1 answer is " + answer);
     // expect(answer).toEqual(0);
   });
   // 2019 day 5 tests (extended intcode computer, based on day 2)
-  it("can parse input", () => {
-    const data = parse_19_05(['1,2,3']);
-    expect(data).toEqual([1, 2, 3]);
-  });
-  it("can transform parsed input", () => {
-    input = 0;
-    const data = [
-      [3,0,4,0,99],
-      [1002,4,3,4,33]
-    ];
-    const actual = data.map((data) => transform(data));
-    const expected = [
-      [0,0,4,0,99],
-      [1002,4,3,4,99]
-    ];
-    // console.log('actual: ', actual);
-    // console.log('expected: ', expected);
-    expect(actual).toEqual(expected);
-  });
-  it("can solve day 2019 day 5 puzzle with my input", () => {
-    const data = parse_19_05(lines);
-    const answer = solve_19_05(data);
-    // console.log("part 1 answer is " + answer);
-    expect(answer).toEqual(2845163);
-  });
-  it("can compare correctly", () => {
-    input = 0;
-    const data = [
-      [8, [3,9,8,9,10,9,4,9,99,-1,8]], [7, [3,9,8,9,10,9,4,9,99,-1,8]],
-      [7, [3,9,7,9,10,9,4,9,99,-1,8]], [8, [3,9,7,9,10,9,4,9,99,-1,8]],
-      [8, [3,3,1108,-1,8,3,4,3,99]], [7, [3,3,1108,-1,8,3,4,3,99]],
-      [7, [3,3,1107,-1,8,3,4,3,99]], [8, [3,3,1107,-1,8,3,4,3,99]],
-    ];
-    const actual = data.map(([inputValue, data]) => {
-      input = inputValue;
-      transform(data);
-      return output;
-    });
-    const expected = [
-      1, 0,
-      1, 0,
-      1, 0,
-      1, 0,
-    ];
-    // console.log('actual: ', actual);
-    // console.log('expected: ', expected);
-    expect(actual).toEqual(expected);
-  });
-  it("can handle jumps correctly", () => {
-    input = 0;
-    const data = [
-      [1, [3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9]],
-      [0, [3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9]],
-      [1, [3,3,1105,-1,9,1101,0,0,12,4,12,99,1]],
-      [0, [3,3,1105,-1,9,1101,0,0,12,4,12,99,1]],
-    ];
-    const actual = data.map(([inputValue, data]) => {
-      input = inputValue;
-      transform(data);
-      return output;
-    });
-    const expected = [
-      1, 0,
-      1, 0,
-    ];
-    // console.log('actual: ', actual);
-    // console.log('expected: ', expected);
-    expect(actual).toEqual(expected);
-  });
-  it("can handle complex programs", () => {
-    input = 0;
-    const data = [
-      [7, [3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
-           1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
-           999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99]],
-      [8, [3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
-           1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
-           999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99]],
-      [9, [3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
-           1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
-           999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99]],
-    ];
-    const actual = data.map(([inputValue, data]) => {
-      input = inputValue;
-      transform(data);
-      return output;
-    });
-    const expected = [
-      999, 1000, 1001
-    ];
-    // console.log('actual: ', actual);
-    // console.log('expected: ', expected);
-    expect(actual).toEqual(expected);
-  });
-  it("can solve day 2019 day 5 puzzle part 2 with my input", () => {
-    const data = parse_19_05(lines);
-    const answer = solve_19_05_p2(data);
-    // console.log("part 2 answer is " + answer);
-    expect(answer).toEqual(9436229);
-  });
+  // it("can parse input", () => {
+  //   const data = parse_19_05(['1,2,3']);
+  //   expect(data).toEqual([1, 2, 3]);
+  // });
+  // it("can transform parsed input", () => {
+  //   input = 0;
+  //   const data = [
+  //     [3,0,4,0,99],
+  //     [1002,4,3,4,33]
+  //   ];
+  //   const actual = data.map((data) => transform(data));
+  //   const expected = [
+  //     [0,0,4,0,99],
+  //     [1002,4,3,4,99]
+  //   ];
+  //   // console.log('actual: ', actual);
+  //   // console.log('expected: ', expected);
+  //   expect(actual).toEqual(expected);
+  // });
+  // it("can solve day 2019 day 5 puzzle with my input", () => {
+  //   const data = parse_19_05(lines);
+  //   const answer = solve_19_05(data);
+  //   // console.log("part 1 answer is " + answer);
+  //   // expect(answer).toEqual(2845163);
+  // });
+  // it("can compare correctly", () => {
+  //   input = 0;
+  //   const data = [
+  //     [8, [3,9,8,9,10,9,4,9,99,-1,8]], [7, [3,9,8,9,10,9,4,9,99,-1,8]],
+  //     [7, [3,9,7,9,10,9,4,9,99,-1,8]], [8, [3,9,7,9,10,9,4,9,99,-1,8]],
+  //     [8, [3,3,1108,-1,8,3,4,3,99]], [7, [3,3,1108,-1,8,3,4,3,99]],
+  //     [7, [3,3,1107,-1,8,3,4,3,99]], [8, [3,3,1107,-1,8,3,4,3,99]],
+  //   ];
+  //   const actual = data.map(([inputValue, data]) => {
+  //     input = inputValue;
+  //     transform(data);
+  //     return output;
+  //   });
+  //   const expected = [
+  //     1, 0,
+  //     1, 0,
+  //     1, 0,
+  //     1, 0,
+  //   ];
+  //   // console.log('actual: ', actual);
+  //   // console.log('expected: ', expected);
+  //   expect(actual).toEqual(expected);
+  // });
+  // it("can handle jumps correctly", () => {
+  //   input = 0;
+  //   const data = [
+  //     [1, [3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9]],
+  //     [0, [3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9]],
+  //     [1, [3,3,1105,-1,9,1101,0,0,12,4,12,99,1]],
+  //     [0, [3,3,1105,-1,9,1101,0,0,12,4,12,99,1]],
+  //   ];
+  //   const actual = data.map(([inputValue, data]) => {
+  //     input = inputValue;
+  //     transform(data);
+  //     return output;
+  //   });
+  //   const expected = [
+  //     1, 0,
+  //     1, 0,
+  //   ];
+  //   // console.log('actual: ', actual);
+  //   // console.log('expected: ', expected);
+  //   expect(actual).toEqual(expected);
+  // });
+  // it("can handle complex programs", () => {
+  //   input = 0;
+  //   const data = [
+  //     [7, [3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+  //          1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+  //          999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99]],
+  //     [8, [3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+  //          1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+  //          999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99]],
+  //     [9, [3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+  //          1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+  //          999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99]],
+  //   ];
+  //   const actual = data.map(([inputValue, data]) => {
+  //     input = inputValue;
+  //     transform(data);
+  //     return output;
+  //   });
+  //   const expected = [
+  //     999, 1000, 1001
+  //   ];
+  //   // console.log('actual: ', actual);
+  //   // console.log('expected: ', expected);
+  //   expect(actual).toEqual(expected);
+  // });
+  // it("can solve day 2019 day 5 puzzle part 2 with my input", () => {
+  //   const data = parse_19_05(lines);
+  //   const answer = solve_19_05_p2(data);
+  //   // console.log("part 2 answer is " + answer);
+  //   // expect(answer).toEqual(9436229);
+  // });
 
 
 
