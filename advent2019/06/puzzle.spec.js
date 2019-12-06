@@ -4,7 +4,11 @@ describe("2019 day 6", function() {
   let var2 = '';
   let isTest = false;
   let forest = [{}];
-  let numNodes = 0;
+  let numNodesCreated = 0;
+  let numTimesTwoNodesCreated = 0;
+  let numTimesOneNodeCreated = 0;
+  let numTimesZeroNodesCreated = 0;
+  let numNodePairs = 0;
   const buildForest = (nodePairs = [['', '']]) => {
     forest = [];
     for (const nodePair of nodePairs) {
@@ -19,31 +23,42 @@ describe("2019 day 6", function() {
   };
   const addNodePairToForest = (parentName = '', childName = '') => {
     if (!parentName || !childName) return;
-    const parentNode = getNode(parentName);
-    const childNode = getNode(childName);
-    if (!parentNode && !childNode) {
+    numNodePairs++;
+    const parentNodeFound = getNode(parentName);
+    const childNodeFound = getNode(childName);
+    if (!parentNodeFound && !childNodeFound) {
       const tree = {
         root: {
           name: parentName,
         }
       };
-      numNodes++;
+      numNodesCreated++;
       addChildToNode(tree.root, childName);
+      numTimesTwoNodesCreated++;
       if (!forest) forest = [];
       forest.push(tree);
       return;
     }
-    if (childNode && childNode.parent) {
+    if (childNodeFound && childNodeFound.parent) {
       if (!isTest) console.log("ERROR!  child node found, won't add pair!");
       return;
     }
-    if (parentNode && !childNode) {
-      addChildToNode(parentNode, childName);
+    if (parentNodeFound && !childNodeFound) {
+      addChildToNode(parentNodeFound, childName);
+      numTimesOneNodeCreated++;
       return;
     }
-    // reparent when (parentNode && childNode)
-    addChildNode(parentNode, childNode);
-    forest = forest.filter((tree) => (tree.root !== childNode));
+    if (!parentNodeFound && childNodeFound) {
+      setNodeParent(childNodeFound, parentName);
+      forest.find((tree) => (tree.root === childNodeFound)).root = childNodeFound.parent;
+      numTimesOneNodeCreated++;
+      return;
+    }
+    // reparent when both nodes found (parentNodeFound && childNodeFound)
+    addChildNode(parentNodeFound, childNodeFound);
+    numTimesZeroNodesCreated++;
+    // merge trees after reparenting
+    forest = forest.filter((tree) => (tree.root !== childNodeFound));
     // if () {
     //   ;
     // }
@@ -58,11 +73,18 @@ describe("2019 day 6", function() {
     if (!forest || !forest.length) return undefined;
     for (const tree of forest) {
       if (!tree.root) continue;
-      let node = tree.root;
-      for ( ; node && node.name !== name; node = node.children && node.children[0]) {
-        // console.log(node.name);
-      }
-      if (node && node.name === name) return node;
+      const foundNode = walkNodes(tree.root, name);
+      if (foundNode) return foundNode;
+    }
+    return undefined;
+  };
+  const walkNodes = (node = {}, name = '') => {
+    // console.log(node.name, name);
+    if (node.name === name) return node;
+    if (!node.children) return undefined;
+    for (const childNode of node.children) {
+      const foundNode = walkNodes(childNode, name);
+      if (foundNode) return foundNode;
     }
     return undefined;
   };
@@ -70,14 +92,20 @@ describe("2019 day 6", function() {
     const childNode = {
       name: childName,
     }
-    numNodes++;
-    return addChildNode(node, childNode);
+    numNodesCreated++;
+    addChildNode(node, childNode);
+  };
+  const setNodeParent = (node = {}, parentName = '') => {
+    const parentNode = {
+      name: parentName,
+    }
+    numNodesCreated++;
+    addChildNode(parentNode, node);
   };
   const addChildNode = (parentNode = {}, childNode = {}) => {
     childNode.parent = parentNode;
     if (!parentNode.children) parentNode.children = [];
     parentNode.children.push(childNode);
-    return parentNode;
   };
   const fn2 = () => {
     return '';
@@ -326,20 +354,7 @@ describe("2019 day 6", function() {
     expect(forest[1].root.children[0].parent.name).toEqual('TT5');
     expect(forest[1].root.children[0].children).toBeFalsy();
   });
-  it('addNodePairToForest() adds child from pair of nodes to forest with parent node existing', () => {
-    let parent = { name: 'TT5' };
-    addChildToNode(parent, 'foo');
-    forest = [{ root: { name: 'bar' }}, { root: parent }];
-    addNodePairToForest('TT5', 'Y6Q');
-    expect(forest.length).toEqual(2);
-    expect(forest[1].root.name).toEqual('TT5');
-    expect(forest[1].root.parent).toBeFalsy();
-    expect(forest[1].root.children.length).toEqual(2);
-    expect(forest[1].root.children[1].name).toEqual('Y6Q');
-    expect(forest[1].root.children[1].parent.name).toEqual('TT5');
-    expect(forest[1].root.children[1].children).toBeFalsy();
-  });
-  it('addNodePairToForest() does not add already seen child from pair of nodes to forest, if child already parented', () => {
+  it('addNodePairToForest() does not add or connect already seen child from pair of nodes to or in forest, if child already parented', () => {
     isTest = true;
     let parent = { name: 'TT5' };
     addChildToNode(parent, 'Y6Q');
@@ -353,7 +368,34 @@ describe("2019 day 6", function() {
     expect(forest[1].root.children[0].parent.name).toEqual('TT5');
     expect(forest[1].root.children[0].children).toBeFalsy();
   });
-  it('addNodePairToForest() does add already seen child from pair of nodes to forest, merging trees, if child not already parented', () => {
+  it('addNodePairToForest() adds child from pair of nodes to forest with parent node existing', () => {
+    let parent = { name: 'TT5' };
+    addChildToNode(parent, 'foo');
+    forest = [{ root: { name: 'bar' }}, { root: parent }];
+    addNodePairToForest('TT5', 'Y6Q');
+    expect(forest.length).toEqual(2);
+    expect(forest[1].root.name).toEqual('TT5');
+    expect(forest[1].root.parent).toBeFalsy();
+    expect(forest[1].root.children.length).toEqual(2);
+    expect(forest[1].root.children[1].name).toEqual('Y6Q');
+    expect(forest[1].root.children[1].parent.name).toEqual('TT5');
+    expect(forest[1].root.children[1].children).toBeFalsy();
+  });
+  it('addNodePairToForest() adds parent from pair of nodes to forest with child node existing', () => {
+    let parent = { name: 'Y6Q' };
+    addChildToNode(parent, 'foo');
+    forest = [{ root: { name: 'bar' }}, { root: parent }];
+    addNodePairToForest('TT5', 'Y6Q');
+    expect(forest.length).toEqual(2);
+    expect(forest[1].root.name).toEqual('TT5');
+    expect(forest[1].root.parent).toBeFalsy();
+    expect(forest[1].root.children.length).toEqual(1);
+    expect(forest[1].root.children[0].name).toEqual('Y6Q');
+    expect(forest[1].root.children[0].parent.name).toEqual('TT5');
+    expect(forest[1].root.children[0].children.length).toEqual(1);
+    expect(forest[1].root.children[0].children[0].name).toEqual('foo');
+  });
+  it('addNodePairToForest() connects parent to child in pair of nodes, merging trees, if both nodes existing', () => {
     isTest = true;
     let parent = { name: 'TT5' };
     addChildToNode(parent, 'Y6Q');
@@ -394,17 +436,32 @@ describe("2019 day 6", function() {
     forest = [{ root: { name: 'bar' }}, { root: parent }];
     expect(getNode('foo')).toEqual(forest[1].root.children[0]);
   });
-  it('addChildToNode() adds child (as new node) to node, returning modified parent', () => {
+  it('addChildToNode() adds child (as new node) to node', () => {
     let node = {
       name: 'TT5',
     }
-    const actual = addChildToNode(node, 'Y6Q');
-    expect(actual).toEqual(
+    addChildToNode(node, 'Y6Q');
+    expect(node).toEqual(
       {
         name: 'TT5',
         children: [{
           name: 'Y6Q',
           parent: node,
+        }],
+      }
+      );
+  });
+  it('setNodeParent() sets parent (as new node) for node', () => {
+    let node = {
+      name: 'Y6Q',
+    }
+    setNodeParent(node, 'TT5');
+    expect(node.parent).toEqual(
+      {
+        name: 'TT5',
+        children: [{
+          name: 'Y6Q',
+          parent: node.parent,
         }],
       }
       );
@@ -433,13 +490,25 @@ describe("2019 day 6", function() {
     expect(data).toEqual([['TT5', 'Y6Q'], ['ZBC', 'Z2R'], ['8MQ', '51V']]);
   });
   it("my input is valid", () => {
+    console.log();
+    console.log('*** BEGIN TEST ***');
+    numNodesCreated = 0;
+    numTimesTwoNodesCreated = numTimesOneNodeCreated = numTimesZeroNodesCreated = 0;
+    numNodePairs = 0;
+    isTest = false;
     const data = parse(lines);
     buildForest(data);
-    // console.log("forest:");
-    // console.log(forest);
+    console.log("forest:");
+    console.log(forest);
     console.log("number of trees: ", forest.length);
-    console.log("number of nodes: ", numNodes);
+    console.log("number of nodes created: ", numNodesCreated);
+    console.log("number of times two nodes created: ", numTimesTwoNodesCreated);
+    console.log("number of times one node created: ", numTimesOneNodeCreated);
+    console.log("number of times zero nodes created: ", numTimesZeroNodesCreated);
+    console.log("number of node pairs processed: ", numNodePairs);
     // expect(answer).toEqual(0);
+    console.log('*** END TEST ***');
+    console.log();
   });
   it("can solve puzzle with my input", () => {
     // const data = [0];
