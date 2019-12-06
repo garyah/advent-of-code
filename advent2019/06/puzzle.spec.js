@@ -129,9 +129,7 @@ describe("2019 day 6", function() {
   };
   const solve = (data = [['', '']]) => {
     buildForest(data);
-    // return data.reduce((sum, num) => {
-    //   return sum + num;
-    // }, 0);
+    return countOrbits();
   }
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
@@ -543,11 +541,10 @@ describe("2019 day 6", function() {
     console.log();
   });
   it("can solve puzzle with my input", () => {
-    // const data = [0];
-    // const data = parse(lines);
-    // const answer = solve(data);
-    // console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(0);
+    const data = parse(lines);
+    const answer = solve(data);
+    console.log("part 1 answer is " + answer);
+    expect(answer).toEqual(0);
   });
   // 2019 day 5 tests (extended intcode computer, based on day 2)
   // it("can parse input", () => {
