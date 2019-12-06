@@ -16,22 +16,27 @@ describe("2019 day 6", function() {
     const santaNode = getNode('SAN');
     if (!youNode || !(youNode.parent)
         || !santaNode || !(santaNode.parent)) return -1;
-    let youPath = [];
+    let youPath = [], santaPath = [];
     for (let node = youNode.parent; node; node = node.parent) {
       youPath.push(node);
     }
+    for (let node = santaNode.parent; node; node = node.parent) {
+      santaPath.push(node);
+    }
     console.log('YOU path length is: ', youPath.length);
-    let numTransfers = 0;
+    console.log('SAN path length is: ', santaPath.length);
+    console.log('maximum number of transfers to get from YOU to SAN: ',
+                youPath.length + santaPath.length);
     for (let node = santaNode.parent; node; node = node.parent) {
       const foundIndex = youPath.indexOf(node);
       if (foundIndex !== -1) {
+        const santaIndex = santaPath.indexOf(node);
         console.log('Found intersection at YOU path index of: ', foundIndex);
-        console.log('YOU path number of transfers: ', youPath.length - foundIndex - 1);
-        console.log('SAN path number of transfers: ', numTransfers);
-        numTransfers += youPath.length - foundIndex - 1;
-        return numTransfers;
+        console.log('Found intersection at SAN path index of: ', santaIndex);
+        console.log('minimum number of transfers to get from YOU to SAN: ',
+                    foundIndex + santaIndex);
+        return foundIndex + santaIndex;
       }
-      numTransfers++;
     }
     return -1;
   };
@@ -616,7 +621,7 @@ describe("2019 day 6", function() {
     const data = parse(lines);
     const answer = solve_p2(data);
     console.log("part 2 answer is " + answer);
-    expect(answer).toEqual(228);
+    expect(answer).toEqual(409);
   });
   // 2019 day 5 tests (extended intcode computer, based on day 2)
   // it("can parse input", () => {
