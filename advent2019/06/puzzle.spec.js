@@ -9,6 +9,32 @@ describe("2019 day 6", function() {
   let numTimesOneNodeCreated = 0;
   let numTimesZeroNodesCreated = 0;
   let numNodePairs = 0;
+  const countMinTransfers = () => {
+    if (!forest || forest.length !== 1) return -1;
+    if (!forest[0] || !(forest[0].root)) return -1;
+    const youNode = getNode('YOU');
+    const santaNode = getNode('SAN');
+    if (!youNode || !(youNode.parent)
+        || !santaNode || !(santaNode.parent)) return -1;
+    let youPath = [];
+    for (let node = youNode.parent; node; node = node.parent) {
+      youPath.push(node);
+    }
+    console.log('YOU path length is: ', youPath.length);
+    let numTransfers = 0;
+    for (let node = santaNode.parent; node; node = node.parent) {
+      const foundIndex = youPath.indexOf(node);
+      if (foundIndex !== -1) {
+        console.log('Found intersection at YOU path index of: ', foundIndex);
+        console.log('YOU path number of transfers: ', youPath.length - foundIndex - 1);
+        console.log('SAN path number of transfers: ', numTransfers);
+        numTransfers += youPath.length - foundIndex - 1;
+        return numTransfers;
+      }
+      numTransfers++;
+    }
+    return -1;
+  };
   const countOrbits = () => {
     if (!forest || forest.length !== 1) return 0;
     if (!forest[0] || !(forest[0].root)) return 0;
@@ -130,6 +156,10 @@ describe("2019 day 6", function() {
   const solve = (data = [['', '']]) => {
     buildForest(data);
     return countOrbits();
+  }
+  const solve_p2 = (data = [['', '']]) => {
+    buildForest(data);
+    return countMinTransfers();
   }
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
@@ -478,7 +508,7 @@ describe("2019 day 6", function() {
       ''
       );
   });
-  it("can count direct and indiret orbits", () => {
+  it("can count direct and indirect orbits", () => {
     console.log();
     console.log('*** BEGIN TEST ***');
     numNodesCreated = 0;
@@ -508,6 +538,42 @@ describe("2019 day 6", function() {
     console.log("number of times zero nodes created: ", numTimesZeroNodesCreated);
     console.log("number of node pairs processed: ", numNodePairs);
     expect(countOrbits()).toEqual(42);
+    console.log('*** END TEST ***');
+    console.log();
+  });
+  it("can count minimum orbital transfers", () => {
+    console.log();
+    console.log('*** BEGIN TEST ***');
+    numNodesCreated = 0;
+    numTimesTwoNodesCreated = numTimesOneNodeCreated = numTimesZeroNodesCreated = 0;
+    numNodePairs = 0;
+    isTest = false;
+    const data = [
+      ['COM', 'B'],
+      ['B','C'],
+      ['C', 'D'],
+      ['D', 'E'],
+      ['E', 'F'],
+      ['B', 'G'],
+      ['G', 'H'],
+      ['D', 'I'],
+      ['E', 'J'],
+      ['J', 'K'],
+      ['K', 'L'],
+      ['K', 'YOU'],
+      ['I', 'SAN'],
+    ];
+    buildForest(data);
+    console.log("forest:");
+    console.log(forest);
+    console.log("number of trees: ", forest.length);
+    console.log("number of nodes created: ", numNodesCreated);
+    console.log("number of times two nodes created: ", numTimesTwoNodesCreated);
+    console.log("number of times one node created: ", numTimesOneNodeCreated);
+    console.log("number of times zero nodes created: ", numTimesZeroNodesCreated);
+    console.log("number of node pairs processed: ", numNodePairs);
+    expect(countOrbits()).toEqual(54);
+    expect(countMinTransfers()).toEqual(4);
     console.log('*** END TEST ***');
     console.log();
   });
@@ -544,7 +610,13 @@ describe("2019 day 6", function() {
     const data = parse(lines);
     const answer = solve(data);
     console.log("part 1 answer is " + answer);
-    expect(answer).toEqual(0);
+    expect(answer).toEqual(268504);
+  });
+  it("can solve puzzle part 2 with my input", () => {
+    const data = parse(lines);
+    const answer = solve_p2(data);
+    console.log("part 2 answer is " + answer);
+    expect(answer).toEqual(228);
   });
   // 2019 day 5 tests (extended intcode computer, based on day 2)
   // it("can parse input", () => {
