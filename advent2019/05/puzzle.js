@@ -1,20 +1,83 @@
-let var1 = 0;
-let var2 = '';
-const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
-  return 0;
+// console.log('puzzle object reaches here, input, output: ', input, output);
+let input = -1;
+let output = -1;
+// console.log('puzzle object reaches here, input, output: ', input, output);
+const setInput = (value = 0) => {
+  input = value;
 };
-const fn2 = () => {
-  return '';
+const getOutput = () => {
+  return output;
 };
-const solve = (data = [0]) => {
-  fn1();
-  return data.reduce((sum, num) => {
-    return sum + num;
-  }, 0);
+const transform = (program = []) => {
+  // console.log(program);
+  // console.log('input, output before program execution: ', input, output);
+  for (let ip = 0; ip < program.length; ) {
+    if (program[ip] === 99) break;
+    let step = 4;
+    const mode_p1 = Math.floor(program[ip] / 100) % 10;
+    const mode_p2 = Math.floor(program[ip] / 1000) % 10;
+    const opcode = program[ip] % 100;
+    if (opcode === 1) {
+      program[program[ip+3]]
+        = (mode_p1 ? program[ip+1] : program[program[ip+1]])
+          + (mode_p2 ? program[ip+2] : program[program[ip+2]]);
+    } else if (opcode === 2) {
+      program[program[ip+3]]
+        = (mode_p1 ? program[ip+1] : program[program[ip+1]])
+          * (mode_p2 ? program[ip+2] : program[program[ip+2]]);
+    } else if (opcode === 3) {
+      program[program[ip+1]] = input;
+      step = 2;
+    } else if (opcode === 4) {
+      // console.log(program);
+      // console.log('output before mod: ', output);
+      output = (mode_p1) ? program[ip+1] : program[program[ip+1]];
+      // console.log('output after mod: ', output);
+      step = 2;
+    } else if (opcode === 5) { // jump-if-true
+      step = 3;
+      if (mode_p1 ? program[ip+1] : program[program[ip+1]] !== 0) {
+        ip = (mode_p2 ? program[ip+2] : program[program[ip+2]]);
+        step = 0;
+      }
+    } else if (opcode === 6) { // jump-if-false
+      step = 3;
+      if ((mode_p1 ? program[ip+1] : program[program[ip+1]]) === 0) {
+        ip = (mode_p2 ? program[ip+2] : program[program[ip+2]]);
+        step = 0;
+      }
+    } else if (opcode === 7) { // less than
+      if ((mode_p1 ? program[ip+1] : program[program[ip+1]])
+          < (mode_p2 ? program[ip+2] : program[program[ip+2]])) {
+        program[program[ip+3]] = 1;
+      } else {
+        program[program[ip+3]] = 0;
+      }
+    } else if (opcode === 8) { // equals
+      if ((mode_p1 ? program[ip+1] : program[program[ip+1]])
+          === (mode_p2 ? program[ip+2] : program[program[ip+2]])) {
+        program[program[ip+3]] = 1;
+      } else {
+        program[program[ip+3]] = 0;
+      }
+    }
+    // console.log(program[ip]);
+    ip += step;
+  }
+  // console.log('transformed program: ' + program);
+  return program;
+};
+const solve = (program = []) => {
+  input = 1;
+  transform(program);
+  return output;
+}
+const solve_p2 = (program = []) => {
+  input = 5;
+  transform(program);
+  return output;
 }
 const parse = (lines = ['']) => {
-  // return lines[0]; // use for one line string input
-  // return lines;    // use for multi-line string input
-  return lines.map((line) => parseInt(line)).filter((num) => num === num);
+  return lines[0].split(',').map((value) => parseInt(value)).filter((num) => num === num);
 };
-module.exports = {var1, var2, fn1, fn2, solve, parse};
+module.exports = {setInput, getOutput, transform, solve, solve_p2, parse};
