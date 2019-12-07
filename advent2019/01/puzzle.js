@@ -1,15 +1,13 @@
-function Puzzle() {
-}
-Puzzle.prototype.solve = (masses) => {
+const solve = (masses) => {
   return masses.reduce((sum, mass) => {
     const fuel = Math.floor(mass / 3) - 2;
     return sum + fuel;
   }, 0);
 }
-Puzzle.prototype.parse = (lines) => {
+const parse = (lines) => {
   return lines.map((line) => parseInt(line)).filter((num) => num === num);
 };
-Puzzle.prototype.solve_p2 = (masses) => {
+const solve_p2 = (masses) => {
   return masses.reduce((sum, mass) => {
     let fuelSum = 0;
     let fuel = Math.floor(mass / 3) - 2;
@@ -20,4 +18,4 @@ Puzzle.prototype.solve_p2 = (masses) => {
     return sum + fuelSum;
   }, 0);
 }
-module.exports = Puzzle;
+module.exports = {solve, parse, solve_p2};

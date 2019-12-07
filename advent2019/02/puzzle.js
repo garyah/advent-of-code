@@ -1,6 +1,4 @@
-function Puzzle() {
-}
-Puzzle.prototype.transform = (program = []) => {
+const transform = (program = []) => {
   for (let ip = 0; ip < program.length; ) {
     if (program[ip] === 99) break;
     if (program[ip] === 1) program[program[ip+3]] = program[program[ip+1]] + program[program[ip+2]];
@@ -11,15 +9,15 @@ Puzzle.prototype.transform = (program = []) => {
   // console.log('transformed program: ' + program);
   return program;
 }
-Puzzle.prototype.parse = (lines = ['']) => {
+const parse = (lines = ['']) => {
   return lines[0].split(',').map((value) => parseInt(value)).filter((num) => num === num);
 };
-Puzzle.prototype.solve = (program = []) => {
+const solve = (program = []) => {
   program[1] = 12;
   program[2] = 2;
-  return Puzzle.prototype.transform(program)[0];
+  return transform(program)[0];
 }
-Puzzle.prototype.solve_p2 = (program = []) => {
+const solve_p2 = (program = []) => {
   // save
   let savedData = [];
   for (const code of program) savedData.push(code);
@@ -28,7 +26,7 @@ Puzzle.prototype.solve_p2 = (program = []) => {
     for (let verb = 0; verb < 100; verb++) {
       program[1] = noun;
       program[2] = verb;
-      const possibleGood = Puzzle.prototype.transform(program)[0];
+      const possibleGood = transform(program)[0];
       //if (noun % 100 === 0 && verb % 10 === 0) console.log(possibleGood);
       if (possibleGood === 19690720) {
         console.log("found it!  noun = " + noun + " and verb = " + verb);
@@ -40,4 +38,4 @@ Puzzle.prototype.solve_p2 = (program = []) => {
     }
   }
 }
-module.exports = Puzzle;
+module.exports = {transform, parse, solve, solve_p2};

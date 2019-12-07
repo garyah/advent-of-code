@@ -1,5 +1,3 @@
-function Puzzle() {
-}
 function isPositionSeen(
     seenPositions = new Map([[0, new Set([0])]]),
     position = {x: 0, y: 0},
@@ -29,7 +27,7 @@ function updatePositions(
     }
   }
 }
-Puzzle.prototype.solve = (data = ['', '']) => {
+const solve = (data = ['', '']) => {
   let seenPositions = new Map([[0, new Set([0])]]);
   let closestIntersected = {x: 0, y: 0};
   let position = {x: 0, y: 0};
@@ -70,7 +68,7 @@ Puzzle.prototype.solve = (data = ['', '']) => {
   }
   return Math.abs(closestIntersected.x) + Math.abs(closestIntersected.y);
 }
-Puzzle.prototype.parse = (lines) => {
+const parse = (lines) => {
   return lines;
 };
 function isPositionSeen_p2(
@@ -105,7 +103,7 @@ function updatePositions_p2(
     }
   }
 }
-Puzzle.prototype.solve_p2 = (data = ['', '']) => {
+const solve_p2 = (data = ['', '']) => {
   let seenPositions = new Map([[0, new Map([[0, 0]])]]);
   let bestIntersected = {x: 0, y: 0, steps: 0};
   let position = {x: 0, y: 0, steps: 0};
@@ -153,4 +151,4 @@ Puzzle.prototype.solve_p2 = (data = ['', '']) => {
   //console.log('bestIntersected = ', bestIntersected);
   return bestIntersected.steps;
 }
-module.exports = Puzzle;
+module.exports = {solve, parse, solve_p2};

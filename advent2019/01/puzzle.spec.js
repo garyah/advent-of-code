@@ -1,8 +1,7 @@
 describe("2019 day 1", function() {
   const Parser = require('../../common/parser');
-  const Puzzle = require('./puzzle');
   const parser = new Parser();
-  const puzzle = new Puzzle();
+  const puzzle = require('./puzzle');
   const readInputFile = true; // change to true to read input file for all tests that need it
   let lines = [];
   beforeAll((done) => {
