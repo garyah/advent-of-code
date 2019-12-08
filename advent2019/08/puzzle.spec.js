@@ -1,17 +1,21 @@
 describe("2019 day 8", function() {
   // new code
-  let var1 = 0;
-  let var2 = '';
-  const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
-    if (1) {}
-    else if (1) {}
-    else {}
-    for (let i = 0;; i++) { break; continue; }
-    for (const item of arg3) {}
-    return 0;
-  };
-  const fn2 = () => {
-    return '';
+  const printImage = (w = 1, h = 1, digits = [0]) => {
+    const length = w * h;
+    let image = '';
+    for (let idx = 0; idx < length; idx++) {
+      let digitToPrint = -1;
+      for (let idx2 = digits.length - length + idx; idx2 >= 0; idx2 -= length) {
+        const printDigit = (digits[idx2] === 1) ? "*" : " ";
+        digitToPrint = (digits[idx2] === 0 || digits[idx2] === 1) ?
+          printDigit : digitToPrint;
+      }
+      image += digitToPrint;
+    }
+    console.log();
+    for (let i = 0; i < h; i++) {
+      console.log(image.substr(i * w, w));
+    }
   };
   const solve = (w = 1, h = 1, digits = [0]) => {
     const length = w * h;
@@ -37,10 +41,6 @@ describe("2019 day 8", function() {
       // }
     }
     return countOnes * countTwos;
-    // fn1();
-    // return data.reduce((sum, num) => {
-    //   return sum + num;
-    // }, 0);
   }
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
@@ -215,15 +215,9 @@ describe("2019 day 8", function() {
 
 
   // new tests
-  it('fn1() returns number 0', () => {
-    expect(fn1()).toEqual(
-      0
-      );
-  });
-  it('fn2() returns empty string', () => {
-    expect(fn2()).toEqual(
-      ''
-      );
+  it('printImage() outputs proper image', () => {
+    const data = parse(lines);
+    printImage(25, 6, data);
   });
   it("can solve puzzle", () => {
     const data = [
@@ -242,11 +236,14 @@ describe("2019 day 8", function() {
     expect(data).toEqual([1, 2, 0]);
   });
   it("can solve puzzle with my input", () => {
-    // const data = [0];
     const data = parse(lines);
     const answer = solve(25, 6, data);
     console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(0);
+    expect(answer).toEqual(2064);
+  });
+  it("can solve puzzle part 2 with my input", () => {
+    const data = parse(lines);
+    printImage(25, 6, data);
   });
 
 
