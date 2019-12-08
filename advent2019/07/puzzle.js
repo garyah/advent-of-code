@@ -10,12 +10,12 @@ const setInput = (value = 0) => {
 const getOutput = () => {
   return output;
 };
-const transform = (program = []) => {
+const transform = (program = [], startIp = 0) => {
   // console.log(program);
   // console.log('input, output before program execution: ', input, output);
   let isSecondInput = false;
-  for (let ip = 0; ip < program.length; ) {
-    if (program[ip] === 99) break;
+  for (let ip = startIp; ip < program.length; ) {
+    if (program[ip] === 99) return -1;
     let step = 4;
     const mode_p1 = Math.floor(program[ip] / 100) % 10;
     const mode_p2 = Math.floor(program[ip] / 1000) % 10;
@@ -37,7 +37,7 @@ const transform = (program = []) => {
       // console.log('output before mod: ', output);
       output = (mode_p1) ? program[ip+1] : program[program[ip+1]];
       // console.log('output after mod: ', output);
-      step = 2;
+      return ip + 2;
     } else if (opcode === 5) { // jump-if-true
       step = 3;
       if (mode_p1 ? program[ip+1] : program[program[ip+1]] !== 0) {
@@ -69,7 +69,6 @@ const transform = (program = []) => {
     ip += step;
   }
   // console.log('transformed program: ' + program);
-  return program;
 };
 const solve = (program = []) => {
   // console.log('program = ', program);
@@ -88,8 +87,6 @@ const solve = (program = []) => {
             phases = [p0, p1, p2, p3, p4];
             input = 0;
             for (phaseIndex = 0; phaseIndex < 5; phaseIndex++) {
-              // let copy = [];
-              // for (let i = 0; i < program.length; i++) copy.push(program[i]);
               const copy = program.map((value) => value);
               // console.log('program copy = ', copy);
               // console.log('phaseIndex = ', phaseIndex, 'input = ', input);
@@ -108,9 +105,49 @@ const solve = (program = []) => {
   return maxOutput;
 }
 const solve_p2 = (program = []) => {
-  input = 5;
-  transform(program);
-  return output;
+  // console.log('program = ', program);
+  let numCombinations = 0;
+  let maxOutput = -1;
+  phases = [0, 1, 2, 3, 4];
+  phases = [9, 8, 7, 6, 5];
+  // for (let p0 = 0; p0 < 5; p0++) {
+  //   for (let p1 = 0; p1 < 5; p1++) {
+  //     if (p1 === p0) continue;
+  //     for (let p2 = 0; p2 < 5; p2++) {
+  //       if (p2 === p1 || p2 === p0) continue;
+  //       for (let p3 = 0; p3 < 5; p3++) {
+  //         if (p3 === p2 || p3 === p1 || p3 === p0) continue;
+  //         for (let p4 = 0; p4 < 5; p4++) {
+  //           if (p4 === p3 || p4 === p2 || p4 === p1 || p4 === p0) continue;
+  //           phases = [p0, p1, p2, p3, p4];
+            let programs = [[]], startIps = [];
+            for (let amp = 0; amp < 5; amp++) {
+              programs.push(program.map((value) => value));
+              startIps.push(0);
+            }
+            input = 0;
+            lastOutput = 0;
+            for (let n = 0; n < 6; n++) {
+              for (phaseIndex = 0; phaseIndex < 5; phaseIndex++) {
+                // console.log('program at index ', phaseIndex, ' program = ', programs[phaseIndex]);
+                // console.log('phaseIndex = ', phaseIndex, 'input = ', input);
+                startIps[phaseIndex] = transform(programs[phaseIndex], startIps[phaseIndex]);
+                if (startIps[phaseIndex] === -1) { console.log("inner got halt"); break; }
+                // console.log('phaseIndex = ', phaseIndex, 'output = ', output);
+                input = output;
+              }
+              lastOutput = output;
+              if (startIps[phaseIndex] === -1) { console.log("outer got halt"); break; }
+            }
+            if (lastOutput > maxOutput) {
+              maxOutput = lastOutput;
+              // console.log('found new max of ', maxOutput,
+              //             ' with phase setting sequence of ', p0, p1, p2, p3, p4);
+            }
+            numCombinations++;
+  // }}}}}
+  // console.log('numCombinations = ', numCombinations);
+  return maxOutput;
 }
 const parse = (lines = ['']) => {
   return lines[0].split(',').map((value) => parseInt(value)).filter((num) => num === num);

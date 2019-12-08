@@ -109,40 +109,38 @@ describe("2019 day 7", function() {
     // console.log('expected: ', expected);
     expect(actual).toEqual(expected);
   });
-  it("should be able solve puzzle with my input", () => {
+  it("should be able to solve puzzle with my input", () => {
     const data = puzzle.parse(lines);
     const answer = puzzle.solve(data);
-    // console.log("part 1 answer is " + answer);
+    console.log("part 1 answer is " + answer);
     expect(answer).toEqual(929800);
   });
-  it("should be able to compare correctly", () => {
+  it("should be able to find max thruster signal (with feedback) with samples", () => {
     puzzle.setInput(0);
     const data = [
-      [8, [3,9,8,9,10,9,4,9,99,-1,8]], [7, [3,9,8,9,10,9,4,9,99,-1,8]],
-      [7, [3,9,7,9,10,9,4,9,99,-1,8]], [8, [3,9,7,9,10,9,4,9,99,-1,8]],
-      [8, [3,3,1108,-1,8,3,4,3,99]], [7, [3,3,1108,-1,8,3,4,3,99]],
-      [7, [3,3,1107,-1,8,3,4,3,99]], [8, [3,3,1107,-1,8,3,4,3,99]],
+      [3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,
+        27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5],
+      [3,52,1001,52,-5,52,3,53,1,52,56,54,1007,54,5,55,1005,55,26,1001,54,
+        -5,54,1105,1,12,1,53,54,53,1008,54,0,55,1001,55,1,55,2,53,55,53,4,
+        53,1001,56,-1,56,1005,56,6,99,0,0,0,0,10],
     ];
-    const actual = data.map(([inputValue, data]) => {
-      puzzle.setInput(inputValue);
-      puzzle.transform(data);
-      return puzzle.getOutput();
+    const actual = data.map((data) => {
+      return puzzle.solve_p2(data);
     });
     const expected = [
-      1, 0,
-      1, 0,
-      1, 0,
-      1, 0,
+      139629729,
+      18216,
     ];
-    // console.log('actual: ', actual);
-    // console.log('expected: ', expected);
+    console.log();
+    console.log('actual:   ', actual);
+    console.log('expected: ', expected);
     // expect(actual).toEqual(expected);
   });
-  it("should be able solve puzzle part 2 with my input", () => {
+  it("should be able to solve puzzle part 2 with my input", () => {
     const data = puzzle.parse(lines);
-    // const answer = puzzle.solve_p2(data);
+    const answer = puzzle.solve_p2(data);
     // console.log("part 2 answer is " + answer);
-    // expect(answer).toEqual(9436229);
+    // expect(answer).toEqual(929800);
   });
 
 
