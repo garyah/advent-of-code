@@ -13,16 +13,39 @@ describe("2019 day 8", function() {
   const fn2 = () => {
     return '';
   };
-  const solve = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
+  const solve = (w = 1, h = 1, digits = [0]) => {
+    const length = w * h;
+    let minCountZeros = w * h + 1;
+    let minZeroCountIndex = -1;
+    for (let idx = 0; idx < digits.length; idx += length) {
+      let countZeros = 0;
+      for (let idx2 = idx; idx2 < idx + length; idx2++) {
+        countZeros += (digits[idx2] === 0) ? 1 : 0;
+      }
+      if (countZeros < minCountZeros) {
+        minCountZeros = countZeros;
+        minZeroCountIndex = idx;
+      }
+    }
+    let countOnes = 0;
+    let countTwos = 0;
+    for (let idx = minZeroCountIndex; idx < minZeroCountIndex + length; idx++) {
+      countOnes += (digits[idx] === 1) ? 1 : 0;
+      countTwos += (digits[idx] === 2) ? 1 : 0;
+      // if ()
+      // for (let idx2) {
+      // }
+    }
+    return countOnes * countTwos;
+    // fn1();
+    // return data.reduce((sum, num) => {
+    //   return sum + num;
+    // }, 0);
   }
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
     // return lines;    // use for multi-line string input
-    return lines.map((line) => parseInt(line)).filter((num) => num === num);
+    return lines[0].split('').map((char) => parseInt(char)).filter((num) => num === num);
   };
   // 2019 day 5 code (extended intcode computer, based on day 2)
   let input = 0;
@@ -204,26 +227,24 @@ describe("2019 day 8", function() {
   });
   it("can solve puzzle", () => {
     const data = [
-      [],
+      [3, 2, [1, 2, 2, 4, 5, 6, 7, 8, 9, 0, 0, 2]],
     ];
-    const actual = data.map((data) => solve(data));
+    const actual = data.map((data) => solve(data[0], data[1], data[2]));
     const expected = [
-      1,
+      2,
     ];
-    // expect(actual).toEqual(expected);
+    expect(actual).toEqual(expected);
   });
   it("can parse input", () => {
     const data = parse(
-      '+1 +3 +2'
-      .split(
-        ' '
-        ));
-    expect(data).toEqual([1, 3, 2]);
+      ['120', '']
+      );
+    expect(data).toEqual([1, 2, 0]);
   });
   it("can solve puzzle with my input", () => {
     // const data = [0];
     const data = parse(lines);
-    const answer = solve(data);
+    const answer = solve(25, 6, data);
     console.log("part 1 answer is " + answer);
     // expect(answer).toEqual(0);
   });
@@ -243,7 +264,7 @@ describe("2019 day 8", function() {
   const Parser = require('../../common/parser');
   const puzzle = require('./puzzle');
   const parser = new Parser();
-  const readInputFile = false; // change to true to read input file for all tests that need it
+  const readInputFile = true; // change to true to read input file for all tests that need it
   let lines = [];
   beforeAll((done) => {
     console.log("2019 day 8:");
