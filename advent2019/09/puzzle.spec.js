@@ -80,6 +80,14 @@ describe("2019 day 6", function() {
     // console.log("part 1 answer is " + answer);
     // expect(answer).toEqual(0);
   });
+  it("can solve puzzle part 2 with my input", () => {
+    // const data = [0];
+    const data = puzzle.parse(lines);
+    puzzle.setInput(2);
+    const answer = puzzle.transform(data);
+    // console.log("part 1 answer is " + answer);
+    // expect(answer).toEqual(0);
+  });
 
 
 
