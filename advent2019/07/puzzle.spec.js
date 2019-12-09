@@ -146,9 +146,9 @@ describe("2019 day 7", function() {
   });
   it("should be able to solve puzzle part 2 with my input", () => {
     const data = puzzle.parse(lines);
-    // const answer = puzzle.solve_p2(data);
-    // console.log("part 2 answer is " + answer);
-    // expect(answer).toEqual(929800);
+    const answer = puzzle.solve_p2(data);
+    console.log("part 2 answer is " + answer);
+    expect(answer).toEqual(15432220);
   });
 
 
