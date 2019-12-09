@@ -118,16 +118,16 @@ describe("2019 day 7", function() {
   it("should be able to find max thruster signal (with feedback) with samples", () => {
     puzzle.setInput(0);
     const data = [
-      // [3,26,          // indexes 0~1
-      //  1001,26,-4,26, // indexes 2~5
-      //  3,27,          // indexes 6~7
-      //  1002,27,2,27,  // indexes 8~11
-      //  1,27,26,27,    // indexes 12~15
-      //  4,27,          // indexes 16~17
-      //  1001,28,-1,28, // indexes 18~21
-      //  1005,28,6,     // indexes 22~24
-      //  99,            // indexes 25
-      //  0,0,5],        // indexes 26~28
+      [3,26,          // indexes 0~1
+       1001,26,-4,26, // indexes 2~5
+       3,27,          // indexes 6~7
+       1002,27,2,27,  // indexes 8~11
+       1,27,26,27,    // indexes 12~15
+       4,27,          // indexes 16~17
+       1001,28,-1,28, // indexes 18~21
+       1005,28,6,     // indexes 22~24
+       99,            // indexes 25
+       0,0,5],        // indexes 26~28
       [3,52,1001,52,-5,52,3,53,1,52,56,54,1007,54,5,55,1005,55,26,1001,54,
         -5,54,1105,1,12,1,53,54,53,1008,54,0,55,1001,55,1,55,2,53,55,53,4,
         53,1001,56,-1,56,1005,56,6,99,0,0,0,0,10],
@@ -136,7 +136,7 @@ describe("2019 day 7", function() {
       return puzzle.solve_p2(data);
     });
     const expected = [
-      // 139629729,
+      139629729,
       18216,
     ];
     // console.log();

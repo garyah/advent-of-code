@@ -114,20 +114,20 @@ const solve_p2 = (program = []) => {
   // console.log('program = ', program);
   let numCombinations = 0;
   let maxOutput = -1;
-  phases = [0, 1, 2, 3, 4];
-  phases = [9, 8, 7, 6, 5];  // TEST ONLY
-  phases = [9, 7, 8, 5, 6]; // TEST ONLY
-  // phases = [5, 6, 7, 8, 9];
-  // for (let p0 = 0; p0 < 5; p0++) {
-  //   for (let p1 = 0; p1 < 5; p1++) {
-  //     if (p1 === p0) continue;
-  //     for (let p2 = 0; p2 < 5; p2++) {
-  //       if (p2 === p1 || p2 === p0) continue;
-  //       for (let p3 = 0; p3 < 5; p3++) {
-  //         if (p3 === p2 || p3 === p1 || p3 === p0) continue;
-  //         for (let p4 = 0; p4 < 5; p4++) {
-  //           if (p4 === p3 || p4 === p2 || p4 === p1 || p4 === p0) continue;
-  //           phases = [p0, p1, p2, p3, p4];
+  let phasesOfMax = [];
+  phases = [5, 6, 7, 8, 9];
+  // phases = [9, 8, 7, 6, 5];  // TEST ONLY
+  // phases = [9, 7, 8, 5, 6]; // TEST ONLY
+  for (let p0 = 5; p0 < 10; p0++) {
+    for (let p1 = 5; p1 < 10; p1++) {
+      if (p1 === p0) continue;
+      for (let p2 = 5; p2 < 10; p2++) {
+        if (p2 === p1 || p2 === p0) continue;
+        for (let p3 = 5; p3 < 10; p3++) {
+          if (p3 === p2 || p3 === p1 || p3 === p0) continue;
+          for (let p4 = 5; p4 < 10; p4++) {
+            if (p4 === p3 || p4 === p2 || p4 === p1 || p4 === p0) continue;
+            phases = [p0, p1, p2, p3, p4];
             let programs = [[]], startIps = [];
             // console.log('programs.length = ', programs.length, ' programs = ', programs);
             for (phaseIndex = 0; phaseIndex < 5; phaseIndex++) {
@@ -151,19 +151,21 @@ const solve_p2 = (program = []) => {
                 startIps[phaseIndex] = transform(programs[phaseIndex], startIps[phaseIndex]);
                 // printProgram(programs[phaseIndex], startIps[phaseIndex]);
                 // console.log('phaseIndex=', phaseIndex, '\tinput=', input, '\toutput=', output, '\tstartIp=', startIps[phaseIndex]);
-                if (startIps[phaseIndex] === -1) { console.log('inner got halt, spin #', n, 'phaseIndex=', phaseIndex); break; }
+                if (startIps[phaseIndex] === -1) { /*console.log('inner got halt, spin #', n, 'phaseIndex=', phaseIndex);*/ break; }
                 input = output;
               }
               lastOutput = output;
-              if (startIps[phaseIndex] === -1) { console.log("outer got halt"); break; }
+              if (startIps[phaseIndex] === -1) { /*console.log("outer got halt");*/ break; }
             }
             if (lastOutput > maxOutput) {
               maxOutput = lastOutput;
+              phasesOfMax = [p0, p1, p2, p3, p4];
               // console.log('found new max of ', maxOutput,
               //             ' with phase setting sequence of ', p0, p1, p2, p3, p4);
             }
             numCombinations++;
-  // }}}}}
+  }}}}}
+  // console.log('maxOutput=', maxOutput, 'phase setting sequence=[' +  phasesOfMax.join(',') + ']');
   // console.log('numCombinations = ', numCombinations);
   return maxOutput;
 }
