@@ -13,7 +13,7 @@ const getOutput = () => {
 const transform = (program = [], startIp = 0) => {
   // console.log(program);
   // console.log('input, output before program execution: ', input, output);
-  let isSecondInput = false;
+  let isSecondInput = startIp ? true : false;
   for (let ip = startIp; ip < program.length; ) {
     if (program[ip] === 99) return -1;
     let step = 4;
@@ -115,8 +115,8 @@ const solve_p2 = (program = []) => {
   let numCombinations = 0;
   let maxOutput = -1;
   phases = [0, 1, 2, 3, 4];
-  phases = [9, 8, 7, 6, 5];
-  // phases = [9, 7, 8, 5, 6];
+  phases = [9, 8, 7, 6, 5];  // TEST ONLY
+  phases = [9, 7, 8, 5, 6]; // TEST ONLY
   // phases = [5, 6, 7, 8, 9];
   // for (let p0 = 0; p0 < 5; p0++) {
   //   for (let p1 = 0; p1 < 5; p1++) {
@@ -141,15 +141,15 @@ const solve_p2 = (program = []) => {
             }
             input = 0;
             output = 0;
-            lastOutput = 0;
-            for (let n = 0; n < 2; n++) {
-              console.log();
+            let lastOutput = 0;
+            for (let n = 0; n < 20; n++) {
+              // console.log();
               for (phaseIndex = 0; phaseIndex < 5; phaseIndex++) {
                 // console.log('program at index ', phaseIndex, ' program = ', programs[phaseIndex]);
                 // printProgram(programs[phaseIndex], startIps[phaseIndex]);
                 // console.log('phaseIndex= ', phaseIndex, 'input= ', input);
                 startIps[phaseIndex] = transform(programs[phaseIndex], startIps[phaseIndex]);
-                printProgram(programs[phaseIndex], startIps[phaseIndex]);
+                // printProgram(programs[phaseIndex], startIps[phaseIndex]);
                 // console.log('phaseIndex=', phaseIndex, '\tinput=', input, '\toutput=', output, '\tstartIp=', startIps[phaseIndex]);
                 if (startIps[phaseIndex] === -1) { console.log('inner got halt, spin #', n, 'phaseIndex=', phaseIndex); break; }
                 input = output;
