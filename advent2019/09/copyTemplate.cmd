@@ -1,5 +1,3 @@
-copy /Y puzzle.* ..\08
-copy /Y puzzle.* ..\09
 copy /Y puzzle.* ..\10
 copy /Y puzzle.* ..\11
 copy /Y puzzle.* ..\12
