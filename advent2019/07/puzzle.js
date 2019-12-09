@@ -1,3 +1,4 @@
+// 2019 day 7 code (extended intcode computer, based on days 2 and 5)
 // console.log('puzzle object reaches here, input, output: ', input, output);
 let input = -1;
 let output = -1;
