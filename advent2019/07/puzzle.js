@@ -3,7 +3,8 @@
 let input = -1;
 let output = -1;
 let phases = [-1, -1, -1, -1, -1];
-let phaseIndex = 0;
+let programs = [{memory: [0], startIp: 0, isResumed: false}];
+let ampIndex = 0;
 // console.log('puzzle object reaches here, input, output: ', input, output);
 const setInput = (value = 0) => {
   input = value;
@@ -11,12 +12,12 @@ const setInput = (value = 0) => {
 const getOutput = () => {
   return output;
 };
-const transform = (program = [], startIp = 0) => {
+const transform = () => {
+  const program = programs[ampIndex].memory;
   // console.log(program);
   // console.log('input, output before program execution: ', input, output);
-  let isSecondInput = startIp ? true : false;
-  for (let ip = startIp; ip < program.length; ) {
-    if (program[ip] === 99) return -1;
+  for (let ip = programs[ampIndex].startIp; ip < program.length; ) {
+    if (program[ip] === 99) { programs[ampIndex].startIp = -1; return -1; }
     let step = 4;
     const mode_p1 = Math.floor(program[ip] / 100) % 10;
     const mode_p2 = Math.floor(program[ip] / 1000) % 10;
@@ -30,15 +31,16 @@ const transform = (program = [], startIp = 0) => {
         = (mode_p1 ? program[ip+1] : program[program[ip+1]])
           * (mode_p2 ? program[ip+2] : program[program[ip+2]]);
     } else if (opcode === 3) { // input
-      program[program[ip+1]] = isSecondInput ? input : phases[phaseIndex];
-      isSecondInput = true;
+      program[program[ip+1]] = programs[ampIndex].isResumed ? input : phases[ampIndex];
+      programs[ampIndex].isResumed = true;
       step = 2;
     } else if (opcode === 4) { // output
       // console.log(program);
       // console.log('output before mod: ', output);
       output = (mode_p1) ? program[ip+1] : program[program[ip+1]];
       // console.log('output after mod: ', output);
-      return ip + 2;
+      programs[ampIndex].startIp = ip + 2;
+      return programs[ampIndex].startIp;
     } else if (opcode === 5) { // jump-if-true
       step = 3;
       if (mode_p1 ? program[ip+1] : program[program[ip+1]] !== 0) {
@@ -70,6 +72,8 @@ const transform = (program = [], startIp = 0) => {
     ip += step;
   }
   // console.log('transformed program: ' + program);
+  programs[ampIndex].startIp = ip;
+  return programs[ampIndex].startIp;
 };
 const solve = (program = []) => {
   // console.log('program = ', program);
@@ -87,12 +91,17 @@ const solve = (program = []) => {
             if (p4 === p3 || p4 === p2 || p4 === p1 || p4 === p0) continue;
             phases = [p0, p1, p2, p3, p4];
             input = 0;
-            for (phaseIndex = 0; phaseIndex < 5; phaseIndex++) {
-              const copy = program.map((value) => value);
-              // console.log('program copy = ', copy);
-              // console.log('phaseIndex = ', phaseIndex, 'input = ', input);
-              transform(copy);
-              // console.log('phaseIndex = ', phaseIndex, 'output = ', output);
+            for (ampIndex = 0; ampIndex < 5; ampIndex++) {
+              programs[ampIndex] = {memory: [], startIp: 0, isResumed: false};
+              programs[ampIndex].memory = program.map((value) => {
+                // if (ampIndex === 0) console.log(value);
+                return value;
+              });
+              // console.log('ampIndex = ', ampIndex, 'programs.length = ', programs.length);
+              // printProgram(programs[ampIndex].memory);
+              // console.log('ampIndex = ', ampIndex, 'input = ', input);
+              transform();
+              // console.log('ampIndex = ', ampIndex, 'output = ', output);
               input = output;
             }
             if (output > maxOutput) {
@@ -105,10 +114,10 @@ const solve = (program = []) => {
   // console.log('numCombinations = ', numCombinations);
   return maxOutput;
 }
-const printProgram = (program = [], startIp = 0) => {
-  let programString = '[' +  program.join(',') + ']';
+const printProgram = (programMemory = [], startIp = 0) => {
+  let programString = '[' +  programMemory.join(',') + ']';
   console.log(
-    'phaseIndex= ', phaseIndex, ' phase= ', phases[phaseIndex],
+    'ampIndex= ', ampIndex, ' phase= ', phases[ampIndex],
     ' input= ', input, ':\t\t', programString, '\toutput= ', output, 'startIp= ', startIp);
 }
 const solve_p2 = (program = []) => {
@@ -129,34 +138,33 @@ const solve_p2 = (program = []) => {
           for (let p4 = 5; p4 < 10; p4++) {
             if (p4 === p3 || p4 === p2 || p4 === p1 || p4 === p0) continue;
             phases = [p0, p1, p2, p3, p4];
-            let programs = [[]], startIps = [];
             // console.log('programs.length = ', programs.length, ' programs = ', programs);
-            for (phaseIndex = 0; phaseIndex < 5; phaseIndex++) {
-              programs[phaseIndex] = (program.map((value) => {
-                // if (phaseIndex === 0) console.log(value);
+            for (ampIndex = 0; ampIndex < 5; ampIndex++) {
+              programs[ampIndex] = {memory: [], startIp: 0, isResumed: false};
+              programs[ampIndex].memory = program.map((value) => {
+                // if (ampIndex === 0) console.log(value);
                 return value;
-              }));
-              // console.log('phaseIndex = ', phaseIndex, 'programs.length = ', programs.length);
-              // printProgram(programs[phaseIndex]);
-              startIps.push(0);
+              });
+              // console.log('ampIndex = ', ampIndex, 'programs.length = ', programs.length);
+              // printProgram(programs[ampIndex].memory);
             }
             input = 0;
             output = 0;
             let lastOutput = 0;
-            for (let n = 0; n < 20; n++) {
+            for (let n = 0; n < 20; n++) { // set maximum limit on how many times to loop, just in case
               // console.log();
-              for (phaseIndex = 0; phaseIndex < 5; phaseIndex++) {
-                // console.log('program at index ', phaseIndex, ' program = ', programs[phaseIndex]);
-                // printProgram(programs[phaseIndex], startIps[phaseIndex]);
-                // console.log('phaseIndex= ', phaseIndex, 'input= ', input);
-                startIps[phaseIndex] = transform(programs[phaseIndex], startIps[phaseIndex]);
-                // printProgram(programs[phaseIndex], startIps[phaseIndex]);
-                // console.log('phaseIndex=', phaseIndex, '\tinput=', input, '\toutput=', output, '\tstartIp=', startIps[phaseIndex]);
-                if (startIps[phaseIndex] === -1) { /*console.log('inner got halt, spin #', n, 'phaseIndex=', phaseIndex);*/ break; }
+              for (ampIndex = 0; ampIndex < 5; ampIndex++) {
+                // console.log('program at index ', ampIndex, ' program = ', programs[ampIndex]);
+                // printProgram(programs[ampIndex].memory, programs[ampIndex].startIp);
+                // console.log('ampIndex= ', ampIndex, 'input= ', input);
+                transform();
+                // printProgram(programs[ampIndex].memory, programs[ampIndex].startIp);
+                // console.log('ampIndex=', ampIndex, '\tinput=', input, '\toutput=', output, '\tstartIp=', programs[ampIndex].startIp);
+                if (programs[ampIndex].startIp === -1) { /*console.log('inner got halt, spin #', n, 'ampIndex=', ampIndex);*/ break; }
                 input = output;
               }
               lastOutput = output;
-              if (startIps[phaseIndex] === -1) { /*console.log("outer got halt");*/ break; }
+              if (ampIndex < 5 && programs[ampIndex].startIp === -1) { /*console.log("outer got halt");*/ break; }
             }
             if (lastOutput > maxOutput) {
               maxOutput = lastOutput;
