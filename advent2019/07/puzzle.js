@@ -104,12 +104,20 @@ const solve = (program = []) => {
   // console.log('numCombinations = ', numCombinations);
   return maxOutput;
 }
+const printProgram = (program = [], startIp = 0) => {
+  let programString = '[' +  program.join(',') + ']';
+  console.log(
+    'phaseIndex= ', phaseIndex, ' phase= ', phases[phaseIndex],
+    ' input= ', input, ':\t\t', programString, '\toutput= ', output, 'startIp= ', startIp);
+}
 const solve_p2 = (program = []) => {
   // console.log('program = ', program);
   let numCombinations = 0;
   let maxOutput = -1;
   phases = [0, 1, 2, 3, 4];
   phases = [9, 8, 7, 6, 5];
+  // phases = [9, 7, 8, 5, 6];
+  // phases = [5, 6, 7, 8, 9];
   // for (let p0 = 0; p0 < 5; p0++) {
   //   for (let p1 = 0; p1 < 5; p1++) {
   //     if (p1 === p0) continue;
@@ -121,19 +129,29 @@ const solve_p2 = (program = []) => {
   //           if (p4 === p3 || p4 === p2 || p4 === p1 || p4 === p0) continue;
   //           phases = [p0, p1, p2, p3, p4];
             let programs = [[]], startIps = [];
-            for (let amp = 0; amp < 5; amp++) {
-              programs.push(program.map((value) => value));
+            // console.log('programs.length = ', programs.length, ' programs = ', programs);
+            for (phaseIndex = 0; phaseIndex < 5; phaseIndex++) {
+              programs[phaseIndex] = (program.map((value) => {
+                // if (phaseIndex === 0) console.log(value);
+                return value;
+              }));
+              // console.log('phaseIndex = ', phaseIndex, 'programs.length = ', programs.length);
+              // printProgram(programs[phaseIndex]);
               startIps.push(0);
             }
             input = 0;
+            output = 0;
             lastOutput = 0;
-            for (let n = 0; n < 6; n++) {
+            for (let n = 0; n < 2; n++) {
+              console.log();
               for (phaseIndex = 0; phaseIndex < 5; phaseIndex++) {
                 // console.log('program at index ', phaseIndex, ' program = ', programs[phaseIndex]);
-                // console.log('phaseIndex = ', phaseIndex, 'input = ', input);
+                // printProgram(programs[phaseIndex], startIps[phaseIndex]);
+                // console.log('phaseIndex= ', phaseIndex, 'input= ', input);
                 startIps[phaseIndex] = transform(programs[phaseIndex], startIps[phaseIndex]);
-                if (startIps[phaseIndex] === -1) { console.log("inner got halt"); break; }
-                // console.log('phaseIndex = ', phaseIndex, 'output = ', output);
+                printProgram(programs[phaseIndex], startIps[phaseIndex]);
+                // console.log('phaseIndex=', phaseIndex, '\tinput=', input, '\toutput=', output, '\tstartIp=', startIps[phaseIndex]);
+                if (startIps[phaseIndex] === -1) { console.log('inner got halt, spin #', n, 'phaseIndex=', phaseIndex); break; }
                 input = output;
               }
               lastOutput = output;
