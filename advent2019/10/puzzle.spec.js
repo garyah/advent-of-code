@@ -206,6 +206,13 @@ describe("2019 day 10", function() {
     let zappedAsteroidRow = -1, zappedAsteroidCol = -1;
     if (maxNumZappable < asteroidNum) { console.log('not ready for this, bailing!'); return -1; }
 
+    // console.log(winningZapField.leftTopHits);
+    console.log(Object.entries(winningZapField.leftTopHits));
+    // for (const item in Object.keys(winningZapField.leftTopHits)) {
+    //   console.log(item);//, ',', item[1].x, ',', item[1].y);
+    // }
+    console.log();
+
     // right top
     if (asteroidNum <= (Object.entries(winningZapField.rightTopHits).length
                         + (winningZapField.topHits.hasOwnProperty('x') ? 1 : 0))) {
