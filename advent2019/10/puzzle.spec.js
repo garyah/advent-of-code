@@ -93,23 +93,193 @@ describe("2019 day 10", function() {
     let map = [[]];
     // let map0 = new Map([[0, new Map([[0, 0]])]]);
     // map.clear();
-    // let numItems = 0;
+    let numAsteroids = 0;
     for (let rowIdx = 0; rowIdx < lines.length; rowIdx++) {
       map[rowIdx] = [];
     }
     for (let rowIdx = 0; rowIdx < lines.length; rowIdx++) {
       const row = lines[rowIdx].split('');
       for (let colIdx = 0; colIdx < row.length; colIdx++) {
-        map[rowIdx][colIdx] = row[colIdx] === '#' ? 1 : 0;
-        // if (row[colIdx] === '#') {
-        //   map[rowIdx][colIdx] = 1;
-        //   // if (!map0.has(colIdx)) map.set(colIdx, new Map());
-        //   // map0.get(colIdx).set(rowIdx, 0);
-        // }
+        map[rowIdx][colIdx] = 0;
+        if (row[colIdx] === '#') {
+          map[rowIdx][colIdx] = 1;
+          numAsteroids++;
+          // if (!map0.has(colIdx)) map.set(colIdx, new Map());
+          // map0.get(colIdx).set(rowIdx, 0);
+        }
       }
     }
+    console.log('numAsteroids=', numAsteroids);
     return map;
   };
+  const calcZappedAsteroidPos = (map = [[0]], asteroidNum = 200) => {
+    // let countMap = [[0]];
+    let maxNumZappable = 0, maxNumZappableRow = -1, maxNumZappableCol = -1;
+    let winningZapField = {
+        rightHits: {}, leftHits: {},
+        bottomHits: {}, topHits: {},
+        rightBottomHits: {}, leftBottomHits: {},
+        rightTopHits: {}, leftTopHits: {},
+    };
+    for (let rowIdx1 = 0; rowIdx1 < map.length; rowIdx1++) {
+      const row = map[rowIdx1];
+      for (let colIdx1 = 0; colIdx1 < row.length; colIdx1++) {
+        if (map[rowIdx1][colIdx1] !== 1) continue;
+        let numHits = 0;
+        let rightHits = {}, leftHits = {};
+        let bottomHits = {}, topHits = {};
+        let rightBottomHits = {}, leftBottomHits = {};
+        let rightTopHits = {}, leftTopHits = {};
+        for (let rowIdx2 = 0; rowIdx2 < map.length; rowIdx2++) {
+          const row2 = map[rowIdx2];
+          for (let colIdx2 = 0; colIdx2 < row2.length; colIdx2++) {
+            if (map[rowIdx2][colIdx2] !== 1) continue;
+            if (rowIdx2 === rowIdx1 && colIdx2 === colIdx1) continue;
+            // horizontal
+            if (rowIdx2 === rowIdx1) {
+              if (colIdx2 > colIdx1) { // to the right
+                if (!rightHits.hasOwnProperty('x') || colIdx2 < rightHits.x) {
+                  rightHits.x = colIdx2; rightHits.y = rowIdx2;
+                }
+              }
+              if (colIdx2 < colIdx1) { // to the left
+                if (!leftHits.hasOwnProperty('x') || colIdx2 > leftHits.x) {
+                  leftHits.x = colIdx2; leftHits.y = rowIdx2;
+                }
+              }
+              continue;
+            }
+            // vertical
+            if (colIdx2 === colIdx1) {
+              if (rowIdx2 > rowIdx1) { // to the bottom
+                if (!bottomHits.hasOwnProperty('y') || rowIdx2 < bottomHits.y) {
+                  bottomHits.x = colIdx2; bottomHits.y = rowIdx2;
+                }
+              }
+              if (rowIdx2 < rowIdx1) { // to the top
+                if (!topHits.hasOwnProperty('y') || rowIdx2 > topHits.y) {
+                  topHits.x = colIdx2; topHits.y = rowIdx2;
+                }
+              }
+              continue;
+            }
+            // diagonal-ish
+            const slope = Math.abs((rowIdx2 - rowIdx1) / (colIdx2 - colIdx1)).toString();
+            if (colIdx2 > colIdx1 && rowIdx2 > rowIdx1) { // right bottom
+              if (!rightBottomHits.hasOwnProperty(slope)
+                  || colIdx2 < rightBottomHits[slope].x && rowIdx2 < rightBottomHits[slope].y)
+                rightBottomHits[slope] = {x: colIdx2, y: rowIdx2};
+            }
+            if (colIdx2 < colIdx1 && rowIdx2 > rowIdx1) { // left bottom
+              if (!leftBottomHits.hasOwnProperty(slope)
+                  || colIdx2 > leftBottomHits[slope].x && rowIdx2 < leftBottomHits[slope].y)
+                leftBottomHits[slope] = {x: colIdx2, y: rowIdx2};
+            }
+            if (colIdx2 > colIdx1 && rowIdx2 < rowIdx1) { // right top
+              if (!rightTopHits.hasOwnProperty(slope)
+                  || colIdx2 < rightTopHits[slope].x && rowIdx2 > rightTopHits[slope].y)
+                rightTopHits[slope] = {x: colIdx2, y: rowIdx2};
+            }
+            if (colIdx2 < colIdx1 && rowIdx2 < rowIdx1) { // left top
+              if (!leftTopHits.hasOwnProperty(slope)
+                  || colIdx2 > leftTopHits[slope].x && rowIdx2 > leftTopHits[slope].y)
+                leftTopHits[slope] = {x: colIdx2, y: rowIdx2};
+            }
+          }
+        }
+        numHits += (rightHits.hasOwnProperty('x') ? 1 : 0) + (leftHits.hasOwnProperty('x') ? 1 : 0)
+                   + (bottomHits.hasOwnProperty('x') ? 1 : 0) + (topHits.hasOwnProperty('x') ? 1 : 0)
+                   + Object.entries(rightBottomHits).length + Object.entries(leftBottomHits).length
+                   + Object.entries(rightTopHits).length + Object.entries(leftTopHits).length;
+        if (numHits > maxNumZappable) {
+          maxNumZappable = numHits;
+          maxNumZappableRow = rowIdx1;
+          maxNumZappableCol = colIdx1;
+          winningZapField.rightHits = rightHits; winningZapField.leftHits = leftHits;
+          winningZapField.bottomHits = bottomHits; winningZapField.topHits = topHits;
+          winningZapField.rightBottomHits = rightBottomHits; winningZapField.leftBottomHits = leftBottomHits;
+          winningZapField.rightTopHits = rightTopHits; winningZapField.leftTopHits = leftTopHits;
+        }
+      }
+    }
+    console.log('best location=[', maxNumZappableCol, maxNumZappableRow, ']');
+    let zappedAsteroidRow = -1, zappedAsteroidCol = -1;
+    if (maxNumZappable < asteroidNum) { console.log('not ready for this, bailing!'); return -1; }
+
+    // right top
+    if (asteroidNum <= (Object.entries(winningZapField.rightTopHits).length
+                        + (winningZapField.topHits.hasOwnProperty('x') ? 1 : 0))) {
+      if (asteroidNum === 1 && winningZapField.topHits.hasOwnProperty('x')) {
+        zappedAsteroidRow = winningZapField.topHits.y;
+        zappedAsteroidCol = winningZapField.rightHits.x;
+      } else {
+        const idx = Object.entries(winningZapField.rightTopHits).length - asteroidNum
+                    + (winningZapField.topHits.hasOwnProperty('x') ? 1 : 0);
+        zappedAsteroidRow = Object.values(winningZapField.rightTopHits)[idx].y;
+        zappedAsteroidCol = Object.values(winningZapField.rightTopHits)[idx].x;
+      }
+      return zappedAsteroidCol * 100 + zappedAsteroidRow;
+    }
+    asteroidNum -= (Object.entries(winningZapField.rightTopHits).length
+                    + (winningZapField.topHits.hasOwnProperty('x') ? 1 : 0));
+
+    // right bottom
+    if (asteroidNum <= (Object.entries(winningZapField.rightBottomHits).length
+                        + (winningZapField.rightHits.hasOwnProperty('x') ? 1 : 0))) {
+      if (asteroidNum === 1 && winningZapField.rightHits.hasOwnProperty('x')) {
+        zappedAsteroidRow = winningZapField.rightHits.y;
+        zappedAsteroidCol = winningZapField.rightHits.x;
+      } else {
+        const idx = asteroidNum - 1
+                    - (winningZapField.rightHits.hasOwnProperty('x') ? 1 : 0);
+        zappedAsteroidRow = Object.values(winningZapField.rightBottomHits)[idx].y;
+        zappedAsteroidCol = Object.values(winningZapField.rightBottomHits)[idx].x;
+      }
+      return zappedAsteroidCol * 100 + zappedAsteroidRow;
+    }
+    asteroidNum -= (Object.entries(winningZapField.rightBottomHits).length
+                    + (winningZapField.rightHits.hasOwnProperty('x') ? 1 : 0));
+
+    // left bottom
+    if (asteroidNum <= (Object.entries(winningZapField.leftBottomHits).length
+                        + (winningZapField.bottomHits.hasOwnProperty('x') ? 1 : 0))) {
+      if (asteroidNum === 1 && winningZapField.bottomHits.hasOwnProperty('x')) {
+        zappedAsteroidRow = winningZapField.bottomHits.y;
+        zappedAsteroidCol = winningZapField.bottomHits.x;
+      } else {
+        const idx = Object.entries(winningZapField.leftBottomHits).length - asteroidNum
+                    + (winningZapField.bottomHits.hasOwnProperty('x') ? 1 : 0);
+        zappedAsteroidRow = Object.values(winningZapField.leftBottomHits)[idx].y;
+        zappedAsteroidCol = Object.values(winningZapField.leftBottomHits)[idx].x;
+      }
+      return zappedAsteroidCol * 100 + zappedAsteroidRow;
+    }
+    asteroidNum -= (Object.entries(winningZapField.leftBottomHits).length
+                    + (winningZapField.bottomHits.hasOwnProperty('x') ? 1 : 0));
+
+    // left top
+    if (asteroidNum <= (Object.entries(winningZapField.leftTopHits).length
+                        + (winningZapField.leftHits.hasOwnProperty('x') ? 1 : 0))) {
+      if (asteroidNum === 1 && winningZapField.leftHits.hasOwnProperty('x')) {
+        zappedAsteroidRow = winningZapField.leftHits.y;
+        zappedAsteroidCol = winningZapField.leftHits.x;
+      } else {
+        const idx = asteroidNum - 1
+                    - (winningZapField.leftHits.hasOwnProperty('x') ? 1 : 0);
+        zappedAsteroidRow = Object.values(winningZapField.leftTopHits)[idx].y;
+        zappedAsteroidCol = Object.values(winningZapField.leftTopHits)[idx].x;
+      }
+      return zappedAsteroidCol * 100 + zappedAsteroidRow;
+    }
+    asteroidNum -= (Object.entries(winningZapField.leftTopHits).length
+                    + (winningZapField.leftHits.hasOwnProperty('x') ? 1 : 0));
+
+    console.log('not ready for this, bailing!');
+    return -1;
+  }
+  const solve_p2 = (map = [[0]]) => {
+    return calcZappedAsteroidPos(map, 200);
+  }
 
 
 
@@ -209,6 +379,12 @@ describe("2019 day 10", function() {
     const answer = solve(data);
     console.log("part 1 answer is " + answer);
     expect(answer).toEqual(299);
+  });
+  it("can solve puzzle part 2 with my input", () => {
+    const data = parse(lines);
+    const answer = solve_p2(data);
+    console.log("part 2 answer is " + answer);
+    // expect(answer).toEqual(299);
   });
 
 
