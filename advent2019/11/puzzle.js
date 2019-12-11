@@ -95,17 +95,17 @@ const transform = (inputProgram = []) => {
   return programs[ampIndex].startIp;
 };
 
-
 let panelMap = [[-1]];
-let currentX = 5000;
-let currentY = 5000;
+const gridSize = 250;
+let currentX = gridSize / 2;
+let currentY = gridSize / 2;
 let outputState = 0;
 let heading = 0;
 let numOutputs = 0;
 let numPainted = 0;
 let numPaintedWhite = 0;
-let whiteMinX = 9999, whiteMaxX = 0;
-let whiteMinY = 9999, whiteMaxY = 0;
+let whiteMinX = gridSize / 2, whiteMaxX = 0;
+let whiteMinY = gridSize / 2, whiteMaxY = 0;
 const getNumPainted = () => {
   return numPainted;
 };
@@ -144,32 +144,37 @@ const nextOutput = (output = 0) => {
   }
 };
 const initState = () => {
-  for (let x = 0; x < 10000; x++) {
+  for (let x = 0; x < gridSize; x++) {
     panelMap[x] = [];
-    for (let y = 0; y < 10000; y++) {
+    for (let y = 0; y < gridSize; y++) {
       panelMap[x][y] = -1; // initial black
       // console.log(panelMap);
     }
   }
   // let numPainted0 = 0;
-  // for (let x = 0; x < 10000; x++) {
-  //   for (let y = 0; y < 10000; y++) {
+  // for (let x = 0; x < gridSize; x++) {
+  //   for (let y = 0; y < gridSize; y++) {
   //     if (panelMap[x][y] !== -1) numPainted0++;
   //   }
   // }
   // console.log('numPainted0=', numPainted0);
-  currentX = 5000;
-  currentY = 5000;
+  currentX = gridSize / 2;
+  currentY = gridSize / 2;
   outputState = 0;
   heading = 0;
   numOutputs = 0;
   numPainted = 0;
+  numPaintedWhite = 0;
+  whiteMinX = gridSize / 2, whiteMaxX = 0;
+  whiteMinY = gridSize / 2, whiteMaxY = 0;
 };
 const countPainted = () => {
   numPainted = 0;
   numPaintedWhite = 0;
-  for (let x = 0; x < 10000; x++) {
-    for (let y = 0; y < 10000; y++) {
+  whiteMinX = gridSize / 2, whiteMaxX = 0;
+  whiteMinY = gridSize / 2, whiteMaxY = 0;
+  for (let x = 0; x < gridSize; x++) {
+    for (let y = 0; y < gridSize; y++) {
       if (panelMap[x][y] !== -1) numPainted++;
       if (panelMap[x][y] === 1) {
         numPaintedWhite++;

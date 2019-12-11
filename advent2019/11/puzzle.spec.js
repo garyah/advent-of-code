@@ -1,80 +1,20 @@
 describe("2019 day 11", function() {
-  // new code
-  let var1 = 0;
-  let var2 = '';
-  const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
-    if (1) {}
-    else if (1) {}
-    else {}
-    for (let i = 0;; i++) { break; continue; }
-    for (const item of arg3) {}
-    return 0;
-  };
-  const fn2 = () => {
-    return '';
-  };
-  const solve = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-  }
-  const parse = (lines = ['']) => {
-    // return lines[0]; // use for one line string input
-    // return lines;    // use for multi-line string input
-    return lines[0].split(',').map((line) => parseInt(line)).filter((num) => num === num);
-  };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // new tests
-  it('fn1() returns number 0', () => {
-    expect(fn1()).toEqual(
-      0
-      );
-  });
-  it('fn2() returns empty string', () => {
-    expect(fn2()).toEqual(
-      ''
-      );
-  });
   it("can paint remembering how many painted at least once (incomplete)", () => {
-    // puzzle.initState();
-    // puzzle.countPainted();
-    // expect(puzzle.getNumPainted()).toEqual(0);
-    
-    // expect(puzzle.nextInput()).toEqual(0);
-    // puzzle.nextOutput(1);
-    // puzzle.nextOutput(0);
-    // expect(puzzle.nextInput()).toEqual(0);
-    // puzzle.nextOutput(0);
-    // puzzle.nextOutput(0);
-    // puzzle.nextOutput(1);
-    // puzzle.nextOutput(0);
-    // puzzle.nextOutput(1);
-    // puzzle.nextOutput(0);
-    // expect(puzzle.nextInput()).toEqual(1);
+    puzzle.initState();
+    puzzle.countPainted();
+    expect(puzzle.getNumPainted()).toEqual(0);
 
-    // const data = [
-    //   [],
-    // ];
-    // const actual = data.map((data) => puzzle.solve(data));
-    // const expected = [
-    //   1,
-    // ];
-    // expect(actual).toEqual(expected);
+    expect(puzzle.nextInput()).toEqual(0);
+    puzzle.nextOutput(1);
+    puzzle.nextOutput(0);
+    expect(puzzle.nextInput()).toEqual(0);
+    puzzle.nextOutput(0);
+    puzzle.nextOutput(0);
+    puzzle.nextOutput(1);
+    puzzle.nextOutput(0);
+    puzzle.nextOutput(1);
+    puzzle.nextOutput(0);
+    expect(puzzle.nextInput()).toEqual(1);
   });
   it("can parse input", () => {
     const data = puzzle.parse(
@@ -82,52 +22,16 @@ describe("2019 day 11", function() {
     expect(data).toEqual([1, -3, 2]);
   });
   it("can solve puzzle with my input", () => {
-    // const data = puzzle.parse(lines);
-    // const answer = puzzle.solve(data);
-    // console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(2160);
+    const data = puzzle.parse(lines);
+    const answer = puzzle.solve(data);
+    console.log("part 1 answer is " + answer);
+    expect(answer).toEqual(2160);
   });
   it("can show puzzle solution for part 2 with my input", () => {
     const data = puzzle.parse(lines);
     puzzle.solve_p2(data);
     console.log("part 2 answer is shown here:");
     puzzle.printPanels();
-  });
-
-  // 2019 day 9 tests (extended intcode computer, based on days 2 and 5)
-  describe("2019 day 9", function() {
-    // it("can handle relative mode", () => {
-    //   const data = [
-    //     [109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99],
-    //     [1102,34915192,34915192,7,4,7,99,0],
-    //     [104,1125899906842624,99],
-    //   ];
-    //   const actual = data.map((data) => puzzle.transform(data));
-    //   const expected = [
-    //     99,
-    //     1219070632396864,
-    //     1125899906842624,
-    //   ];
-    //   // console.log('actual=', actual);
-    //   // console.log('actual=', expected);
-    //   expect(actual).toEqual(expected);
-    // });
-    // it("can parse input", () => {
-    //   const data = puzzle.parse(['1,2,3']);
-    //   expect(data).toEqual([1, 2, 3]);
-    // });
-    // it("can solve puzzle with my input", () => {
-    //   const data = puzzle.parse(lines);
-    //   const answer = puzzle.solve(data);
-    //   console.log("part 1 answer is " + answer);
-    //   // expect(answer).toEqual(3533056970);
-    // });
-    // it("can solve puzzle part 2 with my input", () => {
-    //   const data = puzzle.parse(lines);
-    //   const answer = puzzle.solve_p2(data);
-    //   console.log("part 2 answer is " + answer);
-    //   // expect(answer).toEqual(72852);
-    // });
   });
 
 
