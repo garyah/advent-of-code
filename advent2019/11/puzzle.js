@@ -94,6 +94,8 @@ const transform = (inputProgram = []) => {
   programs[ampIndex].startIp = ip;
   return programs[ampIndex].startIp;
 };
+
+
 let panelMap = [[-1]];
 let currentX = 5000;
 let currentY = 5000;
@@ -101,6 +103,9 @@ let outputState = 0;
 let heading = 0;
 let numOutputs = 0;
 let numPainted = 0;
+let numPaintedWhite = 0;
+let whiteMinX = 9999, whiteMaxX = 0;
+let whiteMinY = 9999, whiteMaxY = 0;
 const getNumPainted = () => {
   return numPainted;
 };
@@ -110,7 +115,7 @@ const nextInput = () => {
   //   console.log("read an invalid value of panel! currentX=", currentX, "currentY=", currentY, "heading=", heading);
   // if (outputState !== 0)
   //   console.log("in an invalid output state! state=", outputState, "currentX=", currentX, "currentY=", currentY, "heading=", heading);
-  console.log('panelMap[currentX][currentY]=', panelMap[currentX][currentY]);
+  // if (numOutputs < 20) console.log('panelMap[currentX][currentY]=', panelMap[currentX][currentY]);
   return panelMap[currentX][currentY] === -1 ? 0 : panelMap[currentX][currentY];
 };
 const nextOutput = (output = 0) => {
@@ -118,7 +123,7 @@ const nextOutput = (output = 0) => {
     outputState = 1;
     panelMap[currentX][currentY] = output;
     numOutputs++;
-    if (numOutputs < 20) console.log('currentX=', currentX, 'currentY=', currentY, 'output=', output);
+    // if (numOutputs < 20) console.log('currentX=', currentX, 'currentY=', currentY, 'output=', output);
     return;
   }
   if (outputState === 1) {
@@ -162,10 +167,27 @@ const initState = () => {
 };
 const countPainted = () => {
   numPainted = 0;
+  numPaintedWhite = 0;
   for (let x = 0; x < 10000; x++) {
     for (let y = 0; y < 10000; y++) {
       if (panelMap[x][y] !== -1) numPainted++;
+      if (panelMap[x][y] === 1) {
+        numPaintedWhite++;
+        if (x < whiteMinX) whiteMinX = x;
+        if (x > whiteMaxX) whiteMaxX = x;
+        if (y < whiteMinY) whiteMinY = y;
+        if (y > whiteMaxY) whiteMaxY = y;
+      }
     }
+  }
+};
+const printPanels = () => {
+  for (let y = whiteMinY; y <= whiteMaxY; y++) {
+    let line = '';
+    for (let x = whiteMinX; x <= whiteMaxX; x++) {
+      if (panelMap[x][y] === 1) line += '*'; else line += ' ';
+    }
+    console.log(line);
   }
 };
 const solve = (program = []) => {
@@ -184,11 +206,15 @@ const printProgram = (programMemory = [], startIp = 0) => {
 }
 const solve_p2 = (program = []) => {
   // console.log('program = ', program);
-  input = 2;
-  return transform(program);
+  initState();
+  panelMap[currentX][currentY] = 1;
+  transform(program);
+  countPainted();
+  console.log('numPainted=', numPainted, 'numPaintedWhite=', numPaintedWhite, 'numOutputs=', numOutputs);
+  console.log('whiteMinX=', whiteMinX, 'whiteMaxX=', whiteMaxX, 'whiteMinY=', whiteMinY, 'whiteMaxY=', whiteMaxY);
 }
 const parse = (lines = ['']) => {
   return lines[0].split(',').map((value) => parseInt(value)).filter((num) => num === num);
 };
 module.exports = {setInput, getOutput, transform, solve, solve_p2, parse,
-  getNumPainted, nextInput, nextOutput, initState, countPainted};
+  getNumPainted, nextInput, nextOutput, initState, countPainted, printPanels};

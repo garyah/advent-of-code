@@ -50,22 +50,23 @@ describe("2019 day 11", function() {
       ''
       );
   });
-  it("can paint remembering how many painted at least once", () => {
-    puzzle.initState();
-    puzzle.countPainted();
-    expect(puzzle.getNumPainted()).toEqual(0);
+  it("can paint remembering how many painted at least once (incomplete)", () => {
+    // puzzle.initState();
+    // puzzle.countPainted();
+    // expect(puzzle.getNumPainted()).toEqual(0);
     
-    expect(puzzle.nextInput()).toEqual(0);
-    puzzle.nextOutput(1);
-    puzzle.nextOutput(0);
-    expect(puzzle.nextInput()).toEqual(0);
-    puzzle.nextOutput(0);
-    puzzle.nextOutput(0);
-    puzzle.nextOutput(1);
-    puzzle.nextOutput(0);
-    puzzle.nextOutput(1);
-    puzzle.nextOutput(0);
-    expect(puzzle.nextInput()).toEqual(1);
+    // expect(puzzle.nextInput()).toEqual(0);
+    // puzzle.nextOutput(1);
+    // puzzle.nextOutput(0);
+    // expect(puzzle.nextInput()).toEqual(0);
+    // puzzle.nextOutput(0);
+    // puzzle.nextOutput(0);
+    // puzzle.nextOutput(1);
+    // puzzle.nextOutput(0);
+    // puzzle.nextOutput(1);
+    // puzzle.nextOutput(0);
+    // expect(puzzle.nextInput()).toEqual(1);
+
     // const data = [
     //   [],
     // ];
@@ -81,11 +82,16 @@ describe("2019 day 11", function() {
     expect(data).toEqual([1, -3, 2]);
   });
   it("can solve puzzle with my input", () => {
-    // const data = [0];
+    // const data = puzzle.parse(lines);
+    // const answer = puzzle.solve(data);
+    // console.log("part 1 answer is " + answer);
+    // expect(answer).toEqual(2160);
+  });
+  it("can show puzzle solution for part 2 with my input", () => {
     const data = puzzle.parse(lines);
-    const answer = puzzle.solve(data);
-    console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(0);
+    puzzle.solve_p2(data);
+    console.log("part 2 answer is shown here:");
+    puzzle.printPanels();
   });
 
   // 2019 day 9 tests (extended intcode computer, based on days 2 and 5)
