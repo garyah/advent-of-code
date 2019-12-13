@@ -4,7 +4,7 @@ describe("2019 day 12", function() {
   let var2 = '';
   let moonPos = [[0, 0, 0]];
   let moonVel = [[0, 0, 0]];
-  let numMoons = 0;
+  let numMoons = 0, numPoints = 0, numLines = 0, numRects = 0, numCubes = 0;
   let totalEnergy = 0;
   // let moonVelHi = [[0, 0, 0]];
   // let moonVelLo = [[0, 0, 0]];
@@ -29,6 +29,7 @@ describe("2019 day 12", function() {
   const init = (data = [[0]]) => {
     moonPos = data;
     numMoons = moonPos.length;
+    numLines = 0, numRects = 0, numCubes = 0;
     for (let m = 0; m < numMoons; m++) {
       moonVel[m] = [0, 0, 0];
       // moonVelHi[m] = [0, 0, 0];
@@ -44,8 +45,15 @@ describe("2019 day 12", function() {
         rects: new Map(),
         cubes: new Map(),
       };
-      moonVelRanges[m] = [[[0, 0]], [[0, 0]], [[0, 0]]];
+      // moonVelRanges[m] = [[[0, 0]], [[0, 0]], [[0, 0]]];
+      moonVelRanges[m] = {
+        points: new Map([['0,0,0', 0]]),
+        lines: new Map(),
+        rects: new Map(),
+        cubes: new Map(),
+      };
     }
+    numPoints = 4;
     stepNum = 0;
   };
   const step = () => {
@@ -84,6 +92,29 @@ describe("2019 day 12", function() {
       totalEnergy += potentialEnergy * kineticEnergy;
     }
   };
+  const checkAndUpdateRanges = (dimensions = [[0, 0, 0]],
+                                ranges = [{points: new Map(), lines: new Map(), rects: new Map(), cubes: new Map()}]) => {
+    // checking code
+    let gotMatch = true;
+    for (let m = 0; m < numMoons; m++) {
+      const key = dimensions[m].join(',');
+      if (ranges[m].points.has(key)) continue;
+      // let gotRangeMatch = false;
+      // for (let entry of ranges[m].lines) {
+      //   if (key === entry[0] || key === entry[1]) { gotRangeMatch = true; break;}
+      // }
+      // if (gotRangeMatch) continue;
+      // update code
+      gotMatch = false;
+      ranges[m].points.set(key);
+    }
+    return gotMatch;
+  }
+  const checkAndUpdatePosVelRanges = () => {
+    const posResult = checkAndUpdateRanges(moonPos, moonPosRanges)
+    const velResult = checkAndUpdateRanges(moonVel, moonVelRanges);
+    return posResult && velResult;
+  }
   const updateRanges = () => {
     // check and update position and velocity ranges
     let gotMatch = true;
@@ -95,39 +126,39 @@ describe("2019 day 12", function() {
         let grewRangeLeft = false, grewRangeRight = false;
         let gotRangeMatch = false;
         for (let i = 0; i < rangeList.length; i++) {
-          const isCube
-               = rangeList[i][0] !== rangeList[i][3]
-              && rangeList[i][1] !== rangeList[i][4]
-              && rangeList[i][2] !== rangeList[i][5];
-          const isRect
-               = rangeList[i][0] !== rangeList[i][3]
-              && rangeList[i][1] !== rangeList[i][4]
-              && rangeList[i][2] === rangeList[i][5]
-              || rangeList[i][0] !== rangeList[i][3]
-              && rangeList[i][1] === rangeList[i][4]
-              && rangeList[i][2] !== rangeList[i][5]
-              || rangeList[i][0] === rangeList[i][3]
-              && rangeList[i][1] !== rangeList[i][4]
-              && rangeList[i][2] !== rangeList[i][5];
-          const isLine
-               = rangeList[i][0] !== rangeList[i][3]
-              && rangeList[i][1] === rangeList[i][4]
-              && rangeList[i][2] === rangeList[i][5]
-              || rangeList[i][0] === rangeList[i][3]
-              && rangeList[i][1] !== rangeList[i][4]
-              && rangeList[i][2] === rangeList[i][5]
-              || rangeList[i][0] === rangeList[i][3]
-              && rangeList[i][1] === rangeList[i][4]
-              && rangeList[i][2] !== rangeList[i][5];
-          const isPoint = !isCube && !isRect && !isLine;
-          if (((isCube || isRect)
-               && moonPos[m][0] < rangeList[i][0] && moonPos[m][1] < rangeList[i][1] && moonPos[m][2] < rangeList[i][2])
-           || ((isLine || isPoint)
-               && moonPos[m][0] < rangeList[i][0] - 1 && moonPos[m][1] < rangeList[i][1] - 1 && moonPos[m][2] < rangeList[i][2] - 1)) {
-            gotInserted = true;
-            rangeList.splice(i, 0, [moonPos[m][0], moonPos[m][1], moonPos[m][2], moonPos[m][0], moonPos[m][1], moonPos[m][2]]);
-            break;
-          }
+          // const isCube
+          //      = rangeList[i][0] !== rangeList[i][3]
+          //     && rangeList[i][1] !== rangeList[i][4]
+          //     && rangeList[i][2] !== rangeList[i][5];
+          // const isRect
+          //      = rangeList[i][0] !== rangeList[i][3]
+          //     && rangeList[i][1] !== rangeList[i][4]
+          //     && rangeList[i][2] === rangeList[i][5]
+          //     || rangeList[i][0] !== rangeList[i][3]
+          //     && rangeList[i][1] === rangeList[i][4]
+          //     && rangeList[i][2] !== rangeList[i][5]
+          //     || rangeList[i][0] === rangeList[i][3]
+          //     && rangeList[i][1] !== rangeList[i][4]
+          //     && rangeList[i][2] !== rangeList[i][5];
+          // const isLine
+          //      = rangeList[i][0] !== rangeList[i][3]
+          //     && rangeList[i][1] === rangeList[i][4]
+          //     && rangeList[i][2] === rangeList[i][5]
+          //     || rangeList[i][0] === rangeList[i][3]
+          //     && rangeList[i][1] !== rangeList[i][4]
+          //     && rangeList[i][2] === rangeList[i][5]
+          //     || rangeList[i][0] === rangeList[i][3]
+          //     && rangeList[i][1] === rangeList[i][4]
+          //     && rangeList[i][2] !== rangeList[i][5];
+          // const isPoint = !isCube && !isRect && !isLine;
+          // if (((isCube || isRect)
+          //      && moonPos[m][0] < rangeList[i][0] && moonPos[m][1] < rangeList[i][1] && moonPos[m][2] < rangeList[i][2])
+          //  || ((isLine || isPoint)
+          //      && moonPos[m][0] < rangeList[i][0] - 1 && moonPos[m][1] < rangeList[i][1] - 1 && moonPos[m][2] < rangeList[i][2] - 1)) {
+          //   gotInserted = true;
+          //   rangeList.splice(i, 0, [moonPos[m][0], moonPos[m][1], moonPos[m][2], moonPos[m][0], moonPos[m][1], moonPos[m][2]]);
+          //   break;
+          // }
           if ((isLine || isPoint) && moonPos[m][0] === rangeList[i][0] - 1) {
             rangeList[i][0] = moonPos[m][0];
             grewRangeLeft = true;
@@ -205,7 +236,7 @@ describe("2019 day 12", function() {
   }
   const solve = (data = [0]) => {
     init(data);
-    for (numSteps = 0; numSteps < 1000; numSteps++) {
+    for (let numSteps = 0; numSteps < 1000; numSteps++) {
       step();
     }
     updateEnergy();
@@ -213,15 +244,20 @@ describe("2019 day 12", function() {
   }
   const solve_p2 = (data = [0]) => {
     init(data);
-    for (numSteps = 0; numSteps < 30; numSteps++) {
+    let numSteps = 0;
+    for (; numSteps < 515; numSteps++) {
       step();
-      updateRanges();
+      if (checkAndUpdatePosVelRanges()) break;
     }
+    console.log('moonPosRanges[0].points.size=', moonPosRanges[0].points.size, 'moonPosRanges[1].points.size=', moonPosRanges[1].points.size,
+                'moonPosRanges[2].points.size=', moonPosRanges[2].points.size, 'moonPosRanges[3].points.size=', moonPosRanges[3].points.size);
+    console.log('moonVelRanges[0].points.size=', moonVelRanges[0].points.size, 'moonVelRanges[1].points.size=', moonVelRanges[1].points.size,
+                'moonVelRanges[2].points.size=', moonVelRanges[2].points.size, 'moonVelRanges[3].points.size=', moonVelRanges[3].points.size);
     // console.log('moonVelHi=', moonVelHi);
     // console.log('moonVelLo=', moonVelLo);
     // console.log('moonPosHi=', moonPosHi);
     // console.log('moonPosLo=', moonPosLo);
-    return totalEnergy;
+    return numSteps;
   }
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
