@@ -54,7 +54,7 @@ describe("2019 day 13", function() {
     const data = [
       [],
     ];
-    const actual = data.map((data) => solve(data));
+    // const actual = data.map((data) => solve(data));
     const expected = [
       1,
     ];
@@ -70,9 +70,15 @@ describe("2019 day 13", function() {
   });
   it("can solve puzzle with my input", () => {
     // const data = [0];
+    // const data = puzzle.parse(lines);
+    // const answer = puzzle.solve(data);
+    // console.log("part 1 answer is " + answer);
+    // expect(answer).toEqual(452);
+  });
+  it("can solve puzzle part 2 with my input", () => {
     const data = puzzle.parse(lines);
-    const answer = puzzle.solve(data);
-    console.log("part 1 answer is " + answer);
+    const answer = puzzle.solve_p2(data);
+    console.log("part 2 answer is " + answer);
     // expect(answer).toEqual(0);
   });
 

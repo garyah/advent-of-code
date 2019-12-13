@@ -18,6 +18,7 @@ const transform = (inputProgram = []) => {
     // if (ampIndex === 0) console.log(value);
     return value;
   });
+  console.log('numBlockTiles=', numBlockTiles, 'first memory=', programs[ampIndex].memory[0]);
   for (let n = 0; n < 1000; n++) programs[ampIndex].memory.push(0);
   const program = programs[ampIndex].memory;
   let ip = 0;
@@ -95,85 +96,80 @@ const transform = (inputProgram = []) => {
   return programs[ampIndex].startIp;
 };
 
-let panelMap = [[-1]];
-const gridSize = 250;
-let currentX = gridSize / 2;
-let currentY = gridSize / 2;
+let screen = [[-1]];
+const gridXSize = 50, gridYSize = 30;
+// let currentX = gridSize / 2;
+// let currentY = gridSize / 2;
 let outputState = 0;
-let heading = 0;
+// let heading = 0;
 let numOutputs = 0;
 let numPainted = 0;
-let numPaintedWhite = 0;
-let whiteMinX = gridSize / 2, whiteMaxX = 0;
-let whiteMinY = gridSize / 2, whiteMaxY = 0;
-let xPos = 0, yPos = 0, tileId = 0, numBlockTiles = 0;
+// let numPaintedWhite = 0;
+let whiteMinX = gridXSize / 2, whiteMaxX = 0;
+let whiteMinY = gridXSize / 2, whiteMaxY = 0;
+let xPos = 0, yPos = 0, tileId = 0, numBlockTiles = 0, score = 0;
+let numEmptyTiles = 0, numWallTiles = 0, numPaddleTiles = 0, numBallTiles = 0;
+let paddleXPos = 0, paddleYPos = 0;
+let ballXPos = 0, ballYPos = 0;
 const getNumPainted = () => {
   return numPainted;
 };
 const nextInput = () => {
   // if (numOutputs < 20) console.log('panelMap[currentX][currentY]=', panelMap[currentX][currentY]);
   // return panelMap[currentX][currentY] === -1 ? 0 : panelMap[currentX][currentY];
-  return 1;
+  console.log('input requested, value is ', input);
+  return input;
 };
 const nextOutput = (output = 0) => {
   // console.log(output);
   if (outputState == 0) xPos = output;
   if (outputState == 1) yPos = output;
   if (outputState == 2) {
-    tileId = output;
-    if (tileId === 2) numBlockTiles++;
+    if (xPos === -1 && yPos === 0) { score = output; console.log('score updated to: ', score); }
+    else {
+      tileId = output;
+      if (xPos < 0) console.log('got neg xPos!');
+      if (yPos < 0) console.log('got neg xPos!');
+      if (tileId === 0) numEmptyTiles++;
+      else if (tileId === 1) numWallTiles++;
+      else if (tileId === 2) numBlockTiles++;
+      else if (tileId === 3) { numPaddleTiles++; paddleXPos = xPos; paddleYPos = yPos; }
+      else if (tileId === 4) { numBallTiles++; ballXPos = xPos; ballYPos = yPos; 
+        if (numPaddleTiles && ballXPos > paddleXPos) input = 1;
+        if (numPaddleTiles && ballXPos === paddleXPos) input = 0;
+        if (numPaddleTiles && ballXPos < paddleXPos) input = -1;
+      }
+      if (xPos >= 0 && xPos < gridXSize && yPos >= 0 && yPos < gridXSize) {
+        screen[xPos][yPos] = tileId;
+        if (tileId === 4) printScreen();
+      }
+    }
+    numOutputs++;
   }
   outputState++;
   outputState%=3;
-  // if (outputState === 0) {
-  //   outputState = 1;
-  //   panelMap[currentX][currentY] = output;
-  //   numOutputs++;
-  //   // if (numOutputs < 20) console.log('currentX=', currentX, 'currentY=', currentY, 'output=', output);
-  //   return;
-  // }
-  // if (outputState === 1) {
-  //   outputState = 0;
-  //   heading += 360;
-  //   if (output) heading += 90; else heading -= 90;
-  //   heading %= 360;
-  //   if (heading !== 0 && heading !== 90 && heading !== 180 && heading !== 270)
-  //     console.log("bad heading value!");
-  //   if (heading === 0) { currentY--; }
-  //   if (heading === 90) { currentX++; }
-  //   if (heading === 180) { currentY++; }
-  //   if (heading === 270) { currentX--; }
-  //   if (currentX < 0 || currentX > panelMap[0].length
-  //       || currentY < 0 || currentY > panelMap[0].length) {
-  //     console.log("ran off the edge! currentX=", currentX, "currentY=", currentY, "heading=", heading);
-  //   }
-  // }
 };
 const initState = () => {
-  for (let x = 0; x < gridSize; x++) {
-    panelMap[x] = [];
-    for (let y = 0; y < gridSize; y++) {
-      panelMap[x][y] = -1; // initial black
+  for (let x = 0; x < gridXSize; x++) {
+    screen[x] = [];
+    for (let y = 0; y < gridYSize; y++) {
+      screen[x][y] = -1; // initial black
       // console.log(panelMap);
     }
   }
-  // let numPainted0 = 0;
-  // for (let x = 0; x < gridSize; x++) {
-  //   for (let y = 0; y < gridSize; y++) {
-  //     if (panelMap[x][y] !== -1) numPainted0++;
-  //   }
-  // }
-  // console.log('numPainted0=', numPainted0);
-  currentX = gridSize / 2;
-  currentY = gridSize / 2;
+  currentX = gridXSize / 2;
+  currentY = gridXSize / 2;
   outputState = 0;
   heading = 0;
   numOutputs = 0;
   numPainted = 0;
   numPaintedWhite = 0;
-  whiteMinX = gridSize / 2, whiteMaxX = 0;
-  whiteMinY = gridSize / 2, whiteMaxY = 0;
-  xPos = 0, yPos = 0, tileId = 0, numBlockTiles = 0;
+  whiteMinX = gridXSize / 2, whiteMaxX = 0;
+  whiteMinY = gridXSize / 2, whiteMaxY = 0;
+  xPos = 0, yPos = 0, tileId = 0, numBlockTiles = 0, score = 0;
+  numEmptyTiles = 0, numWallTiles = 0, numPaddleTiles = 0, numBallTiles = 0;
+  paddleXPos = 0, paddleYPos = 0;
+  ballXPos = 0, ballYPos = 0;
 };
 const countPainted = () => {
   // numPainted = 0;
@@ -193,11 +189,28 @@ const countPainted = () => {
   //   }
   // }
 };
-const printPanels = () => {
+const printScreen = () => {
   for (let y = whiteMinY; y <= whiteMaxY; y++) {
+    // let line = '';
+    // for (let x = whiteMinX; x <= whiteMaxX; x++) {
+    //   if (screen[x][y] === -1 || screen[x][y] === 0) line += ' ';
+    //   else if (screen[x][y] === 1) line += '|';
+    //   else if (screen[x][y] === 2) line += '=';
+    //   else if (screen[x][y] === 3) line += '-';
+    //   else if (screen[x][y] === 4) line += '*';
+    //   else line += '.';
+    // }
+    // console.log(line);
+  }
+  for (let y = 0; y < gridYSize; y++) {
     let line = '';
-    for (let x = whiteMinX; x <= whiteMaxX; x++) {
-      if (panelMap[x][y] === 1) line += '*'; else line += ' ';
+    for (let x = 0; x < gridXSize; x++) {
+      if (screen[x][y] === -1 || screen[x][y] === 0) line += ' ';
+      else if (screen[x][y] === 1) line += '|';
+      else if (screen[x][y] === 2) line += '=';
+      else if (screen[x][y] === 3) line += '-';
+      else if (screen[x][y] === 4) line += '*';
+      else line += '.';
     }
     console.log(line);
   }
@@ -205,10 +218,11 @@ const printPanels = () => {
 const solve = (program = []) => {
   // console.log('program = ', program);
   initState();
+  // console.log('numBlockTiles=', numBlockTiles, 'first memory=', programs[0].memory[0]);
   transform(program);
-  countPainted();
-  console.log('numBlockTiles=', numBlockTiles, 'numBlockTiles=', numBlockTiles);
-  return numPainted;
+  // countPainted();
+  console.log('numBlockTiles=', numBlockTiles, 'first memory=', programs[0].memory[0]);
+  return numBlockTiles;
 }
 const printProgram = (programMemory = [], startIp = 0) => {
   let programString = '[' +  programMemory.join(',') + ']';
@@ -219,14 +233,20 @@ const printProgram = (programMemory = [], startIp = 0) => {
 const solve_p2 = (program = []) => {
   // console.log('program = ', program);
   initState();
-  panelMap[currentX][currentY] = 1;
+  // panelMap[currentX][currentY] = 1;
+  input = 0;
+  program[0] = 2;
   transform(program);
-  countPainted();
-  console.log('numPainted=', numPainted, 'numPaintedWhite=', numPaintedWhite, 'numOutputs=', numOutputs);
-  console.log('whiteMinX=', whiteMinX, 'whiteMaxX=', whiteMaxX, 'whiteMinY=', whiteMinY, 'whiteMaxY=', whiteMaxY);
+  // countPainted();
+  console.log('numBlockTiles=', numBlockTiles, 'numOutputs=', numOutputs,
+              'score=', score, 'first memory=', programs[0].memory[0]);
+  console.log('numEmptyTiles=', numEmptyTiles, 'numWallTiles=', numWallTiles,
+              'numPaddleTiles=', numPaddleTiles, 'numBallTiles=', numBallTiles);
+  printScreen();
+  return score;
 }
 const parse = (lines = ['']) => {
   return lines[0].split(',').map((value) => parseInt(value)).filter((num) => num === num);
 };
 module.exports = {setInput, getOutput, transform, solve, solve_p2, parse,
-  getNumPainted, nextInput, nextOutput, initState, countPainted, printPanels};
+  getNumPainted, nextInput, nextOutput, initState, countPainted, printPanels: printScreen};
