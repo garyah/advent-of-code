@@ -11,7 +11,8 @@ describe("2019 day 12", function() {
   // let moonPosHi = [[0, 0, 0]];
   // let moonPosLo = [[0, 0, 0]];
   // let moonPosRanges = [[[[0]], [[0]], [[0]]]];
-  let moonPosRanges = [[[0, 0, 0, 0, 0, 0]]];
+  // let moonPosRanges = [[[0, 0, 0, 0, 0, 0]]];
+  let moonPosRanges = [{}];
   let moonVelRanges = [[[[0]], [[0]], [[0]]]];
   let stepNum = 0;
   const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
@@ -35,7 +36,14 @@ describe("2019 day 12", function() {
       // moonPosHi[m] = [0, 0, 0];
       // moonPosLo[m] = [0, 0, 0];
       // moonPosRanges[m] = [[[]], [[]], [[]]];
-      moonPosRanges[m] = [[moonPos[m][0], moonPos[m][1], moonPos[m][2], moonPos[m][0], moonPos[m][1], moonPos[m][2]]];
+      // moonPosRanges[m] = [[moonPos[m][0], moonPos[m][1], moonPos[m][2], moonPos[m][0], moonPos[m][1], moonPos[m][2]]];
+      const coordinates = moonPos[m].join(',');
+      moonPosRanges[m] = {
+        points: new Map([[coordinates, 0]]),
+        lines: new Map(),
+        rects: new Map(),
+        cubes: new Map(),
+      };
       moonVelRanges[m] = [[[0, 0]], [[0, 0]], [[0, 0]]];
     }
     stepNum = 0;
@@ -62,37 +70,23 @@ describe("2019 day 12", function() {
       // console.log(m, ': pos=<x=', moonPos[m][0], ', y=', moonPos[m][1], ', z=', moonPos[m][2],
       //             '>, vel=<x=', moonVel[m][0], ', y=', moonVel[m][1], ', z=', moonVel[m][2], '>');
     }
-    // check position and velocity ranges
+  };
+  const updateEnergy = () => {
+    // update energy
+    totalEnergy = 0;
+    for (let moon1 = 0; moon1 < numMoons; moon1++) {
+      let potentialEnergy = 0;
+      let kineticEnergy = 0;
+      for (let axis = 0; axis < 3; axis++) {
+        potentialEnergy += Math.abs(moonPos[moon1][axis]);
+        kineticEnergy += Math.abs(moonVel[moon1][axis]);
+      }
+      totalEnergy += potentialEnergy * kineticEnergy;
+    }
+  };
+  const updateRanges = () => {
+    // check and update position and velocity ranges
     let gotMatch = true;
-    // for (let m = 0; gotMatch && m < numMoons; m++) {
-    //   for (let a = 0; gotMatch && a < 3; a++) {
-    //     // check position ranges
-    //     let rangeList = moonPosRanges[m][a];
-    //     let gotRangeMatch = false;
-    //     for (let i = 0; i < rangeList.length; i++) {
-    //       if (moonPos[m][a] >= rangeList[i][0]
-    //           && moonPos[m][a] <= rangeList[i][1]) {
-    //         console.log('found position match, m=', m, ', a=', a, ', i=', i, ', pos=', moonPos[m][a],
-    //                     ', range=', rangeList[i][0], ' - ', rangeList[i][1], ', step #:', stepNum);
-    //         gotRangeMatch = true;
-    //         break;
-    //       }
-    //     }
-    //     if (!gotRangeMatch) { gotMatch = false; continue; }
-    //     // check velocity ranges
-    //     rangeList = moonVelRanges[m][a];
-    //     gotRangeMatch = false;
-    //     for (let i = 0; i < rangeList.length; i++) {
-    //       if (moonVel[m][a] >= rangeList[i][0]
-    //           && moonVel[m][a] <= rangeList[i][1]) {
-    //         gotRangeMatch = true;
-    //         break;
-    //       }
-    //     }
-    //     if (!gotRangeMatch) gotMatch = false;
-    //   }
-    // }
-    // update position and velocity ranges
     for (let m = 0; m < numMoons; m++) {
       //for (let a = 0; a < 3; a++) {
         // update position ranges
@@ -208,20 +202,7 @@ describe("2019 day 12", function() {
       //}
     }
     if (gotMatch) console.log('found velocity and position match, step #:', stepNum);
-  };
-  const updateEnergy = () => {
-    // update energy
-    totalEnergy = 0;
-    for (let moon1 = 0; moon1 < numMoons; moon1++) {
-      let potentialEnergy = 0;
-      let kineticEnergy = 0;
-      for (let axis = 0; axis < 3; axis++) {
-        potentialEnergy += Math.abs(moonPos[moon1][axis]);
-        kineticEnergy += Math.abs(moonVel[moon1][axis]);
-      }
-      totalEnergy += potentialEnergy * kineticEnergy;
-    }
-  };
+  }
   const solve = (data = [0]) => {
     init(data);
     for (numSteps = 0; numSteps < 1000; numSteps++) {
@@ -234,6 +215,7 @@ describe("2019 day 12", function() {
     init(data);
     for (numSteps = 0; numSteps < 30; numSteps++) {
       step();
+      updateRanges();
     }
     // console.log('moonVelHi=', moonVelHi);
     // console.log('moonVelLo=', moonVelLo);
