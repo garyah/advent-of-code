@@ -4,7 +4,7 @@ describe("2019 day 12", function() {
   let var2 = '';
   let moonPos = [[0, 0, 0]];
   let moonVel = [[0, 0, 0]];
-  let numMoons = 0, numPoints = 0, numLines = 0, numRects = 0, numCubes = 0;
+  let numMoons = 0;//, numPoints = 0, numLines = 0, numRects = 0, numCubes = 0;
   let totalEnergy = 0;
   // let moonVelHi = [[0, 0, 0]];
   // let moonVelLo = [[0, 0, 0]];
@@ -14,6 +14,7 @@ describe("2019 day 12", function() {
   // let moonPosRanges = [[[0, 0, 0, 0, 0, 0]]];
   let moonPosRanges = [{}];
   let moonVelRanges = [[[[0]], [[0]], [[0]]]];
+  let moonDimensionMaps = [new Map()];
   let stepNum = 0;
   const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
     if (1) {}
@@ -29,7 +30,7 @@ describe("2019 day 12", function() {
   const init = (data = [[0]]) => {
     moonPos = data;
     numMoons = moonPos.length;
-    numLines = 0, numRects = 0, numCubes = 0;
+    // numLines = 0, numRects = 0, numCubes = 0;
     for (let m = 0; m < numMoons; m++) {
       moonVel[m] = [0, 0, 0];
       // moonVelHi[m] = [0, 0, 0];
@@ -53,7 +54,10 @@ describe("2019 day 12", function() {
         cubes: new Map(),
       };
     }
-    numPoints = 4;
+    for (let d = 0; d < numMoons * 3 * 2; d++) {
+      moonDimensionMaps[d] = new Map();
+    }
+    // numPoints = 4;
     stepNum = 0;
   };
   const step = () => {
@@ -91,6 +95,27 @@ describe("2019 day 12", function() {
       }
       totalEnergy += potentialEnergy * kineticEnergy;
     }
+  };
+  const checkAndUpdateDimensionMaps = () => {
+    // check maps
+    let gotMatch = true;
+    for (let m = 0; m < numMoons; m++) {
+      for (let i = 0; i < 2; i++) {
+        for (let a = 0; a < 3; a++) {
+          const mapIndex = m*2*3 + i*3 + a;
+          const key = (i === 0) ? moonPos[m][a] : moonVel[m][a];
+          if (moonDimensionMaps[mapIndex].has(key)) {
+            moonDimensionMaps[mapIndex].set(key, moonDimensionMaps[mapIndex].get(key)+1);
+            // console.log('set map #', mapIndex);
+            continue;
+          }
+          gotMatch = false;
+          moonDimensionMaps[mapIndex].set(key, 1);
+          // console.log('set map #', mapIndex);
+        }
+      }
+    }
+    return gotMatch;
   };
   const checkAndUpdateRanges = (dimensions = [[0, 0, 0]],
                                 ranges = [{points: new Map(), lines: new Map(), rects: new Map(), cubes: new Map()}]) => {
@@ -245,14 +270,21 @@ describe("2019 day 12", function() {
   const solve_p2 = (data = [0]) => {
     init(data);
     let numSteps = 0;
-    for (; numSteps < 515; numSteps++) {
+    for (; numSteps < 100; numSteps++) {
       step();
-      if (checkAndUpdatePosVelRanges()) break;
+      if (checkAndUpdateDimensionMaps()) break;
     }
-    console.log('moonPosRanges[0].points.size=', moonPosRanges[0].points.size, 'moonPosRanges[1].points.size=', moonPosRanges[1].points.size,
-                'moonPosRanges[2].points.size=', moonPosRanges[2].points.size, 'moonPosRanges[3].points.size=', moonPosRanges[3].points.size);
-    console.log('moonVelRanges[0].points.size=', moonVelRanges[0].points.size, 'moonVelRanges[1].points.size=', moonVelRanges[1].points.size,
-                'moonVelRanges[2].points.size=', moonVelRanges[2].points.size, 'moonVelRanges[3].points.size=', moonVelRanges[3].points.size);
+    console.log();
+    let toPrint = '';
+    for (let d = 0; d < numMoons * 3 * 2; d++) {
+      toPrint += '..Dim..Maps[' + d + '].size=' + moonDimensionMaps[d].size + '\t';
+      if (d % 6 === 5) toPrint += '\r\n';
+    }
+    console.log(toPrint);
+    // console.log('moonPosRanges[0].points.size=', moonPosRanges[0].points.size, 'moonPosRanges[1].points.size=', moonPosRanges[1].points.size,
+    //             'moonPosRanges[2].points.size=', moonPosRanges[2].points.size, 'moonPosRanges[3].points.size=', moonPosRanges[3].points.size);
+    // console.log('moonVelRanges[0].points.size=', moonVelRanges[0].points.size, 'moonVelRanges[1].points.size=', moonVelRanges[1].points.size,
+    //             'moonVelRanges[2].points.size=', moonVelRanges[2].points.size, 'moonVelRanges[3].points.size=', moonVelRanges[3].points.size);
     // console.log('moonVelHi=', moonVelHi);
     // console.log('moonVelLo=', moonVelLo);
     // console.log('moonPosHi=', moonPosHi);
