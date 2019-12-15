@@ -98,7 +98,7 @@ const transform = (inputProgram = []) => {
 };
 
 let area = [[-1]];
-const gridXSize = 40;//, gridYSize = 10;
+const gridXSize = 40;//, gridYSize = 40; // must be even number!
 let currentX = gridXSize / 2;
 let currentY = gridXSize / 2;
 let outputState = 0;
@@ -166,7 +166,11 @@ const nextOutput = (output = 0) => {
     // }
     if (area[currentX][currentY] === 2) console.log('saw wall as open space!'); // wall
     else if (area[currentX][currentY] === 4) console.log('saw goal as open space!'); // goal: oxygen
-    area[currentX][currentY] = 3; // mark open space (already explored)
+    if (area[currentX][currentY] === 3) {
+      area[currentX][currentY] = 5; // mark open space (already explored 2 or more times)
+    } else {
+      area[currentX][currentY] = 3; // mark open space (already explored)
+    }
   }
   {
     // prioritize unexplored over already explored for next move
@@ -241,12 +245,14 @@ const printArea = () => {
   for (let y = wallsMinY; y <= wallsMaxY; y++) {
     let line = '';
     for (let x = wallsMinX; x <= wallsMaxX; x++) {
-      if (x === currentX && y === currentY) line += 'D'; // droid
+      if (x === currentX && y === currentY) line += 'D'; // droid ending position
+      else if (x === gridXSize / 2 && y === gridXSize / 2) line += '*'; // droid ending position
       else if (area[x][y] === -1) line += ' '; // unexplored
       // else if (area[x][y] === 1) line += 'D'; // droid
       else if (area[x][y] === 2) line += '#'; // wall
-      else if (area[x][y] === 3) line += '.'; // open space
-      else if (area[x][y] === 4) line += '*'; // goal: oxygen
+      else if (area[x][y] === 3) line += '.'; // open space (1 time visited)
+      else if (area[x][y] === 4) line += 'O'; // goal: oxygen
+      else if (area[x][y] === 5) line += '2'; // open space (2 or more times visited)
       else line += ' ';
     }
     console.log(line);
