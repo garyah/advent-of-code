@@ -15,6 +15,7 @@ describe("2019 day 12", function() {
   let moonPosRanges = [{}];
   let moonVelRanges = [[[[0]], [[0]], [[0]]]];
   let moonDimensionMaps = [new Map()];
+  let universe = [];
   let stepNum = 0, numTimeStates = 0;
   const numberToString = (number = 0) => {
     if (number < -2147483648) number = -2147483648;
@@ -23,8 +24,14 @@ describe("2019 day 12", function() {
     let result = '00000000' + number.toString(16);
     return result.substr(result.length - 8);
   };
+  const stringToNumber = (value = '') => {
+    return parseInt(value, 16) - 2147483648;
+  };
   const numbersToString = (numbers = [0]) => {
     return numbers.map((value) => numberToString(value)).join(',');
+  };
+  const stringToNumbers = (values = '') => {
+    return values.split(',').map((value) => stringToNumber(value));
   };
   const init = (data = [[0]]) => {
     moonPos = data;
@@ -56,6 +63,18 @@ describe("2019 day 12", function() {
     for (let d = 0; d < numMoons * 3 * 2; d++) {
       moonDimensionMaps[d] = new Map();
     }
+    let coordinates = [];
+    for (let m = 0; m < numMoons; m++) {
+      for (let i = 0; i < 2; i++) {
+        for (let a = 0; a < 3; a++) {
+          coordinates.push((i === 0) ? moonPos[m][a] : moonVel[m][a]);
+        }
+      }
+    }
+    console.log('initial point=', coordinates);
+    const initialPoint = numbersToString(coordinates);
+    // console.log('initialPoint=', initialPoint);
+    universe = [[initialPoint, initialPoint]];
     // numPoints = 4;
     stepNum = 0;
     numTimeStates = 0;
@@ -96,8 +115,33 @@ describe("2019 day 12", function() {
       totalEnergy += potentialEnergy * kineticEnergy;
     }
   };
+  const checkAndUpdateUniverse = () => {
+    // check
+    let coordinates = [];
+    for (let m = 0; m < numMoons; m++) {
+      for (let i = 0; i < 2; i++) {
+        for (let a = 0; a < 3; a++) {
+          coordinates.push((i === 0) ? moonPos[m][a] : moonVel[m][a]);
+        }
+      }
+    }
+    const stateToFind = numbersToString(coordinates);
+    let gotMatch = false;
+    for (const stateRange of universe) {
+      // const stateToCheck = stringToNumbers(stateRange[0]);
+      if (stateToFind === stateRange[0]) {
+        gotMatch = true;
+        // console.log('found repeated point=', stateToFind);
+        console.log(' repeat point=', coordinates);
+        break;
+      }
+    }
+    // update
+    if (!gotMatch) universe.push([stateToFind, stateToFind]);
+    return gotMatch;
+  }
   const checkAndUpdateDimensionMaps = () => {
-    // check maps
+    // check for potential match and update maps
     let gotPotentialMatch = true;
     for (let m = 0; m < numMoons; m++) {
       for (let i = 0; i < 2; i++) {
@@ -121,6 +165,7 @@ describe("2019 day 12", function() {
         }
       }
     }
+    // confirm match based on time value
     if (gotPotentialMatch) {
       let gotTimeMatch = true;
       const key = moonPos[0][0];
@@ -302,30 +347,29 @@ describe("2019 day 12", function() {
   }
   const solve_p2 = (data = [0]) => {
     // let junk = [['ghi', 'ghl'], ['abc', 'abd']];
-    let junk = [['bcde,0000', 'ghl'], ['0000,bcde', 'abd']];
+    // let junk = [['bcde,0000', 'ghl'], ['0000,bcde', 'abd']];
     // let junk = 2 * 1000 * 1000 * 1 + 12;
-    console.log(junk);
-    junk.sort();
-    console.log(junk);
+    // console.log(junk);
+    // junk.sort();
+    // console.log(junk);
     // console.log(junk.toString(16));
     // 58d694d3a
 
-
-
-    init(data);
-    let numSteps = 0;
-    for (; numSteps < 2 * 1; numSteps++) {
-      step();
-      if (checkAndUpdateDimensionMaps()) break;
-    }
     console.log();
-    let toPrint = '';
-    for (let d = 0; d < numMoons * 3 * 2; d++) {
-      toPrint += '..Dim..Maps[' + d + '].size=' + moonDimensionMaps[d].size + '\t';
-      if (d % 6 === 5) toPrint += '\r\n';
+    init(data);
+    while (stepNum < 1 * 100 * 1000) {
+      step();
+      if (checkAndUpdateUniverse()) break;
     }
-    console.log(toPrint);
-    console.log('numTimeStates=', numTimeStates)
+
+    console.log('universe.length=', universe.length);
+    // let toPrint = '';
+    // for (let d = 0; d < numMoons * 3 * 2; d++) {
+    //   toPrint += '..Dim..Maps[' + d + '].size=' + moonDimensionMaps[d].size + '\t';
+    //   if (d % 6 === 5) toPrint += '\r\n';
+    // }
+    // console.log(toPrint);
+    // console.log('numTimeStates=', numTimeStates)
     // console.log('moonPosRanges[0].points.size=', moonPosRanges[0].points.size, 'moonPosRanges[1].points.size=', moonPosRanges[1].points.size,
     //             'moonPosRanges[2].points.size=', moonPosRanges[2].points.size, 'moonPosRanges[3].points.size=', moonPosRanges[3].points.size);
     // console.log('moonVelRanges[0].points.size=', moonVelRanges[0].points.size, 'moonVelRanges[1].points.size=', moonVelRanges[1].points.size,
@@ -334,7 +378,7 @@ describe("2019 day 12", function() {
     // console.log('moonVelLo=', moonVelLo);
     // console.log('moonPosHi=', moonPosHi);
     // console.log('moonPosLo=', moonPosLo);
-    return numSteps;
+    return stepNum;
   }
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
@@ -362,19 +406,21 @@ describe("2019 day 12", function() {
   // new tests
   it("can turn number into string with hexadecimal with largest negative as 0 and leading zeroes", () => {
     const data = [
-      -2147483649,
-      -2147483648,
-      0,
-      2147483647,
-      2147483648,
+      -2147483649, -2147483648, 0, 2147483647, 2147483648,
     ];
     const actual = data.map((data) => numberToString(data));
     const expected = [
-      '00000000',
-      '00000000',
-      '80000000',
-      'ffffffff',
-      'ffffffff',
+      '00000000', '00000000', '80000000', 'ffffffff', 'ffffffff',
+    ];
+    expect(actual).toEqual(expected);
+  });
+  it("can turn string with hexadecimal with largest negative as 0 and leading zeroes into number", () => {
+    const data = [
+      '00000000', '80000000', 'ffffffff',
+    ];
+    const actual = data.map((data) => stringToNumber(data));
+    const expected = [
+      -2147483648, 0, 2147483647,
     ];
     expect(actual).toEqual(expected);
   });
@@ -387,6 +433,18 @@ describe("2019 day 12", function() {
     const expected = [
       '80000001,80000000,80000002',
       '80000002,8000000a,7ffffff9',
+    ];
+    expect(actual).toEqual(expected);
+  });
+  it("can turn properly formatted string into array of numbers", () => {
+    const data = [
+      '80000001,80000000,80000002',
+      '80000002,8000000a,7ffffff9',
+    ];
+    const actual = data.map((data) => stringToNumbers(data));
+    const expected = [
+      [1,0,2],
+      [2,10,-7],
     ];
     expect(actual).toEqual(expected);
   });
@@ -417,9 +475,10 @@ describe("2019 day 12", function() {
   });
   it("can solve puzzle with my input (when overridden with sample 1 input)", () => {
     const data = parse(lines);
-    const answer = solve(data);
-    console.log("part 1 answer is " + answer);
-    expect(answer).toEqual(12644);
+    // const answer = solve(data);
+    // console.log("part 1 answer is " + answer);
+    // expect(answer).toEqual(12644);
+    // expect(answer).toEqual(183);
   });
   it("can solve puzzle part 2 with my input (when overridden with sample 1 input)", () => {
     const data = parse(lines);
