@@ -15,18 +15,7 @@ describe("2019 day 12", function() {
   let moonPosRanges = [{}];
   let moonVelRanges = [[[[0]], [[0]], [[0]]]];
   let moonDimensionMaps = [new Map()];
-  let stepNum = 0;
-  const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
-    if (1) {}
-    else if (1) {}
-    else {}
-    for (let i = 0;; i++) { break; continue; }
-    for (const item of arg3) {}
-    return 0;
-  };
-  const fn2 = () => {
-    return '';
-  };
+  let stepNum = 0, numTimeStates = 0;
   const init = (data = [[0]]) => {
     moonPos = data;
     numMoons = moonPos.length;
@@ -59,6 +48,7 @@ describe("2019 day 12", function() {
     }
     // numPoints = 4;
     stepNum = 0;
+    numTimeStates = 0;
   };
   const step = () => {
     stepNum++;
@@ -98,24 +88,57 @@ describe("2019 day 12", function() {
   };
   const checkAndUpdateDimensionMaps = () => {
     // check maps
-    let gotMatch = true;
+    let gotPotentialMatch = true;
     for (let m = 0; m < numMoons; m++) {
       for (let i = 0; i < 2; i++) {
         for (let a = 0; a < 3; a++) {
           const mapIndex = m*2*3 + i*3 + a;
           const key = (i === 0) ? moonPos[m][a] : moonVel[m][a];
           if (moonDimensionMaps[mapIndex].has(key)) {
-            moonDimensionMaps[mapIndex].set(key, moonDimensionMaps[mapIndex].get(key)+1);
+            let times = moonDimensionMaps[mapIndex].get(key);
+            times.set(stepNum, 0);
+            numTimeStates++;
+            // moonDimensionMaps[mapIndex].set(key, times);
             // console.log('set map #', mapIndex);
             continue;
           }
-          gotMatch = false;
-          moonDimensionMaps[mapIndex].set(key, 1);
+          gotPotentialMatch = false;
+          let times = new Map();
+          times.set(stepNum, 0);
+          moonDimensionMaps[mapIndex].set(key, times);
+          numTimeStates++;
           // console.log('set map #', mapIndex);
         }
       }
     }
-    return gotMatch;
+    if (gotPotentialMatch) {
+      let gotTimeMatch = true;
+      const key = moonPos[0][0];
+      const times = moonDimensionMaps[0].get(key);
+      // console.log('potential match: stepNum=', stepNum, 'moonPos[0][0]=', moonPos[0][0]);
+      for (const time of times.keys()) {
+        if (time === stepNum) continue;
+        gotTimeMatch = true;
+        for (let m = 0; gotTimeMatch && m < numMoons; m++) {
+          for (let i = 0; gotTimeMatch && i < 2; i++) {
+            for (let a = 0; a < 3; a++) {
+              if (m === 0 && i === 0 && a === 0) continue;
+              const mapIndex = m*2*3 + i*3 + a;
+              const key2 = (i === 0) ? moonPos[m][a] : moonVel[m][a];
+              const times2 = moonDimensionMaps[mapIndex].get(key2);
+              if (!times2.has(time)) {
+                // console.log('time=', time, 'not found for m=', m, 'i=', i, 'a=', a);
+                gotTimeMatch = false;
+                break;
+              }
+            }
+          }
+        }
+        if (gotTimeMatch) break;
+      }
+      return gotTimeMatch;
+    }
+    return false;
   };
   const checkAndUpdateRanges = (dimensions = [[0, 0, 0]],
                                 ranges = [{points: new Map(), lines: new Map(), rects: new Map(), cubes: new Map()}]) => {
@@ -261,7 +284,7 @@ describe("2019 day 12", function() {
   }
   const solve = (data = [0]) => {
     init(data);
-    for (let numSteps = 0; numSteps < 1000; numSteps++) {
+    for (let numSteps = 0; numSteps < 10; numSteps++) {
       step();
     }
     updateEnergy();
@@ -270,7 +293,7 @@ describe("2019 day 12", function() {
   const solve_p2 = (data = [0]) => {
     init(data);
     let numSteps = 0;
-    for (; numSteps < 100; numSteps++) {
+    for (; numSteps < 3000; numSteps++) {
       step();
       if (checkAndUpdateDimensionMaps()) break;
     }
@@ -281,6 +304,7 @@ describe("2019 day 12", function() {
       if (d % 6 === 5) toPrint += '\r\n';
     }
     console.log(toPrint);
+    console.log('numTimeStates=', numTimeStates)
     // console.log('moonPosRanges[0].points.size=', moonPosRanges[0].points.size, 'moonPosRanges[1].points.size=', moonPosRanges[1].points.size,
     //             'moonPosRanges[2].points.size=', moonPosRanges[2].points.size, 'moonPosRanges[3].points.size=', moonPosRanges[3].points.size);
     // console.log('moonVelRanges[0].points.size=', moonVelRanges[0].points.size, 'moonVelRanges[1].points.size=', moonVelRanges[1].points.size,
@@ -315,16 +339,6 @@ describe("2019 day 12", function() {
 
 
   // new tests
-  it('fn1() returns number 0', () => {
-    expect(fn1()).toEqual(
-      0
-      );
-  });
-  it('fn2() returns empty string', () => {
-    expect(fn2()).toEqual(
-      ''
-      );
-  });
   it("can solve puzzle", () => {
     const data = [
       [1,0,2],
@@ -350,19 +364,17 @@ describe("2019 day 12", function() {
         ));
     expect(data).toEqual([[-9,-1,-1], [2,9,5]]);
   });
-  it("can solve puzzle with my input", () => {
-    // const data = [0];
-    // const data = parse(lines);
-    // const answer = solve(data);
-    // console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(0);
+  it("can solve puzzle with my input (when overridden with sample 1 input)", () => {
+    const data = parse(lines);
+    const answer = solve(data);
+    console.log("part 1 answer is " + answer);
+    expect(answer).toEqual(179);
   });
-  it("can solve puzzle part 2 with my input", () => {
-    // const data = [0];
+  it("can solve puzzle part 2 with my input (when overridden with sample 1 input)", () => {
     const data = parse(lines);
     const answer = solve_p2(data);
     console.log("part 2 answer is " + answer);
-    // expect(answer).toEqual(0);
+    expect(answer).toEqual(2772);
   });
 
 
