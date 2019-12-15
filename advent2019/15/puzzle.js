@@ -107,6 +107,7 @@ let numPaintedWalls = 0;
 let wallsMinX = gridXSize / 2, wallsMaxX = 0;
 let wallsMinY = gridXSize / 2, wallsMaxY = 0;
 let wantToExit = false;
+let isAggressive = false;
 const getNumPainted = () => {
   return numPainted;
 };
@@ -129,18 +130,22 @@ const nextOutput = (output = 0) => {
   if (output === 2) {
     // oxygen system found!
     area[currentX][currentY] = 4; // mark goal
-    wantToExit = 1;
     printArea();
     console.log('found oxygen!');
-    return;
+    if (!isAggressive) {
+      wantToExit = 1;
+      return;
+    }
   }
   if (output === 0) {
     // hit wall
     if (area[currentX][currentY] === 2) {
-      console.log('hit same wall again!');
-      wantToExit = 1;
       printArea();
-      return;
+      console.log('hit same wall again!');
+      if (!isAggressive) {
+        wantToExit = 1;
+        return;
+      }
     }
     area[currentX][currentY] = 2; // mark wall
     currentX = previousX;
@@ -202,6 +207,7 @@ const initState = () => {
   wallsMinX = gridXSize / 2, wallsMaxX = 0;
   wallsMinY = gridXSize / 2, wallsMaxY = 0;
   wantToExit = false;
+  isAggressive = false;
 };
 const countPainted = () => {
   numPainted = 0;
@@ -258,6 +264,7 @@ const printProgram = (programMemory = [], startIp = 0) => {
 }
 const solve_p2 = (program = []) => {
   initState();
+  isAggressive = true;
   input = 1; // initially go north
   area[currentX][currentY] = 3;
   transform(program);
