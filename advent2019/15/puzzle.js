@@ -101,25 +101,16 @@ let area = [[-1]];
 const gridXSize = 40;//, gridYSize = 40; // must be even number!
 let currentX = gridXSize / 2;
 let currentY = gridXSize / 2;
-let outputState = 0;
-// let heading = 0;
 let numOutputs = 0;
 let numPainted = 0;
 let numPaintedWalls = 0;
 let wallsMinX = gridXSize / 2, wallsMaxX = 0;
 let wallsMinY = gridXSize / 2, wallsMaxY = 0;
-let xPos = 0, yPos = 0, tileId = 0, numBlockTiles = 0, score = 0;
-let numEmptyTiles = 0, numWallTiles = 0, numPaddleTiles = 0, numBallTiles = 0;
-let paddleXPos = 0, paddleYPos = 0;
-let ballXPos = 0, ballYPos = 0;
 let wantToExit = false;
 const getNumPainted = () => {
   return numPainted;
 };
 const nextInput = () => {
-  // if (numOutputs < 20) console.log('area[currentX][currentY]=', area[currentX][currentY]);
-  // return area[currentX][currentY] === -1 ? 0 : area[currentX][currentY];
-  // console.log('input requested, value is ', input);
   if (wantToExit) return -1;
   return input;
 };
@@ -205,17 +196,11 @@ const initState = () => {
   }
   currentX = gridXSize / 2;
   currentY = gridXSize / 2;
-  outputState = 0;
-  heading = 0;
   numOutputs = 0;
   numPainted = 0;
   numPaintedWalls = 0;
   wallsMinX = gridXSize / 2, wallsMaxX = 0;
   wallsMinY = gridXSize / 2, wallsMaxY = 0;
-  xPos = 0, yPos = 0, tileId = 0, numBlockTiles = 0, score = 0;
-  numEmptyTiles = 0, numWallTiles = 0, numPaddleTiles = 0, numBallTiles = 0;
-  paddleXPos = 0, paddleYPos = 0;
-  ballXPos = 0, ballYPos = 0;
   wantToExit = false;
 };
 const countPainted = () => {
@@ -257,29 +242,13 @@ const printArea = () => {
     }
     console.log(line);
   }
-  for (let y = 0; y < gridXSize; y++) {
-    // let line = '';
-    // for (let x = 0; x < gridXSize; x++) {
-    //   if (area[x][y] === -1 || area[x][y] === 0) line += ' ';
-    //   else if (area[x][y] === 1) line += '|';
-    //   else if (area[x][y] === 2) line += '=';
-    //   else if (area[x][y] === 3) line += '-';
-    //   else if (area[x][y] === 4) line += '*';
-    //   else line += '.';
-    // }
-    // console.log(line);
-  }
 };
 const solve = (program = []) => {
-  // console.log('program = ', program);
   initState();
-  // console.log('numBlockTiles=', numBlockTiles, 'first memory=', programs[0].memory[0]);
   input = 1; // initially go north
   area[currentX][currentY] = 3;
   transform(program);
-  // countPainted();
-  // console.log('numBlockTiles=', numBlockTiles, 'first memory=', programs[0].memory[0]);
-  return numBlockTiles;
+  // return numBlockTiles;
 }
 const printProgram = (programMemory = [], startIp = 0) => {
   let programString = '[' +  programMemory.join(',') + ']';
@@ -288,19 +257,11 @@ const printProgram = (programMemory = [], startIp = 0) => {
     ' input= ', input, ':\t\t', programString, '\toutput= ', output, 'startIp= ', startIp);
 }
 const solve_p2 = (program = []) => {
-  // console.log('program = ', program);
   initState();
-  // area[currentX][currentY] = 1;
-  input = 0;
-  program[0] = 2;
+  input = 1; // initially go north
+  area[currentX][currentY] = 3;
   transform(program);
-  // countPainted();
-  console.log('numBlockTiles=', numBlockTiles, 'numOutputs=', numOutputs,
-              'score=', score, 'first memory=', programs[0].memory[0]);
-  console.log('numEmptyTiles=', numEmptyTiles, 'numWallTiles=', numWallTiles,
-              'numPaddleTiles=', numPaddleTiles, 'numBallTiles=', numBallTiles);
-  printArea();
-  return score;
+  // return numBlockTiles;
 }
 const parse = (lines = ['']) => {
   return lines[0].split(',').map((value) => parseInt(value)).filter((num) => num === num);

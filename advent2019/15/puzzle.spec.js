@@ -69,10 +69,15 @@ describe("2019 day 15", function() {
     // expect(data).toEqual([1, 3, 2]);
   });
   it("can solve puzzle with my input", () => {
-    // const data = [0];
     const data = puzzle.parse(lines);
-    const answer = puzzle.solve(data);
-    console.log("part 1 answer is " + answer);
+    // const answer = puzzle.solve(data);
+    // console.log("part 1 answer is " + answer);
+    // expect(answer).toEqual(0);
+  });
+  it("can solve puzzle part 2 with my input", () => {
+    const data = puzzle.parse(lines);
+    const answer = puzzle.solve_p2(data);
+    // console.log("part 2 answer is " + answer);
     // expect(answer).toEqual(0);
   });
 
