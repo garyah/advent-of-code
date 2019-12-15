@@ -16,6 +16,16 @@ describe("2019 day 12", function() {
   let moonVelRanges = [[[[0]], [[0]], [[0]]]];
   let moonDimensionMaps = [new Map()];
   let stepNum = 0, numTimeStates = 0;
+  const numberToString = (number = 0) => {
+    if (number < -2147483648) number = -2147483648;
+    if (number > 2147483647) number = 2147483647;
+    number += 2147483648;
+    let result = '00000000' + number.toString(16);
+    return result.substr(result.length - 8);
+  };
+  const numbersToString = (numbers = [0]) => {
+    return numbers.map((value) => numberToString(value)).join(',');
+  };
   const init = (data = [[0]]) => {
     moonPos = data;
     numMoons = moonPos.length;
@@ -284,16 +294,27 @@ describe("2019 day 12", function() {
   }
   const solve = (data = [0]) => {
     init(data);
-    for (let numSteps = 0; numSteps < 10; numSteps++) {
+    for (let numSteps = 0; numSteps < 1000; numSteps++) {
       step();
     }
     updateEnergy();
     return totalEnergy;
   }
   const solve_p2 = (data = [0]) => {
+    // let junk = [['ghi', 'ghl'], ['abc', 'abd']];
+    let junk = [['bcde,0000', 'ghl'], ['0000,bcde', 'abd']];
+    // let junk = 2 * 1000 * 1000 * 1 + 12;
+    console.log(junk);
+    junk.sort();
+    console.log(junk);
+    // console.log(junk.toString(16));
+    // 58d694d3a
+
+
+
     init(data);
     let numSteps = 0;
-    for (; numSteps < 3000; numSteps++) {
+    for (; numSteps < 2 * 1; numSteps++) {
       step();
       if (checkAndUpdateDimensionMaps()) break;
     }
@@ -339,6 +360,36 @@ describe("2019 day 12", function() {
 
 
   // new tests
+  it("can turn number into string with hexadecimal with largest negative as 0 and leading zeroes", () => {
+    const data = [
+      -2147483649,
+      -2147483648,
+      0,
+      2147483647,
+      2147483648,
+    ];
+    const actual = data.map((data) => numberToString(data));
+    const expected = [
+      '00000000',
+      '00000000',
+      '80000000',
+      'ffffffff',
+      'ffffffff',
+    ];
+    expect(actual).toEqual(expected);
+  });
+  it("can turn array of numbers into properly formatted string", () => {
+    const data = [
+      [1,0,2],
+      [2,10,-7],
+    ];
+    const actual = data.map((data) => numbersToString(data));
+    const expected = [
+      '80000001,80000000,80000002',
+      '80000002,8000000a,7ffffff9',
+    ];
+    expect(actual).toEqual(expected);
+  });
   it("can solve puzzle", () => {
     const data = [
       [1,0,2],
@@ -368,13 +419,13 @@ describe("2019 day 12", function() {
     const data = parse(lines);
     const answer = solve(data);
     console.log("part 1 answer is " + answer);
-    expect(answer).toEqual(179);
+    expect(answer).toEqual(12644);
   });
   it("can solve puzzle part 2 with my input (when overridden with sample 1 input)", () => {
     const data = parse(lines);
     const answer = solve_p2(data);
     console.log("part 2 answer is " + answer);
-    expect(answer).toEqual(2772);
+    // expect(answer).toEqual(2772);
   });
 
 
