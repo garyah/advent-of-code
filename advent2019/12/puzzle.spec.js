@@ -117,27 +117,31 @@ describe("2019 day 12", function() {
   };
   const checkAndUpdateUniverse = () => {
     // check
-    let coordinates = [];
+    let stateToFind = [];
     for (let m = 0; m < numMoons; m++) {
       for (let i = 0; i < 2; i++) {
         for (let a = 0; a < 3; a++) {
-          coordinates.push((i === 0) ? moonPos[m][a] : moonVel[m][a]);
+          stateToFind.push((i === 0) ? moonPos[m][a] : moonVel[m][a]);
         }
       }
     }
-    const stateToFind = numbersToString(coordinates);
+    // const stateToFind = numbersToString(coordinates);
     let gotMatch = false;
     for (const stateRange of universe) {
-      // const stateToCheck = stringToNumbers(stateRange[0]);
-      if (stateToFind === stateRange[0]) {
+      const stateToCheck = stringToNumbers(stateRange[0]);
+      let gotAllMatching = true;
+      for (let d = 0; d < numMoons * 3 * 2; d++) {
+        if (stateToFind[d] !== stateToCheck[d]) { gotAllMatching = false; break; }
+      }
+      if (gotAllMatching) {
         gotMatch = true;
-        // console.log('found repeated point=', stateToFind);
-        console.log(' repeat point=', coordinates);
+        // console.log('repeat point=', numbersToString(stateToFind));
+        console.log(' repeat point=', stateToFind);
         break;
       }
     }
     // update
-    if (!gotMatch) universe.push([stateToFind, stateToFind]);
+    if (!gotMatch) universe.push([numbersToString(stateToFind), numbersToString(stateToFind)]);
     return gotMatch;
   }
   const checkAndUpdateDimensionMaps = () => {
@@ -357,7 +361,7 @@ describe("2019 day 12", function() {
 
     console.log();
     init(data);
-    while (stepNum < 1 * 100 * 1000) {
+    while (stepNum < 3 * 1 * 1000) {
       step();
       if (checkAndUpdateUniverse()) break;
     }
