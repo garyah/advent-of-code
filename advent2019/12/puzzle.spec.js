@@ -33,6 +33,15 @@ describe("2019 day 12", function() {
   const stringToNumbers = (values = '') => {
     return values.split(',').map((value) => stringToNumber(value));
   };
+  const searchUniverse = (values = '', lo = 0, hi = universe.length - 1) => {
+    const mid = lo + Math.floor((hi - lo + 1) / 2);
+    // console.log('values=', values, 'lo=', lo, 'mid=', mid, 'hi=', hi);
+    if (values >= universe[mid][0] && values <= universe[mid][1]) return true;
+    if (lo === hi) return false;
+    return values < universe[mid][0] ?
+            searchUniverse(values, lo, mid - 1)
+            : searchUniverse(values, mid, hi);
+  }
   const init = (data = [[0]]) => {
     moonPos = data;
     numMoons = moonPos.length;
@@ -452,6 +461,28 @@ describe("2019 day 12", function() {
     ];
     expect(actual).toEqual(expected);
   });
+  it("can search universe for exact (or eventually closest match)", () => {
+    universe = [
+      ['80000001,80000000,80000002', '80000001,80000000,80000002'], // [1,0,2]
+      ['80000002,8000000a,7ffffff9', '80000002,8000000a,7ffffff9'], // [2,10,-7]
+    ];
+    const data = [
+      '80000001,80000000,80000001', '80000001,80000000,80000002', // [1,0,1], [1,0,2]
+      '80000002,8000000a,7ffffff9', '80000002,8000000a,7ffffffa', // [2,10,-7], [2,10,-6]
+    ];
+    let actual = data.map((data) => searchUniverse(data));
+    const expected = [
+      false, true, true, false,
+    ];
+    expect(actual).toEqual(expected);
+    universe = [
+      ['80000001,80000000,80000002', '80000001,80000000,80000002'], // [1,0,2]
+      ['80000002,8000000a,7ffffff9', '80000002,8000000a,7ffffff9'], // [2,10,-7]
+      ['80000002,8000000a,7ffffffb', '80000002,8000000a,7ffffffb'], // [2,10,-5]
+    ];
+    actual = data.map((data) => searchUniverse(data));
+    expect(actual).toEqual(expected);
+  });
   it("can solve puzzle", () => {
     const data = [
       [1,0,2],
@@ -486,8 +517,8 @@ describe("2019 day 12", function() {
   });
   it("can solve puzzle part 2 with my input (when overridden with sample 1 input)", () => {
     const data = parse(lines);
-    const answer = solve_p2(data);
-    console.log("part 2 answer is " + answer);
+    // const answer = solve_p2(data);
+    // console.log("part 2 answer is " + answer);
     // expect(answer).toEqual(2772);
   });
 
