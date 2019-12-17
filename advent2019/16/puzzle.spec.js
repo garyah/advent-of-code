@@ -13,6 +13,28 @@ describe("2019 day 16", function() {
   const fn2 = () => {
     return '';
   };
+  const process = (inputDigits = [0]) => {
+    let outputDigits = [];
+    let pattern = [0, 1, 0, -1, 0, 1, 0, -1, 0, 1, 0, -1, 0, 1, 0, -1];
+    for (let outIdx = 0; outIdx < /*inputDigits.length*/1; outIdx++) {
+      outputDigits[outIdx] = 0;
+      for (let inIdx = 0; inIdx < inputDigits.length; inIdx++) {
+        outputDigits[outIdx] += inputDigits[inIdx] * pattern[inIdx + 1];
+      }
+      outputDigits[outIdx] = Math.abs(outputDigits[outIdx]);
+      outputDigits[outIdx] %= 10;
+      console.log('outputDigit at idx=', outIdx, 'value = ', outputDigits[outIdx]);
+      let newPattern = [];
+      pattern.reduce((previous, current) => {
+        console.log('previous=', previous, 'current=', current);
+        newPattern.push(current); newPattern.push(current);
+      });
+      pattern = newPattern;
+      // console.log('pattern=', pattern);
+    }
+    return outputDigits.join('');
+    // return '48226158';
+  };
   const solve = (data = [0]) => {
     fn1();
     return data.reduce((sum, num) => {
@@ -22,7 +44,7 @@ describe("2019 day 16", function() {
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
     // return lines;    // use for multi-line string input
-    return lines.map((line) => parseInt(line)).filter((num) => num === num);
+    return lines[0].split('').map((num) => parseInt(num));
   };
 
 
@@ -52,27 +74,25 @@ describe("2019 day 16", function() {
   });
   it("can solve puzzle", () => {
     const data = [
-      [],
+      ['12345678'],
     ];
-    const actual = data.map((data) => solve(data));
+    const actual = data.map((data) => process(parse(data)));
     const expected = [
-      1,
+      '48226158',
     ];
-    // expect(actual).toEqual(expected);
+    expect(actual).toEqual(expected);
   });
   it("can parse input", () => {
-    const data = parse(
-      '+1 +3 +2'
-      .split(
-        ' '
-        ));
+    const data = parse([
+      '132',
+    ]);
     expect(data).toEqual([1, 3, 2]);
   });
   it("can solve puzzle with my input", () => {
     // const data = [0];
-    const data = parse(lines);
-    const answer = solve(data);
-    console.log("part 1 answer is " + answer);
+    // const data = parse(lines);
+    // const answer = solve(data);
+    // console.log("part 1 answer is " + answer);
     // expect(answer).toEqual(0);
   });
 
