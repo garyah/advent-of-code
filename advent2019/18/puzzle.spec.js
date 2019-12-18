@@ -1,4 +1,4 @@
-describe("2019 day 6", function() {
+describe("2019 day 18", function() {
   // new code
   let var1 = 0;
   let var2 = '';
@@ -22,7 +22,7 @@ describe("2019 day 6", function() {
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
     // return lines;    // use for multi-line string input
-    return lines.map((line) => parseInt(line)).filter((num) => num === num);
+    return lines.map((line) => line.split(''));
   };
 
 
@@ -54,7 +54,7 @@ describe("2019 day 6", function() {
     const data = [
       [],
     ];
-    const actual = data.map((data) => solve(data));
+    // const actual = data.map((data) => solve(data));
     const expected = [
       1,
     ];
@@ -62,17 +62,21 @@ describe("2019 day 6", function() {
   });
   it("can parse input", () => {
     const data = parse(
-      '+1 +3 +2'
+      '######## #.A.@.a# ########'
       .split(
         ' '
         ));
-    expect(data).toEqual([1, 3, 2]);
+    expect(data).toEqual([
+      ['#', '#', '#', '#', '#', '#', '#', '#'],
+      ['#', '.', 'A', '.', '@', '.', 'a', '#'],
+      ['#', '#', '#', '#', '#', '#', '#', '#'],
+    ]);
   });
   it("can solve puzzle with my input", () => {
     // const data = [0];
-    const data = parse(lines);
-    const answer = solve(data);
-    console.log("part 1 answer is " + answer);
+    // const data = parse(lines);
+    // const answer = solve(data);
+    // console.log("part 1 answer is " + answer);
     // expect(answer).toEqual(0);
   });
 
@@ -91,13 +95,13 @@ describe("2019 day 6", function() {
   const Parser = require('../../common/parser');
   const puzzle = require('./puzzle');
   const parser = new Parser();
-  const readInputFile = false; // change to true to read input file for all tests that need it
+  const readInputFile = true; // change to true to read input file for all tests that need it
   let lines = [];
   beforeAll((done) => {
-    console.log("2019 day 6:");
+    console.log("2019 day 18:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines("advent2019/09/input.txt", (linesRead) => {
+      parser.readLines("advent2019/18/input.txt", (linesRead) => {
         lines = linesRead;
         done();
       });
