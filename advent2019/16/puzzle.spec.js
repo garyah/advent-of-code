@@ -13,33 +13,48 @@ describe("2019 day 16", function() {
   const fn2 = () => {
     return '';
   };
-  const process = (inputDigits = [0]) => {
-    let outputDigits = [];
-    let pattern = [0, 1, 0, -1, 0, 1, 0, -1, 0, 1, 0, -1, 0, 1, 0, -1];
-    for (let outIdx = 0; outIdx < /*inputDigits.length*/1; outIdx++) {
-      outputDigits[outIdx] = 0;
-      for (let inIdx = 0; inIdx < inputDigits.length; inIdx++) {
-        outputDigits[outIdx] += inputDigits[inIdx] * pattern[inIdx + 1];
+  const process = (inputDigits = [0], numTimes = 1) => {
+    // console.log();
+    const rootPattern = [0, 1, 0, -1];
+    let basePattern = [];
+    for (let count = 0; count < inputDigits.length / rootPattern.length + 1; count++) {
+      for (let rootPatternIdx = 0; rootPatternIdx < rootPattern.length; rootPatternIdx++) {
+        basePattern.push(rootPattern[rootPatternIdx]);
       }
-      outputDigits[outIdx] = Math.abs(outputDigits[outIdx]);
-      outputDigits[outIdx] %= 10;
-      console.log('outputDigit at idx=', outIdx, 'value = ', outputDigits[outIdx]);
-      let newPattern = [];
-      pattern.reduce((previous, current) => {
-        console.log('previous=', previous, 'current=', current);
-        newPattern.push(current); newPattern.push(current);
-      });
-      pattern = newPattern;
-      // console.log('pattern=', pattern);
+    }
+    // console.log(basePattern);
+    let outputDigits = [];
+    for (let iteration = 0; iteration < numTimes; iteration++) {
+      outputDigits = [];
+      let pattern = basePattern;
+      for (let outIdx = 0; outIdx < inputDigits.length; outIdx++) {
+        // add up all input digits factored by pattern digits
+        outputDigits[outIdx] = 0;
+        let toPrint = '';
+        for (let inIdx = 0; inIdx < inputDigits.length; inIdx++) {
+          outputDigits[outIdx] += inputDigits[inIdx] * pattern[inIdx + 1];
+          // console.log('inputDigits[inIdx]=', inputDigits[inIdx], 'pattern[inIdx + 1]=', pattern[inIdx + 1]);
+          toPrint += (inIdx ? ' + ' : '') + inputDigits[inIdx] + '*' + pattern[inIdx + 1];
+        }
+        // console.log(toPrint, '=', outputDigits[outIdx]);
+        outputDigits[outIdx] = Math.abs(outputDigits[outIdx]);
+        outputDigits[outIdx] %= 10;
+        // console.log('outputDigit at idx=', outIdx, 'value = ', outputDigits[outIdx]);
+
+        // make new pattern for next output digit
+        pattern = [];
+        for (let patternIdx = 0; patternIdx < basePattern.length; patternIdx++) {
+          pattern.push(basePattern[patternIdx]);
+          for (let count = 0; count <= outIdx; count++) pattern.push(basePattern[patternIdx]);
+        }
+        // console.log('pattern=', pattern);
+      }
+      inputDigits = outputDigits;
     }
     return outputDigits.join('');
-    // return '48226158';
   };
-  const solve = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
+  const solve = (inputDigits = [0]) => {
+    return process(inputDigits).substr(0, 8);
   }
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
@@ -74,11 +89,25 @@ describe("2019 day 16", function() {
   });
   it("can solve puzzle", () => {
     const data = [
-      ['12345678'],
+      [['12345678'], 1],
+      [['12345678'], 2],
+      [['12345678'], 3],
+      [['12345678'], 4],
+      [['12345678'], 100],
+      [['80871224585914546619083218645595'], 100],
+      [['19617804207202209144916044189917'], 100],
+      [['69317163492948606335995924319873'], 100],
     ];
-    const actual = data.map((data) => process(parse(data)));
+    const actual = data.map((data) => process(parse(data[0]), data[1]).substr(0, 8));
     const expected = [
       '48226158',
+      '34040438',
+      '03415518',
+      '01029498',
+      '23845678',
+      '24176176',
+      '73745418',
+      '52432133',
     ];
     expect(actual).toEqual(expected);
   });
@@ -89,10 +118,9 @@ describe("2019 day 16", function() {
     expect(data).toEqual([1, 3, 2]);
   });
   it("can solve puzzle with my input", () => {
-    // const data = [0];
-    // const data = parse(lines);
-    // const answer = solve(data);
-    // console.log("part 1 answer is " + answer);
+    const data = parse(lines);
+    const answer = solve(data);
+    console.log("part 1 answer is " + answer);
     // expect(answer).toEqual(0);
   });
 
