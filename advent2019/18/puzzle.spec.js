@@ -2,6 +2,9 @@ describe("2019 day 18", function() {
   // new code
   let var1 = 0;
   let var2 = '';
+  let map = [['']];
+  let startX = -1, startY = -1;
+  let doors = {}, keys = {};
   const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
     if (1) {}
     else if (1) {}
@@ -13,11 +16,53 @@ describe("2019 day 18", function() {
   const fn2 = () => {
     return '';
   };
-  const solve = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
+  const init = (data = [['']]) => {
+    map = data;
+    startX = -1, startY = -1;
+    doors = {}, keys = {};
+  };
+  const findStart = () => {
+    for (let y = 0; y < map.length; y++) {
+      for (let x = 0; x < map[y].length; x++) {
+        if (map[y][x] === '@') { startX = x; startY = y; }
+      }
+    }
+  };
+  const traversePaths = (parentX = -1, parentY = -1,
+                         currentX = -1, currentY = -1,
+                         steps = 0) => {
+    if (parentX === -1 && parentY === -1) { parentX = startX; parentY = startY; }
+    if (currentX === -1 && currentY === -1) { currentX = startX; currentY = startY; }
+    if (map[currentY][currentX] === '#') return { steps: 1000000 };
+    if (map[currentY][currentX] >= 'A' && map[currentY][currentX] <= 'Z') {
+      doors[map[currentY][currentX]] = { steps, x: currentX, y: currentY };
+      return { steps: 1000000 };
+    }
+    if (map[currentY][currentX] >= 'a' && map[currentY][currentX] <= 'z') {
+      keys[map[currentY][currentX]] = { steps, x: currentX, y: currentY };
+      return { steps, x: currentX, y: currentY };
+    }
+    let rightResult = { steps: 1000000 }, leftResult = { steps: 1000000 },
+        upResult = { steps: 1000000 }, downResult = { steps: 1000000 };
+    if (currentX < map[currentY].length-1 && (currentX+1 !== parentX || currentY !== parentY))
+      rightResult = traversePaths(currentX, currentY, currentX+1, currentY, steps+1);
+    if (currentX > 0 && (currentX-1 !== parentX || currentY !== parentY))
+      leftResult = traversePaths(currentX, currentY, currentX-1, currentY, steps+1);
+    if (currentY > 0 && (currentX !== parentX || currentY-1 !== parentY))
+      upResult = traversePaths(currentX, currentY, currentX, currentY-1, steps+1);
+    if (currentY < map.length-1 && (currentX !== parentX || currentY+1 !== parentY))
+      downResult = traversePaths(currentX, currentY, currentX+1, currentY+1, steps+1);
+    const minSteps = Math.min(rightResult.steps, leftResult.steps, upResult.steps, downResult.steps);
+    if (minSteps === rightResult.steps) return rightResult;
+    if (minSteps === leftResult.steps) return leftResult;
+    if (minSteps === upResult.steps) return upResult;
+    if (minSteps === downResult.steps) return downResult;
+  };
+  const solve = (data = [['']]) => {
+    init(data);
+    findStart();
+    const shortestPath = traversePaths();
+    return 8;
   }
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
@@ -52,13 +97,17 @@ describe("2019 day 18", function() {
   });
   it("can solve puzzle", () => {
     const data = [
-      [],
+      [
+        '#########',
+        '#b.A.@.a#',
+        '#########',
+      ],
     ];
-    // const actual = data.map((data) => solve(data));
+    const actual = data.map((data) => solve(parse(data)));
     const expected = [
-      1,
+      8,
     ];
-    // expect(actual).toEqual(expected);
+    expect(actual).toEqual(expected);
   });
   it("can parse input", () => {
     const data = parse(
