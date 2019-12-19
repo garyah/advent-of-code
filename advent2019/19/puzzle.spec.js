@@ -1,4 +1,4 @@
-describe("2019 day 6", function() {
+describe("2019 day 19", function() {
   // new code
   let var1 = 0;
   let var2 = '';
@@ -54,24 +54,24 @@ describe("2019 day 6", function() {
     const data = [
       [],
     ];
-    const actual = data.map((data) => solve(data));
+    const actual = data.map((data) => puzzle.solve(data));
     const expected = [
       1,
     ];
     // expect(actual).toEqual(expected);
   });
   it("can parse input", () => {
-    const data = parse(
-      '+1 +3 +2'
-      .split(
-        ' '
-        ));
-    expect(data).toEqual([1, 3, 2]);
+    // const data = parse(
+    //   '+1 +3 +2'
+    //   .split(
+    //     ' '
+    //     ));
+    // expect(data).toEqual([1, 3, 2]);
   });
   it("can solve puzzle with my input", () => {
     // const data = [0];
-    const data = parse(lines);
-    const answer = solve(data);
+    const data = puzzle.parse(lines);
+    const answer = puzzle.solve(data);
     console.log("part 1 answer is " + answer);
     // expect(answer).toEqual(0);
   });
@@ -91,13 +91,13 @@ describe("2019 day 6", function() {
   const Parser = require('../../common/parser');
   const puzzle = require('./puzzle');
   const parser = new Parser();
-  const readInputFile = false; // change to true to read input file for all tests that need it
+  const readInputFile = true; // change to true to read input file for all tests that need it
   let lines = [];
   beforeAll((done) => {
-    console.log("2019 day 6:");
+    console.log("2019 day 19:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines("advent2019/09/input.txt", (linesRead) => {
+      parser.readLines("advent2019/19/input.txt", (linesRead) => {
         lines = linesRead;
         done();
       });
