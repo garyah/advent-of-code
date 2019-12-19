@@ -98,97 +98,36 @@ const transform = (inputProgram = []) => {
 };
 
 let area = [[-1]];
-const gridXSize = 40;//, gridYSize = 40; // must be even number!
-let currentX = gridXSize / 2;
-let currentY = gridXSize / 2;
+const gridXSize = 50;//, gridYSize = 50; // must be even number!
+let currentX = 0;
+let currentY = 0;
 let numOutputs = 0;
 let numPainted = 0;
-let numPaintedWalls = 0;
+let numAffected = 0;
 let wallsMinX = gridXSize / 2, wallsMaxX = 0;
 let wallsMinY = gridXSize / 2, wallsMaxY = 0;
 let wantToExit = false;
 let isAggressive = false;
+let inputState = 0;
 const getNumPainted = () => {
   return numPainted;
 };
 const nextInput = () => {
   if (wantToExit) return -1;
+  if (inputState == 0) input = currentX;
+  else if (inputState == 1) input = currentY;
+  inputState = (inputState === 0) ? 1 : 0;
   return input;
 };
 const nextOutput = (output = 0) => {
   // console.log('output=', output);
   numOutputs++;
-  const previousX = currentX, previousY = currentY;
-  if (input === 1) currentY--; // go north
-  else if (input === 2) currentY++; // go south
-  else if (input === 3) currentX--; // go west
-  else if (input === 4) currentX++; // go east
-  if (currentX < 0) currentX = 0;
-  if (currentY < 0) currentY = 0;
-  if (currentX >= gridXSize) currentX = gridXSize - 1;
-  if (currentY >= gridXSize) currentY = gridXSize - 1;
-  if (output === 2) {
-    // oxygen system found!
-    area[currentX][currentY] = 4; // mark goal
-    printArea();
-    console.log('found oxygen!');
-    if (!isAggressive) {
-      wantToExit = 1;
-      return;
-    }
-  }
-  if (output === 0) {
-    // hit wall
-    if (area[currentX][currentY] === 2) {
-      printArea();
-      console.log('hit same wall again!');
-      if (!isAggressive) {
-        wantToExit = 1;
-        return;
-      }
-    }
-    area[currentX][currentY] = 2; // mark wall
-    currentX = previousX;
-    currentY = previousY;
-    // if (input === 1) input = 2; // go south
-    // else if (input === 2) input = 1; // go north
-    // else if (input === 3) input = 4; // go east
-    // else if (input === 4) input = 3; // go west
-  }
-  if (output === 1) {
-    // open space
-    // if (area[currentX][currentY] === -1 // unexplored
-    //   || area[currentX][currentY] === 3) { // open space (already explored)
-    // }
-    if (area[currentX][currentY] === 2) console.log('saw wall as open space!'); // wall
-    else if (area[currentX][currentY] === 4) console.log('saw goal as open space!'); // goal: oxygen
-    if (area[currentX][currentY] === 3) {
-      area[currentX][currentY] = 5; // mark open space (already explored 2 or more times)
-    } else {
-      area[currentX][currentY] = 3; // mark open space (already explored)
-    }
-  }
-  {
-    // prioritize unexplored over already explored for next move
-    if (currentY > 0 && (currentX !== previousX || currentY-1 !== previousY) && area[currentX][currentY-1] === -1) input = 1; // go north
-    else if (currentX < gridXSize && (currentX+1 !== previousX || currentY !== previousY) && area[currentX+1][currentY] === -1) input = 4; // go east
-    else if (currentY < gridXSize && (currentX !== previousX || currentY+1 !== previousY) && area[currentX][currentY+1] === -1) input = 2; // go south
-    else if (currentX > 0 && (currentX-1 !== previousX || currentY !== previousY) && area[currentX-1][currentY] === -1) input = 3; // go west
-
-    else if (currentY > 0 && (currentX !== previousX || currentY-1 !== previousY) && area[currentX][currentY-1] === 3) input = 1; // go north
-    else if (currentX < gridXSize && (currentX+1 !== previousX || currentY !== previousY) && area[currentX+1][currentY] === 3) input = 4; // go east
-    else if (currentY < gridXSize && (currentX !== previousX || currentY+1 !== previousY) && area[currentX][currentY+1] === 3) input = 2; // go south
-    else if (currentX > 0 && (currentX-1 !== previousX || currentY !== previousY) && area[currentX-1][currentY] === 3) input = 3; // go west
-
-    else { // backtrack to where just came from, when nothing else is free
-      // console.log('no where to go! last input=', input, 'output=', output);
-      // wantToExit = 1;
-      // printArea();
-      if (input === 1) input = 2; // go south
-      else if (input === 2) input = 1; // go north
-      else if (input === 3) input = 4; // go east
-      else if (input === 4) input = 3; // go west
-    }
+  area[currentX][currentY] = output;
+  currentX++;
+  if (currentX >= gridXSize) {
+    currentX = 0;
+    currentY++;
+    if (currentY >= gridXSize) { currentY = gridXSize-1; wantToExit = true; }
   }
 };
 const initState = () => {
@@ -199,26 +138,27 @@ const initState = () => {
       // console.log(area);
     }
   }
-  currentX = gridXSize / 2;
-  currentY = gridXSize / 2;
+  currentX = 0;
+  currentY = 0;
   numOutputs = 0;
   numPainted = 0;
-  numPaintedWalls = 0;
+  numAffected = 0;
   wallsMinX = gridXSize / 2, wallsMaxX = 0;
   wallsMinY = gridXSize / 2, wallsMaxY = 0;
   wantToExit = false;
   isAggressive = false;
+  inputState = 0;
 };
-const countPainted = () => {
+const countAffected = () => {
   numPainted = 0;
-  numPaintedWalls = 0;
+  numAffected = 0;
   wallsMinX = gridXSize / 2, wallsMaxX = 0;
   wallsMinY = gridXSize / 2, wallsMaxY = 0;
   for (let x = 0; x < gridXSize; x++) {
     for (let y = 0; y < gridXSize; y++) {
       if (area[x][y] !== -1) numPainted++;
-      if (area[x][y] === 2) {
-        numPaintedWalls++;
+      if (area[x][y] === 1) {
+        numAffected++;
         if (x < wallsMinX) wallsMinX = x;
         if (x > wallsMaxX) wallsMaxX = x;
         if (y < wallsMinY) wallsMinY = y;
@@ -228,7 +168,7 @@ const countPainted = () => {
   }
 };
 const printArea = () => {
-  countPainted();
+  countAffected();
   wallsMinY = 0;
   wallsMaxY = gridXSize - 1;
   wallsMinX = 0;
@@ -251,10 +191,9 @@ const printArea = () => {
 };
 const solve = (program = []) => {
   initState();
-  input = 1; // initially go north
-  area[currentX][currentY] = 3;
-  transform(program);
-  // return numBlockTiles;
+  while (!wantToExit) transform(program);
+  countAffected();
+  return numAffected;
 }
 const printProgram = (programMemory = [], startIp = 0) => {
   let programString = '[' +  programMemory.join(',') + ']';
@@ -274,4 +213,4 @@ const parse = (lines = ['']) => {
   return lines[0].split(',').map((value) => parseInt(value)).filter((num) => num === num);
 };
 module.exports = {setInput, getOutput, transform, solve, solve_p2, parse,
-  getNumPainted, nextInput, nextOutput, initState, countPainted, printPanels: printArea};
+  getNumPainted, nextInput, nextOutput, initState, countAffected, printArea};
