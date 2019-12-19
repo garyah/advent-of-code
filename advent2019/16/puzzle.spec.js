@@ -54,7 +54,7 @@ describe("2019 day 16", function() {
     return outputDigits.join('');
   };
   const solve = (inputDigits = [0]) => {
-    return process(inputDigits).substr(0, 8);
+    return process(inputDigits, 100).substr(0, 8);
   }
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
@@ -121,7 +121,7 @@ describe("2019 day 16", function() {
     const data = parse(lines);
     const answer = solve(data);
     console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(0);
+    expect(answer).toEqual(18933364);
   });
 
 
