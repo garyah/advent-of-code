@@ -2,6 +2,10 @@ describe("2019 day 20", function() {
   // new code
   let var1 = 0;
   let var2 = '';
+  let map = [['']];
+  let startX = -1, startY = -1;
+  let endX = -1, endY = -1;
+  let portalOnes = {}, portalTwos = {};
   const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
     if (1) {}
     else if (1) {}
@@ -13,16 +17,79 @@ describe("2019 day 20", function() {
   const fn2 = () => {
     return '';
   };
-  const solve = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
+  const init = (data = [['']]) => {
+    map = data;
+    startX = -1, startY = -1;
+    endX = -1, endY = -1;
+    portalOnes = {}, portalTwos = {};
+  };
+  const findStart = () => {
+    for (let y = 0; y < map.length; y++) {
+      for (let x = 0; x < map[y].length; x++) {
+        if (map[y][x] === '@') { startX = x; startY = y; }
+      }
+    }
+    console.log('startX=', startX, 'startY=', startY);
+  };
+  const findEnd = () => {
+    for (let y = 0; y < map.length; y++) {
+      for (let x = 0; x < map[y].length; x++) {
+        if (map[y][x] === '*') { endX = x; endY = y; }
+      }
+    }
+    console.log('endX=', endX, 'endY=', endY);
+  };
+  const traversePaths = (previousX = -1, previousY = -1,
+                         currentX = -1, currentY = -1,
+                         steps = 0) => {
+    console.log('previousX=', previousX, 'previousY=', previousY, 'currentX=', currentX, 'currentY=', currentY, 'steps=', steps);
+    if (previousX === -1 && previousY === -1) { previousX = startX; previousY = startY; }
+    if (currentX === -1 && currentY === -1) { currentX = startX; currentY = startY; }
+    if (currentX === endX && currentY === endY) { 
+      console.log('found ending point!  x=', currentX, 'y=', currentY);
+      return { steps, x: currentX, y: currentY };
+    }
+    if (map[currentY][currentX] === '#' || map[currentY][currentX] === ' ') return { steps: 1000000 };
+    if (map[currentY][currentX] >= 'A' && map[currentY][currentX] <= 'Z') {
+      console.log('found a portal with starting letter=', map[currentY][currentX]);
+      portalOnes[map[currentY][currentX]] = { steps, x: currentX, y: currentY };
+      return { steps: 1000000 };
+    }
+    if (map[currentY][currentX] >= 'A' && map[currentY][currentX] <= 'Z') {
+      // portalTwos[map[currentY][currentX]] = { steps, x: currentX, y: currentY };
+      // return { steps: 1000000 };
+    }
+    let rightResult = { steps: 1000000 }, leftResult = { steps: 1000000 },
+        upResult = { steps: 1000000 }, downResult = { steps: 1000000 };
+    if (currentX < map[currentY].length-1 && (currentX+1 !== previousX || currentY !== previousY))
+      rightResult = traversePaths(currentX, currentY, currentX+1, currentY, steps+1);
+    if (currentX > 0 && (currentX-1 !== previousX || currentY !== previousY))
+      leftResult = traversePaths(currentX, currentY, currentX-1, currentY, steps+1);
+    if (currentY > 0 && (currentX !== previousX || currentY-1 !== previousY))
+      upResult = traversePaths(currentX, currentY, currentX, currentY-1, steps+1);
+    if (currentY < map.length-1 && (currentX !== previousX || currentY+1 !== previousY))
+      downResult = traversePaths(currentX, currentY, currentX, currentY+1, steps+1);
+    const minSteps = Math.min(rightResult.steps, leftResult.steps, upResult.steps, downResult.steps);
+    let result = {};
+    if (minSteps === rightResult.steps) result = rightResult;
+    if (minSteps === leftResult.steps) result = leftResult;
+    if (minSteps === upResult.steps) result = upResult;
+    if (minSteps === downResult.steps) result = downResult;
+    console.log('returning result=', result);
+    return result;
+  };
+  const solve = (data = [['']]) => {
+    console.log();
+    init(data);
+    findStart();
+    findEnd();
+    const shortestPath = traversePaths();
+    return shortestPath.steps;
   }
   const parse = (lines = ['']) => {
     // return lines[0]; // use for one line string input
     // return lines;    // use for multi-line string input
-    return lines.map((line) => parseInt(line)).filter((num) => num === num);
+    return lines.map((line) => line.split(''));
   };
 
 
@@ -51,29 +118,36 @@ describe("2019 day 20", function() {
       );
   });
   it("can solve puzzle", () => {
-    const data = [
-      [],
-    ];
-    const actual = data.map((data) => solve(data));
-    const expected = [
-      1,
-    ];
+    // const data = [
+    //   [
+    //     '#########',
+    //     '#b.A.@.a#',
+    //     '#########',
+    //   ],
+    // ];
+    // const actual = data.map((data) => solve(parse(data)));
+    // const expected = [
+    //   8,
+    // ];
     // expect(actual).toEqual(expected);
   });
   it("can parse input", () => {
     const data = parse(
-      '+1 +3 +2'
+      '######## #.A.@.a# ########'
       .split(
         ' '
         ));
-    expect(data).toEqual([1, 3, 2]);
+    expect(data).toEqual([
+      ['#', '#', '#', '#', '#', '#', '#', '#'],
+      ['#', '.', 'A', '.', '@', '.', 'a', '#'],
+      ['#', '#', '#', '#', '#', '#', '#', '#'],
+    ]);
   });
   it("can solve puzzle with my input", () => {
-    // const data = [0];
     const data = parse(lines);
     const answer = solve(data);
     console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(0);
+    expect(answer).toEqual(26);
   });
 
 
