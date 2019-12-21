@@ -3,9 +3,10 @@ describe("2019 day 20", function() {
   let var1 = 0;
   let var2 = '';
   let map = [['']];
+  let portalMap = [[{}]];
   let startX = -1, startY = -1;
   let endX = -1, endY = -1;
-  let portalOnes = {}, portalTwos = {};
+  let portalsSeen = {}, portalTwos = {};
   const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
     if (1) {}
     else if (1) {}
@@ -19,9 +20,19 @@ describe("2019 day 20", function() {
   };
   const init = (data = [['']]) => {
     map = data;
+    portalMap = [];
+    for (let y = 0; y < map.length; y++) {
+      portalMap[y] = [];
+      for (let x = 0; x < map[y].length; x++) {
+        portalMap[y][x] = {};
+      }
+    }
     startX = -1, startY = -1;
     endX = -1, endY = -1;
-    portalOnes = {}, portalTwos = {};
+    portalsSeen = {}, portalTwos = {};
+    findStart();
+    findEnd();
+    findPortals();
   };
   const findStart = () => {
     for (let y = 0; y < map.length; y++) {
@@ -39,6 +50,43 @@ describe("2019 day 20", function() {
     }
     console.log('endX=', endX, 'endY=', endY);
   };
+  const findPortals = () => {
+    for (let y = 0; y < map.length; y++) {
+      for (let x = 0; x < map[y].length; x++) {
+        if (map[y][x] >= 'A' && map[y][x] <= 'Z') {
+          let name = '';
+          let portalX = x, portalY = y;
+          // no need to look left or up, as scan is already left-to-right, top-to-bottom
+          if (x+1 < map[y].length && map[y][x+1] >= 'A' && map[y][x+1] <= 'Z') { // look right
+            name = map[y][x] + map[y][x+1];
+            if (name === 'AA' || name === 'ZZ') continue;
+            if (x+2 < map[y].length && map[y][x+2] === '.') portalX += 2;
+            else if (x-1 > 0 && map[y][x-1] === '.') portalX -= 1;
+          }
+          else if (y+1 < map.length && map[y+1][x] >= 'A' && map[y+1][x] <= 'Z') { // look down
+            name = map[y][x] + map[y+1][x];
+            if (name === 'AA' || name === 'ZZ') continue;
+            if (y+2 < map.length && map[y+2][x] === '.') portalY += 2;
+            else if (y-1 > 0 && map[y-1][x] === '.') portalY -= 1;
+          }
+          else { // should always find a two-letter label, but just in case...
+            continue;
+          }
+          if (portalsSeen[name] != null) { // saw portal before
+            portalMap[portalY][portalX] = portalsSeen[name];
+            portalMap[portalsSeen[name].y][portalsSeen[name].x] = {x: portalX, y: portalY};
+            console.log('other end of seen portal=', name, 'x,y=',
+                        portalMap[portalsSeen[name].y][portalsSeen[name].x]);
+            map[portalY][portalX] = '2';
+          } else { // didn't see portal before
+            portalsSeen[name] = {x: portalX, y: portalY};
+            console.log('new portal=', name, 'x,y=', portalsSeen[name]);
+            map[portalY][portalX] = '1';
+          }
+        }
+      }
+    }
+  };
   const traversePaths = (previousX = -1, previousY = -1,
                          currentX = -1, currentY = -1,
                          steps = 0) => {
@@ -50,14 +98,18 @@ describe("2019 day 20", function() {
       return { steps, x: currentX, y: currentY };
     }
     if (map[currentY][currentX] === '#' || map[currentY][currentX] === ' ') return { steps: 1000000 };
-    if (map[currentY][currentX] >= 'A' && map[currentY][currentX] <= 'Z') {
-      console.log('found a portal with starting letter=', map[currentY][currentX]);
-      portalOnes[map[currentY][currentX]] = { steps, x: currentX, y: currentY };
-      return { steps: 1000000 };
+    if (map[currentY][currentX] === '1' && map[currentY][currentX] === '2') {
+      // landed on a portal, keep going this way, account for steps to warp and update position
+      console.log('landed on portal at x,y=', currentX, currentY, 'going to x,y=', portalMap[currentY][currentX]);
+      steps++;
+      previousX = currentX;
+      previousY = currentY;
+      currentX = portalMap[currentY][currentX].x;
+      currentY = portalMap[currentY][currentX].y;
     }
     if (map[currentY][currentX] >= 'A' && map[currentY][currentX] <= 'Z') {
-      // portalTwos[map[currentY][currentX]] = { steps, x: currentX, y: currentY };
-      // return { steps: 1000000 };
+      console.log('warning! found a portal (or start point) with starting letter=', map[currentY][currentX]);
+      return { steps: 1000000 };
     }
     let rightResult = { steps: 1000000 }, leftResult = { steps: 1000000 },
         upResult = { steps: 1000000 }, downResult = { steps: 1000000 };
@@ -81,8 +133,6 @@ describe("2019 day 20", function() {
   const solve = (data = [['']]) => {
     console.log();
     init(data);
-    findStart();
-    findEnd();
     const shortestPath = traversePaths();
     return shortestPath.steps;
   }
