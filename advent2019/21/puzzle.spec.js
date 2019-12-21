@@ -116,10 +116,10 @@ describe("2019 day 21", function() {
       ],
     ];
     const actual = programs.map((program) => puzzle.execute(intCode, program));
-    // const expected = [
-    //   1,
-    // ];
-    // expect(actual).toEqual(expected);
+    const expected = [
+      19358262,
+    ];
+    expect(actual).toEqual(expected);
   });
   it("can parse input", () => {
     // const data = parse(

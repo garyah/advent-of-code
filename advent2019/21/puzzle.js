@@ -111,6 +111,7 @@ let isAggressive = false;
 let inputState = 0;
 let springScript = '';
 let inputIdx = 0;
+let hullDamage = -1;
 const getNumPainted = () => {
   return numPainted;
 };
@@ -127,6 +128,7 @@ const nextInput = () => {
 const nextOutput = (output = 0) => {
   // console.log('output=', String.fromCharCode(output));
   // console.log(String.fromCharCode(output));
+  if (output > 127) hullDamage = output;
   process.stdout.write(String.fromCharCode(output));
   numOutputs++;
   // area[currentX][currentY] = output;
@@ -158,6 +160,7 @@ const initState = () => {
   inputState = 0;
   springScript = '';
   inputIdx = 0;
+  hullDamage = -1;
 };
 const countAffected = () => {
   numPainted = 0;
@@ -203,7 +206,7 @@ const execute = (intCode = [], program = []) => {
   initState();
   springScript = program.join('');
   transform(intCode);
-  return 1;
+  return hullDamage;
 }
 const solve = (program = []) => {
   initState();
