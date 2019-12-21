@@ -51,13 +51,50 @@ describe("2019 day 21", function() {
       );
   });
   it("can solve puzzle", () => {
-    const data = [
-      [],
+    const intCode = puzzle.parse(lines);
+    const programs = [
+      // jump right in front of hole, just like 1st example
+      // always gets a 2-tile-wide hole, at the 6th position,
+      // and a 1-tile-wide hole, at the 9th position, for my input,
+      // and jumps into the 1-tile-wide hole
+      // [
+      //   'NOT A J\n',
+      //   'WALK\n',
+      // ],
+      // jump a 3-tile-wide hole (with ground on other side), just like 2nd example
+      // always gets a 1-tile-wide hole for my input, at the 6th position, and falls in
+      // [
+      //   'NOT A J\n',
+      //   'NOT B T\n',
+      //   'AND T J\n',
+      //   'NOT C T\n',
+      //   'AND T J\n',
+      //   'AND D J\n',
+      //   'WALK\n',
+      // ],
+      // jump 4 ahead of hole, which always jumps into the hole, just like 3rd example
+      // always gets a 1-tile-wide hole for my input, at the 6th position, and jumps into it
+      // [
+      //   'NOT D J\n',
+      //   'WALK\n',
+      // ],
+      // jump 2 ahead of hole, which could clear a 1-tile-wide or 2-tile-wide hole
+      // always gets a 3-tile-wide hole for my input, at the 6th position, and jumps into hole end
+      // [
+      //   'NOT B J\n',
+      //   'WALK\n',
+      // ],
+      // jump 3 ahead of hole, which could clear a 1-tile-wide hole
+      // always gets a 3-tile-wide hole for my input, at the 6th position, and jumps into hole middle
+      [
+        'NOT C J\n',
+        'WALK\n',
+      ],
     ];
-    const actual = data.map((data) => puzzle.solve(data));
-    const expected = [
-      1,
-    ];
+    const actual = programs.map((program) => puzzle.execute(intCode, program));
+    // const expected = [
+    //   1,
+    // ];
     // expect(actual).toEqual(expected);
   });
   it("can parse input", () => {
@@ -70,9 +107,9 @@ describe("2019 day 21", function() {
   });
   it("can solve puzzle with my input", () => {
     // const data = [0];
-    const data = puzzle.parse(lines);
-    const answer = puzzle.solve(data);
-    console.log("part 1 answer is " + answer);
+    // const data = puzzle.parse(lines);
+    // const answer = puzzle.solve(data);
+    // console.log("part 1 answer is " + answer);
     // expect(answer).toEqual(0);
   });
 

@@ -109,28 +109,36 @@ let wallsMinY = gridXSize / 2, wallsMaxY = 0;
 let wantToExit = false;
 let isAggressive = false;
 let inputState = 0;
+let springScript = '';
+let inputIdx = 0;
 const getNumPainted = () => {
   return numPainted;
 };
 const nextInput = () => {
+  // return -1;
   if (wantToExit) return -1;
-  if (inputState == 0) input = currentX;
-  else if (inputState == 1) input = currentY;
-  inputState = (inputState === 0) ? 1 : 0;
+  // if (inputState == 0) input = currentX;
+  // else if (inputState == 1) input = currentY;
+  // inputState = (inputState === 0) ? 1 : 0;
+  input = springScript.charCodeAt(inputIdx++);
+  process.stdout.write(String.fromCharCode(input));
   return input;
 };
 const nextOutput = (output = 0) => {
-  // console.log('output=', output);
+  // console.log('output=', String.fromCharCode(output));
+  // console.log(String.fromCharCode(output));
+  process.stdout.write(String.fromCharCode(output));
   numOutputs++;
-  area[currentX][currentY] = output;
-  currentX++;
-  if (currentX >= gridXSize) {
-    currentX = 0;
-    currentY++;
-    if (currentY >= gridXSize) { currentY = gridXSize-1; wantToExit = true; }
-  }
+  // area[currentX][currentY] = output;
+  // currentX++;
+  // if (currentX >= gridXSize) {
+  //   currentX = 0;
+  //   currentY++;
+  //   if (currentY >= gridXSize) { currentY = gridXSize-1; wantToExit = true; }
+  // }
 };
 const initState = () => {
+  console.log();
   for (let x = 0; x < gridXSize; x++) {
     area[x] = [];
     for (let y = 0; y < gridXSize; y++) {
@@ -148,6 +156,8 @@ const initState = () => {
   wantToExit = false;
   isAggressive = false;
   inputState = 0;
+  springScript = '';
+  inputIdx = 0;
 };
 const countAffected = () => {
   numPainted = 0;
@@ -189,6 +199,12 @@ const printArea = () => {
     console.log(line);
   }
 };
+const execute = (intCode = [], program = []) => {
+  initState();
+  springScript = program.join('');
+  transform(intCode);
+  return 1;
+}
 const solve = (program = []) => {
   initState();
   while (!wantToExit) transform(program);
@@ -213,4 +229,5 @@ const parse = (lines = ['']) => {
   return lines[0].split(',').map((value) => parseInt(value)).filter((num) => num === num);
 };
 module.exports = {setInput, getOutput, transform, solve, solve_p2, parse,
-  getNumPainted, nextInput, nextOutput, initState, countAffected, printArea};
+  getNumPainted, nextInput, nextOutput, initState, countAffected, printArea,
+  execute};
