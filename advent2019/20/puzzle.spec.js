@@ -105,7 +105,7 @@ describe("2019 day 20", function() {
     if (map[currentY][currentX] === '#' || map[currentY][currentX] === ' ') return { steps: 1000000 };
     if (map[currentY][currentX] >= 'A' && map[currentY][currentX] <= 'Z') {
       if ((previousX !== startX || previousY !== startY)
-          && (map[previousX][previousY] === '1' || map[previousX][previousY] === '2')) {
+          && map[previousY][previousX] !== '1' && map[previousY][previousX] !== '2') {
         console.log('warning! found a portal (or start point) with starting letter=', map[currentY][currentX]);
       }
       return { steps: 1000000 };
