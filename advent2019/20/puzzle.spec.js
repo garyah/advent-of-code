@@ -120,15 +120,6 @@ describe("2019 day 20", function() {
       }
       return { steps: 1000000 };
     }
-    if (map[currentY][currentX] === '1' || map[currentY][currentX] === '2') {
-      // landed on a portal, keep going this way, account for steps to warp and update position
-      console.log('landed on portal at x,y=', currentX, currentY, 'going to x,y=', portalMap[currentY][currentX]);
-      steps++;
-      previousX = currentX;
-      previousY = currentY;
-      currentX = portalMap[previousY][previousX].x;
-      currentY = portalMap[previousY][previousX].y;
-    }
     if (path.length === 1) {
       for (let y = 0; y < map.length; y++) {
         path[y] = [];
@@ -137,24 +128,39 @@ describe("2019 day 20", function() {
         }
       }
     }
+    path[currentY][currentX] = true;
+    if (map[currentY][currentX] === '1' || map[currentY][currentX] === '2') {
+      // landed on a portal, keep going this way, account for steps to warp and update position
+      console.log('landed on portal at x,y=', currentX, currentY, 'going to x,y=', portalMap[currentY][currentX]);
+      steps++;
+      previousX = currentX;
+      previousY = currentY;
+      currentX = portalMap[previousY][previousX].x;
+      currentY = portalMap[previousY][previousX].y;
+      path[currentY][currentX] = true;
+    }
     let traversedPath = false;
     let rightResult = { steps: 1000000 }, leftResult = { steps: 1000000 },
         upResult = { steps: 1000000 }, downResult = { steps: 1000000 };
-    if (currentX < map[currentY].length-1 && (currentX+1 !== previousX || currentY !== previousY)) {
+    if (currentX < map[currentY].length-1 && (currentX+1 !== previousX || currentY !== previousY)
+        && !path[currentY][currentX+1]) {
       rightResult = traversePaths(currentX, currentY, currentX+1, currentY, steps+1, path);
       traversedPath = true;
     }
-    if (currentX > 0 && (currentX-1 !== previousX || currentY !== previousY)) {
+    if (currentX > 0 && (currentX-1 !== previousX || currentY !== previousY)
+        && !path[currentY][currentX-1]) {
       leftResult = traversePaths(currentX, currentY, currentX-1, currentY, steps+1,
                                  traversedPath ? copyPath(path) : path);
       traversedPath = true;
     }
-    if (currentY > 0 && (currentX !== previousX || currentY-1 !== previousY)) {
+    if (currentY > 0 && (currentX !== previousX || currentY-1 !== previousY)
+        && !path[currentY-1][currentX]) {
       upResult = traversePaths(currentX, currentY, currentX, currentY-1, steps+1,
                                traversedPath ? copyPath(path) : path);
       traversedPath = true;
     }
-    if (currentY < map.length-1 && (currentX !== previousX || currentY+1 !== previousY)) {
+    if (currentY < map.length-1 && (currentX !== previousX || currentY+1 !== previousY)
+        && !path[currentY+1][currentX]) {
       downResult = traversePaths(currentX, currentY, currentX, currentY+1, steps+1,
                                  traversedPath ? copyPath(path) : path);
       traversedPath = true;
@@ -235,7 +241,8 @@ describe("2019 day 20", function() {
     const data = parse(lines);
     const answer = solve(data);
     console.log("part 1 answer is " + answer);
-    expect(answer).toEqual(26);
+    // expect(answer).toEqual(23);
+    expect(answer).toEqual(58);
   });
 
 
