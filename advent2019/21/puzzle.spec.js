@@ -86,8 +86,32 @@ describe("2019 day 21", function() {
       // ],
       // jump 3 ahead of hole, which could clear a 1-tile-wide hole
       // always gets a 3-tile-wide hole for my input, at the 6th position, and jumps into hole middle
+      // [
+      //   'NOT C J\n',
+      //   'WALK\n',
+      // ],
+      // try to be smart about when to walk or jump, by jumping or walking when only safe choice,
+      // and making a good decision otherwise, to prioritize jumping over walking
+      // always gets a 2-tile-wide hole, at the 6th position,
+      // and a 1-tile-wide hole, at the 9th position, for my input,
+      // and still jumps into the 1-tile-wide hole!  (because of long run of ground at start)
+      // [
+      //   'NOT A J\n',
+      //   'OR D J\n',
+      //   'WALK\n',
+      // ],
+      // try to be smart about when to walk or jump, by jumping or walking when only safe choice,
+      // and making a good decision otherwise, to prioritize jumping over walking, except if
+      // there is a clear run of ground
+      // gets the droid across the whole hull!
       [
-        'NOT C J\n',
+        'NOT B J\n',
+        'NOT C T\n',
+        'OR T J\n',
+        'AND A J\n',
+        'AND D J\n',
+        'NOT A T\n',
+        'OR T J\n',
         'WALK\n',
       ],
     ];
