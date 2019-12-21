@@ -92,9 +92,19 @@ describe("2019 day 20", function() {
       }
     }
   };
+  const copyPath = (path = [[false]]) => {
+    let newPath = [[false]];
+    for (let y = 0; y < path.length; y++) {
+      newPath[y] = [];
+      for (let x = 0; x < path[y].length; x++) {
+        newPath[y][x] = path[y][x];
+      }
+    }
+    return newPath;
+  };
   const traversePaths = (previousX = -1, previousY = -1,
                          currentX = -1, currentY = -1,
-                         steps = 0) => {
+                         steps = 0, path = [[false]]) => {
     // console.log('previousX=', previousX, 'previousY=', previousY, 'currentX=', currentX, 'currentY=', currentY, 'steps=', steps);
     if (previousX === -1 && previousY === -1) { previousX = startX; previousY = startY; }
     if (currentX === -1 && currentY === -1) { currentX = startX; currentY = startY; }
@@ -119,16 +129,36 @@ describe("2019 day 20", function() {
       currentX = portalMap[previousY][previousX].x;
       currentY = portalMap[previousY][previousX].y;
     }
+    if (path.length === 1) {
+      for (let y = 0; y < map.length; y++) {
+        path[y] = [];
+        for (let x = 0; x < map[y].length; x++) {
+          path[y][x] = false;
+        }
+      }
+    }
+    let traversedPath = false;
     let rightResult = { steps: 1000000 }, leftResult = { steps: 1000000 },
         upResult = { steps: 1000000 }, downResult = { steps: 1000000 };
-    if (currentX < map[currentY].length-1 && (currentX+1 !== previousX || currentY !== previousY))
-      rightResult = traversePaths(currentX, currentY, currentX+1, currentY, steps+1);
-    if (currentX > 0 && (currentX-1 !== previousX || currentY !== previousY))
-      leftResult = traversePaths(currentX, currentY, currentX-1, currentY, steps+1);
-    if (currentY > 0 && (currentX !== previousX || currentY-1 !== previousY))
-      upResult = traversePaths(currentX, currentY, currentX, currentY-1, steps+1);
-    if (currentY < map.length-1 && (currentX !== previousX || currentY+1 !== previousY))
-      downResult = traversePaths(currentX, currentY, currentX, currentY+1, steps+1);
+    if (currentX < map[currentY].length-1 && (currentX+1 !== previousX || currentY !== previousY)) {
+      rightResult = traversePaths(currentX, currentY, currentX+1, currentY, steps+1, path);
+      traversedPath = true;
+    }
+    if (currentX > 0 && (currentX-1 !== previousX || currentY !== previousY)) {
+      leftResult = traversePaths(currentX, currentY, currentX-1, currentY, steps+1,
+                                 traversedPath ? copyPath(path) : path);
+      traversedPath = true;
+    }
+    if (currentY > 0 && (currentX !== previousX || currentY-1 !== previousY)) {
+      upResult = traversePaths(currentX, currentY, currentX, currentY-1, steps+1,
+                               traversedPath ? copyPath(path) : path);
+      traversedPath = true;
+    }
+    if (currentY < map.length-1 && (currentX !== previousX || currentY+1 !== previousY)) {
+      downResult = traversePaths(currentX, currentY, currentX, currentY+1, steps+1,
+                                 traversedPath ? copyPath(path) : path);
+      traversedPath = true;
+    }
     const minSteps = Math.min(rightResult.steps, leftResult.steps, upResult.steps, downResult.steps);
     let result = {};
     if (minSteps === rightResult.steps) result = rightResult;
