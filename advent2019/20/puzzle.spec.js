@@ -61,15 +61,20 @@ describe("2019 day 20", function() {
             name = map[y][x] + map[y][x+1];
             if (name === 'AA' || name === 'ZZ') continue;
             if (x+2 < map[y].length && map[y][x+2] === '.') portalX += 2;
-            else if (x-1 > 0 && map[y][x-1] === '.') portalX -= 1;
+            else if (x-1 >= 0 && map[y][x-1] === '.') portalX -= 1;
           }
           else if (y+1 < map.length && map[y+1][x] >= 'A' && map[y+1][x] <= 'Z') { // look down
             name = map[y][x] + map[y+1][x];
             if (name === 'AA' || name === 'ZZ') continue;
             if (y+2 < map.length && map[y+2][x] === '.') portalY += 2;
-            else if (y-1 > 0 && map[y-1][x] === '.') portalY -= 1;
+            else if (y-1 >= 0 && map[y-1][x] === '.') portalY -= 1;
           }
           else { // should always find a two-letter label, but just in case...
+            if (x-1 < 0 && y-1 < 0
+                || y-1 < 0 && x-1 >= 0 && (map[y][x-1] < 'A' || map[y][x-1] > 'Z')
+                || x-1 < 0 && y-1 >= 0 && (map[y-1][x] < 'A' || map[y-1][x] > 'Z')
+                || (map[y][x-1] < 'A' || map[y][x-1] > 'Z') && (map[y-1][x] < 'A' || map[y-1][x] > 'Z'))
+            console.log('found stray upper case letter=', map[y][x], ' not labeling a portal!');
             continue;
           }
           if (portalsSeen[name] != null) { // saw portal before
@@ -90,7 +95,7 @@ describe("2019 day 20", function() {
   const traversePaths = (previousX = -1, previousY = -1,
                          currentX = -1, currentY = -1,
                          steps = 0) => {
-    console.log('previousX=', previousX, 'previousY=', previousY, 'currentX=', currentX, 'currentY=', currentY, 'steps=', steps);
+    // console.log('previousX=', previousX, 'previousY=', previousY, 'currentX=', currentX, 'currentY=', currentY, 'steps=', steps);
     if (previousX === -1 && previousY === -1) { previousX = startX; previousY = startY; }
     if (currentX === -1 && currentY === -1) { currentX = startX; currentY = startY; }
     if (currentX === endX && currentY === endY) { 
@@ -98,18 +103,21 @@ describe("2019 day 20", function() {
       return { steps, x: currentX, y: currentY };
     }
     if (map[currentY][currentX] === '#' || map[currentY][currentX] === ' ') return { steps: 1000000 };
-    if (map[currentY][currentX] === '1' && map[currentY][currentX] === '2') {
+    if (map[currentY][currentX] >= 'A' && map[currentY][currentX] <= 'Z') {
+      if ((previousX !== startX || previousY !== startY)
+          && (map[previousX][previousY] === '1' || map[previousX][previousY] === '2')) {
+        console.log('warning! found a portal (or start point) with starting letter=', map[currentY][currentX]);
+      }
+      return { steps: 1000000 };
+    }
+    if (map[currentY][currentX] === '1' || map[currentY][currentX] === '2') {
       // landed on a portal, keep going this way, account for steps to warp and update position
       console.log('landed on portal at x,y=', currentX, currentY, 'going to x,y=', portalMap[currentY][currentX]);
       steps++;
       previousX = currentX;
       previousY = currentY;
-      currentX = portalMap[currentY][currentX].x;
-      currentY = portalMap[currentY][currentX].y;
-    }
-    if (map[currentY][currentX] >= 'A' && map[currentY][currentX] <= 'Z') {
-      console.log('warning! found a portal (or start point) with starting letter=', map[currentY][currentX]);
-      return { steps: 1000000 };
+      currentX = portalMap[previousY][previousX].x;
+      currentY = portalMap[previousY][previousX].y;
     }
     let rightResult = { steps: 1000000 }, leftResult = { steps: 1000000 },
         upResult = { steps: 1000000 }, downResult = { steps: 1000000 };
@@ -127,7 +135,7 @@ describe("2019 day 20", function() {
     if (minSteps === leftResult.steps) result = leftResult;
     if (minSteps === upResult.steps) result = upResult;
     if (minSteps === downResult.steps) result = downResult;
-    console.log('returning result=', result);
+    // console.log('returning result=', result);
     return result;
   };
   const solve = (data = [['']]) => {
