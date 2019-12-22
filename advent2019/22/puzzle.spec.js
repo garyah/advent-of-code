@@ -2,6 +2,8 @@ describe("2019 day 22", function() {
   // new code
   let var1 = 0;
   let var2 = '';
+  let deck = [0];
+  const deckSize = 10007;
   const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
     if (1) {}
     else if (1) {}
@@ -13,22 +15,62 @@ describe("2019 day 22", function() {
   const fn2 = () => {
     return '';
   };
-  const solve = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
+  const init = () => {
+    for (let i = 0; i < deckSize; i++) {
+      deck[i] = i;
+    }
+  };
+  const dealIntoNew = () => {
+    deck = deck.reverse();
+  };
+  const cutBottom = (amount = 0) => {
+    let newDeck = [0];
+    for (let i = deckSize - amount; i < deckSize; i++) {
+      newDeck[i - (deckSize - amount)] = deck[i];
+    }
+    for (let i = 0; i < deckSize - amount; i++) {
+      newDeck[amount + i] = deck[i];
+    }
+    deck = newDeck;
+  };
+  const cut = (amount = 0) => {
+    if (amount < 0) { cutBottom(Math.abs(amount)); return; }
+    let newDeck = [0];
+    for (let i = amount; i < deckSize; i++) {
+      newDeck[i - amount] = deck[i];
+    }
+    for (let i = 0; i < amount; i++) {
+      newDeck[deckSize - amount + i] = deck[i];
+    }
+    deck = newDeck;
+  };
+  const dealWithIncrement = (amount = 0) => {
+    let newDeck = [deck[0]];
+    let j = amount;
+    for (let i = 1; i < deckSize; i++) {
+      newDeck[j] = deck[i];
+      j += amount;
+      j %= deckSize;
+    }
+    deck = newDeck;
+  };
+  const solve = (data = [{}]) => {
+    init();
+    for (const action of data) {
+      if (action.type === 'deal') dealIntoNew();
+      else if (action.type === 'cut') cut(action.amount);
+      else if (action.type === 'deali') dealWithIncrement(action.amount);
+    }
+    return deck.indexOf(2019);
   }
   const parse = (lines = ['']) => {
-    // return lines[0]; // use for one line string input
-    // return lines;    // use for multi-line string input
     return lines.map((line) => {
       if (line.startsWith('deal into new stack')) {
-        return {action: 'deal'};
+        return {type: 'deal'};
       } else if (line.startsWith('cut ')) {
-        return {action: 'cut', amount: parseInt(line.substr(4))};
+        return {type: 'cut', amount: parseInt(line.substr(4))};
       } else if (line.startsWith('deal with increment ')) {
-        return {action: 'deali', amount: parseInt(line.substr(20))};
+        return {type: 'deali', amount: parseInt(line.substr(20))};
       }
     });
   };
@@ -76,15 +118,14 @@ describe("2019 day 22", function() {
       'deal with increment 29',
     ]);
     expect(data).toEqual([
-      {action: 'deal'}, {action: 'cut', amount: 7990},
-      {action: 'cut', amount: -5698}, {action: 'deali', amount: 29},
+      {type: 'deal'}, {type: 'cut', amount: 7990},
+      {type: 'cut', amount: -5698}, {type: 'deali', amount: 29},
     ]);
   });
   it("can solve puzzle with my input", () => {
-    // const data = [0];
     const data = parse(lines);
-    // const answer = solve(data);
-    // console.log("part 1 answer is " + answer);
+    const answer = solve(data);
+    console.log("part 1 answer is " + answer);
     // expect(answer).toEqual(0);
   });
 
