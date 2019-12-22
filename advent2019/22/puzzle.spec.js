@@ -126,7 +126,7 @@ describe("2019 day 22", function() {
     const data = parse(lines);
     const answer = solve(data);
     console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(0);
+    expect(answer).toEqual(6794);
   });
 
 
