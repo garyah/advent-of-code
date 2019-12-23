@@ -22,7 +22,7 @@ const transform = () => {
   for (ip = programs[cpuIndex].startIp; ip < program.length; ) {
     if (program[ip] === 99) {
       programs[cpuIndex].startIp = -1;
-      return output;
+      return programs[cpuIndex].startIp;
     }
     let step = 4;
     const mode_p1 = Math.floor(program[ip] / 100) % 10;
@@ -45,7 +45,7 @@ const transform = () => {
       step = 2;
       programs[cpuIndex].startIp = ip + 2;
       if (input === -1) return programs[cpuIndex].startIp;
-      if (input === -100) return programs[cpuIndex].startIp;
+      if (input === -100) { programs[cpuIndex].startIp = -1; return programs[cpuIndex].startIp; }
       if (mode_p1 == 2) { program[programs[cpuIndex].relativeBase + program[ip+1]] = input; } else { program[program[ip+1]] = input; }
     } else if (opcode === 4) { // output
       // console.log(program);
@@ -87,7 +87,7 @@ const transform = () => {
     ip += step;
   }
   // console.log('transformed program: ' + program);
-  programs[cpuIndex].startIp = ip;
+  programs[cpuIndex].startIp = -1;
   return programs[cpuIndex].startIp;
 };
 
@@ -181,7 +181,7 @@ const printArea = () => {
   }
 };
 const execute = (program = []) => {
-  // input = 0; // initially give address network for first computer
+  // load programs
   for (cpuIndex = 0; cpuIndex < numCpus; cpuIndex++) {
     programs[cpuIndex] = {memory: [], startIp: 0, inputState: 0, relativeBase: 0, input: cpuIndex};
     programs[cpuIndex].memory = program.map((value) => {
@@ -191,10 +191,16 @@ const execute = (program = []) => {
     for (let n = 0; n < 1000; n++) programs[cpuIndex].memory.push(0);
     // console.log('cpuIndex = ', cpuIndex, 'programs.length = ', programs.length);
     // printProgram(programs[cpuIndex].memory, programs[cpuIndex].startIp, programs[cpuIndex].input);
-    // console.log('cpuIndex = ', cpuIndex, 'input=', input);
-    transform();
+  }
+  // run programs endlessly (or until some exit condition is reached)
+  for (cpuIndex = 0; cpuIndex < numCpus; ) {
+    if (wantToExit) break;
+    // printProgram(programs[cpuIndex].memory, programs[cpuIndex].startIp, programs[cpuIndex].input);
+    // console.log('cpuIndex = ', cpuIndex, 'input=', programs[cpuIndex].input);
+    if (transform() === -1) break;
     // console.log('cpuIndex = ', cpuIndex, 'output=', output);
-    // input = output;
+    cpuIndex++;
+    cpuIndex %= numCpus;
   }
 }
 const solve = (program = []) => {
