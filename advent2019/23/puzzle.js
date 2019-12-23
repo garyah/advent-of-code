@@ -5,6 +5,7 @@ let output = -1;
 let phases = [-1, -1, -1, -1, -1];
 let programs = [{memory: [0], startIp: 0, isResumed: false, relativeBase: 0}];
 let ampIndex = 0;
+let inputState = 0;
 // console.log('puzzle object reaches here, input, output: ', input, output);
 const setInput = (value = 0) => {
   input = value;
@@ -46,7 +47,7 @@ const transform = (inputProgram = []) => {
       if (mode_p3 == 2) { program[programs[ampIndex].relativeBase + program[ip+3]] = result; } else { program[program[ip+3]] = result; }
     } else if (opcode === 3) { // input
       input = nextInput();
-      if (input === -1) return output;
+      if (input === -100) return output;
       if (mode_p1 == 2) { program[programs[ampIndex].relativeBase + program[ip+1]] = input; } else { program[program[ip+1]] = input; }
       // programs[ampIndex].isResumed = true;
       step = 2;
@@ -112,84 +113,22 @@ const getNumPainted = () => {
   return numPainted;
 };
 const nextInput = () => {
-  if (wantToExit) return -1;
+  if (wantToExit) return -100;
+  if (inputState === 1) input = -1;
+  inputState = (inputState === 0) ? 1 : 0;
+
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < 2 * 1000);
+  console.log("request for input, returning", input);
+
   return input;
 };
 const nextOutput = (output = 0) => {
-  // console.log('output=', output);
+  console.log('output=', output);
   numOutputs++;
-  const previousX = currentX, previousY = currentY;
-  if (input === 1) currentY--; // go north
-  else if (input === 2) currentY++; // go south
-  else if (input === 3) currentX--; // go west
-  else if (input === 4) currentX++; // go east
-  if (currentX < 0) currentX = 0;
-  if (currentY < 0) currentY = 0;
-  if (currentX >= gridXSize) currentX = gridXSize - 1;
-  if (currentY >= gridXSize) currentY = gridXSize - 1;
-  if (output === 2) {
-    // oxygen system found!
-    area[currentX][currentY] = 4; // mark goal
-    printArea();
-    console.log('found oxygen!');
-    if (!isAggressive) {
-      wantToExit = 1;
-      return;
-    }
-  }
-  if (output === 0) {
-    // hit wall
-    if (area[currentX][currentY] === 2) {
-      printArea();
-      console.log('hit same wall again!');
-      if (!isAggressive) {
-        wantToExit = 1;
-        return;
-      }
-    }
-    area[currentX][currentY] = 2; // mark wall
-    currentX = previousX;
-    currentY = previousY;
-    // if (input === 1) input = 2; // go south
-    // else if (input === 2) input = 1; // go north
-    // else if (input === 3) input = 4; // go east
-    // else if (input === 4) input = 3; // go west
-  }
-  if (output === 1) {
-    // open space
-    // if (area[currentX][currentY] === -1 // unexplored
-    //   || area[currentX][currentY] === 3) { // open space (already explored)
-    // }
-    if (area[currentX][currentY] === 2) console.log('saw wall as open space!'); // wall
-    else if (area[currentX][currentY] === 4) console.log('saw goal as open space!'); // goal: oxygen
-    if (area[currentX][currentY] === 3) {
-      area[currentX][currentY] = 5; // mark open space (already explored 2 or more times)
-    } else {
-      area[currentX][currentY] = 3; // mark open space (already explored)
-    }
-  }
-  {
-    // prioritize unexplored over already explored for next move
-    if (currentY > 0 && (currentX !== previousX || currentY-1 !== previousY) && area[currentX][currentY-1] === -1) input = 1; // go north
-    else if (currentX < gridXSize && (currentX+1 !== previousX || currentY !== previousY) && area[currentX+1][currentY] === -1) input = 4; // go east
-    else if (currentY < gridXSize && (currentX !== previousX || currentY+1 !== previousY) && area[currentX][currentY+1] === -1) input = 2; // go south
-    else if (currentX > 0 && (currentX-1 !== previousX || currentY !== previousY) && area[currentX-1][currentY] === -1) input = 3; // go west
-
-    else if (currentY > 0 && (currentX !== previousX || currentY-1 !== previousY) && area[currentX][currentY-1] === 3) input = 1; // go north
-    else if (currentX < gridXSize && (currentX+1 !== previousX || currentY !== previousY) && area[currentX+1][currentY] === 3) input = 4; // go east
-    else if (currentY < gridXSize && (currentX !== previousX || currentY+1 !== previousY) && area[currentX][currentY+1] === 3) input = 2; // go south
-    else if (currentX > 0 && (currentX-1 !== previousX || currentY !== previousY) && area[currentX-1][currentY] === 3) input = 3; // go west
-
-    else { // backtrack to where just came from, when nothing else is free
-      // console.log('no where to go! last input=', input, 'output=', output);
-      // wantToExit = 1;
-      // printArea();
-      if (input === 1) input = 2; // go south
-      else if (input === 2) input = 1; // go north
-      else if (input === 3) input = 4; // go east
-      else if (input === 4) input = 3; // go west
-    }
-  }
 };
 const initState = () => {
   for (let x = 0; x < gridXSize; x++) {
@@ -208,6 +147,7 @@ const initState = () => {
   wallsMinY = gridXSize / 2, wallsMaxY = 0;
   wantToExit = false;
   isAggressive = false;
+  inputState = 0;
 };
 const countPainted = () => {
   numPainted = 0;
@@ -250,8 +190,9 @@ const printArea = () => {
   }
 };
 const solve = (program = []) => {
+  console.log();
   initState();
-  input = 1; // initially go north
+  input = 0; // initially give address network for first computer
   area[currentX][currentY] = 3;
   transform(program);
   // return numBlockTiles;
@@ -274,4 +215,4 @@ const parse = (lines = ['']) => {
   return lines[0].split(',').map((value) => parseInt(value)).filter((num) => num === num);
 };
 module.exports = {setInput, getOutput, transform, solve, solve_p2, parse,
-  getNumPainted, nextInput, nextOutput, initState, countPainted, printPanels: printArea};
+  getNumPainted, nextInput, nextOutput, initState, countPainted, printArea};
