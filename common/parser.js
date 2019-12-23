@@ -2,14 +2,17 @@ function Parser() {
 }
 Parser.prototype.readLines = (path = '', done) => {
   const fs = require('fs');
+  // console.log('path is ', path ? 'truthy' : 'falsey');
   const readStream = path ? fs.createReadStream(path, 'utf8') : process.stdin;
   let input;
   readStream.on('data', (data) => {
     input = input ? input + data : data;
+    // console.log('input=', input);
   });
   let lines;
   readStream.on('end', () => {
     lines = input ? input.toString().split(/\r?\n/) : [];
+    // console.log('lines=', lines);
     done(lines);
   });
 };
