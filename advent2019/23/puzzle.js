@@ -42,18 +42,17 @@ const transform = () => {
     } else if (opcode === 3) { // input
       nextInput();
       const input = programs[cpuIndex].input;
-      if (input === -100) return output;
-      if (mode_p1 == 2) { program[programs[cpuIndex].relativeBase + program[ip+1]] = input; } else { program[program[ip+1]] = input; }
       step = 2;
+      programs[cpuIndex].startIp = ip + 2;
+      if (input === -1) return programs[cpuIndex].startIp;
+      if (input === -100) return programs[cpuIndex].startIp;
+      if (mode_p1 == 2) { program[programs[cpuIndex].relativeBase + program[ip+1]] = input; } else { program[program[ip+1]] = input; }
     } else if (opcode === 4) { // output
       // console.log(program);
-      // console.log('output before mod: ', output);
-      output = ((mode_p1 == 2) ? program[programs[cpuIndex].relativeBase + program[ip+1]] : (mode_p1 == 1) ? program[ip+1] : program[program[ip+1]]);
+      const output = ((mode_p1 == 2) ? program[programs[cpuIndex].relativeBase + program[ip+1]] : (mode_p1 == 1) ? program[ip+1] : program[program[ip+1]]);
       // console.log('output after mod: ', output);
       nextOutput(output);
-      // programs[cpuIndex].startIp = ip + 2;
       step = 2;
-      // return programs[cpuIndex].startIp;
     } else if (opcode === 5) { // jump-if-true
       step = 3;
       if (((mode_p1 == 2) ? program[programs[cpuIndex].relativeBase + program[ip+1]] : (mode_p1 == 1) ? program[ip+1] : program[program[ip+1]]) !== 0) {
@@ -115,7 +114,7 @@ const nextInput = () => {
   let currentDate = null;
   do {
     currentDate = Date.now();
-  } while (currentDate - date < 2 * 1000);
+  } while (currentDate - date < 1 * 1000 / 5);
   console.log("request for input=", programs[cpuIndex].input, 'cpu=', cpuIndex);
 };
 const nextOutput = (output = 0) => {
