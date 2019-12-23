@@ -3,7 +3,7 @@ describe("2019 day 22", function() {
   let var1 = 0;
   let var2 = '';
   let deck = [0];
-  const deckSize = 10007;
+  let deckSize = 10007;
   const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
     if (1) {}
     else if (1) {}
@@ -48,6 +48,9 @@ describe("2019 day 22", function() {
     let newDeck = [deck[0]];
     let j = amount;
     for (let i = 1; i < deckSize; i++) {
+      if (newDeck[j] !== undefined) {
+        // console.log('card number ', newDeck[j], 'about to be replaced with card number', deck[i]);
+      }
       newDeck[j] = deck[i];
       j += amount;
       j %= deckSize;
@@ -55,6 +58,7 @@ describe("2019 day 22", function() {
     deck = newDeck;
   };
   const solve = (data = [{}]) => {
+    deckSize = 10007;
     init();
     for (const action of data) {
       if (action.type === 'deal') dealIntoNew();
@@ -62,6 +66,22 @@ describe("2019 day 22", function() {
       else if (action.type === 'deali') dealWithIncrement(action.amount);
     }
     return deck.indexOf(2019);
+  }
+  const solve_p2 = (data = [{}]) => {
+    console.log();
+    // deckSize = 9883;
+    for (deckSize = 9007; deckSize <= 10007; deckSize++) {
+      init();
+      for (let n = 0; n < 1; n++) {
+        for (const action of data) {
+          if (action.type === 'deal') dealIntoNew();
+          else if (action.type === 'cut') cut(action.amount);
+          else if (action.type === 'deali') dealWithIncrement(action.amount);
+        }
+      }
+      if (deck[2020] !== undefined) console.log('deckSize=', deckSize, 'answer=', deck[2020]);
+    }
+    return deck[2020];
   }
   const parse = (lines = ['']) => {
     return lines.map((line) => {
@@ -91,14 +111,14 @@ describe("2019 day 22", function() {
 
   // new tests
   it('fn1() returns number 0', () => {
-    expect(fn1()).toEqual(
-      0
-      );
+    // expect(fn1()).toEqual(
+    //   0
+    //   );
   });
   it('fn2() returns empty string', () => {
-    expect(fn2()).toEqual(
-      ''
-      );
+    // expect(fn2()).toEqual(
+    //   ''
+    //   );
   });
   it("can solve puzzle", () => {
     const data = [
@@ -125,8 +145,14 @@ describe("2019 day 22", function() {
   it("can solve puzzle with my input", () => {
     const data = parse(lines);
     const answer = solve(data);
-    console.log("part 1 answer is " + answer);
-    expect(answer).toEqual(6794);
+    // console.log("part 1 answer is " + answer);
+    // expect(answer).toEqual(6794);
+  });
+  it("can solve puzzle part 2 with my input", () => {
+    const data = parse(lines);
+    const answer = solve_p2(data);
+    // console.log("part 2 answer is " + answer);
+    // expect(answer).toEqual(0);
   });
 
 
