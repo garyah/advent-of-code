@@ -3,8 +3,7 @@
   "spec_files": [
     "!*[sS]pec.js",
     "!spec/**/*[sS]pec.js",
-    "advent*/**/*[sS]pec.js",
-    "advent2019/06/*[sS]pec.js",
+    "!advent*/**/*[sS]pec.js",
     "!common/*[sS]pec.js"
   ],
   "helpers": [
