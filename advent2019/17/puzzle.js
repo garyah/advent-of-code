@@ -104,7 +104,8 @@ let currentY = 0;
 let width = 0, height = 0;
 let numOutputs = 0;
 let numPainted = 0;
-let numPaintedWalls = 0;
+let numIntersections = 0;
+let sumAlignmentParams = 0;
 let wallsMinX = gridXSize / 2, wallsMaxX = 0;
 let wallsMinY = gridXSize / 2, wallsMaxY = 0;
 let wantToExit = false;
@@ -139,32 +140,30 @@ const initState = () => {
   width = 0, height = 0;
   numOutputs = 0;
   numPainted = 0;
-  numPaintedWalls = 0;
+  numIntersections = 0;
+  sumAlignmentParams = 0;
   wallsMinX = gridXSize / 2, wallsMaxX = 0;
   wallsMinY = gridXSize / 2, wallsMaxY = 0;
   wantToExit = false;
   isAggressive = false;
 };
-const countPainted = () => {
-  numPainted = 0;
-  numPaintedWalls = 0;
-  wallsMinX = gridXSize / 2, wallsMaxX = 0;
-  wallsMinY = gridXSize / 2, wallsMaxY = 0;
-  for (let x = 0; x < gridXSize; x++) {
-    for (let y = 0; y < gridXSize; y++) {
-      if (area[x][y] !== -1) numPainted++;
-      if (area[x][y] === 2) {
-        numPaintedWalls++;
-        if (x < wallsMinX) wallsMinX = x;
-        if (x > wallsMaxX) wallsMaxX = x;
-        if (y < wallsMinY) wallsMinY = y;
-        if (y > wallsMaxY) wallsMaxY = y;
+const countIntersections = () => {
+  numIntersections = 0;
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      if (area[x][y] === 35) {
+        if (x+1 < width && x-1 >= 0 && y+1 < height && y-1 >= 0
+            && area[x+1][y] === 35 && area[x-1][y] === 35
+            && area[x][y+1] === 35 && area[x][y-1] === 35) {
+          numIntersections++;
+          sumAlignmentParams += x*y;
+        }
       }
     }
   }
 };
 const printArea = () => {
-  countPainted();
+  countIntersections();
   wallsMinY = 0;
   wallsMaxY = gridXSize - 1;
   wallsMinX = 0;
@@ -189,8 +188,10 @@ const solve = (program = []) => {
   console.log();
   initState();
   transform(program);
-  console.log('numOutputs=', numOutputs)
-  // return numBlockTiles;
+  countIntersections();
+  console.log('numOutputs=', numOutputs, 'countIntersections=', numIntersections);
+  console.log('sumAlignmentParams=', sumAlignmentParams);
+  return sumAlignmentParams;
 }
 const printProgram = (programMemory = [], startIp = 0) => {
   let programString = '[' +  programMemory.join(',') + ']';
@@ -210,4 +211,4 @@ const parse = (lines = ['']) => {
   return lines[0].split(',').map((value) => parseInt(value)).filter((num) => num === num);
 };
 module.exports = {setInput, getOutput, transform, solve, solve_p2, parse,
-  getNumPainted, nextInput, nextOutput, initState, countPainted, printPanels: printArea};
+  getNumPainted, nextInput, nextOutput, initState, countIntersections, printArea};
