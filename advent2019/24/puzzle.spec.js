@@ -1,7 +1,11 @@
 describe("2019 day 24", function() {
   // new code
+  const size = 5;
   let var1 = 0;
   let var2 = '';
+  let scan = [[false]];
+  let seenLayouts = [false];
+  let bioRating = -1;
   const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
     if (1) {}
     else if (1) {}
@@ -13,11 +17,26 @@ describe("2019 day 24", function() {
   const fn2 = () => {
     return '';
   };
-  const solve = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
+  const init = (data = [[false]]) => {
+    scan = data;
+    seenLayouts = [];
+    bioRating = -1;
+  };
+  const addScanToLayout = () => {
+    let layout = 0;
+    let bit = 1;
+    for (let row = 0; row < size; row++) {
+      for (let col = 0; col < size; col++) {
+        layout |= scan[row][col] ? bit : 0;
+        bit <<= 1;
+      }
+    }
+    seenLayouts[layout] = true;
+  };
+  const solve = (data = [[false]]) => {
+    init(data);
+    addScanToLayout();
+    return 0;
   }
   const parse = (lines = ['']) => {
     return lines.map((line) => line.split('').map((symbol) => (symbol === '#' ? true : false)));
@@ -50,9 +69,15 @@ describe("2019 day 24", function() {
   });
   it("can solve puzzle", () => {
     const data = [
-      [],
+      [
+        '....#',
+        '#..#.',
+        '#..##',
+        '..#..',
+        '#....',
+      ],
     ];
-    // const actual = data.map((data) => solve(data));
+    const actual = data.map((data) => solve(parse(data)));
     const expected = [
       1,
     ];
