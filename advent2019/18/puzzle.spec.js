@@ -65,8 +65,6 @@ describe("2019 day 18", function() {
     return 8;
   }
   const parse = (lines = ['']) => {
-    // return lines[0]; // use for one line string input
-    // return lines;    // use for multi-line string input
     return lines.map((line) => line.split(''));
   };
 
@@ -102,10 +100,18 @@ describe("2019 day 18", function() {
         '#b.A.@.a#',
         '#########',
       ],
+      [
+        '########################',
+        '#f.D.E.e.C.b.A.@.a.B.c.#',
+        '######################.#',
+        '#d.....................#',
+        '########################',
+      ],
     ];
     const actual = data.map((data) => solve(parse(data)));
     const expected = [
       8,
+      86,
     ];
     expect(actual).toEqual(expected);
   });
