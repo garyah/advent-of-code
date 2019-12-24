@@ -1,10 +1,10 @@
 {
   "spec_dir": ".",
   "spec_files": [
-    "!*[sS]pec.js",
-    "!spec/**/*[sS]pec.js",
+    "*[sS]pec.js",
+    "spec/**/*[sS]pec.js",
     "!advent*/**/*[sS]pec.js",
-    "!common/*[sS]pec.js"
+    "common/*[sS]pec.js"
   ],
   "helpers": [
     "spec/helpers/**/*.js"
