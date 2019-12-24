@@ -20,9 +20,7 @@ describe("2019 day 24", function() {
     }, 0);
   }
   const parse = (lines = ['']) => {
-    // return lines[0]; // use for one line string input
-    // return lines;    // use for multi-line string input
-    return lines.map((line) => parseInt(line)).filter((num) => num === num);
+    return lines.map((line) => line.split('').map((symbol) => (symbol === '#' ? true : false)));
   };
 
 
@@ -54,7 +52,7 @@ describe("2019 day 24", function() {
     const data = [
       [],
     ];
-    const actual = data.map((data) => solve(data));
+    // const actual = data.map((data) => solve(data));
     const expected = [
       1,
     ];
@@ -62,17 +60,20 @@ describe("2019 day 24", function() {
   });
   it("can parse input", () => {
     const data = parse(
-      '+1 +3 +2'
+      '##.#. #...# .##..'
       .split(
         ' '
         ));
-    expect(data).toEqual([1, 3, 2]);
+    expect(data).toEqual([
+      [true, true, false, true, false],
+      [true, false, false, false, true],
+      [false, true, true, false, false],
+    ]);
   });
   it("can solve puzzle with my input", () => {
-    // const data = [0];
     const data = parse(lines);
-    const answer = solve(data);
-    console.log("part 1 answer is " + answer);
+    // const answer = solve(data);
+    // console.log("part 1 answer is " + answer);
     // expect(answer).toEqual(0);
   });
 
