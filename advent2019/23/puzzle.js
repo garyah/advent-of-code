@@ -4,7 +4,11 @@ const numCpus = 50;
 // let input = -1;
 let output = -1;
 let phases = [-1, -1, -1, -1, -1];
-let programs = [{memory: [0], startIp: 0, inputState: 0, relativeBase: 0, input: -1}];
+let programs = [{
+  memory: [0], startIp: 0, relativeBase: 0,
+  inputState: 0, input: -1, inputQueue: [0],
+  outputState: 0, outputAddress: -1, outputX: -1, outputY: -1,
+}];
 let cpuIndex = 0;
 // let inputState = 0;
 // console.log('puzzle object reaches here, input, output: ', input, output);
@@ -44,9 +48,9 @@ const transform = () => {
       const input = programs[cpuIndex].input;
       step = 2;
       programs[cpuIndex].startIp = ip + 2;
-      if (input === -1) return programs[cpuIndex].startIp;
       if (input === -100) { programs[cpuIndex].startIp = -1; return programs[cpuIndex].startIp; }
       if (mode_p1 == 2) { program[programs[cpuIndex].relativeBase + program[ip+1]] = input; } else { program[program[ip+1]] = input; }
+      if (input === -1) return programs[cpuIndex].startIp;
     } else if (opcode === 4) { // output
       // console.log(program);
       const output = ((mode_p1 == 2) ? program[programs[cpuIndex].relativeBase + program[ip+1]] : (mode_p1 == 1) ? program[ip+1] : program[program[ip+1]]);
@@ -107,19 +111,35 @@ const getNumPainted = () => {
 };
 const nextInput = () => {
   if (wantToExit) return -100;
-  if (programs[cpuIndex].inputState === 1) programs[cpuIndex].input = -1;
+  if (programs[cpuIndex].inputState === 1) {
+    programs[cpuIndex].input = -1;
+    if (programs[cpuIndex].inputQueue.length > 0) {
+      programs[cpuIndex].input = programs[cpuIndex].inputQueue.shift();
+      console.log("received input=", programs[cpuIndex].input, 'cpu=', cpuIndex);
+    }
+  }
   programs[cpuIndex].inputState = 1;
 
   const date = Date.now();
   let currentDate = null;
   do {
     currentDate = Date.now();
-  } while (currentDate - date < 1 * 1000 / 5);
-  console.log("request for input=", programs[cpuIndex].input, 'cpu=', cpuIndex);
+  } while (currentDate - date < 1 * 1000 / 1000);
+  // console.log("request for input=", programs[cpuIndex].input, 'cpu=', cpuIndex);
 };
 const nextOutput = (output = 0) => {
-  console.log('output=', output, 'cpu=', cpuIndex);
+  // console.log('output=', output, 'cpu=', cpuIndex);
   numOutputs++;
+  if (programs[cpuIndex].outputState === 0) programs[cpuIndex].outputAddress = output;
+  else if (programs[cpuIndex].outputState === 1) programs[cpuIndex].outputX = output;
+  else if (programs[cpuIndex].outputState === 2) {
+    programs[cpuIndex].outputY = output;
+    programs[programs[cpuIndex].outputAddress].inputQueue.push(programs[cpuIndex].outputX);
+    programs[programs[cpuIndex].outputAddress].inputQueue.push(programs[cpuIndex].outputY);
+    console.log('sent outputX=', programs[cpuIndex].outputX, 'outputY=', programs[cpuIndex].outputY, 'to cpu=', programs[cpuIndex].outputAddress, 'from cpu=', cpuIndex);
+  }
+  programs[cpuIndex].outputState++;
+  programs[cpuIndex].outputState %= 3;
 };
 const initState = () => {
   for (let x = 0; x < gridXSize; x++) {
@@ -183,7 +203,11 @@ const printArea = () => {
 const execute = (program = []) => {
   // load programs
   for (cpuIndex = 0; cpuIndex < numCpus; cpuIndex++) {
-    programs[cpuIndex] = {memory: [], startIp: 0, inputState: 0, relativeBase: 0, input: cpuIndex};
+    programs[cpuIndex] = {
+      memory: [], startIp: 0, relativeBase: 0,
+      inputState: 0, input: cpuIndex, inputQueue: [],
+      outputState: 0, outputAddress: -1, outputX: -1, outputY: -1,
+    };
     programs[cpuIndex].memory = program.map((value) => {
       // if (cpuIndex === 0) console.log(value);
       return value;
