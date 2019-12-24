@@ -72,8 +72,8 @@ describe("2019 day 23", function() {
     // const data = [0];
     const data = puzzle.parse(lines);
     const answer = puzzle.solve(data);
-    // console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(0);
+    console.log("part 1 answer is " + answer);
+    expect(answer).toEqual(15416);
   });
 
 

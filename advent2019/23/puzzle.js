@@ -10,6 +10,7 @@ let programs = [{
   outputState: 0, outputAddress: -1, outputX: -1, outputY: -1,
 }];
 let cpuIndex = 0;
+let finalOutputValue = -1;
 // let inputState = 0;
 // console.log('puzzle object reaches here, input, output: ', input, output);
 // const setInput = (value = 0) => {
@@ -45,10 +46,10 @@ const transform = () => {
       if (mode_p3 == 2) { program[programs[cpuIndex].relativeBase + program[ip+3]] = result; } else { program[program[ip+3]] = result; }
     } else if (opcode === 3) { // input
       nextInput();
+      if (wantToExit) { programs[cpuIndex].startIp = -1; return programs[cpuIndex].startIp; }
       const input = programs[cpuIndex].input;
       step = 2;
       programs[cpuIndex].startIp = ip + 2;
-      if (input === -100) { programs[cpuIndex].startIp = -1; return programs[cpuIndex].startIp; }
       if (mode_p1 == 2) { program[programs[cpuIndex].relativeBase + program[ip+1]] = input; } else { program[program[ip+1]] = input; }
       if (input === -1) return programs[cpuIndex].startIp;
     } else if (opcode === 4) { // output
@@ -56,6 +57,7 @@ const transform = () => {
       const output = ((mode_p1 == 2) ? program[programs[cpuIndex].relativeBase + program[ip+1]] : (mode_p1 == 1) ? program[ip+1] : program[program[ip+1]]);
       // console.log('output after mod: ', output);
       nextOutput(output);
+      if (wantToExit) { programs[cpuIndex].startIp = -1; return programs[cpuIndex].startIp; }
       step = 2;
     } else if (opcode === 5) { // jump-if-true
       step = 3;
@@ -110,21 +112,22 @@ const getNumPainted = () => {
   return numPainted;
 };
 const nextInput = () => {
-  if (wantToExit) return -100;
   if (programs[cpuIndex].inputState === 1) {
     programs[cpuIndex].input = -1;
     if (programs[cpuIndex].inputQueue.length > 0) {
       programs[cpuIndex].input = programs[cpuIndex].inputQueue.shift();
-      console.log("received input=", programs[cpuIndex].input, 'cpu=', cpuIndex);
+      // console.log("received input=", programs[cpuIndex].input, 'cpu=', cpuIndex);
     }
   }
   programs[cpuIndex].inputState = 1;
 
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < 1 * 1000 / 1000);
+  // sleep code for test purposes
+  // const date = Date.now();
+  // let currentDate = null;
+  // do {
+  //   currentDate = Date.now();
+  // } while (currentDate - date < 1 * 1000 / 1000);
+
   // console.log("request for input=", programs[cpuIndex].input, 'cpu=', cpuIndex);
 };
 const nextOutput = (output = 0) => {
@@ -134,9 +137,15 @@ const nextOutput = (output = 0) => {
   else if (programs[cpuIndex].outputState === 1) programs[cpuIndex].outputX = output;
   else if (programs[cpuIndex].outputState === 2) {
     programs[cpuIndex].outputY = output;
+    if (programs[cpuIndex].outputAddress === 255) {
+      console.log('got output address of 255 -- outputY=', programs[cpuIndex].outputY);
+      finalOutputValue = programs[cpuIndex].outputY;
+      wantToExit = true;
+      return;
+    }
     programs[programs[cpuIndex].outputAddress].inputQueue.push(programs[cpuIndex].outputX);
     programs[programs[cpuIndex].outputAddress].inputQueue.push(programs[cpuIndex].outputY);
-    console.log('sent outputX=', programs[cpuIndex].outputX, 'outputY=', programs[cpuIndex].outputY, 'to cpu=', programs[cpuIndex].outputAddress, 'from cpu=', cpuIndex);
+    // console.log('sent outputX=', programs[cpuIndex].outputX, 'outputY=', programs[cpuIndex].outputY, 'to cpu=', programs[cpuIndex].outputAddress, 'from cpu=', cpuIndex);
   }
   programs[cpuIndex].outputState++;
   programs[cpuIndex].outputState %= 3;
@@ -159,6 +168,7 @@ const initState = () => {
   wantToExit = false;
   isAggressive = false;
   // inputState = 0;
+  finalOutputValue = -1;
 };
 const countPainted = () => {
   numPainted = 0;
@@ -231,7 +241,7 @@ const solve = (program = []) => {
   console.log();
   initState();
   execute(program);
-  // return numBlockTiles;
+  return finalOutputValue;
 }
 const printProgram = (programMemory = [], startIp = 0, input = 0) => {
   let programString = '[' +  programMemory.join(',') + ']';
