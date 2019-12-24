@@ -19,19 +19,47 @@ describe("2019 day 24", function() {
   };
   const init = (data = [[false]]) => {
     scan = data;
+    for (let row = 0; row < size; row++) {
+      scan[row].unshift(false);
+      scan[row].push(false);
+    }
+    scan.unshift([false]);
+    scan.push([false]);
     seenLayouts = [];
     bioRating = -1;
   };
   const addScanToLayout = () => {
     let layout = 0;
     let bit = 1;
-    for (let row = 0; row < size; row++) {
-      for (let col = 0; col < size; col++) {
+    for (let row = 1; row <= size; row++) {
+      for (let col = 1; col <= size; col++) {
         layout |= scan[row][col] ? bit : 0;
         bit <<= 1;
       }
     }
     seenLayouts[layout] = true;
+  };
+  const updateLayout = () => {
+    let numAdjacent = [[0]];
+    numAdjacent[0] = [];
+    for (let row = 1; row <= size; row++) {
+      numAdjacent[row] = [];
+      for (let col = 1; col <= size; col++) {
+        numAdjacent[row][col] = 0;
+        if (scan[row-1][col]) numAdjacent[row][col] += 1;
+        if (scan[row+1][col]) numAdjacent[row][col] += 1;
+        if (scan[row][col+1]) numAdjacent[row][col] += 1;
+        if (scan[row][col-1]) numAdjacent[row][col] += 1;
+      }
+    }
+    for (let row = 1; row <= size; row++) {
+      for (let col = 1; col <= size; col++) {
+        if (scan[row][col] && numAdjacent[row][col] !== 1)
+          scan[row][col] = false;
+        else if (!scan[row][col] && (numAdjacent[row][col] === 1 || numAdjacent[row][col] === 2))
+          scan[row][col] = true;
+      }
+    }
   };
   const solve = (data = [[false]]) => {
     init(data);
@@ -66,6 +94,78 @@ describe("2019 day 24", function() {
     expect(fn2()).toEqual(
       ''
       );
+  });
+  it("can update layout", () => {
+    const actualLines = [
+      [
+        '....#',
+        '#..#.',
+        '#..##',
+        '..#..',
+        '#....',
+      ],
+      [
+        '#..#.',
+        '####.',
+        '###.#',
+        '##.##',
+        '.##..',
+      ],
+      [
+        '#####',
+        '....#',
+        '....#',
+        '...#.',
+        '#.###',
+      ],
+      [
+        '#....',
+        '####.',
+        '...##',
+        '#.##.',
+        '.##.#',
+      ],
+    ];
+    const actual = actualLines.map((data) => {
+      init(parse(data));
+      updateLayout();
+      return scan;
+    });
+    const expectedLines = [
+      [
+        '#..#.',
+        '####.',
+        '###.#',
+        '##.##',
+        '.##..',
+      ],
+      [
+        '#####',
+        '....#',
+        '....#',
+        '...#.',
+        '#.###',
+      ],
+      [
+        '#....',
+        '####.',
+        '...##',
+        '#.##.',
+        '.##.#',
+      ],
+      [
+        '####.',
+        '....#',
+        '##..#',
+        '.....',
+        '##...',
+      ],
+    ];
+    const expected = expectedLines.map((data) => {
+      init(parse(data));
+      return scan;
+    });
+    expect(actual).toEqual(expected);
   });
   it("can solve puzzle", () => {
     const data = [
