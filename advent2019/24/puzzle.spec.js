@@ -28,20 +28,27 @@ describe("2019 day 24", function() {
     seenLayouts = [];
     bioRating = -1;
   };
-  const addScanToLayout = () => {
-    let layout = 0;
+  const calculateBioRating = () => {
+    let bioRating = 0;
     let bit = 1;
     for (let row = 1; row <= size; row++) {
       for (let col = 1; col <= size; col++) {
-        layout |= scan[row][col] ? bit : 0;
+        bioRating |= scan[row][col] ? bit : 0;
         bit <<= 1;
       }
     }
+    return bioRating;
+  };
+  const addScanToSeenLayouts = () => {
+    let layout = calculateBioRating();
+    if (seenLayouts[layout]) return false;
     seenLayouts[layout] = true;
+    return true;
   };
   const updateLayout = () => {
     let numAdjacent = [[0]];
     numAdjacent[0] = [];
+    // count
     for (let row = 1; row <= size; row++) {
       numAdjacent[row] = [];
       for (let col = 1; col <= size; col++) {
@@ -52,6 +59,7 @@ describe("2019 day 24", function() {
         if (scan[row][col-1]) numAdjacent[row][col] += 1;
       }
     }
+    // update
     for (let row = 1; row <= size; row++) {
       for (let col = 1; col <= size; col++) {
         if (scan[row][col] && numAdjacent[row][col] !== 1)
@@ -62,9 +70,19 @@ describe("2019 day 24", function() {
     }
   };
   const solve = (data = [[false]]) => {
+    console.log();
     init(data);
-    addScanToLayout();
-    return 0;
+    addScanToSeenLayouts();
+    let numLayouts = 1;
+    while (true) {
+      updateLayout();
+      if (!addScanToSeenLayouts()) break;
+      numLayouts++;
+    }
+    bioRating = calculateBioRating();
+    console.log('numLayouts=', numLayouts);
+    console.log('seenLayouts.length=', seenLayouts.length);
+    return bioRating;
   }
   const parse = (lines = ['']) => {
     return lines.map((line) => line.split('').map((symbol) => (symbol === '#' ? true : false)));
@@ -167,8 +185,8 @@ describe("2019 day 24", function() {
     });
     expect(actual).toEqual(expected);
   });
-  it("can solve puzzle", () => {
-    const data = [
+  it("can find first repeated layout", () => {
+    const actualLines = [
       [
         '....#',
         '#..#.',
@@ -177,11 +195,40 @@ describe("2019 day 24", function() {
         '#....',
       ],
     ];
-    const actual = data.map((data) => solve(parse(data)));
-    const expected = [
-      1,
+    const actual = actualLines.map((data) => {
+      solve(parse(data));
+      return scan;
+    });
+    const expectedLines = [
+      [
+        '.....',
+        '.....',
+        '.....',
+        '#....',
+        '.#...',
+      ],
     ];
-    // expect(actual).toEqual(expected);
+    const expected = expectedLines.map((data) => {
+      init(parse(data));
+      return scan;
+    });
+    expect(actual).toEqual(expected);
+  });
+  it("can solve puzzle", () => {
+    const actualLines = [
+      [
+        '....#',
+        '#..#.',
+        '#..##',
+        '..#..',
+        '#....',
+      ],
+    ];
+    const actual = actualLines.map((data) => solve(parse(data)));
+    const expected = [
+      2129920,
+    ];
+    expect(actual).toEqual(expected);
   });
   it("can parse input", () => {
     const data = parse(
