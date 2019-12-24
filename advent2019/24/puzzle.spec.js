@@ -244,9 +244,9 @@ describe("2019 day 24", function() {
   });
   it("can solve puzzle with my input", () => {
     const data = parse(lines);
-    // const answer = solve(data);
-    // console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(0);
+    const answer = solve(data);
+    console.log("part 1 answer is " + answer);
+    expect(answer).toEqual(32523825);
   });
 
 
