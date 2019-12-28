@@ -110,8 +110,10 @@ let wantToExit = false;
 let isAggressive = false;
 let inputState = 0;
 let springScript = '';
+let currentInput = '';
 let inputIdx = 0;
 let hullDamage = -1;
+let readlineSync;
 const getNumPainted = () => {
   return numPainted;
 };
@@ -121,8 +123,15 @@ const nextInput = () => {
   // if (inputState == 0) input = currentX;
   // else if (inputState == 1) input = currentY;
   // inputState = (inputState === 0) ? 1 : 0;
-  input = springScript.charCodeAt(inputIdx++);
-  process.stdout.write(String.fromCharCode(input));
+  // input = springScript.charCodeAt(inputIdx++); // only for input from code
+  // input = process.stdin.read().charCodeAt(0); // doesn't work
+  if (inputIdx >= currentInput.length) {
+    currentInput = readlineSync.question('');
+    inputIdx = 0;
+    currentInput += String.fromCharCode(10);
+  }
+  input = currentInput.charCodeAt(inputIdx++);
+  // process.stdout.write(String.fromCharCode(input)); // only for input from code
   return input;
 };
 const nextOutput = (output = 0) => {
@@ -140,6 +149,7 @@ const nextOutput = (output = 0) => {
   // }
 };
 const initState = () => {
+  readlineSync = require('readline-sync');
   console.log();
   for (let x = 0; x < gridXSize; x++) {
     area[x] = [];
@@ -159,6 +169,7 @@ const initState = () => {
   isAggressive = false;
   inputState = 0;
   springScript = '';
+  currentInput = '';
   inputIdx = 0;
   hullDamage = -1;
 };
