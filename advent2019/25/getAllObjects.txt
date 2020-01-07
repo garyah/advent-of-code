@@ -1,0 +1,30 @@
+north
+north
+take sand
+south
+south
+west
+south
+take planetoid
+north
+west
+take festive hat
+east
+east
+south
+take space heater
+south
+east
+take loom
+west
+north
+west
+take wreath
+south
+take space law space brochure
+south
+take pointer
+north
+north
+east
+north
