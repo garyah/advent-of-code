@@ -1,0 +1,211 @@
+Started
+2019 day 23:
+....
+sent outputX= 58369 outputY= 17013 to cpu= 7 from cpu= 0
+sent outputX= 1693 outputY= 17013 to cpu= 16 from cpu= 0
+sent outputX= 5079 outputY= 17013 to cpu= 16 from cpu= 0
+sent outputX= 103391 outputY= 17013 to cpu= 21 from cpu= 0
+sent outputX= 206782 outputY= 17013 to cpu= 21 from cpu= 0
+sent outputX= 310173 outputY= 17013 to cpu= 21 from cpu= 0
+sent outputX= 308949 outputY= 421 to cpu= 42 from cpu= 1
+sent outputX= 52131 outputY= -8004 to cpu= 39 from cpu= 2
+sent outputX= 83663 outputY= 7 to cpu= 38 from cpu= 3
+sent outputX= 15299 outputY= 2 to cpu= 17 from cpu= 5
+sent outputX= 179534 outputY= 2 to cpu= 12 from cpu= 5
+sent outputX= 359068 outputY= 2 to cpu= 12 from cpu= 5
+sent outputX= 127522 outputY= 2 to cpu= 33 from cpu= 5
+sent outputX= 127334 outputY= 2 to cpu= 23 from cpu= 5
+sent outputX= 5573 outputY= 2 to cpu= 48 from cpu= 5
+sent outputX= 11146 outputY= 2 to cpu= 48 from cpu= 5
+sent outputX= 102983 outputY= -78 to cpu= 42 from cpu= 6
+received input= 58369 cpu= 7
+received input= 17013 cpu= 7
+sent outputX= 3543 outputY= 107 to cpu= 9 from cpu= 8
+received input= 3543 cpu= 9
+received input= 107 cpu= 9
+sent outputX= 2362 outputY= 61 to cpu= 9 from cpu= 10
+sent outputX= 269301 outputY= 842 to cpu= 12 from cpu= 11
+received input= 179534 cpu= 12
+received input= 2 cpu= 12
+received input= 359068 cpu= 12
+received input= 2 cpu= 12
+received input= 269301 cpu= 12
+received input= 842 cpu= 12
+sent outputX= 32653 outputY= 13 to cpu= 22 from cpu= 13
+sent outputX= 4724 outputY= 1 to cpu= 9 from cpu= 14
+sent outputX= 155374 outputY= 1 to cpu= 41 from cpu= 14
+sent outputX= 30598 outputY= 1 to cpu= 17 from cpu= 14
+sent outputX= 85502 outputY= 1 to cpu= 35 from cpu= 14
+sent outputX= 164722 outputY= 1 to cpu= 28 from cpu= 14
+sent outputX= 19934 outputY= 1 to cpu= 18 from cpu= 14
+sent outputX= 334652 outputY= 1 to cpu= 38 from cpu= 14
+sent outputX= 205966 outputY= 1 to cpu= 42 from cpu= 14
+received input= 1693 cpu= 16
+received input= 17013 cpu= 16
+received input= 5079 cpu= 16
+received input= 17013 cpu= 16
+received input= 15299 cpu= 17
+received input= 2 cpu= 17
+received input= 30598 cpu= 17
+received input= 1 cpu= 17
+received input= 19934 cpu= 18
+received input= 1 cpu= 18
+sent outputX= 73118 outputY= -918 to cpu= 26 from cpu= 20
+received input= 103391 cpu= 21
+received input= 17013 cpu= 21
+received input= 206782 cpu= 21
+received input= 17013 cpu= 21
+received input= 310173 cpu= 21
+received input= 17013 cpu= 21
+sent outputX= 137031 outputY= 4924279621197 to cpu= 27 from cpu= 21
+received input= 32653 cpu= 22
+received input= 13 cpu= 22
+received input= 127334 cpu= 23
+received input= 2 cpu= 23
+sent outputX= 29901 outputY= -32 to cpu= 18 from cpu= 24
+sent outputX= 45697 outputY= 125 to cpu= 44 from cpu= 25
+received input= 73118 cpu= 26
+received input= -918 cpu= 26
+received input= 137031 cpu= 27
+received input= 4924279621197 cpu= 27
+received input= 164722 cpu= 28
+received input= 1 cpu= 28
+sent outputX= 250989 outputY= 314 to cpu= 38 from cpu= 29
+sent outputX= 63667 outputY= 1451 to cpu= 23 from cpu= 30
+sent outputX= 182788 outputY= 10 to cpu= 44 from cpu= 32
+sent outputX= 33438 outputY= 10 to cpu= 48 from cpu= 32
+received input= 127522 cpu= 33
+received input= 2 cpu= 33
+sent outputX= 17377 outputY= 6976 to cpu= 39 from cpu= 34
+received input= 85502 cpu= 35
+received input= 1 cpu= 35
+sent outputX= 1181 outputY= 5 to cpu= 9 from cpu= 36
+sent outputX= 91394 outputY= 5 to cpu= 44 from cpu= 36
+sent outputX= 137091 outputY= 5 to cpu= 44 from cpu= 36
+sent outputX= 27865 outputY= 5 to cpu= 48 from cpu= 36
+sent outputX= 22292 outputY= 160 to cpu= 48 from cpu= 37
+received input= 83663 cpu= 38
+received input= 7 cpu= 38
+received input= 334652 cpu= 38
+received input= 1 cpu= 38
+received input= 250989 cpu= 38
+received input= 314 cpu= 38
+received input= 52131 cpu= 39
+received input= -8004 cpu= 39
+received input= 17377 cpu= 39
+received input= 6976 cpu= 39
+sent outputX= 42751 outputY= 52861 to cpu= 35 from cpu= 40
+received input= 155374 cpu= 41
+received input= 1 cpu= 41
+received input= 308949 cpu= 42
+received input= 421 cpu= 42
+received input= 102983 cpu= 42
+received input= -78 cpu= 42
+received input= 205966 cpu= 42
+received input= 1 cpu= 42
+sent outputX= 3386 outputY= -32838 to cpu= 16 from cpu= 42
+received input= 45697 cpu= 44
+received input= 125 cpu= 44
+received input= 182788 cpu= 44
+received input= 10 cpu= 44
+received input= 91394 cpu= 44
+received input= 5 cpu= 44
+received input= 137091 cpu= 44
+received input= 5 cpu= 44
+sent outputX= 16719 outputY= 31250 to cpu= 48 from cpu= 44
+sent outputX= 77687 outputY= 37951 to cpu= 41 from cpu= 45
+sent outputX= 167326 outputY= 67 to cpu= 38 from cpu= 46
+sent outputX= 9967 outputY= 521 to cpu= 18 from cpu= 47
+received input= 5573 cpu= 48
+received input= 2 cpu= 48
+received input= 11146 cpu= 48
+received input= 2 cpu= 48
+received input= 33438 cpu= 48
+received input= 10 cpu= 48
+received input= 27865 cpu= 48
+received input= 5 cpu= 48
+received input= 22292 cpu= 48
+received input= 160 cpu= 48
+received input= 16719 cpu= 48
+received input= 31250 cpu= 48
+sent outputX= 126794 outputY= 1000000000 to cpu= 43 from cpu= 48
+sent outputX= 89767 outputY= 419 to cpu= 12 from cpu= 49
+received input= 2362 cpu= 9
+received input= 61 cpu= 9
+received input= 4724 cpu= 9
+received input= 1 cpu= 9
+received input= 1181 cpu= 9
+received input= 5 cpu= 9
+sent outputX= 69508 outputY= 32635 to cpu= 39 from cpu= 9
+received input= 89767 cpu= 12
+received input= 419 cpu= 12
+received input= 3386 cpu= 16
+received input= -32838 cpu= 16
+sent outputX= 182708 outputY= -9504701945622 to cpu= 27 from cpu= 16
+received input= 29901 cpu= 18
+received input= -32 cpu= 18
+received input= 9967 cpu= 18
+received input= 521 cpu= 18
+sent outputX= 36559 outputY= -16672 to cpu= 26 from cpu= 18
+received input= 63667 cpu= 23
+received input= 1451 cpu= 23
+received input= 36559 cpu= 26
+received input= -16672 cpu= 26
+received input= 182708 cpu= 27
+received input= -9504701945622 cpu= 27
+received input= 42751 cpu= 35
+received input= 52861 cpu= 35
+sent outputX= 82361 outputY= 52861 to cpu= 28 from cpu= 35
+received input= 167326 cpu= 38
+received input= 67 cpu= 38
+sent outputX= 146236 outputY= 147266 to cpu= 26 from cpu= 38
+received input= 69508 cpu= 39
+received input= 32635 cpu= 39
+received input= 77687 cpu= 41
+received input= 37951 cpu= 41
+sent outputX= 45897 outputY= 37951 to cpu= 17 from cpu= 41
+received input= 126794 cpu= 43
+received input= 1000000000 cpu= 43
+received input= 45897 cpu= 17
+received input= 37951 cpu= 17
+sent outputX= 34754 outputY= 75902 to cpu= 39 from cpu= 17
+received input= 146236 cpu= 26
+received input= 147266 cpu= 26
+received input= 82361 cpu= 28
+received input= 52861 cpu= 28
+sent outputX= 109677 outputY= 52861 to cpu= 26 from cpu= 28
+received input= 34754 cpu= 39
+received input= 75902 cpu= 39
+sent outputX= 65306 outputY= 107509 to cpu= 22 from cpu= 39
+received input= 65306 cpu= 22
+received input= 107509 cpu= 22
+sent outputX= 448835 outputY= 1397617 to cpu= 12 from cpu= 22
+received input= 109677 cpu= 26
+received input= 52861 cpu= 26
+sent outputX= 63761 outputY= 182537 to cpu= 33 from cpu= 26
+received input= 63761 cpu= 33
+received input= 182537 cpu= 33
+sent outputX= 191001 outputY= 365074 to cpu= 23 from cpu= 33
+received input= 448835 cpu= 12
+received input= 1397617 cpu= 12
+sent outputX= 91354 outputY= 1972305929464 to cpu= 27 from cpu= 12
+received input= 191001 cpu= 23
+received input= 365074 cpu= 23
+sent outputX= 116738 outputY= 1059444748 to cpu= 7 from cpu= 23
+received input= 91354 cpu= 27
+received input= 1972305929464 cpu= 27
+received input= 116738 cpu= 7
+received input= 1059444748 cpu= 7
+sent outputX= 45677 outputY= 18024333497724 to cpu= 27 from cpu= 7
+received input= 45677 cpu= 27
+received input= 18024333497724 cpu= 27
+sent outputX= 63397 outputY= 15416217102763 to cpu= 43 from cpu= 27
+received input= 63397 cpu= 43
+received input= 15416217102763 cpu= 43
+got output address of 255 -- outputY= 15416
+part 1 answer is 15416
+.
+
+
+5 specs, 0 failures
+Finished in 0.038 seconds
