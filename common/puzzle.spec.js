@@ -90,7 +90,7 @@ describe("2021 day xx", function() {
 
   // boilerplate
   const Parser = require('../../common/parser');
-  const puzzle = require('./puzzle');
+  // const puzzle = require('../../common/puzzleWithCode');
   const parser = new Parser();
   const readInputFile = true; // change to true to read input file for all tests that need it
   let lines = [];
