@@ -54,26 +54,26 @@ describe("2021 day xx", function() {
     const data = [
       [],
     ];
-    // const actual = data.map((data) => puzzle.solve(data));
+    // const actual = data.map((data) => solve(data));
     const expected = [
       1,
     ];
     // expect(actual).toEqual(expected);
   });
   it("can parse input", () => {
-    // const data = parse(
-    //   '+1 +3 +2'
-    //   .split(
-    //     ' '
-    //     ));
-    // expect(data).toEqual([1, 3, 2]);
+    const data = parse(
+      '+1 +3 +2'
+      .split(
+        ' '
+        ));
+    expect(data).toEqual([1, 3, 2]);
   });
   it("can solve puzzle with my input", () => {
     // const data = [0];
-    const data = puzzle.parse(lines);
-    const answer = puzzle.solve(data);
+    const data = parse(lines);
+    const answer = solve(data);
     console.log("part 1 answer is " + answer);
-    expect(answer).toEqual(15416);
+    // expect(answer).toEqual(15416);
   });
 
 
