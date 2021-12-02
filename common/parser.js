@@ -34,6 +34,16 @@ Parser.prototype.lineToChars = (line = '') => {
 Parser.prototype.linesToInts = (lines = []) => {
   return lines.map((line) => parseInt(line)).filter((num) => num === num);
 };
+Parser.prototype.linesToDirCommands = (lines = []) => {
+  return lines.map((line) => {
+    let fields = line.split(' ');
+    let dir = 0;
+    if (fields[0] === 'forward') dir = 0;
+    if (fields[0] === 'up') dir = -1;
+    if (fields[0] === 'down') dir = 1;
+    return {direction: dir, distance: parseInt(fields[1])};
+  });
+};
 Parser.prototype.linesToFloats = (lines = []) => {
   return lines.map((line) => parseFloat(line)).filter((num) => num === num);
 };

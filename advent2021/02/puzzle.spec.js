@@ -13,17 +13,38 @@ describe("2021 day 02", function() {
   const fn2 = () => {
     return '';
   };
-  const solve = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
-      return sum + num;
+  const solve = (data = []) => {
+    let hor = 0;
+    let depth = 0;
+    data.reduce((sum, val) => {
+      if (val.direction === 0) hor += val.distance;
+      if (val.direction === -1) depth -= val.distance;
+      if (val.direction === 1) depth += val.distance;
+      return 0;
     }, 0);
+    return hor * depth;
+  }
+  const solve_p2 = (data = []) => {
+    let hor = 0;
+    let depth = 0;
+    let aim = 0;
+    data.reduce((sum, val) => {
+      if (val.direction === 0) {
+        hor += val.distance;
+        depth += aim * val.distance;
+      }
+      if (val.direction === -1) aim -= val.distance;
+      if (val.direction === 1) aim += val.distance;
+      return 0;
+    }, 0);
+    return hor * depth;
   }
   const parse = (lines = ['']) => {
     // return parser.getFirstLine(lines);
     // return lines;    // use for multi-line string input
-    return parser.linesToInts(lines);
+    // return parser.linesToInts(lines);
     // return parser.linesToFloats(lines);
+    return parser.linesToDirCommands(lines);
   };
 
 
@@ -51,6 +72,12 @@ describe("2021 day 02", function() {
       ''
       );
   });
+  it("can parse input", () => {
+    const data = parse(
+      ['forward 9', 'up 1']
+      );
+    expect(data).toEqual([{direction: 0, distance: 9}, {direction: -1, distance: 1}]);
+  });
   it("can solve puzzle", () => {
     const data = [
       [],
@@ -61,20 +88,29 @@ describe("2021 day 02", function() {
     ];
     // expect(actual).toEqual(expected);
   });
-  it("can parse input", () => {
-    const data = parse(
-      '+1 +3 +2'
-      .split(
-        ' '
-        ));
-    expect(data).toEqual([1, 3, 2]);
+  it("can solve puzzle p2", () => {
+    const data = [
+      [],
+    ];
+    // const actual = data.map((data) => solve_p2(data));
+    const expected = [
+      1,
+    ];
+    // expect(actual).toEqual(expected);
   });
   it("can solve puzzle with my input", () => {
     // const data = [0];
     const data = parse(lines);
     const answer = solve(data);
     console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(15416);
+    expect(answer).toEqual(2091984);
+  });
+  it("can solve puzzle p2 with my input", () => {
+    // const data = [0];
+    const data = parse(lines);
+    const answer = solve_p2(data);
+    console.log("part 2 answer is " + answer);
+    expect(answer).toEqual(2086261056);
   });
 
 
