@@ -20,9 +20,10 @@ describe("2021 day xx", function() {
     }, 0);
   }
   const parse = (lines = ['']) => {
-    // return lines[0]; // use for one line string input
+    // return parser.getFirstLine(lines);
     // return lines;    // use for multi-line string input
-    return lines.map((line) => parseInt(line)).filter((num) => num === num);
+    return parser.linesToInts(lines);
+    // return parser.linesToFloats(lines);
   };
 
 

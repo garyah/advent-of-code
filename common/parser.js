@@ -34,4 +34,7 @@ Parser.prototype.lineToChars = (line = '') => {
 Parser.prototype.linesToInts = (lines = []) => {
   return lines.map((line) => parseInt(line)).filter((num) => num === num);
 };
+Parser.prototype.linesToFloats = (lines = []) => {
+  return lines.map((line) => parseFloat(line)).filter((num) => num === num);
+};
 module.exports = Parser;
