@@ -19,11 +19,18 @@ describe("2021 day xx", function() {
       return sum + num;
     }, 0);
   }
+  const solve_p2 = (data = [0]) => {
+    fn1();
+    return data.reduce((sum, num) => {
+      return sum + num;
+    }, 0);
+  }
   const parse = (lines = ['']) => {
     // return parser.getFirstLine(lines);
     // return lines;    // use for multi-line string input
-    return parser.linesToInts(lines);
+    // return parser.linesToInts(lines);
     // return parser.linesToFloats(lines);
+    return parser.linesToDirCommands(lines);
   };
 
 
@@ -51,6 +58,14 @@ describe("2021 day xx", function() {
       ''
       );
   });
+  it("can parse input", () => {
+    const data = parse(
+      '+1 +3 +2'
+      .split(
+        ' '
+        ));
+    expect(data).toEqual([1, 3, 2]);
+  });
   it("can solve puzzle", () => {
     const data = [
       [],
@@ -61,19 +76,28 @@ describe("2021 day xx", function() {
     ];
     // expect(actual).toEqual(expected);
   });
-  it("can parse input", () => {
-    const data = parse(
-      '+1 +3 +2'
-      .split(
-        ' '
-        ));
-    expect(data).toEqual([1, 3, 2]);
+  it("can solve puzzle p2", () => {
+    const data = [
+      [],
+    ];
+    // const actual = data.map((data) => solve_p2(data));
+    const expected = [
+      1,
+    ];
+    // expect(actual).toEqual(expected);
   });
   it("can solve puzzle with my input", () => {
     // const data = [0];
     const data = parse(lines);
     const answer = solve(data);
     console.log("part 1 answer is " + answer);
+    // expect(answer).toEqual(15416);
+  });
+  it("can solve puzzle p2 with my input", () => {
+    // const data = [0];
+    const data = parse(lines);
+    const answer = solve_p2(data);
+    console.log("part 2 answer is " + answer);
     // expect(answer).toEqual(15416);
   });
 
