@@ -31,8 +31,17 @@ Parser.prototype.lineToChars = (line = '') => {
   // }
   // return result;
 };
+Parser.prototype.lineToInts = (lines = []) => {
+  return lines[0].split(',').map((num) => parseInt(num)).filter((num) => num === num);
+};
+Parser.prototype.lineToFloats = (lines = []) => {
+  return lines[0].split(',').map((num) => parseFloat(num)).filter((num) => num === num);
+};
 Parser.prototype.linesToInts = (lines = []) => {
   return lines.map((line) => parseInt(line)).filter((num) => num === num);
+};
+Parser.prototype.linesToFloats = (lines = []) => {
+  return lines.map((line) => parseFloat(line)).filter((num) => num === num);
 };
 Parser.prototype.linesToDirCommands = (lines = []) => {
   return lines.map((line) => {
@@ -44,7 +53,7 @@ Parser.prototype.linesToDirCommands = (lines = []) => {
     return {direction: dir, distance: parseInt(fields[1])};
   });
 };
-Parser.prototype.linesToFloats = (lines = []) => {
-  return lines.map((line) => parseFloat(line)).filter((num) => num === num);
+Parser.prototype.linesToBinaryInts = (lines = []) => {
+  return lines.map((line) => parseInt(line, 2)).filter((num) => num === num);
 };
 module.exports = Parser;
