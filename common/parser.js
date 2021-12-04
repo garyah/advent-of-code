@@ -31,11 +31,14 @@ Parser.prototype.lineToChars = (line = '') => {
   // }
   // return result;
 };
-Parser.prototype.lineToInts = (lines = []) => {
-  return lines[0].split(',').map((num) => parseInt(num)).filter((num) => num === num);
+Parser.prototype.lineToIntsComma = (line = '') => {
+  return line.split(',').map((num) => parseInt(num)).filter((num) => num === num);
 };
-Parser.prototype.lineToFloats = (lines = []) => {
-  return lines[0].split(',').map((num) => parseFloat(num)).filter((num) => num === num);
+Parser.prototype.lineToIntsSpace = (line = '') => {
+  return line.split(' ').map((num) => parseInt(num)).filter((num) => num === num);
+};
+Parser.prototype.lineToFloats = (line = '') => {
+  return line.split(', ').map((num) => parseFloat(num)).filter((num) => num === num);
 };
 Parser.prototype.linesToInts = (lines = []) => {
   return lines.map((line) => parseInt(line)).filter((num) => num === num);
