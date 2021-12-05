@@ -49,6 +49,9 @@ Parser.prototype.linesToInts = (lines = []) => {
 Parser.prototype.linesToFloats = (lines = []) => {
   return lines.map((line) => parseFloat(line)).filter((num) => num === num);
 };
+Parser.prototype.linesToIntRanges = (lines = []) => {
+  return lines.map((line) => line.split('-').map((num) => parseInt(num)).filter((num) => num === num)).filter((range) => range.length);
+};
 Parser.prototype.linesToDirCommands = (lines = []) => {
   return lines.map((line) => {
     let fields = line.split(' ');
@@ -61,5 +64,17 @@ Parser.prototype.linesToDirCommands = (lines = []) => {
 };
 Parser.prototype.linesToBinaryInts = (lines = []) => {
   return lines.map((line) => parseInt(line, 2)).filter((num) => num === num);
+};
+Parser.prototype.linesToLineSegments = (lines = []) => {
+  return lines.map((line) => {
+    let parts = line.split(' -> ');
+    let startCoord = parts[0].split(',');
+    let endCoord = parts[1].split(',');
+    let x1 = parseInt(startCoord[0]);
+    let y1 = parseInt(startCoord[1]);
+    let x2 = parseInt(endCoord[0]);
+    let y2 = parseInt(endCoord[1]);
+    return {x1: x1, y1: y1, x2: x2, y2: y2};
+  });
 };
 module.exports = Parser;

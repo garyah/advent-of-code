@@ -1,40 +1,114 @@
 describe("2021 day 05", function() {
-  // new code
-  let var1 = 0;
-  let var2 = '';
-  const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
-    if (1) {}
-    else if (1) {}
-    else {}
-    for (let i = 0;; i++) { break; continue; }
-    for (const item of arg3) {}
-    return 0;
-  };
-  const fn2 = () => {
-    return '';
-  };
-  const solve = (data = [0]) => {
-    fn1();
-    for (let i = 0; i < 10; i++) {
-      break;
-      continue;
+  let lineList = [{}];
+  let numLines = [[0]];
+  let numOverlapPoints = 0;
+  const processLineList = (lineListInput = [{}]) => {
+    lineList = lineListInput;
+    for (let x = 0; x < 1000; x++) {
+      numLines[x] = [0];
+      for (let y = 0; y < 1000; y++) {
+        numLines[x][y] = 0;
+      }
     }
-    return data.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
+    for (let i = 0; i < lineList.length; i++) {
+      if (lineList[i].x1 === lineList[i].x2) {
+        // vertical line
+        let yStart = lineList[i].y1;
+        let yEnd = lineList[i].y2;
+        if (lineList[i].y1 > lineList[i].y2) { yEnd = lineList[i].y1; yStart = lineList[i].y2; }
+        for (let y = yStart; y <= yEnd; y++) {
+          numLines[lineList[i].x1][y] += 1;
+        }
+      }
+      if (lineList[i].y1 === lineList[i].y2) {
+        // horizontal line
+        let xStart = lineList[i].x1;
+        let xEnd = lineList[i].x2;
+        if (lineList[i].x1 > lineList[i].x2) { xEnd = lineList[i].x1; xStart = lineList[i].x2; }
+        for (let x = xStart; x <= xEnd; x++) {
+          numLines[x][lineList[i].y1] += 1;
+        }
+      }
+    }
+    numOverlapPoints = 0;
+    for (let x = 0; x < 1000; x++) {
+      for (let y = 0; y < 1000; y++) {
+        if (numLines[x][y] > 1) {
+          numOverlapPoints++;
+        }
+      }
+    }
+  };
+  const solve = (lineListInput = [{}]) => {
+    processLineList(lineListInput);
   }
-  const solve_p2 = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
+  const processLineListWithDiag = (lineListInput = [{}]) => {
+    lineList = lineListInput;
+    for (let x = 0; x < 1000; x++) {
+      numLines[x] = [0];
+      for (let y = 0; y < 1000; y++) {
+        numLines[x][y] = 0;
+      }
+    }
+    for (let i = 0; i < lineList.length; i++) {
+      if (lineList[i].x1 === lineList[i].x2) {
+        // vertical line
+        let yStart = lineList[i].y1;
+        let yEnd = lineList[i].y2;
+        if (lineList[i].y1 > lineList[i].y2) { yEnd = lineList[i].y1; yStart = lineList[i].y2; }
+        for (let y = yStart; y <= yEnd; y++) {
+          numLines[lineList[i].x1][y] += 1;
+        }
+        continue;
+      }
+      if (lineList[i].y1 === lineList[i].y2) {
+        // horizontal line
+        let xStart = lineList[i].x1;
+        let xEnd = lineList[i].x2;
+        if (lineList[i].x1 > lineList[i].x2) { xEnd = lineList[i].x1; xStart = lineList[i].x2; }
+        for (let x = xStart; x <= xEnd; x++) {
+          numLines[x][lineList[i].y1] += 1;
+        }
+        continue;
+      }
+      {
+        // assume diagonal 45-degree line
+        let xStart = lineList[i].x1;
+        let xEnd = lineList[i].x2;
+        let xDelta = 1;
+        if (lineList[i].x1 > lineList[i].x2) { xDelta = -1; }
+        let yStart = lineList[i].y1;
+        let yEnd = lineList[i].y2;
+        let yDelta = 1;
+        if (lineList[i].y1 > lineList[i].y2) { yDelta = -1; }
+        let x = xStart, y = yStart;
+        for (; ;) {
+          numLines[x][y] += 1;
+          if (x == xEnd || y == yEnd) break;
+          x += xDelta;
+          y += yDelta;
+        }
+      }
+    }
+    numOverlapPoints = 0;
+    // console.log();
+    for (let y = 0; y < 1000; y++) {
+      // console.log(numLines[0][y], numLines[1][y],
+      //   numLines[2][y], numLines[3][y], numLines[4][y],
+      //   numLines[5][y], numLines[6][y], numLines[7][y],
+      //   numLines[8][y], numLines[9][y]);
+      for (let x = 0; x < 1000; x++) {
+        if (numLines[x][y] > 1) {
+          numOverlapPoints++;
+        }
+      }
+    }
+  };
+  const solve_p2 = (lineListInput = [{}]) => {
+    processLineListWithDiag(lineListInput);
   }
   const parse = (lines = ['']) => {
-    // return parser.getFirstLine(lines);
-    return lines;    // use for multi-line string input
-    // return parser.linesToInts(lines);
-    // return parser.linesToFloats(lines);
-    // return parser.linesToDirCommands(lines);
+    return parser.linesToLineSegments(lines);
   };
 
 
@@ -51,58 +125,19 @@ describe("2021 day 05", function() {
 
 
 
-  // new tests
-  it('fn1() returns number 0', () => {
-    expect(fn1()).toEqual(
-      0
-      );
-  });
-  it('fn2() returns empty string', () => {
-    expect(fn2()).toEqual(
-      ''
-      );
-  });
-  it("can parse input", () => {
-    const data = parse(
-      '+1 +3 +2'
-      .split(
-        ' '
-        ));
-    // expect(data).toEqual([1, 3, 2]);
-  });
-  it("can solve puzzle", () => {
-    const data = [
-      [],
-    ];
-    // const actual = data.map((data) => solve(data));
-    const expected = [
-      1,
-    ];
-    // expect(actual).toEqual(expected);
-  });
-  it("can solve puzzle p2", () => {
-    const data = [
-      [],
-    ];
-    // const actual = data.map((data) => solve_p2(data));
-    const expected = [
-      1,
-    ];
-    // expect(actual).toEqual(expected);
-  });
   it("can solve puzzle with my input", () => {
-    // const data = [0];
     const data = parse(lines);
-    const answer = solve(data);
-    console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(15416);
+    // console.log(data.length);
+    // console.log(data[0]);
+    solve(data);
+    console.log("\npart 1 answer is " + numOverlapPoints);
+    expect(numOverlapPoints).toEqual(6461);
   });
   it("can solve puzzle p2 with my input", () => {
-    // const data = [0];
     const data = parse(lines);
-    const answer = solve_p2(data);
-    console.log("part 2 answer is " + answer);
-    // expect(answer).toEqual(15416);
+    solve_p2(data);
+    console.log("\npart 2 answer is " + numOverlapPoints);
+    expect(numOverlapPoints).toEqual(18065);
   });
 
 

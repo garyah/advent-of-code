@@ -56,4 +56,9 @@ describe("parser", function() {
     expect(parser.linesToFloats([])).toEqual([]);
     expect(parser.linesToFloats()).toEqual([]);
   });
+  it("linesToIntRanges() converts specified array of strings to one of ints, empty array if array empty", () => {
+    expect(parser.linesToIntRanges(["0-2", "1-3", "2-0", "3-10", ""])).toEqual([[0, 2], [1, 3], [2, 0], [3, 10]]);
+    expect(parser.linesToIntRanges([])).toEqual([]);
+    expect(parser.linesToIntRanges()).toEqual([]);
+  });
 });
