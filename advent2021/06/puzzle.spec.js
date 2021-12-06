@@ -1,38 +1,54 @@
 describe("2021 day 06", function() {
   // new code
+  let fishes = [0];
   let var1 = 0;
   let var2 = '';
-  const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
-    if (1) {}
-    else if (1) {}
-    else {}
-    for (let i = 0;; i++) { break; continue; }
-    for (const item of arg3) {}
-    return 0;
-  };
-  const fn2 = () => {
-    return '';
+  const simulate = (numDays = 80) => {
+    for (let dayNum = 0; dayNum < numDays; dayNum++) {
+      let numFishes = fishes.length;
+      // console.log(numFishes);
+      for (let i = 0; i < numFishes; i++) {
+        fishes[i] -= 1;
+        if (fishes[i] < 0) {
+          fishes[i] = 6;
+          fishes[fishes.length] = 8;
+        }
+      }
+    }
+    return fishes.length;
   };
   const solve = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    // for (let i = 0; i < lineList.length; i++) {
-    // }
+    fishes = data;
+    return simulate();
   }
+  let popByAge = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let fishPop = 0;
+  const initAgePop = () => {
+    for (let i = 0; i < fishes.length; i++) {
+      popByAge[fishes[i]] += 1;
+    }
+    fishPop = fishes.length;
+  };
+  const simulate_v2 = (numDays = 256) => {
+    for (let dayNum = 0; dayNum < numDays; dayNum++) {
+      // console.log(fishPop);
+      let savedZeroAge = popByAge[0];
+      for (let i = 1; i <= 8; i++) {
+        popByAge[i - 1] = popByAge[i];
+      }
+      popByAge[6] += savedZeroAge;
+      fishPop += savedZeroAge;
+      popByAge[8] = savedZeroAge;
+    }
+  };
   const solve_p2 = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
+    fishes = data;
+    initAgePop();
+    simulate_v2(256);
+    return fishPop;
   }
   const parse = (lines = ['']) => {
-    // return parser.getFirstLine(lines);
-    // return lines;    // use for multi-line string input
-    return parser.linesToInts(lines);
-    // return parser.linesToFloats(lines);
-    // return parser.linesToDirCommands(lines);
+    return parser.lineToIntsComma(lines[0]);
   };
 
 
@@ -50,57 +66,17 @@ describe("2021 day 06", function() {
 
 
   // new tests
-  it('fn1() returns number 0', () => {
-    expect(fn1()).toEqual(
-      0
-      );
-  });
-  it('fn2() returns empty string', () => {
-    expect(fn2()).toEqual(
-      ''
-      );
-  });
-  it("can parse input", () => {
-    const data = parse(
-      '+1 +3 +2'
-      .split(
-        ' '
-        ));
-    expect(data).toEqual([1, 3, 2]);
-  });
-  it("can solve puzzle", () => {
-    const data = [
-      [],
-    ];
-    // const actual = data.map((data) => solve(data));
-    const expected = [
-      1,
-    ];
-    // expect(actual).toEqual(expected);
-  });
-  it("can solve puzzle p2", () => {
-    const data = [
-      [],
-    ];
-    // const actual = data.map((data) => solve_p2(data));
-    const expected = [
-      1,
-    ];
-    // expect(actual).toEqual(expected);
-  });
   it("can solve puzzle with my input", () => {
-    // const data = [0];
     const data = parse(lines);
     const answer = solve(data);
     console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(15416);
+    expect(answer).toEqual(380243);
   });
   it("can solve puzzle p2 with my input", () => {
-    // const data = [0];
     const data = parse(lines);
     const answer = solve_p2(data);
     console.log("part 2 answer is " + answer);
-    // expect(answer).toEqual(15416);
+    expect(answer).toEqual(1708791884591);
   });
 
 
