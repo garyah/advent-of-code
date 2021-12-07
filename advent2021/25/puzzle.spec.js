@@ -1,36 +1,123 @@
 describe("2021 day xx", function() {
-  // new code
+  // code
   let var1 = 0;
   let var2 = '';
-  const fn1 = (arg1 = 0, arg2 = '', arg3 = []) => {
+  let var3 = [];
+  let var4 = {};
+  const initVars = () => {
+    data = [0];
+    var1 = 0;
+    var2 = '';
+    var3 = [];
+    var4 = {};
+    answer = 0;
+  };
+  const fn1 = () => {
+    // console.log(...);
     if (1) {}
     else if (1) {}
     else {}
-    for (let i = 0;; i++) { break; continue; }
-    for (const item of arg3) {}
-    return 0;
+    var2.split(' ').join(' ');
+    for (let i = 0; i < var3.length; i++) { break; continue; }
+    for (let j = 0;; j++) { break; continue; }
+    for (const item of var3) { break; continue; }
+    var3.map((num) => {
+      return num;
+    }).filter((num) => num === num);
+    var3.reduce((sum, num) => {
+      return sum + num;
+    }, 0);
+    return;
   };
   const fn2 = () => {
-    return '';
-  };
-  const solve = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
+    // console.log(...);
+    if (1) {}
+    else if (1) {}
+    else {}
+    var2.split(' ').join(' ');
+    for (let i = 0; i < var3.length; i++) { break; continue; }
+    for (let j = 0;; j++) { break; continue; }
+    for (const item of var3) { break; continue; }
+    var3.map((num) => {
+      return num;
+    }).filter((num) => num === num);
+    var3.reduce((sum, num) => {
       return sum + num;
     }, 0);
-  }
-  const solve_p2 = (data = [0]) => {
-    fn1();
-    return data.reduce((sum, num) => {
+    return;
+  };
+  const fn3 = () => {
+    // console.log(...);
+    if (1) {}
+    else if (1) {}
+    else {}
+    var2.split(' ').join(' ');
+    for (let i = 0; i < var3.length; i++) { break; continue; }
+    for (let j = 0;; j++) { break; continue; }
+    for (const item of var3) { break; continue; }
+    var3.map((num) => {
+      return num;
+    }).filter((num) => num === num);
+    var3.reduce((sum, num) => {
       return sum + num;
     }, 0);
+    return;
+  };
+  const fn4 = () => {
+    // console.log(...);
+    if (1) {}
+    else if (1) {}
+    else {}
+    var2.split(' ').join(' ');
+    for (let i = 0; i < var3.length; i++) { break; continue; }
+    for (let j = 0;; j++) { break; continue; }
+    for (const item of var3) { break; continue; }
+    var3.map((num) => {
+      return num;
+    }).filter((num) => num === num);
+    var3.reduce((sum, num) => {
+      return sum + num;
+    }, 0);
+    return;
+  };
+  const fn5 = () => {
+    // console.log(...);
+    if (1) {}
+    else if (1) {}
+    else {}
+    var2.split(' ').join(' ');
+    for (let i = 0; i < var3.length; i++) { break; continue; }
+    for (let j = 0;; j++) { break; continue; }
+    for (const item of var3) { break; continue; }
+    var3.map((num) => {
+      return num;
+    }).filter((num) => num === num);
+    var3.reduce((sum, num) => {
+      return sum + num;
+    }, 0);
+    return;
+  };
+  let answer = 0;
+  const solve = () => {
+    // console.log(...);
+    fn1();
+    answer = 1;
+    // console.log(...);
   }
-  const parse = (lines = ['']) => {
-    // return parser.getFirstLine(lines);
-    // return lines;    // use for multi-line string input
-    // return parser.linesToInts(lines);
-    // return parser.linesToFloats(lines);
-    return parser.linesToDirCommands(lines);
+  const solve_p2 = () => {
+    // console.log(...);
+    fn1();
+    answer = 2;
+    // console.log(...);
+  }
+  let data = [0];
+  const parse = () => {
+    data = parser.lineToIntsComma(lines[0]);
+    // data = parser.linesToInts(lines);
+    // data = lines;    // use for multi-line string input
+    // data = parser.getFirstLine(lines);
+    // data = parser.linesToFloats(lines);
+    // data = parser.linesToDirCommands(lines);
   };
 
 
@@ -47,58 +134,56 @@ describe("2021 day xx", function() {
 
 
 
-  // new tests
-  it('fn1() returns number 0', () => {
-    expect(fn1()).toEqual(
+  // tests
+  it('fn1() ...', () => {
+    fn1();
+    expect(0).toEqual(
       0
       );
   });
-  it('fn2() returns empty string', () => {
-    expect(fn2()).toEqual(
-      ''
+  it('fn2() ...', () => {
+    fn2();
+    expect(0).toEqual(
+      0
+      );
+  });
+  it('fn3() ...', () => {
+    fn3();
+    expect(0).toEqual(
+      0
+      );
+  });
+  it('fn4() ...', () => {
+    fn4();
+    expect(0).toEqual(
+      0
+      );
+  });
+  it('fn5() ...', () => {
+    fn5();
+    expect(0).toEqual(
+      0
       );
   });
   it("can parse input", () => {
-    const data = parse(
-      '+1 +3 +2'
+    lines = '+1,+3,+2 1,2,3'
       .split(
         ' '
-        ));
+        );
+    parse();
     expect(data).toEqual([1, 3, 2]);
   });
-  it("can solve puzzle", () => {
-    const data = [
-      [],
-    ];
-    // const actual = data.map((data) => solve(data));
-    const expected = [
-      1,
-    ];
-    // expect(actual).toEqual(expected);
-  });
-  it("can solve puzzle p2", () => {
-    const data = [
-      [],
-    ];
-    // const actual = data.map((data) => solve_p2(data));
-    const expected = [
-      1,
-    ];
-    // expect(actual).toEqual(expected);
-  });
   it("can solve puzzle with my input", () => {
-    // const data = [0];
-    const data = parse(lines);
-    const answer = solve(data);
-    console.log("part 1 answer is " + answer);
-    // expect(answer).toEqual(15416);
+    parse();
+    solve();
+    console.log("\npart 1 answer is " + answer);
+    expect(answer).toEqual(1);
   });
   it("can solve puzzle p2 with my input", () => {
-    // const data = [0];
-    const data = parse(lines);
-    const answer = solve_p2(data);
-    console.log("part 2 answer is " + answer);
-    // expect(answer).toEqual(15416);
+    parse();
+    solve_p2();
+    console.log("\npart 2 answer is " + answer);
+    expect(answer).toEqual(2);
   });
 
 
@@ -114,10 +199,13 @@ describe("2021 day xx", function() {
 
   // boilerplate
   const Parser = require('../../common/parser');
+  // next line for testing puzzle.spec.js in common dir
+  // const Parser = require('./parser');
   // const puzzle = require('../../common/puzzleWithCode');
   const parser = new Parser();
   const readInputFile = true; // change to true to read input file for all tests that need it
   let lines = [];
+  let linesSave = [];
   beforeAll((done) => {
     console.log("2021 day xx:");
     if (readInputFile) {
@@ -128,6 +216,15 @@ describe("2021 day xx", function() {
       });
       return;
     }
+    done();
+  });
+  beforeEach((done) => {
+    linesSave = lines;
+    initVars();
+    done();
+  });
+  afterEach((done) => {
+    lines = linesSave;
     done();
   });
 });
