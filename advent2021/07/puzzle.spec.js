@@ -1,4 +1,4 @@
-describe("2021 day xx", function() {
+describe("2021 day 07", function() {
   // new code
   let var1 = 0;
   let var2 = '';
@@ -119,10 +119,10 @@ describe("2021 day xx", function() {
   const readInputFile = true; // change to true to read input file for all tests that need it
   let lines = [];
   beforeAll((done) => {
-    console.log("2021 day xx:");
+    console.log("2021 day 07:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines("advent2021/xx/input.txt", (linesRead) => {
+      parser.readLines("advent2021/07/input.txt", (linesRead) => {
         lines = linesRead;
         done();
       });
