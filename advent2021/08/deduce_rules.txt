@@ -1,0 +1,8 @@
+1 tells which 2 letters on RHS
+4 tells which 2 letters on top-left and middle
+7 tells which 1 letter on top
+8 tells nothing
+0 tells which of 2 letters on top-left and middle from 4
+6 tells which of 2 letters on top-right and bottom-right from 1
+9 tells which 1 letter on bottom-left
+3, 2, or 5 all tell which 1 letter on bottom

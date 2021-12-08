@@ -77,4 +77,12 @@ Parser.prototype.linesToLineSegments = (lines = []) => {
     return {x1: x1, y1: y1, x2: x2, y2: y2};
   });
 };
+Parser.prototype.linesToWords = (lines = []) => {
+  return lines.map((line) => {
+    let parts = line.split(' | ');
+    let leftWords = parts[0].split(' ');
+    let rightWords = parts[1].split(' ');
+    return {leftWords: leftWords, rightWords: rightWords};
+  });
+};
 module.exports = Parser;
