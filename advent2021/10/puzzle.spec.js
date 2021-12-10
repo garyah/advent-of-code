@@ -1,123 +1,163 @@
 describe("2021 day 10", function() {
   // code
-  let var1 = 0;
-  let var2 = '';
-  let var3 = [];
-  let var4 = {};
   const initVars = () => {
-    data = [0];
-    var1 = 0;
-    var2 = '';
-    var3 = [];
-    var4 = {};
-    answer = 0;
+    data = [''];
+    errorScore = 0;
+    incompleteScore = 0;
   };
-  const fn1 = () => {
+  const calcErrorScore = () => {
     // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+    let stack = [''];
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data[i].length; j++) {
+        if (data[i][j] === '('
+          || data[i][j] === '['
+          || data[i][j] === '{'
+          || data[i][j] === '<') {
+            stack.push(data[i][j]);
+        }
+        if (data[i][j] === ')'
+          || data[i][j] === ']'
+          || data[i][j] === '}'
+          || data[i][j] === '>') {
+            let lastChar = stack.pop();
+            if (lastChar === undefined) continue;
+            if (data[i][j] === ')') {
+              if (lastChar === '(') continue;
+              errorScore += 3; continue;
+            }
+            if (data[i][j] === ']') {
+              if (lastChar === '[') continue;
+              errorScore += 57; continue;
+            }
+            if (data[i][j] === '}') {
+              if (lastChar === '{') continue;
+              errorScore += 1197; continue;
+            }
+            if (data[i][j] === '>') {
+              if (lastChar === '<') continue;
+              errorScore += 25137; continue;
+            }
+        }
+        // break;
+        // continue;
+      }
+    }
   };
-  const fn2 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+  const removeCorrupt = () => {
+    console.log('data.length before = ', data.length);
+    let stack = [''];
+    let escape = false;
+    for (let i = 0; i < data.length; i++) {
+      // if (escape) break;
+      for (let j = 0; j < data[i].length; j++) {
+        if (data[i][j] === '('
+          || data[i][j] === '['
+          || data[i][j] === '{'
+          || data[i][j] === '<') {
+            stack.push(data[i][j]);
+        }
+        if (data[i][j] === ')'
+          || data[i][j] === ']'
+          || data[i][j] === '}'
+          || data[i][j] === '>') {
+            let lastChar = stack.pop();
+            if (lastChar === undefined) continue;
+            if (data[i][j] === ')') {
+              if (lastChar === '(') continue;
+              data.splice(i--, 1); escape = true; break;
+            }
+            if (data[i][j] === ']') {
+              if (lastChar === '[') continue;
+              data.splice(i--, 1); escape = true; break;
+            }
+            if (data[i][j] === '}') {
+              if (lastChar === '{') continue;
+              data.splice(i--, 1); escape = true; break;
+            }
+            if (data[i][j] === '>') {
+              if (lastChar === '<') continue;
+              data.splice(i--, 1); escape = true; break;
+            }
+        }
+        // break;
+        // continue;
+      }
+    }
+    console.log('data.length after = ', data.length);
   };
-  const fn3 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+  const scoreIncomplete = () => {
+    console.log('data.length before = ', data.length);
+    let scores = [0]; scores.pop();
+    for (let i = 0; i < data.length; i++) {
+      let stack = ['']; stack.pop();
+      let j = 0;
+      for (j = 0; j < data[i].length; j++) {
+        if (data[i][j] === '('
+          || data[i][j] === '['
+          || data[i][j] === '{'
+          || data[i][j] === '<') {
+            stack.push(data[i][j]);
+        }
+        if (data[i][j] === ')'
+          || data[i][j] === ']'
+          || data[i][j] === '}'
+          || data[i][j] === '>') {
+            /*let lastChar = */stack.pop();
+        }
+      }
+      // console.log(stack);
+      // console.log(stack.length);
+      let completion = ['']; completion.pop();
+      let score = 0;
+      let stackLength = stack.length;
+      for (j = 0; j < stackLength; j++) {
+        let lastChar = stack.pop();
+        if (lastChar === '(') {
+          completion.push(')');
+          // console.log(completion.length);
+          score = score * 5 + 1; continue;
+        }
+        if (lastChar === '[') {
+          completion.push(']');
+          // console.log(completion.length);
+          score = score * 5 + 2; continue;
+        }
+        if (lastChar === '{') {
+          completion.push('}');
+          // console.log(completion.length);
+          score = score * 5 + 3; continue;
+        }
+        if (lastChar === '<') {
+          completion.push('>');
+          // console.log(completion.length);
+          score = score * 5 + 4; continue;
+        }
+      }
+      scores.push(score);
+      // console.log(completion);
+      // console.log(completion.length);
+    }
+    console.log('scores = ', scores);
+    let scoresSorted = scores.sort((a, b) => b - a);
+    console.log('scoresSorted = ', scoresSorted);
+    console.log('scoresSorted.length = ', scoresSorted.length);
+    console.log('scoresSorted.length / 2 = ', parseInt(scoresSorted.length / 2));
+    incompleteScore = scoresSorted[parseInt(scoresSorted.length / 2)];
+    console.log('incompleteScore = ', incompleteScore);
   };
-  const fn4 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
-  };
-  const fn5 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
-  };
-  let answer = 0;
+  let errorScore = 0;
   const solve = () => {
-    // console.log(...);
-    fn1();
-    answer = 1;
-    // console.log(...);
+    calcErrorScore();
   }
+  let incompleteScore = 0;
   const solve_p2 = () => {
-    // console.log(...);
-    fn1();
-    answer = 2;
-    // console.log(...);
+    removeCorrupt();
+    scoreIncomplete();
   }
-  let data = [0];
+  let data = [''];
   const parse = () => {
-    data = parser.lineToIntsComma(lines[0]);
-    // data = parser.linesToInts(lines);
-    // data = lines;    // use for multi-line string input
-    // data = parser.getFirstLine(lines);
-    // data = parser.linesToFloats(lines);
-    // data = parser.linesToDirCommands(lines);
+    data = lines;    // use for multi-line string input
   };
 
 
@@ -135,55 +175,17 @@ describe("2021 day 10", function() {
 
 
   // tests
-  it('fn1() ...', () => {
-    fn1();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn2() ...', () => {
-    fn2();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn3() ...', () => {
-    fn3();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn4() ...', () => {
-    fn4();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn5() ...', () => {
-    fn5();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it("can parse input", () => {
-    lines = '+1,+3,+2 1,2,3'
-      .split(
-        ' '
-        );
-    // parse();
-    // expect(data).toEqual([1, 3, 2]);
-  });
   it("can solve puzzle with my input", () => {
     parse();
     solve();
-    console.log("\npart 1 answer is " + answer);
-    // expect(answer).toEqual(1);
+    console.log("\npart 1 answer is " + errorScore);
+    expect(errorScore).toEqual(387363);
   });
   it("can solve puzzle p2 with my input", () => {
     parse();
-    // solve_p2();
-    console.log("\npart 2 answer is " + answer);
-    // expect(answer).toEqual(2);
+    solve_p2();
+    console.log("\npart 2 answer is " + incompleteScore);
+    expect(incompleteScore).toEqual(4330777059);
   });
 
 
