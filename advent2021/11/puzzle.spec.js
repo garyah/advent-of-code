@@ -170,20 +170,20 @@ describe("2021 day xx", function() {
       .split(
         ' '
         );
-    parse();
-    expect(data).toEqual([1, 3, 2]);
+    // parse();
+    // expect(data).toEqual([1, 3, 2]);
   });
   it("can solve puzzle with my input", () => {
     parse();
     solve();
     console.log("\npart 1 answer is " + answer);
-    expect(answer).toEqual(1);
+    // expect(answer).toEqual(1);
   });
   it("can solve puzzle p2 with my input", () => {
     parse();
-    solve_p2();
+    // solve_p2();
     console.log("\npart 2 answer is " + answer);
-    expect(answer).toEqual(2);
+    // expect(answer).toEqual(2);
   });
 
 
