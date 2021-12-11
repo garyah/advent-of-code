@@ -1,123 +1,147 @@
-describe("2021 day xx", function() {
+describe("2021 day 11", function() {
   // code
-  let var1 = 0;
-  let var2 = '';
-  let var3 = [];
-  let var4 = {};
   const initVars = () => {
-    data = [0];
-    var1 = 0;
-    var2 = '';
-    var3 = [];
-    var4 = {};
-    answer = 0;
+    octoEnergy = [''];
+
+    numFlashes = 0;
+    numStepsToAllFlash = 0;
   };
-  const fn1 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+  const doStep = (numSteps = 100) => {
+    // console.log('octoEnergy.length = ', octoEnergy.length);
+    rightIdx = octoEnergy[0].length - 1;
+    bottomIdx = octoEnergy.length - 1;
+    // console.log('rightIdx = ', rightIdx);
+    // console.log('bottomIdx = ', bottomIdx);
+
+    let r = 0;
+    let c = 0;
+    for (r = 0; r <= bottomIdx; r++) {
+      let newEnergy = '';
+      for (c = 0; c <= rightIdx; c++) {
+        let newEnergyValue = new String(parseInt(octoEnergy[r][c]) + 1);
+        if (newEnergyValue > 9) newEnergyValue = '*';
+        newEnergy = newEnergy + newEnergyValue;
+      }
+      octoEnergy[r] = newEnergy;
+      // console.log(octoEnergy[r]);
+    }
+
+    // console.log();
+
+    for (r = 0; r <= bottomIdx; r++) {
+      for (c = 0; c <= rightIdx; c++) {
+        // everything else
+        if (octoEnergy[r][c] === '*') {
+              // console.log(r, c, octoEnergy[r][c]);
+              walkFromFlasher(r, c);
+        }
+      }
+    }
+
+    let isAllFlashing = true;
+    for (r = 0; r <= bottomIdx; r++) {
+      let newEnergy = '';
+      for (c = 0; c <= rightIdx; c++) {
+        let newEnergyValue = (octoEnergy[r][c] === '*' || octoEnergy[r][c] === 'F') ? '0' : octoEnergy[r][c];
+        if (newEnergyValue !== '0') isAllFlashing = false;
+        newEnergy = newEnergy + newEnergyValue;
+      }
+      octoEnergy[r] = newEnergy;
+      // console.log(octoEnergy[r]);
+    }
+
+    return isAllFlashing;
   };
-  const fn2 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+  const walkFromFlasher = (startRow = 0, startCol = 0) => {
+    numFlashes += 1;
+
+    let rDown = startRow + 1;
+    let rUp = startRow - 1;
+    let cRight = startCol + 1;
+    let cLeft = startCol - 1;
+
+    if (isWalkTarget(rDown, startCol)) {
+      let newEnergyValue = new String(parseInt(octoEnergy[rDown][startCol]) + 1);
+      if (newEnergyValue > 9) newEnergyValue = 'F';
+      octoEnergy[rDown] = octoEnergy[rDown].substr(0, startCol) + newEnergyValue + octoEnergy[rDown].substr(startCol + 1);
+      if (newEnergyValue === 'F') walkFromFlasher(rDown, startCol);
+    }
+    if (isWalkTarget(rUp, startCol)) {
+      let newEnergyValue = new String(parseInt(octoEnergy[rUp][startCol]) + 1);
+      if (newEnergyValue > 9) newEnergyValue = 'F';
+      octoEnergy[rUp] = octoEnergy[rUp].substr(0, startCol) + newEnergyValue + octoEnergy[rUp].substr(startCol + 1);
+      if (newEnergyValue === 'F') walkFromFlasher(rUp, startCol);
+    }
+    if (isWalkTarget(startRow, cRight)) {
+      let newEnergyValue = new String(parseInt(octoEnergy[startRow][cRight]) + 1);
+      if (newEnergyValue > 9) newEnergyValue = 'F';
+      octoEnergy[startRow] = octoEnergy[startRow].substr(0, cRight) + newEnergyValue + octoEnergy[startRow].substr(cRight + 1);
+      if (newEnergyValue === 'F') walkFromFlasher(startRow, cRight);
+    }
+    if (isWalkTarget(startRow, cLeft)) {
+      let newEnergyValue = new String(parseInt(octoEnergy[startRow][cLeft]) + 1);
+      if (newEnergyValue > 9) newEnergyValue = 'F';
+      octoEnergy[startRow] = octoEnergy[startRow].substr(0, cLeft) + newEnergyValue + octoEnergy[startRow].substr(cLeft + 1);
+      if (newEnergyValue === 'F') walkFromFlasher(startRow, cLeft);
+    }
+
+    if (isWalkTarget(rDown, cRight)) {
+      let newEnergyValue = new String(parseInt(octoEnergy[rDown][cRight]) + 1);
+      if (newEnergyValue > 9) newEnergyValue = 'F';
+      octoEnergy[rDown] = octoEnergy[rDown].substr(0, cRight) + newEnergyValue + octoEnergy[rDown].substr(cRight + 1);
+      if (newEnergyValue === 'F') walkFromFlasher(rDown, cRight);
+    }
+    if (isWalkTarget(rDown, cLeft)) {
+      let newEnergyValue = new String(parseInt(octoEnergy[rDown][cLeft]) + 1);
+      if (newEnergyValue > 9) newEnergyValue = 'F';
+      octoEnergy[rDown] = octoEnergy[rDown].substr(0, cLeft) + newEnergyValue + octoEnergy[rDown].substr(cLeft + 1);
+      if (newEnergyValue === 'F') walkFromFlasher(rDown, cLeft);
+    }
+    if (isWalkTarget(rUp, cRight)) {
+      let newEnergyValue = new String(parseInt(octoEnergy[rUp][cRight]) + 1);
+      if (newEnergyValue > 9) newEnergyValue = 'F';
+      octoEnergy[rUp] = octoEnergy[rUp].substr(0, cRight) + newEnergyValue + octoEnergy[rUp].substr(cRight + 1);
+      if (newEnergyValue === 'F') walkFromFlasher(rUp, cRight);
+    }
+    if (isWalkTarget(rUp, cLeft)) {
+      let newEnergyValue = new String(parseInt(octoEnergy[rUp][cLeft]) + 1);
+      if (newEnergyValue > 9) newEnergyValue = 'F';
+      octoEnergy[rUp] = octoEnergy[rUp].substr(0, cLeft) + newEnergyValue + octoEnergy[rUp].substr(cLeft + 1);
+      if (newEnergyValue === 'F') walkFromFlasher(rUp, cLeft);
+    }
   };
-  const fn3 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+  const isWalkTarget = (row = 0, col = 0) => {
+    return (isInBounds(row, col)
+      && isNotFlashed(row, col)
+      && isNotFlashing(row, col));
   };
-  const fn4 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+  const isInBounds = (row = 0, col = 0) => {
+    return (row >= 0 && row <= bottomIdx
+      && col >= 0 && col <= rightIdx);
   };
-  const fn5 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+  const isNotFlashed = (row = 0, col = 0) => {
+    return (octoEnergy[row][col] !== 'F');
   };
-  let answer = 0;
+  const isNotFlashing = (row = 0, col = 0) => {
+    return (octoEnergy[row][col] !== '*');
+  };
+  let numFlashes = 0;
   const solve = () => {
-    // console.log(...);
-    fn1();
-    answer = 1;
-    // console.log(...);
+    for (let n = 0; n < 100; n++) {
+      doStep();
+    }
+    // console.log('numFlashes = ', numFlashes);
   }
+  let numStepsToAllFlash = 0;
   const solve_p2 = () => {
-    // console.log(...);
-    fn1();
-    answer = 2;
-    // console.log(...);
+    numStepsToAllFlash = 1;
+    for (; !doStep(); numStepsToAllFlash++) {
+    }
+    // console.log('numStepsToAllFlash = ', numStepsToAllFlash);
   }
-  let data = [0];
+  let octoEnergy = [''];
   const parse = () => {
-    data = parser.lineToIntsComma(lines[0]);
-    // data = parser.linesToInts(lines);
-    // data = lines;    // use for multi-line string input
-    // data = parser.getFirstLine(lines);
-    // data = parser.linesToFloats(lines);
-    // data = parser.linesToDirCommands(lines);
+    octoEnergy = lines;    // use for multi-line string input
   };
 
 
@@ -135,54 +159,16 @@ describe("2021 day xx", function() {
 
 
   // tests
-  it('fn1() ...', () => {
-    fn1();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn2() ...', () => {
-    fn2();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn3() ...', () => {
-    fn3();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn4() ...', () => {
-    fn4();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn5() ...', () => {
-    fn5();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it("can parse input", () => {
-    lines = '+1,+3,+2 1,2,3'
-      .split(
-        ' '
-        );
-    // parse();
-    // expect(data).toEqual([1, 3, 2]);
-  });
   it("can solve puzzle with my input", () => {
     parse();
     solve();
-    console.log("\npart 1 answer is " + answer);
+    console.log("\npart 1 answer is " + numFlashes);
     // expect(answer).toEqual(1);
   });
   it("can solve puzzle p2 with my input", () => {
     parse();
-    // solve_p2();
-    console.log("\npart 2 answer is " + answer);
+    solve_p2();
+    console.log("\npart 2 answer is " + numStepsToAllFlash);
     // expect(answer).toEqual(2);
   });
 
@@ -207,10 +193,10 @@ describe("2021 day xx", function() {
   let lines = [];
   let linesSave = [];
   beforeAll((done) => {
-    console.log("2021 day xx:");
+    console.log("2021 day 11:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines("advent2021/xx/input.txt", (linesRead) => {
+      parser.readLines("advent2021/11/input.txt", (linesRead) => {
         lines = linesRead;
         done();
       });
@@ -219,7 +205,8 @@ describe("2021 day xx", function() {
     done();
   });
   beforeEach((done) => {
-    linesSave = lines;
+    linesSave = [];
+    for (const line of lines) linesSave.push(line);
     initVars();
     done();
   });
