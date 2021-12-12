@@ -1,123 +1,113 @@
-describe("2021 day xx", function() {
+describe("2021 day 12", function() {
   // code
-  let var1 = 0;
-  let var2 = '';
-  let var3 = [];
-  let var4 = {};
+  let graph = new Map();
+  let state = new Map();
+  let paths = new Map();
+  let is_p2 = false;
+  let isOneSmallRepeated = false;
   const initVars = () => {
-    data = [0];
-    var1 = 0;
-    var2 = '';
-    var3 = [];
-    var4 = {};
-    answer = 0;
+    caveMap = [['']];
+
+    graph = new Map();
+    state = new Map();
+    paths = new Map();
+    is_p2 = false;
+    isOneSmallRepeated = false;
+
+    numPaths = 0;
   };
-  const fn1 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
+  const buildGraph = () => {
+    console.log('caveMap.length = ', caveMap.length);
+    // console.log('graph.size = ', graph.size);
+    // console.log('state.size = ', state.size);
+
+    // init graph and state
+    for (let i = 0; i < caveMap.length; i++) {
+      let value = [''];
+
+      // forward direction
+      value = graph.get(caveMap[i][0]);
+      if (!value) value = [];
+      value.push(caveMap[i][1]);
+      graph.set(caveMap[i][0], value);
+      state.set(caveMap[i][0], is_p2 ? 0 : false);
+
+      // reverse direction
+      value = graph.get(caveMap[i][1]);
+      if (!value) value = [];
+      value.push(caveMap[i][0]);
+      graph.set(caveMap[i][1], value);
+      state.set(caveMap[i][1], is_p2 ? 0 : false);
+    }
+    isOneSmallRepeated = false;
+    console.log('graph.size = ', graph.size);
+    console.log('state.size = ', state.size);
+    // console.log('graph.keys = ', graph.keys());
+    // console.log('graph.values = ', graph.values());
+    console.log('graph = ', graph);
+    console.log('state = ', state);
+  };
+  const traverseGraph = () => {
+    paths = new Map();
+    walkGraph('start', '');
+    // console.log('paths.size = ', paths.size);
+    // console.log('paths = ', paths);
+    numPaths = paths.size;
+  };
+  const walkGraph = (startNode = '', path = '') => {
+    if (startNode === 'start') {
+        // check for already traversed, start node revisited
+        if (state.get(startNode)) return '<<>>';
+    }
+    if (startNode.substr(0, 1) >= 'a' && startNode.substr(0, 1) <= 'z') {
+        // check for already traversed, little cave revisited
+        if (!is_p2 && state.get(startNode)) return '<<>>';
+        if (state.get(startNode) >= 1 && isOneSmallRepeated) return '<<>>';
+        if (state.get(startNode) === 1 && !isOneSmallRepeated) {
+          isOneSmallRepeated = true;
+        }
+    }
+    path = path + ',' + startNode;
+    if (startNode === 'end') {
+      // reached end node
+
+      // add to paths map
+      let numTimes = 0;
+      numTimes = paths.get(path);
+      if (!numTimes) numTimes = 0;
+      numTimes += 1;
+      paths.set(path, numTimes);
+      // console.log(path);
+      // console.log('*');
+
+      return path;
+    }
+    state.set(startNode, is_p2 ? state.get(startNode) + 1 : true);
+    const nextNodes = graph.get(startNode);
+    for (const node of nextNodes) {
+      walkGraph(node, path);
+    }
+    if (startNode.substr(0, 1) >= 'a' && startNode.substr(0, 1) <= 'z') {
+      if (state.get(startNode) >= 2 && isOneSmallRepeated) {
+        isOneSmallRepeated = false;
+      }
+    }
+    state.set(startNode, is_p2 ? state.get(startNode) - 1 : false);
     return;
   };
-  const fn2 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
-  };
-  const fn3 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
-  };
-  const fn4 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
-  };
-  const fn5 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
-  };
-  let answer = 0;
+  let numPaths = 0;
   const solve = () => {
-    // console.log(...);
-    fn1();
-    answer = 1;
-    // console.log(...);
+    buildGraph();
+    traverseGraph();
   }
   const solve_p2 = () => {
-    // console.log(...);
-    fn1();
-    answer = 2;
-    // console.log(...);
+    is_p2 = true;
+    buildGraph();
+    traverseGraph();
   }
-  let data = [0];
+  let caveMap = [['']];
   const parse = () => {
-    data = parser.lineToIntsComma(lines[0]);
-    // data = parser.linesToInts(lines);
-    // data = lines;    // use for multi-line string input
-    // data = parser.getFirstLine(lines);
-    // data = parser.linesToFloats(lines);
-    // data = parser.linesToDirCommands(lines);
+    caveMap = parser.linesToHyphenatedWords(lines);
   };
 
 
@@ -135,55 +125,17 @@ describe("2021 day xx", function() {
 
 
   // tests
-  it('fn1() ...', () => {
-    fn1();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn2() ...', () => {
-    fn2();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn3() ...', () => {
-    fn3();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn4() ...', () => {
-    fn4();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn5() ...', () => {
-    fn5();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it("can parse input", () => {
-    lines = '+1,+3,+2 1,2,3'
-      .split(
-        ' '
-        );
-    // parse();
-    // expect(data).toEqual([1, 3, 2]);
-  });
   it("can solve puzzle with my input", () => {
     parse();
     solve();
-    console.log("\npart 1 answer is " + answer);
-    // expect(answer).toEqual(1);
+    console.log("\npart 1 answer is " + numPaths);
+    expect(numPaths).toEqual(5104);
   });
   it("can solve puzzle p2 with my input", () => {
     parse();
-    // solve_p2();
-    console.log("\npart 2 answer is " + answer);
-    // expect(answer).toEqual(2);
+    solve_p2();
+    console.log("\npart 2 answer is " + numPaths);
+    expect(numPaths).toEqual(149220);
   });
 
 
@@ -207,10 +159,10 @@ describe("2021 day xx", function() {
   let lines = [];
   let linesSave = [];
   beforeAll((done) => {
-    console.log("2021 day xx:");
+    console.log("2021 day 12:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines("advent2021/xx/input.txt", (linesRead) => {
+      parser.readLines("advent2021/12/input.txt", (linesRead) => {
         lines = linesRead;
         done();
       });

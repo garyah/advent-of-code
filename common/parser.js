@@ -85,4 +85,7 @@ Parser.prototype.linesToWords = (lines = []) => {
     return {leftWords: leftWords, rightWords: rightWords};
   });
 };
+Parser.prototype.linesToHyphenatedWords = (lines = ['']) => {
+  return lines.map((line) => line.split('-'));
+};
 module.exports = Parser;
