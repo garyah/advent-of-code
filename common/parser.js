@@ -77,6 +77,25 @@ Parser.prototype.linesToLineSegments = (lines = []) => {
     return {x1: x1, y1: y1, x2: x2, y2: y2};
   });
 };
+Parser.prototype.linesToCoords = (lines = ['']) => {
+  return lines.map((line) => {
+    if (line.includes('fold') || line === '') return;
+    let parts = line.split(',');
+    let x = parseInt(parts[0]);
+    let y = parseInt(parts[1]);
+    return {x: x, y: y};
+  });
+};
+Parser.prototype.linesToFolds = (lines = ['']) => {
+  return lines.map((line) => {
+    if (!line.includes('fold')) return;
+    let parts = line.split('=');
+    const dim = parts[0].substr(parts[0].length - 1);
+    let x = dim === 'x' ? parseInt(parts[1]) : -1;
+    let y = dim === 'y' ? parseInt(parts[1]) : -1;
+    return {x: x, y: y};
+  });
+};
 Parser.prototype.linesToWords = (lines = []) => {
   return lines.map((line) => {
     let parts = line.split(' | ');
