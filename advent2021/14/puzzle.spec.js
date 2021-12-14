@@ -1,50 +1,53 @@
-describe("2021 day xx", function() {
+describe("2021 day 14", function() {
   // code
   let var1 = 0;
   let var2 = '';
   let var3 = [];
   let var4 = {};
+  let elemQuants = [0];
   const initVars = () => {
-    data = [0];
+    template = '';
+    pairRules = new Map();
     var1 = 0;
     var2 = '';
     var3 = [];
     var4 = {};
-    answer = 0;
+    elemQuants = [0];
+    elemDelta = 0;
   };
-  const fn1 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+  const doStep = () => {
+    for (let i = 0; i < template.length - 1; i++) {
+      const value = pairRules.get(template.substr(i, 2));
+      if (value) {
+        template = template.substr(0, i + 1) + value + template.substr(i + 1);
+        i++;
+      }
+      else {
+        console.log('.');
+      }
+    }
+    console.log('after inserting, template.length = ', template.length);
   };
-  const fn2 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+  const calcAnswer = () => {
+    for (let n = 0; n < 26; n++) {
+      elemQuants[n] = 0;
+    }
+    console.log('elemQuants.length = ', elemQuants.length);
+    for (let i = 0; i < template.length; i++) {
+      elemQuants[template.substr(i, 1).charCodeAt(0) - 'A'.charCodeAt(0)] += 1;
+    }
+    console.log('elemQuants = ', elemQuants);
+    // let elemQuantsSorted = elemQuants.sort((a, b) => b - a);
+    // console.log('elemQuantsSorted = ', elemQuantsSorted);
+    let elemLeastCommon = 10000000;
+    let elemMostCommon = -1;
+    for (let m = 0; m < 26; m++) {
+      if (elemQuants[m] > elemMostCommon) { elemMostCommon = elemQuants[m]; continue; }
+      if (elemQuants[m] !== 0 && elemQuants[m] < elemLeastCommon) elemLeastCommon = elemQuants[m];
+    }
+    console.log('elemLeastCommon = ', elemLeastCommon);
+    console.log('elemMostCommon = ', elemMostCommon);
+    elemDelta = elemMostCommon - elemLeastCommon;
   };
   const fn3 = () => {
     // console.log(...);
@@ -97,27 +100,35 @@ describe("2021 day xx", function() {
     }, 0);
     return;
   };
-  let answer = 0;
+  let elemDelta = 0;
   const solve = () => {
-    // console.log(...);
-    fn1();
-    answer = 1;
-    // console.log(...);
+    console.log(pairRules.size);
+    // console.log(pairRules);
+    for (let i = 0; i < 10; i++) {
+      doStep();
+    }
+    calcAnswer();
+    console.log('elemDelta = ', elemDelta);
   }
   const solve_p2 = () => {
-    // console.log(...);
-    fn1();
-    answer = 2;
-    // console.log(...);
+    console.log(pairRules.size);
+    // console.log(pairRules);
+    for (let i = 0; i < 12; i++) {
+      doStep();
+    }
+    calcAnswer();
+    console.log('elemDelta = ', elemDelta);
   }
-  let data = [0];
+  let template = '';
+  let pairRules = new Map();
   const parse = () => {
-    data = parser.lineToIntsComma(lines[0]);
-    // data = parser.linesToInts(lines);
-    // data = lines;    // use for multi-line string input
-    // data = parser.getFirstLine(lines);
-    // data = parser.linesToFloats(lines);
-    // data = parser.linesToDirCommands(lines);
+    template = lines[0];
+    let pairRuleStrings = [{}];
+    pairRuleStrings = parser.linesToPairRules(lines);
+    console.log(pairRuleStrings.length);
+    for (let i = 0; i < pairRuleStrings.length; i++) {
+      pairRules.set(pairRuleStrings[i].pair, pairRuleStrings[i].toInsert);
+    }
   };
 
 
@@ -135,54 +146,16 @@ describe("2021 day xx", function() {
 
 
   // tests
-  it('fn1() ...', () => {
-    fn1();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn2() ...', () => {
-    fn2();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn3() ...', () => {
-    fn3();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn4() ...', () => {
-    fn4();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it('fn5() ...', () => {
-    fn5();
-    expect(0).toEqual(
-      0
-      );
-  });
-  it("can parse input", () => {
-    lines = '+1,+3,+2 1,2,3'
-      .split(
-        ' '
-        );
-    // parse();
-    // expect(data).toEqual([1, 3, 2]);
-  });
   it("can solve puzzle with my input", () => {
-    parse();
-    solve();
-    console.log("\npart 1 answer is " + answer);
+    // parse();
+    // solve();
+    // console.log("\npart 1 answer is " + answer);
     // expect(answer).toEqual(1);
   });
   it("can solve puzzle p2 with my input", () => {
     parse();
-    // solve_p2();
-    console.log("\npart 2 answer is " + answer);
+    solve_p2();
+    // console.log("\npart 2 answer is " + answer);
     // expect(answer).toEqual(2);
   });
 
@@ -207,10 +180,10 @@ describe("2021 day xx", function() {
   let lines = [];
   let linesSave = [];
   beforeAll((done) => {
-    console.log("2021 day xx:");
+    console.log("2021 day 14:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines("advent2021/xx/input.txt", (linesRead) => {
+      parser.readLines("advent2021/14/input.txt", (linesRead) => {
         lines = linesRead;
         done();
       });

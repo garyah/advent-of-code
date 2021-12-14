@@ -107,4 +107,10 @@ Parser.prototype.linesToWords = (lines = []) => {
 Parser.prototype.linesToHyphenatedWords = (lines = ['']) => {
   return lines.map((line) => line.split('-'));
 };
+Parser.prototype.linesToPairRules = (lines = ['']) => {
+  return lines.slice(2).map((line) => {
+    let parts = line.split(' -> ');
+    return {pair: parts[0], toInsert: parts[1]};
+  });
+};
 module.exports = Parser;
