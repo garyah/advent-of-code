@@ -1,45 +1,101 @@
 describe("2021 day 14", function() {
   // code
-  let var1 = 0;
-  let var2 = '';
-  let var3 = [];
-  let var4 = {};
+  let firstPair = '';
+  let pairCounts = new Map();
   let elemQuants = [0];
   const initVars = () => {
     template = '';
     pairRules = new Map();
-    var1 = 0;
-    var2 = '';
-    var3 = [];
-    var4 = {};
+
+    firstPair = '';
+    pairCounts = new Map();
     elemQuants = [0];
+
     elemDelta = 0;
   };
-  const doStep = () => {
+  const initCounts = () => {
+    firstPair = template.substr(0, 2);
     for (let i = 0; i < template.length - 1; i++) {
-      const value = pairRules.get(template.substr(i, 2));
-      if (value) {
-        template = template.substr(0, i + 1) + value + template.substr(i + 1);
-        i++;
-      }
-      else {
-        console.log('.');
+      const key = template.substr(i, 2);
+      const count = pairCounts.get(key);
+      pairCounts.set(key, count + 1);
+    }
+  };
+  const doStep = () => {
+    console.log('on entry, pairCounts.size = ', pairCounts.size);
+    // console.log('on entry, pairCounts = ', pairCounts);
+    let sum = 0;
+    for (const key of pairCounts.keys()) {
+      sum += pairCounts.get(key);
+    }
+    console.log('on entry, number of pairs = ', sum, ', on entry, length of template string = ', sum + 1);
+    let newPairCounts = new Map();
+    firstPair = firstPair.substr(0, 1) + pairRules.get(firstPair);
+    for (const key of pairCounts.keys()) {
+      const insertChar = pairRules.get(key);
+      const oldCount = pairCounts.get(key);
+      if (oldCount > 0) {
+        const newFirstPairKey = key.substr(0, 1) + insertChar;
+        const newFirstPairCount = newPairCounts.get(newFirstPairKey);
+        newPairCounts.set(newFirstPairKey, (newFirstPairCount ? newFirstPairCount : 0) + oldCount);
+
+        const newSecondPairKey = insertChar + key.substr(1);
+        const newSecondPairCount = newPairCounts.get(newSecondPairKey);
+        newPairCounts.set(newSecondPairKey, (newSecondPairCount ? newSecondPairCount : 0) + oldCount);
       }
     }
-    console.log('after inserting, template.length = ', template.length);
+    // console.log('after transfer of counts, newPairCounts.size = ', newPairCounts.size);
+    // console.log('after transfer of counts, newPairCounts = ', newPairCounts);
+
+    // original crude algorithm, which blew up the space needed to store the string
+    // for (let i = 0; i < template.length - 1; i++) {
+    //   const value = pairRules.get(template.substr(i, 2));
+    //   if (value) {
+    //     template = template.substr(0, i + 1) + value + template.substr(i + 1);
+    //     i++;
+    //   }
+    //   else {
+    //     console.log('.');
+    //   }
+    // }
+    // console.log('after inserting, template.length = ', template.length);
+
+    pairCounts = newPairCounts;
+    // console.log('after assign of counts, newPairCounts.size = ', newPairCounts.size);
+    // console.log('after assign of counts, pairCounts.size = ', pairCounts.size);
+    sum = 0;
+    for (const key of pairCounts.keys()) {
+      sum += pairCounts.get(key);
+    }
+    console.log('after transfer of counts, number of pairs = ', sum);
+    console.log('after transfer of counts, length of template string = ', sum + 1);
   };
   const calcAnswer = () => {
     for (let n = 0; n < 26; n++) {
       elemQuants[n] = 0;
     }
-    console.log('elemQuants.length = ', elemQuants.length);
-    for (let i = 0; i < template.length; i++) {
-      elemQuants[template.substr(i, 1).charCodeAt(0) - 'A'.charCodeAt(0)] += 1;
+    // console.log('elemQuants.length = ', elemQuants.length);
+
+    for (const key of pairCounts.keys()) {
+      const count = pairCounts.get(key);
+      const firstChar = key.substr(0, 1);
+      const secondChar = key.substr(1);
+
+      elemQuants[secondChar.charCodeAt(0) - 'A'.charCodeAt(0)] += count;
+
+      if (key === firstPair) {
+        elemQuants[firstChar.charCodeAt(0) - 'A'.charCodeAt(0)] += 1;
+      }
     }
+    console.log('pairCounts = ', pairCounts);
+
+    // original crude algorithm, which blew up the space needed to store the string
+    // for (let i = 0; i < template.length; i++) {
+    //   elemQuants[template.substr(i, 1).charCodeAt(0) - 'A'.charCodeAt(0)] += 1;
+    // }
     console.log('elemQuants = ', elemQuants);
-    // let elemQuantsSorted = elemQuants.sort((a, b) => b - a);
-    // console.log('elemQuantsSorted = ', elemQuantsSorted);
-    let elemLeastCommon = 10000000;
+
+    let elemLeastCommon = 10000000000000;
     let elemMostCommon = -1;
     for (let m = 0; m < 26; m++) {
       if (elemQuants[m] > elemMostCommon) { elemMostCommon = elemQuants[m]; continue; }
@@ -49,75 +105,26 @@ describe("2021 day 14", function() {
     console.log('elemMostCommon = ', elemMostCommon);
     elemDelta = elemMostCommon - elemLeastCommon;
   };
-  const fn3 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
-  };
-  const fn4 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
-  };
-  const fn5 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
-  };
   let elemDelta = 0;
   const solve = () => {
-    console.log(pairRules.size);
+    // console.log(pairRules.size);
     // console.log(pairRules);
+    initCounts();
     for (let i = 0; i < 10; i++) {
       doStep();
     }
     calcAnswer();
-    console.log('elemDelta = ', elemDelta);
+    // console.log('elemDelta = ', elemDelta);
   }
   const solve_p2 = () => {
-    console.log(pairRules.size);
+    // console.log(pairRules.size);
     // console.log(pairRules);
-    for (let i = 0; i < 12; i++) {
+    initCounts();
+    for (let i = 0; i < 40; i++) {
       doStep();
     }
     calcAnswer();
-    console.log('elemDelta = ', elemDelta);
+    // console.log('elemDelta = ', elemDelta);
   }
   let template = '';
   let pairRules = new Map();
@@ -125,9 +132,10 @@ describe("2021 day 14", function() {
     template = lines[0];
     let pairRuleStrings = [{}];
     pairRuleStrings = parser.linesToPairRules(lines);
-    console.log(pairRuleStrings.length);
+    // console.log(pairRuleStrings.length);
     for (let i = 0; i < pairRuleStrings.length; i++) {
       pairRules.set(pairRuleStrings[i].pair, pairRuleStrings[i].toInsert);
+      pairCounts.set(pairRuleStrings[i].pair, 0);
     }
   };
 
@@ -147,16 +155,16 @@ describe("2021 day 14", function() {
 
   // tests
   it("can solve puzzle with my input", () => {
-    // parse();
-    // solve();
-    // console.log("\npart 1 answer is " + answer);
-    // expect(answer).toEqual(1);
+    parse();
+    solve();
+    console.log("\npart 1 answer is " + elemDelta);
+    expect(elemDelta).toEqual(2891);
   });
   it("can solve puzzle p2 with my input", () => {
     parse();
     solve_p2();
-    // console.log("\npart 2 answer is " + answer);
-    // expect(answer).toEqual(2);
+    console.log("\npart 2 answer is " + elemDelta);
+    expect(elemDelta).toEqual(4607749009683);
   });
 
 
