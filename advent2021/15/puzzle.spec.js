@@ -1,15 +1,22 @@
 describe("2021 day 15", function() {
   // code
+  const intMax = 100000;
   let var1 = 0;
   let var2 = '';
   let var3 = [];
   let var4 = {};
+  let rightFlags = [[false]];
+  let downFlags = [[false]];
+  let path = [{row: 0, col: 0, risk: 0}];
   const initVars = () => {
     riskMap = [''];
     var1 = 0;
     var2 = '';
     var3 = [];
     var4 = {};
+    rightFlags = [[]];
+    downFlags = [[]];
+    path = [];
     minRisk = 0;
   };
   const walkMap = () => {
@@ -17,63 +24,68 @@ describe("2021 day 15", function() {
     // console.log('riskMap[0].length = ', riskMap[0].length);
     const size = riskMap.length;
     const numSteps = (size - 1) * 2;
-    console.log('numSteps = ', numSteps);
-    minRisk = 0;
+    // console.log('numSteps = ', numSteps);
     let r = 0, c = 0;
+    for (r = 0; r < numSteps; r++) {
+      downFlags[r] = [];
+      rightFlags[r] = [];
+      for (c = 0; c < numSteps; c++) {
+        rightFlags[r][c] = false;
+        downFlags[r][c] = false;
+      }
+    }
+    path = [];
+    minRisk = 0;
+    // console.log('downFlags.length = ', downFlags.length, ', downFlags = ', downFlags);
+    r = 0, c = 0;
     for (let n = 0; n < numSteps; n++) {
-      console.log('r = ', r, ', c = ', c, ', n = ', n, ', minRisk = ', minRisk);
-      const riskRight = (c + 1 < size) ? parseInt(riskMap[r][c + 1]) : 100000;
-      const riskDown = (r + 1 < size) ? parseInt(riskMap[r + 1][c]) : 100000;
-      // console.log('riskRight = ', riskRight);
-      // console.log('riskDown = ', riskDown);
-      // if (riskRight < riskDown) {
-      //   minRisk += riskRight;
-      //   c += 1;
-      //   continue;
-      // }
-      // if (riskRight > riskDown) {
-      //   minRisk += riskDown;
-      //   r += 1;
-      //   continue;
-      // }
-      const riskRightRight = (c + 2 < size) ? parseInt(riskMap[r][c + 2]) : 100000;
-      const riskRightDown = (r + 1 < size && c + 1 < size) ? parseInt(riskMap[r + 1][c + 1]) : 100000;
+      // console.log('r = ', r, ', c = ', c, ', n = ', n, ', minRisk = ', minRisk);
+      path.push({row: r, col: c, risk: minRisk});
+      for (let m = 0; m < n; m++) {
+        const pathCoord = path[m];
+        walkAlternate(pathCoord.row, pathCoord.col, pathCoord.risk, r, c);
+      }
+      const riskRight = (c + 1 < size) ? parseInt(riskMap[r][c + 1]) : intMax;
+      const riskDown = (r + 1 < size) ? parseInt(riskMap[r + 1][c]) : intMax;
+      const riskRightRight = (c + 2 < size) ? parseInt(riskMap[r][c + 2]) : intMax;
+      const riskRightDown = (r + 1 < size && c + 1 < size) ? parseInt(riskMap[r + 1][c + 1]) : intMax;
       const riskDownRight = riskRightDown;
-      const riskDownDown = (r + 2 < size) ? parseInt(riskMap[r + 2][c]) : 100000;
+      const riskDownDown = (r + 2 < size) ? parseInt(riskMap[r + 2][c]) : intMax;
       if (riskRight + Math.min(riskRightRight, riskRightDown) < riskDown + Math.min(riskDownRight, riskDownDown)) {
         minRisk += riskRight;
         c += 1;
+        rightFlags[r][c] = true;
         continue;
       }
       if (riskRight + Math.min(riskRightRight, riskRightDown) > riskDown + Math.min(riskDownRight, riskDownDown)) {
         minRisk += riskDown;
         r += 1;
+        downFlags[r][c] = true;
         continue;
       }
-      console.log('could not resolve tie, will move right anyway! r = ', r, ', c = ', c);
+      // console.log('could not resolve tie, will move right anyway! r = ', r, ', c = ', c);
       minRisk += riskRight;
       c += 1;
+      rightFlags[r][c] = true;
       // break; continue;
     }
-    console.log('r = ', r, ', c = ', c, ', minRisk = ', minRisk);
-    console.log(' = ');
+    // console.log(path);
+    // console.log('r = ', r, ', c = ', c, ', minRisk = ', minRisk);
+    // console.log(' = ');
   };
-  const fn2 = () => {
+  const walkAlternate = (row = 0, col = 0, risk = 0, tgtRow = 0, tgtCol = 0) => {
     // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+    // const size = riskMap.length;
+    let riskRight = intMax;
+    if (col + 1 <= tgtCol && !rightFlags[row][col + 1]) {
+      riskRight = walkAlternate(row, col + 1, risk + parseInt(riskMap[row][col + 1]));
+    }
+    let riskDown = intMax;
+    if (row + 1 <= tgtRow && !downFlags[row + 1][col]) {
+      riskDown = walkAlternate(row + 1, col, risk + parseInt(riskMap[row + 1][col]));
+    }
+    if (riskRight <= riskDown) return riskRight;
+    return riskDown;
   };
   const fn3 = () => {
     // console.log(...);
