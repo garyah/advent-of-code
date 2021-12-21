@@ -5,18 +5,16 @@ describe("2021 day 15", function() {
   let var2 = '';
   let var3 = [];
   let var4 = {};
-  let rightFlags = [[false]];
-  let downFlags = [[false]];
   let path = [{row: 0, col: 0, risk: 0}];
+  let minRisks = [[0]];
   const initVars = () => {
     riskMap = [''];
     var1 = 0;
     var2 = '';
     var3 = [];
     var4 = {};
-    rightFlags = [[]];
-    downFlags = [[]];
     path = [];
+    minRisks = [[]];
     minRisk = 0;
   };
   const walkMap = () => {
@@ -26,25 +24,12 @@ describe("2021 day 15", function() {
     const numSteps = (size - 1) * 2;
     // console.log('numSteps = ', numSteps);
     let r = 0, c = 0;
-    for (r = 0; r < numSteps; r++) {
-      downFlags[r] = [];
-      rightFlags[r] = [];
-      for (c = 0; c < numSteps; c++) {
-        rightFlags[r][c] = false;
-        downFlags[r][c] = false;
-      }
-    }
     path = [];
     minRisk = 0;
     // console.log('downFlags.length = ', downFlags.length, ', downFlags = ', downFlags);
-    r = 0, c = 0;
     for (let n = 0; n < numSteps; n++) {
       // console.log('r = ', r, ', c = ', c, ', n = ', n, ', minRisk = ', minRisk);
       path.push({row: r, col: c, risk: minRisk});
-      for (let m = 0; m < n; m++) {
-        const pathCoord = path[m];
-        walkAlternate(pathCoord.row, pathCoord.col, pathCoord.risk, r, c);
-      }
       const riskRight = (c + 1 < size) ? parseInt(riskMap[r][c + 1]) : intMax;
       const riskDown = (r + 1 < size) ? parseInt(riskMap[r + 1][c]) : intMax;
       const riskRightRight = (c + 2 < size) ? parseInt(riskMap[r][c + 2]) : intMax;
@@ -54,55 +39,56 @@ describe("2021 day 15", function() {
       if (riskRight + Math.min(riskRightRight, riskRightDown) < riskDown + Math.min(riskDownRight, riskDownDown)) {
         minRisk += riskRight;
         c += 1;
-        rightFlags[r][c] = true;
         continue;
       }
       if (riskRight + Math.min(riskRightRight, riskRightDown) > riskDown + Math.min(riskDownRight, riskDownDown)) {
         minRisk += riskDown;
         r += 1;
-        downFlags[r][c] = true;
         continue;
       }
       // console.log('could not resolve tie, will move right anyway! r = ', r, ', c = ', c);
       minRisk += riskRight;
       c += 1;
-      rightFlags[r][c] = true;
-      // break; continue;
     }
     // console.log(path);
     // console.log('r = ', r, ', c = ', c, ', minRisk = ', minRisk);
     // console.log(' = ');
   };
-  const walkAlternate = (row = 0, col = 0, risk = 0, tgtRow = 0, tgtCol = 0) => {
+  const calcMinRisks = () => {
     // console.log(...);
-    // const size = riskMap.length;
-    let riskRight = intMax;
-    if (col + 1 <= tgtCol && !rightFlags[row][col + 1]) {
-      riskRight = walkAlternate(row, col + 1, risk + parseInt(riskMap[row][col + 1]));
+    // console.log('riskMap.length = ', riskMap.length);
+    // console.log('riskMap[0].length = ', riskMap[0].length);
+    const size = riskMap.length;
+
+    // init
+    for (let r = 0; r < size; r++) {
+      minRisks[r] = [];
+      for (let c = 0; c < size; c++) {
+        minRisks[r][c] = parseInt(riskMap[r][c]);
+      }
     }
-    let riskDown = intMax;
-    if (row + 1 <= tgtRow && !downFlags[row + 1][col]) {
-      riskDown = walkAlternate(row + 1, col, risk + parseInt(riskMap[row + 1][col]));
+    minRisks[0][0] = 0;
+
+    // fan-out
+    for (let s = 2; s < size; s++) {
+      for (let r = s, c = 0; r >= 0 && c <= s; r--, c++) {
+        if (r === 0) { minRisks[0][c] += minRisks[0][c - 1]; continue; }
+        if (c === 0) { minRisks[r][0] += minRisks[r - 1][0]; continue; }
+        minRisks[r][c] += Math.min(minRisks[r][c - 1], minRisks[r - 1][c]);
+      }
     }
-    if (riskRight <= riskDown) return riskRight;
-    return riskDown;
-  };
-  const fn3 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+
+    // fan-in
+    for (let s = 1; s < size - 1; s++) {
+      for (let r = size - 1, c = s; r >= s && c <= size - 1; r--, c++) {
+        minRisks[r][c] += Math.min(minRisks[r][c - 1], minRisks[r - 1][c]);
+      }
+    }
+
+    // completion
+    minRisks[size - 1][size - 1]
+      += Math.min(minRisks[size - 1][size - 2], minRisks[size - 2][size - 1]);
+    minRisk = minRisks[size - 1][size - 1];
   };
   const fn4 = () => {
     // console.log(...);
@@ -140,9 +126,7 @@ describe("2021 day 15", function() {
   };
   let minRisk = 0;
   const solve = () => {
-    // console.log(...);
-    walkMap();
-    // console.log(...);
+    calcMinRisks();
   }
   const solve_p2 = () => {
     // console.log(...);
@@ -169,12 +153,14 @@ describe("2021 day 15", function() {
 
 
   // tests
-  it('walkMap() finds min risk for various 2x2 paths: obvious down, right, and tie', () => {
+  it('finds min risk for various 2x2 paths: obvious down, right, and tie', () => {
     riskMap = [
       '19',
       '11'
     ];
     walkMap();
+    expect(minRisk).toEqual(2);
+    calcMinRisks();
     expect(minRisk).toEqual(2);
     riskMap = [
       '11',
@@ -182,20 +168,26 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(2);
+    calcMinRisks();
+    expect(minRisk).toEqual(2);
     riskMap = [
       '11',
       '11'
     ];
     walkMap();
     expect(minRisk).toEqual(2);
+    calcMinRisks();
+    expect(minRisk).toEqual(2);
   });
-  it('walkMap() finds min risk for various 3x3 paths: obvious down, right, and tie', () => {
+  it('finds min risk for various 3x3 paths: obvious down, right, and tie', () => {
     riskMap = [
       '199',
       '199',
       '111'
     ];
     walkMap();
+    expect(minRisk).toEqual(4);
+    calcMinRisks();
     expect(minRisk).toEqual(4);
     riskMap = [
       '111',
@@ -204,6 +196,8 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(4);
+    calcMinRisks();
+    expect(minRisk).toEqual(4);
     riskMap = [
       '111',
       '111',
@@ -211,8 +205,10 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(4);
+    calcMinRisks();
+    expect(minRisk).toEqual(4);
   });
-  it('walkMap() finds min risk for 3x3 path with diagonal path min risk', () => {
+  it('finds min risk for 3x3 path with diagonal path min risk', () => {
     riskMap = [
       '199',
       '919',
@@ -220,8 +216,10 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(20);
+    calcMinRisks();
+    expect(minRisk).toEqual(20);
   });
-  it('walkMap() finds min risk for 3x3 path with tricky risks requiring look-ahead more than one move', () => {
+  it('finds min risk for 3x3 path with tricky risks requiring look-ahead more than one move', () => {
     riskMap = [
       '199',
       '949',
@@ -229,8 +227,10 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(17);
+    calcMinRisks();
+    expect(minRisk).toEqual(17);
   });
-  it('walkMap() finds min risk for various 4x4 paths: obvious down, right, and tie', () => {
+  it('finds min risk for various 4x4 paths: obvious down, right, and tie', () => {
     riskMap = [
       '1999',
       '1999',
@@ -238,6 +238,8 @@ describe("2021 day 15", function() {
       '1111'
     ];
     walkMap();
+    expect(minRisk).toEqual(6);
+    calcMinRisks();
     expect(minRisk).toEqual(6);
     riskMap = [
       '1111',
@@ -247,6 +249,8 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(6);
+    calcMinRisks();
+    expect(minRisk).toEqual(6);
     riskMap = [
       '1111',
       '1111',
@@ -255,8 +259,10 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(6);
+    calcMinRisks();
+    expect(minRisk).toEqual(6);
   });
-  it('walkMap() finds min risk for 4x4 path with diagonal path min risk', () => {
+  it('finds min risk for 4x4 path with diagonal path min risk', () => {
     riskMap = [
       '1999',
       '9199',
@@ -265,8 +271,10 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(30);
+    calcMinRisks();
+    expect(minRisk).toEqual(30);
   });
-  it('walkMap() finds min risk for 4x4 path with tricky risks requiring look-ahead more than two moves', () => {
+  it('finds min risk for 4x4 path with tricky risks requiring look-ahead more than two moves', () => {
     riskMap = [
       '1999',
       '9999',
@@ -274,12 +282,14 @@ describe("2021 day 15", function() {
       '3441'
     ];
     walkMap();
+    // expect(minRisk).toEqual(30);
+    calcMinRisks();
     expect(minRisk).toEqual(30);
   });
   it("can solve puzzle with my input", () => {
-    // parse();
-    // solve();
-    // console.log("\npart 1 answer is " + minRisk);
+    parse();
+    solve();
+    console.log("\npart 1 answer is " + minRisk);
     // expect(answer).toEqual(1);
   });
   it("can solve puzzle p2 with my input", () => {
@@ -313,7 +323,7 @@ describe("2021 day 15", function() {
     console.log("2021 day 15:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines("advent2021/15/sainput.txt", (linesRead) => {
+      parser.readLines("advent2021/15/input.txt", (linesRead) => {
         lines = linesRead;
         done();
       });
