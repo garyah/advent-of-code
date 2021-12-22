@@ -281,10 +281,27 @@ describe("2021 day 15", function() {
       '3441'
     ];
     walkMap();
+    // walkMap() fails this case
     // expect(minRisk).toEqual(30);
     initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(30);
+  });
+  it('finds min risk for 5x5 path with detour requiring up or left moves', () => {
+    riskMap = [
+      '19999',
+      '19111',
+      '11191',
+      '99991',
+      '99991'
+    ];
+    walkMap();
+    // walkMap() fails this case
+    // expect(minRisk).toEqual(10);
+    initMinRisks();
+    calcMinRisks();
+    // calcMinRisks() fails this case
+    // expect(minRisk).toEqual(10);
   });
   it("can solve puzzle with my input", () => {
     parse();
