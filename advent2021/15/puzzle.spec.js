@@ -1,18 +1,10 @@
 describe("2021 day 15", function() {
   // code
   const intMax = 100000;
-  let var1 = 0;
-  let var2 = '';
-  let var3 = [];
-  let var4 = {};
   let path = [{row: 0, col: 0, risk: 0}];
   let minRisks = [[0]];
   const initVars = () => {
     riskMap = [''];
-    var1 = 0;
-    var2 = '';
-    var3 = [];
-    var4 = {};
     path = [];
     minRisks = [[]];
     minRisk = 0;
@@ -54,20 +46,21 @@ describe("2021 day 15", function() {
     // console.log('r = ', r, ', c = ', c, ', minRisk = ', minRisk);
     // console.log(' = ');
   };
-  const calcMinRisks = () => {
-    // console.log(...);
+  const initMinRisks = () => {
     // console.log('riskMap.length = ', riskMap.length);
     // console.log('riskMap[0].length = ', riskMap[0].length);
     const size = riskMap.length;
-
-    // init
     for (let r = 0; r < size; r++) {
       minRisks[r] = [];
       for (let c = 0; c < size; c++) {
         minRisks[r][c] = parseInt(riskMap[r][c]);
       }
     }
-    minRisks[0][0] = 0;
+  }
+  const calcMinRisks = () => {
+    // console.log('minRisks.length = ', minRisks.length);
+    // console.log('minRisks[0].length = ', minRisks[0].length);
+    const size = minRisks.length;
 
     // fan-out
     for (let s = 2; s < size; s++) {
@@ -90,47 +83,41 @@ describe("2021 day 15", function() {
       += Math.min(minRisks[size - 1][size - 2], minRisks[size - 2][size - 1]);
     minRisk = minRisks[size - 1][size - 1];
   };
-  const fn4 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
-  };
-  const fn5 = () => {
-    // console.log(...);
-    if (1) {}
-    else if (1) {}
-    else {}
-    var2.split(' ').join(' ');
-    for (let i = 0; i < var3.length; i++) { break; continue; }
-    for (let j = 0;; j++) { break; continue; }
-    for (const item of var3) { break; continue; }
-    var3.map((num) => {
-      return num;
-    }).filter((num) => num === num);
-    var3.reduce((sum, num) => {
-      return sum + num;
-    }, 0);
-    return;
+  const extendMinRisks = () => {
+    const size = riskMap.length;
+
+    // add new columns to existing rows (existing grid)
+    for (let r = 0; r < size; r++) {
+      for (let c = size; c < size * 5; c++) {
+        minRisks[r][c] = (minRisks[r][c - size] + 1) % 10;
+        if (minRisks[r][c] === 0) minRisks[r][c] = 1;
+      }
+    }
+
+    // add new rows with all columns
+    for (let r = size; r < size * 5; r++) {
+      minRisks[r] = [];
+      for (let c = 0; c < size * 5; c++) {
+        minRisks[r][c] = (minRisks[r - size][c] + 1) % 10;
+        if (minRisks[r][c] === 0) minRisks[r][c] = 1;
+      }
+    }
+
+    // console.log('minRisks.length = ', minRisks.length);
+    // console.log('minRisks[0].length = ', minRisks[0].length);
+    // console.log('minRisks[size].length = ', minRisks[size].length);
+    // console.log('minRisks[size * 5 - 1].length = ', minRisks[size * 5 - 1].length);
   };
   let minRisk = 0;
   const solve = () => {
+    initMinRisks();
     calcMinRisks();
   }
   const solve_p2 = () => {
     // console.log(...);
-    walkMap();
+    initMinRisks();
+    extendMinRisks();
+    calcMinRisks();
     // console.log(...);
   }
   let riskMap = [''];
@@ -160,6 +147,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(2);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(2);
     riskMap = [
@@ -168,6 +156,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(2);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(2);
     riskMap = [
@@ -176,6 +165,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(2);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(2);
   });
@@ -187,6 +177,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(4);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(4);
     riskMap = [
@@ -196,6 +187,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(4);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(4);
     riskMap = [
@@ -205,6 +197,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(4);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(4);
   });
@@ -216,6 +209,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(20);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(20);
   });
@@ -227,6 +221,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(17);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(17);
   });
@@ -239,6 +234,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(6);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(6);
     riskMap = [
@@ -249,6 +245,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(6);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(6);
     riskMap = [
@@ -259,6 +256,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(6);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(6);
   });
@@ -271,6 +269,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     expect(minRisk).toEqual(30);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(30);
   });
@@ -283,6 +282,7 @@ describe("2021 day 15", function() {
     ];
     walkMap();
     // expect(minRisk).toEqual(30);
+    initMinRisks();
     calcMinRisks();
     expect(minRisk).toEqual(30);
   });
@@ -290,13 +290,13 @@ describe("2021 day 15", function() {
     parse();
     solve();
     console.log("\npart 1 answer is " + minRisk);
-    // expect(answer).toEqual(1);
+    expect(minRisk).toEqual(811);
   });
   it("can solve puzzle p2 with my input", () => {
-    // parse();
-    // solve_p2();
-    // console.log("\npart 2 answer is " + minRisk);
-    // expect(answer).toEqual(2);
+    parse();
+    solve_p2();
+    console.log("\npart 2 answer is " + minRisk);
+    // expect(minRisk).toEqual(2);
   });
 
 
