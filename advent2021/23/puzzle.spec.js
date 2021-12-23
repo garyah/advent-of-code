@@ -1,4 +1,4 @@
-describe("2021 day xx", function() {
+describe("2021 day 23", function() {
   // code
   let var1 = 0;
   let var2 = '';
@@ -101,7 +101,6 @@ describe("2021 day xx", function() {
   const solve = () => {
     // console.log(...);
     fn1();
-    answer = 1;
     // console.log(...);
   }
   const solve_p2 = () => {
@@ -112,12 +111,7 @@ describe("2021 day xx", function() {
   }
   let data = [0];
   const parse = () => {
-    data = parser.lineToIntsComma(lines[0]);
-    // data = parser.linesToInts(lines);
-    // data = lines;    // use for multi-line string input
-    // data = parser.getFirstLine(lines);
-    // data = parser.linesToFloats(lines);
-    // data = parser.linesToDirCommands(lines);
+    data = lines;    // use for multi-line string input
   };
 
 
@@ -175,14 +169,14 @@ describe("2021 day xx", function() {
   });
   it("can solve puzzle with my input", () => {
     parse();
-    solve();
-    console.log("\npart 1 answer is " + answer);
+    // solve();
+    // console.log("\npart 1 answer is " + answer);
     // expect(answer).toEqual(1);
   });
   it("can solve puzzle p2 with my input", () => {
-    parse();
+    // parse();
     // solve_p2();
-    console.log("\npart 2 answer is " + answer);
+    // console.log("\npart 2 answer is " + answer);
     // expect(answer).toEqual(2);
   });
 
@@ -207,10 +201,10 @@ describe("2021 day xx", function() {
   let lines = [];
   let linesSave = [];
   beforeAll((done) => {
-    console.log("2021 day xx:");
+    console.log("2021 day 23:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines("advent2021/xx/input.txt", (linesRead) => {
+      parser.readLines("advent2021/23/sainput.txt", (linesRead) => {
         lines = linesRead;
         done();
       });
