@@ -149,16 +149,26 @@ describe("2021 day 15", function() {
   }
   const calcRisk = (srcCoord = {row: 0, col: 0}, tgtRow = 0, tgtCol = 0) => {
     // console.log('srcCoord = ', srcCoord, ', tgtRow = ', tgtRow, ', tgtCol = ', tgtCol);
+
+    // for now, just return max risk for targets not down and to the right of sources
+    if (srcCoord.row > tgtRow || srcCoord.col > tgtCol) return intMax;
+
     let rightDownRisk = 0, downRightRisk = 0;
 
     // figure total risk for right down path
     let r = srcCoord.row, c = srcCoord.col + 1;
     for (; c <= tgtCol; c++) {
       rightDownRisk += risks[r][c];
+      // if (srcCoord.row === 0 && srcCoord.col === 0 && tgtRow === 1 && tgtCol === 1) {
+      //   console.log('moving right, rightDownRisk=', rightDownRisk, 'r=', r, 'c=', c);
+      // }
     }
-    r = srcCoord.row + 1, c = srcCoord.col;
+    r = srcCoord.row + 1, c = tgtCol;
     for (; r <= tgtRow; r++) {
       rightDownRisk += risks[r][c];
+      // if (srcCoord.row === 0 && srcCoord.col === 0 && tgtRow === 1 && tgtCol === 1) {
+      //   console.log('moving down, rightDownRisk=', rightDownRisk, 'r=', r, 'c=', c);
+      // }
     }
     if (rightDownRisk === 0) rightDownRisk = intMax;
 
@@ -166,12 +176,22 @@ describe("2021 day 15", function() {
     r = srcCoord.row + 1, c = srcCoord.col;
     for (; r <= tgtRow; r++) {
       downRightRisk += risks[r][c];
+      // if (srcCoord.row === 0 && srcCoord.col === 0 && tgtRow === 1 && tgtCol === 1) {
+      //   console.log('moving down, downRightRisk=', downRightRisk, 'r=', r, 'c=', c);
+      // }
     }
-    r = srcCoord.row, c = srcCoord.col + 1;
+    r = tgtRow, c = srcCoord.col + 1;
     for (; c <= tgtCol; c++) {
       downRightRisk += risks[r][c];
+      // if (srcCoord.row === 0 && srcCoord.col === 0 && tgtRow === 1 && tgtCol === 1) {
+      //   console.log('moving right, downRightRisk=', downRightRisk, 'r=', r, 'c=', c);
+      // }
     }
     if (downRightRisk === 0) downRightRisk = intMax;
+
+    // if (srcCoord.row === 0 && srcCoord.col === 0 && tgtRow === 1) {
+    //   console.log('rightDownRisk=', rightDownRisk, 'downRightRisk=', downRightRisk);
+    // }
 
     const risk = Math.min(rightDownRisk, downRightRisk);
     // console.log('srcCoord = ', srcCoord, ', tgtRow = ', tgtRow, ', tgtCol = ', tgtCol, ', risk = ', risk);
@@ -190,6 +210,13 @@ describe("2021 day 15", function() {
             const risk = calcRisk(nextCoord, r, c);
             if (minRisks[nextCoord.row][nextCoord.col] + risk < minRisks[r][c]) {
               minRisks[r][c] = minRisks[nextCoord.row][nextCoord.col] + risk;
+              /*if (r === size - 1 && c === size - 1)*/ {
+                // console.log(
+                //   'nextCoord', nextCoord,
+                //   'r =', r, ', c =', c,
+                //   'minRisks[r][c] =', minRisks[r][c],
+                //   'risk =', risk);
+              }
             }
           }
         }
@@ -204,11 +231,10 @@ describe("2021 day 15", function() {
     findMinRisk();
   }
   const solve_p2 = () => {
-    // console.log(...);
     initRisks();
     extendRisks();
-    calcMinRisks();
-    // console.log(...);
+    // calcMinRisks();
+    findMinRisk();
   }
   let riskMap = [''];
   const parse = () => {
@@ -458,7 +484,7 @@ describe("2021 day 15", function() {
     console.log("2021 day 15:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines("advent2021/15/input.txt", (linesRead) => {
+      parser.readLines("advent2021/15/sample_input.txt", (linesRead) => {
         lines = linesRead;
         done();
       });
