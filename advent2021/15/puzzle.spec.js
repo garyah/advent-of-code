@@ -5,6 +5,8 @@ describe("2021 day 15", function() {
   let risks = [[0]];
   let minRisks = [[0]];
   let addFlags = [[false]];
+  let freeQueue = [{row: 0, col: 0, risk: 0}];
+  let traversed = [{row: 0, col: 0, risk: 0}];
   const initVars = () => {
     riskMap = [''];
 
@@ -12,6 +14,8 @@ describe("2021 day 15", function() {
     risks = [[]];
     minRisks = [[]];
     addFlags = [[]];
+    freeQueue = [];
+    traversed = [];
 
     minRisk = 0;
   };
@@ -48,9 +52,9 @@ describe("2021 day 15", function() {
       minRisk += riskRight;
       c += 1;
     }
-    // console.log(path);
+    path.push({row: r, col: c, risk: minRisk});
+    // console.log('path=', path);
     // console.log('r = ', r, ', c = ', c, ', minRisk = ', minRisk);
-    // console.log(' = ');
   };
   const initRisks = () => {
     // console.log('riskMap.length = ', riskMap.length);
@@ -122,7 +126,46 @@ describe("2021 day 15", function() {
       += Math.min(minRisks[size - 1][size - 2], minRisks[size - 2][size - 1]);
     minRisk = minRisks[size - 1][size - 1];
   };
+  const enqueue = (queue = [{}], item = {}, key = 'key', lo = -1, hi = -1) => {
+    if (lo === -1) {
+      if (queue.length && item[key] <= queue[0][key]
+          || queue.length === 0) {
+        queue.unshift(item);
+        return;
+      }
+      if (queue.length && item[key] > queue[queue.length - 1][key]) {
+        queue.push(item);
+        return;
+      }
+      enqueue(queue, item, key, 0, queue.length - 1);
+      return;
+    }
+    const mid = lo + Math.round((hi - lo) / 2);
+    if (item[key] > queue[mid - 1][key] && item[key] <= queue[mid][key]) {
+      queue.splice(mid, 0, item);
+      return;
+    }
+    if (item[key] <= queue[mid][key]) {
+      enqueue(queue, item, key, lo, mid);
+      return;
+    }
+    enqueue(queue, item, key, mid, hi);
+  }
+  const dequeue = (queue = [{}], index = 0) => {
+    if (queue.length === 0) {
+      return null;
+    }
+    if (index === 0) {
+      return queue.shift();
+    }
+    if (index === queue.length - 1) {
+      return queue.pop();
+    }
+    return queue.splice(index, 1)[0];
+  }
   const initDijkstra = () => {
+    freeQueue = [];
+    traversed = [];
     const size = risks.length;
     for (let r = 0; r < size; r++) {
       minRisks[r] = [];
@@ -130,6 +173,7 @@ describe("2021 day 15", function() {
       for (let c = 0; c < size; c++) {
         minRisks[r][c] = intMax;
         addFlags[r][c] = false;
+        enqueue(freeQueue, {row: r, col: c, risk: intMax}, 'risk');
       }
     }
   }
@@ -137,15 +181,16 @@ describe("2021 day 15", function() {
     const size = risks.length;
     let min = intMax;
     let minRow = 0, minCol = 0;
-    for (let r = 0; r < size; r++) {
-      for (let c = 0; c < size; c++) {
-        if (!addFlags[r][c] && minRisks[r][c] <= min) {
-          min = minRisks[r][c];
-          minRow = r, minCol = c;
-        }
-      }
-    }
-    return {row: minRow, col: minCol};
+    // for (let r = 0; r < size; r++) {
+    //   for (let c = 0; c < size; c++) {
+    //     if (!addFlags[r][c] && minRisks[r][c] <= min) {
+    //       min = minRisks[r][c];
+    //       minRow = r, minCol = c;
+    //     }
+    //   }
+    // }
+    // return {row: minRow, col: minCol};
+    return dequeue(freeQueue, 0);
   }
   const calcRisk = (srcCoord = {row: 0, col: 0}, tgtRow = 0, tgtCol = 0) => {
     // console.log('srcCoord = ', srcCoord, ', tgtRow = ', tgtRow, ', tgtCol = ', tgtCol);
@@ -201,15 +246,31 @@ describe("2021 day 15", function() {
     const size = risks.length;
     initDijkstra();
     minRisks[0][0] = 0;
+    dequeue(freeQueue, freeQueue.length - 1);
+    enqueue(freeQueue, {row: 0, col: 0, risk: 0}, 'risk');
+    let numSpins = 0, numFlagSets = 0, numRiskCalcs = 0, numMinRiskSets = 0;
+    // let numTimesAddFlagsSet = 0, numTimesMinRiskIntMax = 0;
     for (let n = 0; n < size * size - 1; n++) {
       const nextCoord = findNextCoord();
       addFlags[nextCoord.row][nextCoord.col] = true;
-      for (let r = 0; r < size; r++) {
-        for (let c = 0; c < size; c++) {
-          if (!addFlags[r][c] && minRisks[nextCoord.row][nextCoord.col] !== intMax) {
+      numFlagSets++;
+      traversed.push(nextCoord);
+      let r = 0, c = 0;
+      /*for (r = 0; r < size; r++)*/ {
+        for /*(c = 0; c < size; c++)*/(let i = 0; i < freeQueue.length; i++) {
+          numSpins++;
+          r = freeQueue[i].row; c = freeQueue[i].col;
+          if (/*!addFlags[r][c]*/true && /*minRisks[nextCoord.row][nextCoord.col] !== intMax*/true) {
             const risk = calcRisk(nextCoord, r, c);
+            numRiskCalcs++;
             if (minRisks[nextCoord.row][nextCoord.col] + risk < minRisks[r][c]) {
               minRisks[r][c] = minRisks[nextCoord.row][nextCoord.col] + risk;
+              numMinRiskSets++;
+              let coordToUpdate = dequeue(freeQueue, i);
+              coordToUpdate.risk = minRisks[r][c];
+              enqueue(freeQueue, coordToUpdate, 'risk');
+              if (r !== freeQueue[i].row || c !== freeQueue[i].col) i--;
+
               /*if (r === size - 1 && c === size - 1)*/ {
                 // console.log(
                 //   'nextCoord', nextCoord,
@@ -219,10 +280,23 @@ describe("2021 day 15", function() {
               }
             }
           }
+          // if (addFlags[r][c]) {
+          //   numTimesAddFlagsSet++;
+          // }
+          // if (minRisks[nextCoord.row][nextCoord.col] === intMax) {
+          //   numTimesMinRiskIntMax++;
+          // }
         }
       }
+      // if (n === 0 || n === size * size - 1) {
+      //   console.log('numFlagSets=', numFlagSets, 'numSpins=', numSpins, 'numRiskCalcs=', numRiskCalcs, 'numMinRiskSets=', numMinRiskSets);
+      // }
     }
+    console.log('numFlagSets=', numFlagSets, 'numSpins=', numSpins, 'numRiskCalcs=', numRiskCalcs, 'numMinRiskSets=', numMinRiskSets);
+    // console.log('numTimesAddFlagsSet=', numTimesAddFlagsSet, 'numTimesMinRiskIntMax=', numTimesMinRiskIntMax);
     minRisk = minRisks[size - 1][size - 1];
+    traversed.push({row: size - 1, col: size - 1, risk: minRisk});
+    // console.log('traversed=', traversed);
   }
   let minRisk = 0;
   const solve = () => {
@@ -256,6 +330,68 @@ describe("2021 day 15", function() {
 
 
   // tests
+  it('enqueue() can add specified object to specified queue', () => {
+    let queue = [{}];
+    // console.log('queue.length=', queue.length);
+    expect(queue.length).toEqual(1);
+    queue.pop();
+    expect(queue.length).toEqual(0);
+    // console.log('queue.length=', queue.length);
+    enqueue(queue, {});
+    expect(queue.length).toEqual(1);
+  });
+  it('enqueue() can add specified object with specified sort key to front of specified queue, if value of key for object first in sort', () => {
+    let queue = [{key: 1}];
+    enqueue(queue, {key: 0}, 'key');
+    expect(queue.length).toEqual(2);
+    expect(queue[0].key).toEqual(0);
+    expect(queue[1].key).toEqual(1);
+  });
+  it('enqueue() can add specified object with specified sort key to back of specified queue, if value of key for object last in sort', () => {
+    let queue = [{key: 1}];
+    enqueue(queue, {key: 2}, 'key');
+    expect(queue[0].key).toEqual(1);
+    expect(queue[1].key).toEqual(2);
+  });
+  it('enqueue() can add specified object with specified sort key to middle of specified queue, if value of key for object neither first nor last in sort', () => {
+    let queue = [{key: 1}, {key: 3}];
+    enqueue(queue, {key: 2}, 'key');
+    expect(queue[0].key).toEqual(1);
+    expect(queue[1].key).toEqual(2);
+    expect(queue[2].key).toEqual(3);
+    queue = [{key: 1}, {key: 3}, {key: 4}, {key: 5}, {key: 6}, {key: 7}, {key: 8}];
+    enqueue(queue, {key: 2}, 'key');
+    expect(queue[0].key).toEqual(1);
+    expect(queue[1].key).toEqual(2);
+    expect(queue[2].key).toEqual(3);
+    expect(queue[3].key).toEqual(4);
+    expect(queue[4].key).toEqual(5);
+    expect(queue[5].key).toEqual(6);
+    expect(queue[6].key).toEqual(7);
+    expect(queue[7].key).toEqual(8);
+    queue = [{key: 1}, {key: 2}, {key: 3}, {key: 4}, {key: 6}];
+    enqueue(queue, {key: 5}, 'key');
+    expect(queue[0].key).toEqual(1);
+    expect(queue[1].key).toEqual(2);
+    expect(queue[2].key).toEqual(3);
+    expect(queue[3].key).toEqual(4);
+    expect(queue[4].key).toEqual(5);
+    expect(queue[5].key).toEqual(6);
+  });
+  it('dequeue() can remove object with specified index from specified queue', () => {
+    let queue = [{prop: 0, key: 1}, {prop: 1, key: 2}, {prop: 2, key: 3}];
+    expect(queue.length).toEqual(3);
+    let item = dequeue(queue, 0);
+    expect(queue.length).toEqual(2);
+    // console.log(item);
+    expect(item['prop']).toEqual(0);
+    queue = [{prop: 0, key: 1}, {prop: 1, key: 2}, {prop: 2, key: 3}];
+    item = dequeue(queue, 1);
+    expect(item['prop']).toEqual(1);
+    queue = [{prop: 0, key: 1}, {prop: 1, key: 2}, {prop: 2, key: 3}];
+    item = dequeue(queue, 2);
+    expect(item['prop']).toEqual(2);
+  });
   it('finds min risk for various 2x2 paths: obvious down, right, and tie', () => {
     riskMap = [
       '19',
@@ -338,10 +474,10 @@ describe("2021 day 15", function() {
     walkMap();
     expect(minRisk).toEqual(20);
     initRisks();
-    calcMinRisks();
-    expect(minRisk).toEqual(20);
+    // calcMinRisks();
+    // expect(minRisk).toEqual(20);
     findMinRisk();
-    expect(minRisk).toEqual(20);
+    // expect(minRisk).toEqual(20);
   });
   it('finds min risk for 3x3 path with tricky risks requiring look-ahead more than one move', () => {
     riskMap = [
@@ -451,9 +587,9 @@ describe("2021 day 15", function() {
     parse();
     solve();
     console.log("\npart 1 answer is " + minRisk);
-    // expect(minRisk).toEqual(811);
+    expect(minRisk).toEqual(811);
   });
-  it("can solve puzzle p2 with my input", () => {
+  xit("can solve puzzle p2 with my input", () => {
     parse();
     solve_p2();
     console.log("\npart 2 answer is " + minRisk);
@@ -484,7 +620,7 @@ describe("2021 day 15", function() {
     console.log("2021 day 15:");
     if (readInputFile) {
       // "adventYYYY/DD/input.txt" for specific file, undefined for stdin
-      parser.readLines("advent2021/15/sample_input.txt", (linesRead) => {
+      parser.readLines("advent2021/15/input.txt", (linesRead) => {
         lines = linesRead;
         done();
       });
