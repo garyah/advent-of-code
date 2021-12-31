@@ -5,8 +5,11 @@ describe("2021 day 15", function() {
   let risks = [[0]];
   let minRisks = [[0]];
   let addFlags = [[false]];
-  let freeQueue = [{row: 0, col: 0, risk: 0}];
   let traversed = [{row: 0, col: 0, risk: 0}];
+
+  // priority queue implementation
+  // let freeQueue = [{row: 0, col: 0, risk: 0}];
+
   const initVars = () => {
     riskMap = [''];
 
@@ -14,8 +17,10 @@ describe("2021 day 15", function() {
     risks = [[]];
     minRisks = [[]];
     addFlags = [[]];
-    freeQueue = [];
     traversed = [];
+
+    // priority queue implementation
+    // freeQueue = [];
 
     minRisk = 0;
   };
@@ -164,7 +169,9 @@ describe("2021 day 15", function() {
     return queue.splice(index, 1)[0];
   }
   const initDijkstra = () => {
-    freeQueue = [];
+    // priority queue implementation
+    // freeQueue = [];
+
     traversed = [];
     const size = risks.length;
     for (let r = 0; r < size; r++) {
@@ -173,24 +180,29 @@ describe("2021 day 15", function() {
       for (let c = 0; c < size; c++) {
         minRisks[r][c] = intMax;
         addFlags[r][c] = false;
-        enqueue(freeQueue, {row: r, col: c, risk: intMax}, 'risk');
+
+        // priority queue implementation
+        // enqueue(freeQueue, {row: r, col: c, risk: intMax}, 'risk');
       }
     }
   }
   const findNextCoord = () => {
-    const size = risks.length;
+    // not priority queue implementation
     let min = intMax;
     let minRow = 0, minCol = 0;
-    // for (let r = 0; r < size; r++) {
-    //   for (let c = 0; c < size; c++) {
-    //     if (!addFlags[r][c] && minRisks[r][c] <= min) {
-    //       min = minRisks[r][c];
-    //       minRow = r, minCol = c;
-    //     }
-    //   }
-    // }
-    // return {row: minRow, col: minCol};
-    return dequeue(freeQueue, 0);
+    const size = risks.length;
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c < size; c++) {
+        if (!addFlags[r][c] && minRisks[r][c] <= min) {
+          min = minRisks[r][c];
+          minRow = r, minCol = c;
+        }
+      }
+    }
+    return {row: minRow, col: minCol, risk: min};
+
+    // priority queue implementation
+    // return dequeue(freeQueue, 0);
   }
   const calcRisk = (srcCoord = {row: 0, col: 0}, tgtRow = 0, tgtCol = 0) => {
     // console.log('srcCoord = ', srcCoord, ', tgtRow = ', tgtRow, ', tgtCol = ', tgtCol);
@@ -246,30 +258,44 @@ describe("2021 day 15", function() {
     const size = risks.length;
     initDijkstra();
     minRisks[0][0] = 0;
-    dequeue(freeQueue, freeQueue.length - 1);
-    enqueue(freeQueue, {row: 0, col: 0, risk: 0}, 'risk');
+
+    // priority queue implementation
+    // dequeue(freeQueue, freeQueue.length - 1);
+    // enqueue(freeQueue, {row: 0, col: 0, risk: 0}, 'risk');
+
     let numSpins = 0, numFlagSets = 0, numRiskCalcs = 0, numMinRiskSets = 0;
     // let numTimesAddFlagsSet = 0, numTimesMinRiskIntMax = 0;
     for (let n = 0; n < size * size - 1; n++) {
       const nextCoord = findNextCoord();
+
+      // not priority queue implementation
       addFlags[nextCoord.row][nextCoord.col] = true;
       numFlagSets++;
+
       traversed.push(nextCoord);
       let r = 0, c = 0;
-      /*for (r = 0; r < size; r++)*/ {
-        for /*(c = 0; c < size; c++)*/(let i = 0; i < freeQueue.length; i++) {
+      // not priority queue implementation
+      for (r = 0; r < size; r++) {
+        for (c = 0; c < size; c++)
+            // priority queue implementation
+            /* (let i = 0; i < freeQueue.length; i++) */ {
           numSpins++;
-          r = freeQueue[i].row; c = freeQueue[i].col;
-          if (/*!addFlags[r][c]*/true && /*minRisks[nextCoord.row][nextCoord.col] !== intMax*/true) {
+
+          // priority queue implementation
+          // r = freeQueue[i].row; c = freeQueue[i].col;
+
+          if (!addFlags[r][c] && /*minRisks[nextCoord.row][nextCoord.col] !== intMax*/true) {
             const risk = calcRisk(nextCoord, r, c);
             numRiskCalcs++;
             if (minRisks[nextCoord.row][nextCoord.col] + risk < minRisks[r][c]) {
               minRisks[r][c] = minRisks[nextCoord.row][nextCoord.col] + risk;
               numMinRiskSets++;
-              let coordToUpdate = dequeue(freeQueue, i);
-              coordToUpdate.risk = minRisks[r][c];
-              enqueue(freeQueue, coordToUpdate, 'risk');
-              if (r !== freeQueue[i].row || c !== freeQueue[i].col) i--;
+
+              // priority queue implementation
+              // let coordToUpdate = dequeue(freeQueue, i);
+              // coordToUpdate.risk = minRisks[r][c];
+              // enqueue(freeQueue, coordToUpdate, 'risk');
+              // if (r !== freeQueue[i].row || c !== freeQueue[i].col) i--;
 
               /*if (r === size - 1 && c === size - 1)*/ {
                 // console.log(
