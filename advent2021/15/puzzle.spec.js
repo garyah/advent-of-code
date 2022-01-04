@@ -207,50 +207,52 @@ describe("2021 day 15", function() {
   const calcRisk = (srcCoord = {row: 0, col: 0}, tgtRow = 0, tgtCol = 0) => {
     // console.log('srcCoord = ', srcCoord, ', tgtRow = ', tgtRow, ', tgtCol = ', tgtCol);
 
-    // for now, just return max risk for targets not down and to the right of sources
-    if (srcCoord.row > tgtRow || srcCoord.col > tgtCol) return intMax;
+    let horizontalOffset = 1;
+    if (srcCoord.col > tgtCol) { horizontalOffset = -1; }
+    let verticalOffset = 1;
+    if (srcCoord.row > tgtRow) { verticalOffset = -1; }
 
-    let rightDownRisk = 0, downRightRisk = 0;
+    let horizontalVerticalRisk = 0, verticalHorizontalRisk = 0;
 
-    // figure total risk for right down path
-    let r = srcCoord.row, c = srcCoord.col + 1;
-    for (; c <= tgtCol; c++) {
-      rightDownRisk += risks[r][c];
+    // figure total risk for right / left + down / up path
+    let r = srcCoord.row, c = srcCoord.col + horizontalOffset;
+    for (; c != tgtCol + horizontalOffset; c += horizontalOffset) {
+      horizontalVerticalRisk += risks[r][c];
       // if (srcCoord.row === 0 && srcCoord.col === 0 && tgtRow === 1 && tgtCol === 1) {
-      //   console.log('moving right, rightDownRisk=', rightDownRisk, 'r=', r, 'c=', c);
+      //   console.log('moving horizontally, horizontalVerticalRisk=', horizontalVerticalRisk, 'r=', r, 'c=', c);
       // }
     }
-    r = srcCoord.row + 1, c = tgtCol;
-    for (; r <= tgtRow; r++) {
-      rightDownRisk += risks[r][c];
+    r = srcCoord.row + verticalOffset, c = tgtCol;
+    for (; r != tgtRow + verticalOffset; r += verticalOffset) {
+      horizontalVerticalRisk += risks[r][c];
       // if (srcCoord.row === 0 && srcCoord.col === 0 && tgtRow === 1 && tgtCol === 1) {
-      //   console.log('moving down, rightDownRisk=', rightDownRisk, 'r=', r, 'c=', c);
+      //   console.log('moving vertically, horizontalVerticalRisk=', horizontalVerticalRisk, 'r=', r, 'c=', c);
       // }
     }
-    if (rightDownRisk === 0) rightDownRisk = intMax;
+    if (horizontalVerticalRisk === 0) horizontalVerticalRisk = intMax;
 
-    // figure total risk for down right path
-    r = srcCoord.row + 1, c = srcCoord.col;
-    for (; r <= tgtRow; r++) {
-      downRightRisk += risks[r][c];
+    // figure total risk for down / up + right / left path
+    r = srcCoord.row + verticalOffset, c = srcCoord.col;
+    for (; r != tgtRow + verticalOffset; r += verticalOffset) {
+      verticalHorizontalRisk += risks[r][c];
       // if (srcCoord.row === 0 && srcCoord.col === 0 && tgtRow === 1 && tgtCol === 1) {
-      //   console.log('moving down, downRightRisk=', downRightRisk, 'r=', r, 'c=', c);
+      //   console.log('moving vertically, verticalHorizontalRisk=', verticalHorizontalRisk, 'r=', r, 'c=', c);
       // }
     }
-    r = tgtRow, c = srcCoord.col + 1;
-    for (; c <= tgtCol; c++) {
-      downRightRisk += risks[r][c];
+    r = tgtRow, c = srcCoord.col + horizontalOffset;
+    for (; c != tgtCol + horizontalOffset; c += horizontalOffset) {
+      verticalHorizontalRisk += risks[r][c];
       // if (srcCoord.row === 0 && srcCoord.col === 0 && tgtRow === 1 && tgtCol === 1) {
-      //   console.log('moving right, downRightRisk=', downRightRisk, 'r=', r, 'c=', c);
+      //   console.log('moving horizontally, verticalHorizontalRisk=', verticalHorizontalRisk, 'r=', r, 'c=', c);
       // }
     }
-    if (downRightRisk === 0) downRightRisk = intMax;
+    if (verticalHorizontalRisk === 0) verticalHorizontalRisk = intMax;
 
     // if (srcCoord.row === 0 && srcCoord.col === 0 && tgtRow === 1) {
-    //   console.log('rightDownRisk=', rightDownRisk, 'downRightRisk=', downRightRisk);
+    //   console.log('horizontalVerticalRisk=', horizontalVerticalRisk, 'verticalHorizontalRisk=', verticalHorizontalRisk);
     // }
 
-    const risk = Math.min(rightDownRisk, downRightRisk);
+    const risk = Math.min(horizontalVerticalRisk, verticalHorizontalRisk);
     // console.log('srcCoord = ', srcCoord, ', tgtRow = ', tgtRow, ', tgtCol = ', tgtCol, ', risk = ', risk);
     return risk;
   }
@@ -607,7 +609,7 @@ describe("2021 day 15", function() {
     // calcMinRisks() fails this case
     // expect(minRisk).toEqual(10);
     findMinRisk();
-    // expect(minRisk).toEqual(10);
+    expect(minRisk).toEqual(10);
   });
   it("can solve puzzle with my input", () => {
     parse();
