@@ -5,24 +5,33 @@ import java.util.*;
 
 public class Day03 {
     public static void main(String[] args) throws IOException {
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\02\\sample_input.txt");
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\02\\input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\03\\sample_input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\03\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
-        int totalScore = 0;
-        int totalScorePart2 = 0;
+        int totalPriority = 0;
+        // int totalScorePart2 = 0;
         for (String line : lines) {
             if (line.length() != 0) {
-                String[] fields = line.replaceAll("\\s+$", "").split(" ");
-                // sum += Integer.parseInt(line);
-                totalScore += processTurn(fields);
-                totalScorePart2 += processTurnPart2(fields);
+                // String[] fields = line.replaceAll("\\s+$", "").split(" ");
+                String comp1 = line.substring(0, line.length() / 2);
+                String comp2 = line.substring(line.length() / 2, line.length());
+                char duplicate = 0;
+                for (int i = 0; i < comp1.length(); i++) {
+                    duplicate = comp1.charAt(i);
+                    if (comp2.indexOf(duplicate) > -1) {
+                        break;
+                    }
+                }
+                int priority = (duplicate >= 'a' && duplicate <= 'z') ? duplicate - 'a' + 1 : duplicate - 'A' + 27;
+                totalPriority += priority;
+                // totalScorePart2 += processTurnPart2(fields);
                 continue;
             }
         }
 
         System.out.println("# lines = " + lines.size());
-        System.out.println("totalScore = " + totalScore);
-        System.out.println("totalScore for part2 = " + totalScorePart2);
+        System.out.println("totalPriority = " + totalPriority);
+        // System.out.println("totalScore for part2 = " + totalScorePart2);
     }
 
     static int processTurn(String[] fields) {
