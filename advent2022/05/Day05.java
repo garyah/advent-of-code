@@ -10,6 +10,7 @@ public class Day05 {
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         // int numStacks = 3;
         int numStacks = 9;
+        boolean isPart2 = true;
         ArrayList<ArrayDeque<String>> stacks = new ArrayList<ArrayDeque<String>>();
         for (int i = 0; i < numStacks; i++) {
             stacks.add(new ArrayDeque<String>());
@@ -33,18 +34,30 @@ public class Day05 {
 
                 printStacks(stacks);
 
-                // move section
+                // move section, common code
                 String[] words = line.split(" ");
                 int quantity = Integer.parseInt(words[1]);
                 int sourceIndex = Integer.parseInt(words[3]) - 1;
                 int destIndex = Integer.parseInt(words[5]) - 1;
                 ArrayDeque<String> sourceStack = stacks.get(sourceIndex);
                 ArrayDeque<String> destStack = stacks.get(destIndex);
-                for (int n = 0; n < quantity; n++) {
-                    destStack.addLast(sourceStack.removeLast());
+
+                // move section, part 1
+                if (isPart2 == false) {
+                    for (int n = 0; n < quantity; n++) {
+                        destStack.addLast(sourceStack.removeLast());
+                    }
+                    continue;
                 }
 
-                // Part 2
+                // move section, part 2
+                ArrayDeque<String> tempStack = new ArrayDeque<String>();
+                for (int n = 0; n < quantity; n++) {
+                    tempStack.addLast(sourceStack.removeLast());
+                }
+                for (int n = 0; n < quantity; n++) {
+                    destStack.addLast(tempStack.removeLast());
+                }
 
                 continue;
             }
