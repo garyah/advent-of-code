@@ -14,8 +14,8 @@ public class Day07 {
     static Map<String, Object> changeParentDir(Map<String, Object> currDir, ArrayDeque<Map<String, Object>> pathStack) {
         Integer currDirSize = (Integer)(currDir.get("0size"));
         Map<String, Object> parentDir = pathStack.removeLast();
-        int parentNewSize = updateSize(parentDir, currDirSize);
-        System.out.println("for parentDir = " + parentDir + ", new size = " + parentNewSize);
+        /*int parentNewSize = */updateSize(parentDir, currDirSize);
+        // System.out.println("for parentDir = " + parentDir + ", new size = " + parentNewSize);
         return parentDir;
     }
     static Map<String, Object> changeDir(Map<String, Object> currDir, String dirName, ArrayDeque<Map<String, Object>> pathStack) {
@@ -42,22 +42,37 @@ public class Day07 {
         int rootDirSize = (Integer)(rootDir.get("0size"));
         if (rootDirSize <= maxSize) {
             totalSize = rootDirSize;
-            System.out.println("dir passes filter, totalSize set to " + totalSize + ", rootDir = " + rootDir);
+            // System.out.println("dir passes filter, totalSize set to " + totalSize + ", rootDir = " + rootDir);
         }
         for (Entry<String, Object> entry : rootDir.entrySet()) {
             if (entry.getKey().startsWith("0")) continue;
             Map<String, Object> dir = (Map<String, Object>)(entry.getValue());
             totalSize += walkTree(dir, maxSize);
-            System.out.println("totalSize increased to " + totalSize + ", rootDir = " + rootDir);
+            // System.out.println("totalSize increased to " + totalSize + ", rootDir = " + rootDir);
         }
-        System.out.println("totalSize returned as " + totalSize + ", rootDir = " + rootDir);
+        // System.out.println("totalSize returned as " + totalSize + ", rootDir = " + rootDir);
         return totalSize;
+    }
+    static int walkTreeP2(Map<String, Object> rootDir, int targetSizeToDelete, int sizeOfDirToDelete) {
+        // int sizeOfDirToDelete = Integer.MAX_VALUE;
+        int rootDirSize = (Integer)(rootDir.get("0size"));
+        if (rootDirSize >= targetSizeToDelete) {
+            sizeOfDirToDelete = Math.min(sizeOfDirToDelete, rootDirSize);
+            // System.out.println("sizeOfDirToDelete set to " + sizeOfDirToDelete + ", rootDir = " + rootDir);
+        }
+        for (Entry<String, Object> entry : rootDir.entrySet()) {
+            if (entry.getKey().startsWith("0")) continue;
+            Map<String, Object> dir = (Map<String, Object>)(entry.getValue());
+            sizeOfDirToDelete = walkTreeP2(dir, targetSizeToDelete, sizeOfDirToDelete);
+            // System.out.println("sizeOfDirToDelete set to " + sizeOfDirToDelete + ", rootDir = " + rootDir);
+        }
+        // System.out.println("sizeOfDirToDelete returned as " + sizeOfDirToDelete + ", rootDir = " + rootDir);
+        return sizeOfDirToDelete;
     }
     public static void main(String[] args) throws IOException {
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\07\\sample_input.txt");
         Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\07\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
-        // boolean isPart2 = true;
         int level = 0;
         Map<String, Object> currDir = null;
         ArrayDeque<Map<String, Object>> pathStack = new ArrayDeque<Map<String, Object>>();
@@ -102,8 +117,8 @@ public class Day07 {
             }
         }
 
-        // navigate back to root
-        System.out.println("pathStack.size() = " + pathStack.size());
+        // navigate current directory back to root
+        // System.out.println("pathStack.size() = " + pathStack.size());
         while (!pathStack.isEmpty()) {
             currDir = changeParentDir(currDir, pathStack);
         }
@@ -114,6 +129,18 @@ public class Day07 {
         System.out.println("# lines = " + lines.size());
         System.out.println("file ended at level = " + level);
         System.out.println("totalSize = " + totalSize);
+
+        // Part 2
+
+        // walk whole tree, to get smallest directory to meet free space threshold
+        int rootDirSize = (Integer)(currDir.get("0size"));
+        int currentUnused = 70000000 - rootDirSize;
+        int targetSizeToDelete = 30000000 - currentUnused;
+        int sizeOfDirToDelete = walkTreeP2(currDir, targetSizeToDelete, Integer.MAX_VALUE);
+
+        System.out.println("currentUnused = " + currentUnused);
+        System.out.println("targetSizeToDelete = " + targetSizeToDelete);
+        System.out.println("sizeOfDirToDelete = " + sizeOfDirToDelete);
     }
 
     // Basic data structures:
@@ -156,4 +183,7 @@ public class Day07 {
     //     System.out.print(stack[j] + " ");
     // }
     // System.out.println();
+    //
+    // Part 2 flagging:
+    // boolean isPart2 = true;
 }
