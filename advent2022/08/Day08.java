@@ -69,78 +69,132 @@ public class Day08 {
         // System.out.println("sizeOfDirToDelete returned as " + sizeOfDirToDelete + ", rootDir = " + rootDir);
         return sizeOfDirToDelete;
     }
+
+    static boolean isVisible(int[][] grid, int numRows, int numCols, int row, int col) {
+        int height = grid[row][col];
+        boolean isVisible;
+
+        // go right
+        isVisible = true;
+        for (int c = col + 1; c < numCols; c++) {
+            if (height <= grid[row][c]) isVisible = false;
+        }
+        if (isVisible) return true;
+
+        // go down
+        isVisible = true;
+        for (int r = row + 1; r < numRows; r++) {
+            if (height <= grid[r][col]) isVisible = false;
+        }
+        if (isVisible) return true;
+
+        // go left
+        isVisible = true;
+        for (int c = col - 1; c >= 0; c--) {
+            if (height <= grid[row][c]) isVisible = false;
+        }
+        if (isVisible) return true;
+
+        // go up
+        isVisible = true;
+        for (int r = row - 1; r >= 0; r--) {
+            if (height <= grid[r][col]) isVisible = false;
+        }
+        if (isVisible) return true;
+
+        return isVisible;
+    }
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\08\\sample_input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\08\\input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\08\\sample_input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\08\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
-        int level = 0;
-        Map<String, Object> currDir = null;
-        ArrayDeque<Map<String, Object>> pathStack = new ArrayDeque<Map<String, Object>>();
+        int numRows = lines.size();
+        int numCols = lines.get(0).length();
+        int[][] grid = new int[numRows][numCols];
+        // int level = 0;
+        // Map<String, Object> currDir = null;
+        // ArrayDeque<Map<String, Object>> pathStack = new ArrayDeque<Map<String, Object>>();
+        int numVisible = 0;
 
         // read file
+        int row = 0;
         for (String line : lines) {
             if (line.length() != 0) {
-                String[] fields = line.split(" ");
-                if (line.startsWith("$ ")) {
-                    // commands
-                    if (line.contains("cd ")) {
-                        // change dir
-                        if (line.contains("..")) {
-                            // go up one level of dir
-                            currDir = changeParentDir(currDir, pathStack);
-                            level--;
-                            continue;
-                        }
-                        // go down one level of dir
-                        currDir = changeDir(currDir, fields[2], pathStack);
-                        level++;
-                        continue;
-                    }
-                    if (line.contains("ls ")) {
-                        // list dir
-                        continue;
-                    }
-                    continue;
+                for (int col = 0; col < numCols; col++) {
+                    grid[row][col] = line.charAt(col);
                 }
+                // String[] fields = line.split(" ");
+                // if (line.startsWith("$ ")) {
+                //     // commands
+                //     if (line.contains("cd ")) {
+                //         // change dir
+                //         if (line.contains("..")) {
+                //             // go up one level of dir
+                //             currDir = changeParentDir(currDir, pathStack);
+                //             level--;
+                //             continue;
+                //         }
+                //         // go down one level of dir
+                //         currDir = changeDir(currDir, fields[2], pathStack);
+                //         level++;
+                //         continue;
+                //     }
+                //     if (line.contains("ls ")) {
+                //         // list dir
+                //         continue;
+                //     }
+                //     continue;
+                // }
 
                 // results
-                if (line.startsWith("dir ")) {
-                    // directory
-                    continue;
-                }
+                // if (line.startsWith("dir ")) {
+                //     // directory
+                //     continue;
+                // }
                 // file
-                int fileSize = Integer.parseInt(fields[0]);
-                updateSize(currDir, fileSize);
+                // int fileSize = Integer.parseInt(fields[0]);
+                // updateSize(currDir, fileSize);
 
                 // Part 1
 
+            }
+            row++;
+        }
+
+        // traverse grid
+        numVisible += (numRows * 2 + numCols * 2 - 4);
+        for (row = 1; row < numRows - 1; row++) {
+            for (int col = 1; col < numCols - 1; col++) {
+                if (isVisible(grid, numRows, numCols, row, col)) numVisible++;
             }
         }
 
         // navigate current directory back to root
         // System.out.println("pathStack.size() = " + pathStack.size());
-        while (!pathStack.isEmpty()) {
-            currDir = changeParentDir(currDir, pathStack);
-        }
+        // while (!pathStack.isEmpty()) {
+        //     currDir = changeParentDir(currDir, pathStack);
+        // }
 
         // walk whole tree, to get total of all sizes below a certain size
-        int totalSize = walkTree(currDir, 100000);
+        // int totalSize = walkTree(currDir, 100000);
 
         System.out.println("# lines = " + lines.size());
-        System.out.println("file ended at level = " + level);
-        System.out.println("totalSize = " + totalSize);
+        System.out.println("numRows = " + numRows);
+        System.out.println("numCols = " + numCols);
+        System.out.println("numVisible = " + numVisible);
+        // System.out.println("file ended at level = " + level);
 
         // Part 2
 
         // walk whole tree, to get smallest directory to meet free space threshold
-        int rootDirSize = (Integer)(currDir.get("0size"));
-        int currentUnused = 70000000 - rootDirSize;
-        int targetSizeToDelete = 30000000 - currentUnused;
-        int sizeOfDirToDelete = walkTreeP2(currDir, targetSizeToDelete, Integer.MAX_VALUE);
+        // int rootDirSize = (Integer)(currDir.get("0size"));
+        // int currentUnused = 70000000 - rootDirSize;
+        // int targetSizeToDelete = 30000000 - currentUnused;
+        // int sizeOfDirToDelete = walkTreeP2(currDir, targetSizeToDelete, Integer.MAX_VALUE);
 
-        System.out.println("currentUnused = " + currentUnused);
-        System.out.println("targetSizeToDelete = " + targetSizeToDelete);
-        System.out.println("sizeOfDirToDelete = " + sizeOfDirToDelete);
+        // System.out.println("currentUnused = " + currentUnused);
+        // System.out.println("targetSizeToDelete = " + targetSizeToDelete);
+        // System.out.println("sizeOfDirToDelete = " + sizeOfDirToDelete);
     }
 
     // Basic data structures:
