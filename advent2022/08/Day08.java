@@ -2,74 +2,8 @@ import java.io.*;
 import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class Day08 {
-    static Map<String, Object> createDir(String dirName) {
-        Map<String, Object> newDir = new HashMap<String, Object>();
-        newDir.put("0size", 0);
-        newDir.put("0name", dirName);
-        return newDir;
-    }
-    static Map<String, Object> changeParentDir(Map<String, Object> currDir, ArrayDeque<Map<String, Object>> pathStack) {
-        Integer currDirSize = (Integer)(currDir.get("0size"));
-        Map<String, Object> parentDir = pathStack.removeLast();
-        /*int parentNewSize = */updateSize(parentDir, currDirSize);
-        // System.out.println("for parentDir = " + parentDir + ", new size = " + parentNewSize);
-        return parentDir;
-    }
-    static Map<String, Object> changeDir(Map<String, Object> currDir, String dirName, ArrayDeque<Map<String, Object>> pathStack) {
-        if (currDir != null) {
-            pathStack.addLast(currDir);
-            if (currDir.containsKey(dirName)) {
-                System.out.println("been here before! dirName = " + dirName);
-                return (Map<String, Object>)(currDir.get(dirName));
-            }
-        }
-        Map<String, Object> newDir = createDir(dirName);
-        if (currDir != null) currDir.put(dirName, newDir);
-        return newDir;
-    }
-    static int updateSize(Map<String, Object> dir, int fileOrDirSize) {
-        Integer dirSize = (Integer)(dir.get("0size"));
-        dirSize += fileOrDirSize;
-        dir.put("0size", dirSize);
-        // System.out.println("for dir = " + dir + ", new size = " + dirSize);
-        return dirSize;
-    }
-    static int walkTree(Map<String, Object> rootDir, int maxSize) {
-        int totalSize = 0;
-        int rootDirSize = (Integer)(rootDir.get("0size"));
-        if (rootDirSize <= maxSize) {
-            totalSize = rootDirSize;
-            // System.out.println("dir passes filter, totalSize set to " + totalSize + ", rootDir = " + rootDir);
-        }
-        for (Entry<String, Object> entry : rootDir.entrySet()) {
-            if (entry.getKey().startsWith("0")) continue;
-            Map<String, Object> dir = (Map<String, Object>)(entry.getValue());
-            totalSize += walkTree(dir, maxSize);
-            // System.out.println("totalSize increased to " + totalSize + ", rootDir = " + rootDir);
-        }
-        // System.out.println("totalSize returned as " + totalSize + ", rootDir = " + rootDir);
-        return totalSize;
-    }
-    static int walkTreeP2(Map<String, Object> rootDir, int targetSizeToDelete, int sizeOfDirToDelete) {
-        // int sizeOfDirToDelete = Integer.MAX_VALUE;
-        int rootDirSize = (Integer)(rootDir.get("0size"));
-        if (rootDirSize >= targetSizeToDelete) {
-            sizeOfDirToDelete = Math.min(sizeOfDirToDelete, rootDirSize);
-            // System.out.println("sizeOfDirToDelete set to " + sizeOfDirToDelete + ", rootDir = " + rootDir);
-        }
-        for (Entry<String, Object> entry : rootDir.entrySet()) {
-            if (entry.getKey().startsWith("0")) continue;
-            Map<String, Object> dir = (Map<String, Object>)(entry.getValue());
-            sizeOfDirToDelete = walkTreeP2(dir, targetSizeToDelete, sizeOfDirToDelete);
-            // System.out.println("sizeOfDirToDelete set to " + sizeOfDirToDelete + ", rootDir = " + rootDir);
-        }
-        // System.out.println("sizeOfDirToDelete returned as " + sizeOfDirToDelete + ", rootDir = " + rootDir);
-        return sizeOfDirToDelete;
-    }
-
     static boolean isVisible(int[][] grid, int numRows, int numCols, int row, int col) {
         int height = grid[row][col];
         boolean isVisible;
@@ -104,6 +38,53 @@ public class Day08 {
 
         return isVisible;
     }
+
+    static int getScore(int[][] grid, int numRows, int numCols, int row, int col) {
+        int height = grid[row][col];
+        // int score;
+
+        // go right
+        int rightDistance = 0;
+        for (int c = col + 1; c < numCols; c++) {
+            rightDistance++;
+            if (height <= grid[row][c]) break;
+        }
+
+        // go down
+        int downDistance = 0;
+        for (int r = row + 1; r < numRows; r++) {
+            downDistance++;
+            if (height <= grid[r][col]) break;
+        }
+
+        // go left
+        int leftDistance = 0;
+        for (int c = col - 1; c >= 0; c--) {
+            leftDistance++;
+            if (height <= grid[row][c]) break;
+        }
+
+        // go up
+        int upDistance = 0;
+        for (int r = row - 1; r >= 0; r--) {
+            upDistance++;
+            if (height <= grid[r][col]) break;
+        }
+
+        int score = rightDistance * downDistance * leftDistance * upDistance;
+
+        // DEBUG
+        if (row == 3 && col == 2) {
+            // System.out.println(upDistance);
+            // System.out.println(leftDistance);
+            // System.out.println(rightDistance);
+            // System.out.println(downDistance);
+            // System.out.println(score);
+        }
+
+        return score;
+    }
+
     public static void main(String[] args) throws IOException {
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\08\\sample_input.txt");
         Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\08\\input.txt");
@@ -111,10 +92,6 @@ public class Day08 {
         int numRows = lines.size();
         int numCols = lines.get(0).length();
         int[][] grid = new int[numRows][numCols];
-        // int level = 0;
-        // Map<String, Object> currDir = null;
-        // ArrayDeque<Map<String, Object>> pathStack = new ArrayDeque<Map<String, Object>>();
-        int numVisible = 0;
 
         // read file
         int row = 0;
@@ -123,78 +100,40 @@ public class Day08 {
                 for (int col = 0; col < numCols; col++) {
                     grid[row][col] = line.charAt(col);
                 }
-                // String[] fields = line.split(" ");
-                // if (line.startsWith("$ ")) {
-                //     // commands
-                //     if (line.contains("cd ")) {
-                //         // change dir
-                //         if (line.contains("..")) {
-                //             // go up one level of dir
-                //             currDir = changeParentDir(currDir, pathStack);
-                //             level--;
-                //             continue;
-                //         }
-                //         // go down one level of dir
-                //         currDir = changeDir(currDir, fields[2], pathStack);
-                //         level++;
-                //         continue;
-                //     }
-                //     if (line.contains("ls ")) {
-                //         // list dir
-                //         continue;
-                //     }
-                //     continue;
-                // }
-
-                // results
-                // if (line.startsWith("dir ")) {
-                //     // directory
-                //     continue;
-                // }
-                // file
-                // int fileSize = Integer.parseInt(fields[0]);
-                // updateSize(currDir, fileSize);
-
-                // Part 1
-
             }
             row++;
         }
 
-        // traverse grid
+        System.out.println("# lines = " + lines.size());
+        System.out.println("numRows = " + numRows);
+        System.out.println("numCols = " + numCols);
+
+        // Part 1
+
+        int numVisible = 0;
         numVisible += (numRows * 2 + numCols * 2 - 4);
+
+        // traverse grid
         for (row = 1; row < numRows - 1; row++) {
             for (int col = 1; col < numCols - 1; col++) {
                 if (isVisible(grid, numRows, numCols, row, col)) numVisible++;
             }
         }
 
-        // navigate current directory back to root
-        // System.out.println("pathStack.size() = " + pathStack.size());
-        // while (!pathStack.isEmpty()) {
-        //     currDir = changeParentDir(currDir, pathStack);
-        // }
-
-        // walk whole tree, to get total of all sizes below a certain size
-        // int totalSize = walkTree(currDir, 100000);
-
-        System.out.println("# lines = " + lines.size());
-        System.out.println("numRows = " + numRows);
-        System.out.println("numCols = " + numCols);
         System.out.println("numVisible = " + numVisible);
-        // System.out.println("file ended at level = " + level);
 
         // Part 2
 
-        // walk whole tree, to get smallest directory to meet free space threshold
-        // int rootDirSize = (Integer)(currDir.get("0size"));
-        // int currentUnused = 70000000 - rootDirSize;
-        // int targetSizeToDelete = 30000000 - currentUnused;
-        // int sizeOfDirToDelete = walkTreeP2(currDir, targetSizeToDelete, Integer.MAX_VALUE);
+        int maxScore = 0;
 
-        // System.out.println("currentUnused = " + currentUnused);
-        // System.out.println("targetSizeToDelete = " + targetSizeToDelete);
-        // System.out.println("sizeOfDirToDelete = " + sizeOfDirToDelete);
+        // traverse grid
+        for (row = 1; row < numRows - 1; row++) {
+            for (int col = 1; col < numCols - 1; col++) {
+                maxScore = Math.max(maxScore, getScore(grid, numRows, numCols, row, col));
+            }
+        }
+
+        System.out.println("maxScore = " + maxScore);
     }
 
     // Basic data structures:
