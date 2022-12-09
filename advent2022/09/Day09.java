@@ -3,6 +3,18 @@ import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
 
+// class Coordinates {
+//     public int x;
+//     public int y;
+//     Coordinates(int x, int y) {
+//         this.x = x;
+//         this.y = y;
+//     }
+//     boolean equals(Coordinates other) {
+//         return (this.x == other.x && this.y == other.y);
+//     }
+// }
+
 public class Day09 {
     static boolean isVisible(int[][] grid, int numRows, int numCols, int row, int col) {
         int height = grid[row][col];
@@ -38,7 +50,6 @@ public class Day09 {
 
         return isVisible;
     }
-
     static int getScore(int[][] grid, int numRows, int numCols, int row, int col) {
         int height = grid[row][col];
         // int score;
@@ -85,55 +96,183 @@ public class Day09 {
         return score;
     }
 
+    static Set<String> visited;
+    static int xHead;
+    static int yHead;
+    static int xTail;
+    static int yTail;
+    static int numTailVisited;
+    // static boolean isOverlapping() {
+    //     return xHead == xTail && yHead == yTail;
+    // }
+    static boolean isHeadUp() {
+        return xHead == xTail && yHead > yTail;
+    }
+    static boolean isHeadUpAndRight() {
+        return xHead > xTail && yHead > yTail;
+    }
+    static boolean isHeadRight() {
+        return xHead > xTail && yHead == yTail;
+    }
+    static boolean isHeadDownAndRight() {
+        return xHead > xTail && yTail > yHead;
+    }
+    static boolean isHeadDown() {
+        return xHead == xTail && yTail > yHead;
+    }
+    static boolean isHeadDownAndLeft() {
+        return xTail > xHead && yTail > yHead;
+    }
+    static boolean isHeadLeft() {
+        return xTail > xHead && yTail == yHead;
+    }
+    static boolean isHeadUpAndLeft() {
+        return xTail > xHead && yHead > yTail;
+    }
+    // static boolean isDiagonallyAdjacent() {
+    //     return isHeadUpAndRight() || isHeadDownAndRight() || isHeadDownAndLeft() || isHeadUpAndLeft();
+    // }
+    // static void updatePositionsOld(int xDelta, int yDelta) {
+    //     // System.out.println("before: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
+    //     // System.out.println("move xDelta = " + xDelta + ", yDelta = " + yDelta);
+    //     if (isOverlapping()) {
+    //         // tail tracks head exactly for horizontal and vertical cases, beyond distance 1
+    //         xTail += (xDelta + ((xDelta > 0) ? -1 : ((xDelta == 0) ? 0 : 1)));
+    //         yTail += (yDelta + ((yDelta > 0) ? -1 : ((yDelta == 0) ? 0 : 1)));
+    //     }
+    //     else if (!isDiagonallyAdjacent()) {
+    //         // tail tracks head exactly for horizontal and vertical cases
+    //         xTail += xDelta;
+    //         yTail += yDelta;
+    //     }
+    //     else if (isHeadUpAndRight()) {
+    //         if (xDelta < 0 || yDelta < 0) {
+    //             // left or down, no tail movement???
+    //         }
+    //     }
+    //     else if (isHeadUpAndRight() && (xDelta < 0 || yDelta < 0) // left or down
+    //              || isHeadDownAndRight() && (xDelta < 0 || yDelta > 0) // left or up
+    //              || isHeadDownAndLeft() && (xDelta > 0 || yDelta > 0) // right or up
+    //              || isHeadUpAndLeft() && (xDelta > 0 || yDelta < 0)) { // right or down
+    //         // no tail movement for these diagonal cases
+    //     }
+    //     else if (isHeadUpAndRight() && yDelta > 0) { // up
+    //         xTail += 1;
+    //         yTail += yDelta;
+    //     }
+    //     else if (isHeadUpAndRight() && xDelta > 0) { // right
+    //         xTail += xDelta;
+    //         yTail += 1;
+    //     }
+    //     else if (isHeadDownAndRight() && yDelta < 0) { // down
+    //         xTail += 1;
+    //         yTail += yDelta;
+    //     }
+    //     else if (isHeadDownAndRight() && xDelta > 0) { // right
+    //         xTail += xDelta;
+    //         yTail -= 1;
+    //     }
+    //     else if (isHeadDownAndLeft() && yDelta < 0) { // down
+    //         xTail -= 1;
+    //         yTail += yDelta;
+    //     }
+    //     else if (isHeadDownAndLeft() && xDelta < 0) { // left
+    //         xTail += xDelta;
+    //         yTail -= 1;
+    //     }
+    //     else if (isHeadUpAndLeft() && yDelta > 0) { // up
+    //         xTail -= 1;
+    //         yTail += yDelta;
+    //     }
+    //     else if (isHeadUpAndLeft() && xDelta < 0) { // left
+    //         xTail += xDelta;
+    //         yTail += 1;
+    //     }
+    //     xHead += xDelta;
+    //     yHead += yDelta;
+    //     // System.out.println("after: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
+    // }
+    static void updatePositions(String command) {
+        int xDelta = command.equals("R") ? 1 : (command.equals("L") ? -1 : 0);
+        int yDelta = command.equals("U") ? 1 : (command.equals("D") ? -1 : 0);
+        if (isHeadUp() && yDelta == 1 || isHeadDown() && yDelta == -1) {
+            yTail += yDelta;
+        } else if (isHeadRight() && xDelta == 1 || isHeadLeft() && xDelta == -1) {
+            xTail += xDelta;
+        } else if (isHeadUpAndRight() && (yDelta == 1 || xDelta == 1)) {
+            xTail += 1;
+            yTail += 1;
+        } else if (isHeadDownAndRight() && (yDelta == -1 || xDelta == 1)) {
+            xTail += 1;
+            yTail -= 1;
+        } else if (isHeadDownAndLeft() && (yDelta == -1 || xDelta == -1)) {
+            xTail -= 1;
+            yTail -= 1;
+        } else if (isHeadUpAndLeft() && (yDelta == 1 || xDelta == -1)) {
+            xTail -= 1;
+            yTail += 1;
+        }
+        String tailCoordinates = new String(xTail + "," + yTail);
+        xHead += xDelta;
+        yHead += yDelta;
+        if (!visited.contains(tailCoordinates)) {
+            // System.out.println("newly visited: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
+            numTailVisited++;
+            visited.add(tailCoordinates);
+        }
+        // System.out.println("after: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
+    }
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\09\\sample_input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\09\\input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\09\\sample_input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\09\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
-        int numRows = lines.size();
-        int numCols = lines.get(0).length();
-        int[][] grid = new int[numRows][numCols];
+        // int numRows = lines.size();
+        // int numCols = lines.get(0).length();
+        // int[][] grid = new int[numRows][numCols];
 
         // read file
-        int row = 0;
+        xHead = 0;
+        yHead = 0;
+        xTail = 0;
+        yTail = 0;
+        numTailVisited = 1;
+        visited = new HashSet<String>();
+        visited.add(new String(0 + "," + 0));
         for (String line : lines) {
             if (line.length() != 0) {
-                for (int col = 0; col < numCols; col++) {
-                    grid[row][col] = line.charAt(col);
+                String[] fields = line.split(" ");
+                String command = fields[0];
+                int distance = Integer.parseInt(fields[1]);
+                for (int i = 0; i < distance; i++) {
+                    updatePositions(command);
                 }
+                // if (command.equals("R")) {
+                //     updatePositions(distance, 0);
+                //     continue;
+                // }
+                // if (command.equals("L")) {
+                //     updatePositions(-distance, 0);
+                //     continue;
+                // }
+                // if (command.equals("D")) {
+                //     updatePositions(0, -distance);
+                //     continue;
+                // }
+                // if (command.equals("U")) {
+                //     updatePositions(0, distance);
+                //     continue;
+                // }
             }
-            row++;
         }
 
         System.out.println("# lines = " + lines.size());
-        System.out.println("numRows = " + numRows);
-        System.out.println("numCols = " + numCols);
+        System.out.println("head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
 
         // Part 1
 
-        int numVisible = 0;
-        numVisible += (numRows * 2 + numCols * 2 - 4);
-
-        // traverse grid
-        for (row = 1; row < numRows - 1; row++) {
-            for (int col = 1; col < numCols - 1; col++) {
-                if (isVisible(grid, numRows, numCols, row, col)) numVisible++;
-            }
-        }
-
-        System.out.println("numVisible = " + numVisible);
+        System.out.println("numTailVisited = " + numTailVisited);
 
         // Part 2
-
-        int maxScore = 0;
-
-        // traverse grid
-        for (row = 1; row < numRows - 1; row++) {
-            for (int col = 1; col < numCols - 1; col++) {
-                maxScore = Math.max(maxScore, getScore(grid, numRows, numCols, row, col));
-            }
-        }
-
-        System.out.println("maxScore = " + maxScore);
     }
 
     void snippets() {
