@@ -16,95 +16,12 @@ import java.util.*;
 // }
 
 public class Day09 {
-    static boolean isVisible(int[][] grid, int numRows, int numCols, int row, int col) {
-        int height = grid[row][col];
-        boolean isVisible;
-
-        // go right
-        isVisible = true;
-        for (int c = col + 1; c < numCols; c++) {
-            if (height <= grid[row][c]) isVisible = false;
-        }
-        if (isVisible) return true;
-
-        // go down
-        isVisible = true;
-        for (int r = row + 1; r < numRows; r++) {
-            if (height <= grid[r][col]) isVisible = false;
-        }
-        if (isVisible) return true;
-
-        // go left
-        isVisible = true;
-        for (int c = col - 1; c >= 0; c--) {
-            if (height <= grid[row][c]) isVisible = false;
-        }
-        if (isVisible) return true;
-
-        // go up
-        isVisible = true;
-        for (int r = row - 1; r >= 0; r--) {
-            if (height <= grid[r][col]) isVisible = false;
-        }
-        if (isVisible) return true;
-
-        return isVisible;
-    }
-    static int getScore(int[][] grid, int numRows, int numCols, int row, int col) {
-        int height = grid[row][col];
-        // int score;
-
-        // go right
-        int rightDistance = 0;
-        for (int c = col + 1; c < numCols; c++) {
-            rightDistance++;
-            if (height <= grid[row][c]) break;
-        }
-
-        // go down
-        int downDistance = 0;
-        for (int r = row + 1; r < numRows; r++) {
-            downDistance++;
-            if (height <= grid[r][col]) break;
-        }
-
-        // go left
-        int leftDistance = 0;
-        for (int c = col - 1; c >= 0; c--) {
-            leftDistance++;
-            if (height <= grid[row][c]) break;
-        }
-
-        // go up
-        int upDistance = 0;
-        for (int r = row - 1; r >= 0; r--) {
-            upDistance++;
-            if (height <= grid[r][col]) break;
-        }
-
-        int score = rightDistance * downDistance * leftDistance * upDistance;
-
-        // DEBUG
-        if (row == 3 && col == 2) {
-            // System.out.println(upDistance);
-            // System.out.println(leftDistance);
-            // System.out.println(rightDistance);
-            // System.out.println(downDistance);
-            // System.out.println(score);
-        }
-
-        return score;
-    }
-
     static Set<String> visited;
     static int xHead;
     static int yHead;
     static int xTail;
     static int yTail;
     static int numTailVisited;
-    // static boolean isOverlapping() {
-    //     return xHead == xTail && yHead == yTail;
-    // }
     static boolean isHeadUp() {
         return xHead == xTail && yHead > yTail;
     }
@@ -129,69 +46,6 @@ public class Day09 {
     static boolean isHeadUpAndLeft() {
         return xTail > xHead && yHead > yTail;
     }
-    // static boolean isDiagonallyAdjacent() {
-    //     return isHeadUpAndRight() || isHeadDownAndRight() || isHeadDownAndLeft() || isHeadUpAndLeft();
-    // }
-    // static void updatePositionsOld(int xDelta, int yDelta) {
-    //     // System.out.println("before: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
-    //     // System.out.println("move xDelta = " + xDelta + ", yDelta = " + yDelta);
-    //     if (isOverlapping()) {
-    //         // tail tracks head exactly for horizontal and vertical cases, beyond distance 1
-    //         xTail += (xDelta + ((xDelta > 0) ? -1 : ((xDelta == 0) ? 0 : 1)));
-    //         yTail += (yDelta + ((yDelta > 0) ? -1 : ((yDelta == 0) ? 0 : 1)));
-    //     }
-    //     else if (!isDiagonallyAdjacent()) {
-    //         // tail tracks head exactly for horizontal and vertical cases
-    //         xTail += xDelta;
-    //         yTail += yDelta;
-    //     }
-    //     else if (isHeadUpAndRight()) {
-    //         if (xDelta < 0 || yDelta < 0) {
-    //             // left or down, no tail movement???
-    //         }
-    //     }
-    //     else if (isHeadUpAndRight() && (xDelta < 0 || yDelta < 0) // left or down
-    //              || isHeadDownAndRight() && (xDelta < 0 || yDelta > 0) // left or up
-    //              || isHeadDownAndLeft() && (xDelta > 0 || yDelta > 0) // right or up
-    //              || isHeadUpAndLeft() && (xDelta > 0 || yDelta < 0)) { // right or down
-    //         // no tail movement for these diagonal cases
-    //     }
-    //     else if (isHeadUpAndRight() && yDelta > 0) { // up
-    //         xTail += 1;
-    //         yTail += yDelta;
-    //     }
-    //     else if (isHeadUpAndRight() && xDelta > 0) { // right
-    //         xTail += xDelta;
-    //         yTail += 1;
-    //     }
-    //     else if (isHeadDownAndRight() && yDelta < 0) { // down
-    //         xTail += 1;
-    //         yTail += yDelta;
-    //     }
-    //     else if (isHeadDownAndRight() && xDelta > 0) { // right
-    //         xTail += xDelta;
-    //         yTail -= 1;
-    //     }
-    //     else if (isHeadDownAndLeft() && yDelta < 0) { // down
-    //         xTail -= 1;
-    //         yTail += yDelta;
-    //     }
-    //     else if (isHeadDownAndLeft() && xDelta < 0) { // left
-    //         xTail += xDelta;
-    //         yTail -= 1;
-    //     }
-    //     else if (isHeadUpAndLeft() && yDelta > 0) { // up
-    //         xTail -= 1;
-    //         yTail += yDelta;
-    //     }
-    //     else if (isHeadUpAndLeft() && xDelta < 0) { // left
-    //         xTail += xDelta;
-    //         yTail += 1;
-    //     }
-    //     xHead += xDelta;
-    //     yHead += yDelta;
-    //     // System.out.println("after: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
-    // }
     static void updatePositions(String command) {
         int xDelta = command.equals("R") ? 1 : (command.equals("L") ? -1 : 0);
         int yDelta = command.equals("U") ? 1 : (command.equals("D") ? -1 : 0);
@@ -223,12 +77,9 @@ public class Day09 {
         // System.out.println("after: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
     }
     public static void main(String[] args) throws IOException {
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\09\\sample_input.txt");
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\09\\input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\09\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\09\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
-        // int numRows = lines.size();
-        // int numCols = lines.get(0).length();
-        // int[][] grid = new int[numRows][numCols];
 
         // read file
         xHead = 0;
@@ -246,33 +97,17 @@ public class Day09 {
                 for (int i = 0; i < distance; i++) {
                     updatePositions(command);
                 }
-                // if (command.equals("R")) {
-                //     updatePositions(distance, 0);
-                //     continue;
-                // }
-                // if (command.equals("L")) {
-                //     updatePositions(-distance, 0);
-                //     continue;
-                // }
-                // if (command.equals("D")) {
-                //     updatePositions(0, -distance);
-                //     continue;
-                // }
-                // if (command.equals("U")) {
-                //     updatePositions(0, distance);
-                //     continue;
-                // }
             }
         }
 
         System.out.println("# lines = " + lines.size());
         System.out.println("head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
 
-        // Part 1
+        // Part 1, 2 knots in the rope
 
         System.out.println("numTailVisited = " + numTailVisited);
 
-        // Part 2
+        // Part 2, 10 knots in the rope
     }
 
     void snippets() {
@@ -319,5 +154,10 @@ public class Day09 {
         //
         // Part 2 flagging:
         // boolean isPart2 = true;
+        //
+        // A grid of rows and cols:
+        // int numRows = lines.size();
+        // int numCols = lines.get(0).length();
+        // int[][] grid = new int[numRows][numCols];
     }
 }
