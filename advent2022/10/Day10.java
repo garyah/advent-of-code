@@ -78,37 +78,48 @@ public class Day10 {
     }
 
 
+    static int cycleNum;
+    static int xRegValue;
+    static int totalSignalStrength;
+    static void tick() {
+        cycleNum += 1;
+        if (cycleNum == 20 || ((cycleNum - 20) % 40 == 0 && cycleNum <= 220)) {
+            int signalStrength = cycleNum * xRegValue;
+            totalSignalStrength += signalStrength;
+            System.out.println(
+                "cycleNum = " + cycleNum + ", xRegValue = " + xRegValue + ", signalStrength = " + signalStrength
+                 + ", new totalSignalStrength = " + totalSignalStrength);
+        }
+    }
 
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\10\\sample_input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\10\\input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\10\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\10\\sample_input_2.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\10\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
 
         // read file
+        cycleNum = 0;
+        xRegValue = 1;
+        totalSignalStrength = 0;
         for (String line : lines) {
             if (line.length() != 0) {
                 String[] fields = line.split(" ");
-                String command = fields[0];
-                int distance = Integer.parseInt(fields[1]);
-                for (int i = 0; i < distance; i++) {
-                    updatePositions(command);
+                String instruction = fields[0];
+                if (instruction.equals("noop")) {
+                    tick();
+                    continue;
                 }
-                // if (command.equals("R")) {
-                //     updatePositions(distance, 0);
-                //     continue;
-                // }
-                // if (command.equals("L")) {
-                //     updatePositions(-distance, 0);
-                //     continue;
-                // }
-                // if (command.equals("D")) {
-                //     updatePositions(0, -distance);
-                //     continue;
-                // }
-                // if (command.equals("U")) {
-                //     updatePositions(0, distance);
-                //     continue;
-                // }
+                if (instruction.equals("addx")) {
+                    int argument = Integer.parseInt(fields[1]);
+                    if (argument == -1) {
+                        System.out.println("before addx -1, cycleNum = " + cycleNum + ", xRegValue = " + xRegValue);
+                    }
+                    tick();
+                    tick();
+                    xRegValue += argument;
+                    continue;
+                }
             }
         }
 
@@ -116,7 +127,8 @@ public class Day10 {
 
         // Part 1
 
-        // System.out.println("numTailVisited = " + numTailVisited);
+        System.out.println("cycleNum = " + cycleNum);
+        System.out.println("xRegValue = " + xRegValue);
 
         // Part 2
     }
