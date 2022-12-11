@@ -47,6 +47,7 @@ public class Day09 {
         return xTail > xHead && yHead > yTail;
     }
     static void updatePositions(String command) {
+        System.out.println("before: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
         int xDelta = command.equals("R") ? 1 : (command.equals("L") ? -1 : 0);
         int yDelta = command.equals("U") ? 1 : (command.equals("D") ? -1 : 0);
         if (isHeadUp() && yDelta == 1 || isHeadDown() && yDelta == -1) {
@@ -74,7 +75,7 @@ public class Day09 {
             numTailVisited++;
             visited.add(tailCoordinates);
         }
-        // System.out.println("after: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
+        System.out.println("after: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
     }
     public static void main(String[] args) throws IOException {
         Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\09\\sample_input.txt");
@@ -91,6 +92,7 @@ public class Day09 {
         visited.add(new String(0 + "," + 0));
         for (String line : lines) {
             if (line.length() != 0) {
+                System.out.println(line);
                 String[] fields = line.split(" ");
                 String command = fields[0];
                 int distance = Integer.parseInt(fields[1]);
