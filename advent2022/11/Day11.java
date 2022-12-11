@@ -11,7 +11,7 @@ enum Operater {
 }
 
 class Monkey {
-    public List<Integer> itemWorryLevels;
+    public List<Long> itemWorryLevels;
     public Operater operater;
     public boolean isOperandVar;
     public int operand;
@@ -20,7 +20,7 @@ class Monkey {
     public List<Integer> falseList;
     public int numInspects;
     Monkey (/*Operater operater, boolean isOperandVarOrConst, int operand, int testDivBy*/) {
-        itemWorryLevels = new ArrayList<Integer>();
+        itemWorryLevels = new ArrayList<Long>();
         // this.operater = operater;
         // this.isOperandVarOrConst = isOperandVarOrConst;
         // this.operand = operand;
@@ -36,7 +36,7 @@ public class Day11 {
     static void doTurn(int monkeyIdx, Monkey monkey) {
         // increase worry level during inspection
         for (int i = 0; i< monkey.itemWorryLevels.size(); i++) {
-            int itemWorryLevel = monkey.itemWorryLevels.get(i);
+            long itemWorryLevel = monkey.itemWorryLevels.get(i);
             switch (monkey.operater) {
                 case Add:
                     itemWorryLevel += monkey.isOperandVar ? itemWorryLevel : monkey.operand;
@@ -54,7 +54,7 @@ public class Day11 {
 
         // decrease worry level after inspection
         for (int i = 0; i< monkey.itemWorryLevels.size(); i++) {
-            int itemWorryLevel = monkey.itemWorryLevels.get(i);
+            long itemWorryLevel = monkey.itemWorryLevels.get(i);
             itemWorryLevel /= 3;
             monkey.itemWorryLevels.set(i, itemWorryLevel);
         }
@@ -62,7 +62,7 @@ public class Day11 {
 
         // perform tests on worry level, throwing items to other monkeys
         for (int i = 0; i < monkey.itemWorryLevels.size(); i++) {
-            int itemWorryLevel = monkey.itemWorryLevels.get(i);
+            long itemWorryLevel = monkey.itemWorryLevels.get(i);
             int thrownMonkeyIdx;
             if (itemWorryLevel % monkey.testDivBy == 0) {
                 // test true, throw to monkey on true list
@@ -79,12 +79,12 @@ public class Day11 {
     }
     static void printWorryLevels() {
         for (int i = 0; i < monkeys.size(); i++) {
-            // System.out.println("Monkey " + i + ": Worry levels at end of round = " + monkeys.get(i).itemWorryLevels);
+            System.out.println("Monkey " + i + ": Worry levels at end of round = " + monkeys.get(i).itemWorryLevels);
         }
     }
     static void printNumInspects() {
         for (int i = 0; i < monkeys.size(); i++) {
-            System.out.println("Monkey " + i + ": inspected items " + monkeys.get(i).numInspects + " times.");
+            // System.out.println("Monkey " + i + ": inspected items " + monkeys.get(i).numInspects + " times.");
         }
     }
     static void performRound() {
@@ -105,7 +105,7 @@ public class Day11 {
         Monkey currentMonkey = null;
         for (String line : lines) {
             if (line.length() != 0) {
-                String[] fields = line.split(" ");
+                // String[] fields = line.split(" ");
                 if (line.contains("Monkey ")) {
                     // currentMonkeyIdx = Integer.parseInt(fields[1].substring(0, fields[1].length() - 1));
                     currentMonkey = new Monkey();
@@ -116,7 +116,7 @@ public class Day11 {
                     String itemsString = line.substring(line.indexOf("Starting items: ") + "Starting items: ".length(), line.length());
                     String[] itemStrings = itemsString.split(", ");
                     for (String itemString : itemStrings) {
-                        currentMonkey.itemWorryLevels.add(Integer.parseInt(itemString));
+                        currentMonkey.itemWorryLevels.add(Long.parseLong(itemString));
                     }
                     // System.out.println("Starting items = " + currentMonkey.itemWorryLevels);
                 }
