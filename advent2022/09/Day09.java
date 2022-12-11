@@ -3,24 +3,12 @@ import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
 
-// class Coordinates {
-//     public int x;
-//     public int y;
-//     Coordinates(int x, int y) {
-//         this.x = x;
-//         this.y = y;
-//     }
-//     boolean equals(Coordinates other) {
-//         return (this.x == other.x && this.y == other.y);
-//     }
-// }
-
 public class Day09 {
-    static Set<String> visited;
     static int xHead;
     static int yHead;
     static int xTail;
     static int yTail;
+    static Set<String> visited;
     static int numTailVisited;
     static boolean isHeadUp() {
         return xHead == xTail && yHead > yTail;
@@ -47,7 +35,7 @@ public class Day09 {
         return xTail > xHead && yHead > yTail;
     }
     static void updatePositions(String command) {
-        System.out.println("before: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
+        // System.out.println("before: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
         int xDelta = command.equals("R") ? 1 : (command.equals("L") ? -1 : 0);
         int yDelta = command.equals("U") ? 1 : (command.equals("D") ? -1 : 0);
         if (isHeadUp() && yDelta == 1 || isHeadDown() && yDelta == -1) {
@@ -75,21 +63,61 @@ public class Day09 {
             numTailVisited++;
             visited.add(tailCoordinates);
         }
-        System.out.println("after: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
+        // System.out.println("after: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
+    }
+    static void drawGrid() {
+        for (int y = 4; y >= 0; y--) {
+            for (int x = 0; x < 6; x++) {
+                if (x == xHead && y == yHead) {
+                    System.out.print("H");
+                    continue;
+                }
+                if (x == xTail && y == yTail) {
+                    System.out.print("T");
+                    continue;
+                }
+                if (x == 0 && y == 0) {
+                    System.out.print("s");
+                    continue;
+                }
+                System.out.print(".");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+    static void drawVisited() {
+        for (int y = 4; y >= 0; y--) {
+            for (int x = 0; x < 6; x++) {
+                if (x == 0 && y == 0) {
+                    System.out.print("s");
+                    continue;
+                }
+                String tailCoordinates = new String(x + "," + y);
+                if (visited.contains(tailCoordinates)) {
+                    System.out.print("#");
+                    continue;
+                }
+                System.out.print(".");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
     public static void main(String[] args) throws IOException {
         Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\09\\sample_input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\09\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
 
-        // read file
+        // read file, updating positions in line
         xHead = 0;
         yHead = 0;
         xTail = 0;
         yTail = 0;
-        numTailVisited = 1;
         visited = new HashSet<String>();
         visited.add(new String(0 + "," + 0));
+        numTailVisited = 1;
+        drawGrid();
         for (String line : lines) {
             if (line.length() != 0) {
                 System.out.println(line);
@@ -98,9 +126,11 @@ public class Day09 {
                 int distance = Integer.parseInt(fields[1]);
                 for (int i = 0; i < distance; i++) {
                     updatePositions(command);
+                    drawGrid();
                 }
             }
         }
+        drawVisited();
 
         System.out.println("# lines = " + lines.size());
         System.out.println("head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
