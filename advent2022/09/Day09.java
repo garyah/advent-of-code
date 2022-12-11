@@ -4,58 +4,60 @@ import java.nio.file.*;
 import java.util.*;
 
 public class Day09 {
+    static final int numKnots = 2;
+    static final int numTails = numKnots - 1;
     static int xHead;
     static int yHead;
-    static int xTail;
-    static int yTail;
+    static int[] xTail;
+    static int[] yTail;
     static Set<String> visited;
     static int numTailVisited;
     static boolean isHeadUp() {
-        return xHead == xTail && yHead > yTail;
+        return xHead == xTail[0] && yHead > yTail[0];
     }
     static boolean isHeadUpAndRight() {
-        return xHead > xTail && yHead > yTail;
+        return xHead > xTail[0] && yHead > yTail[0];
     }
     static boolean isHeadRight() {
-        return xHead > xTail && yHead == yTail;
+        return xHead > xTail[0] && yHead == yTail[0];
     }
     static boolean isHeadDownAndRight() {
-        return xHead > xTail && yTail > yHead;
+        return xHead > xTail[0] && yTail[0] > yHead;
     }
     static boolean isHeadDown() {
-        return xHead == xTail && yTail > yHead;
+        return xHead == xTail[0] && yTail[0] > yHead;
     }
     static boolean isHeadDownAndLeft() {
-        return xTail > xHead && yTail > yHead;
+        return xTail[0] > xHead && yTail[0] > yHead;
     }
     static boolean isHeadLeft() {
-        return xTail > xHead && yTail == yHead;
+        return xTail[0] > xHead && yTail[0] == yHead;
     }
     static boolean isHeadUpAndLeft() {
-        return xTail > xHead && yHead > yTail;
+        return xTail[0] > xHead && yHead > yTail[0];
     }
     static void updatePositions(String command) {
         // System.out.println("before: head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
         int xDelta = command.equals("R") ? 1 : (command.equals("L") ? -1 : 0);
         int yDelta = command.equals("U") ? 1 : (command.equals("D") ? -1 : 0);
         if (isHeadUp() && yDelta == 1 || isHeadDown() && yDelta == -1) {
-            yTail += yDelta;
+            yTail[0] += yDelta;
         } else if (isHeadRight() && xDelta == 1 || isHeadLeft() && xDelta == -1) {
-            xTail += xDelta;
+            xTail[0] += xDelta;
         } else if (isHeadUpAndRight() && (yDelta == 1 || xDelta == 1)) {
-            xTail += 1;
-            yTail += 1;
+            xTail[0] += 1;
+            yTail[0] += 1;
         } else if (isHeadDownAndRight() && (yDelta == -1 || xDelta == 1)) {
-            xTail += 1;
-            yTail -= 1;
+            xTail[0] += 1;
+            yTail[0] -= 1;
         } else if (isHeadDownAndLeft() && (yDelta == -1 || xDelta == -1)) {
-            xTail -= 1;
-            yTail -= 1;
+            xTail[0] -= 1;
+            yTail[0] -= 1;
         } else if (isHeadUpAndLeft() && (yDelta == 1 || xDelta == -1)) {
-            xTail -= 1;
-            yTail += 1;
+            xTail[0] -= 1;
+            yTail[0] += 1;
         }
-        String tailCoordinates = new String(xTail + "," + yTail);
+        String tailCoordinates = new String(xTail[0] + "," + yTail[0]);
         xHead += xDelta;
         yHead += yDelta;
         if (!visited.contains(tailCoordinates)) {
@@ -72,7 +74,7 @@ public class Day09 {
                     System.out.print("H");
                     continue;
                 }
-                if (x == xTail && y == yTail) {
+                if (x == xTail[0] && y == yTail[0]) {
                     System.out.print("T");
                     continue;
                 }
@@ -112,8 +114,12 @@ public class Day09 {
         // read file, updating positions in line
         xHead = 0;
         yHead = 0;
-        xTail = 0;
-        yTail = 0;
+        xTail = new int[numTails];
+        yTail = new int[numTails];
+        for (int i = 0; i < numTails; i++) {
+            xTail[i] = 0;
+            yTail[i] = 0;
+        }
         visited = new HashSet<String>();
         visited.add(new String(0 + "," + 0));
         numTailVisited = 1;
@@ -133,7 +139,10 @@ public class Day09 {
         drawVisited();
 
         System.out.println("# lines = " + lines.size());
-        System.out.println("head x = " + xHead + " y = " + yHead + ", tail x = " + xTail + " y = " + yTail);
+        System.out.print("head x = " + xHead + " y = " + yHead + ", ");
+        for (int i = 0; i < numTails; i++) {
+            System.out.println("tail #" + (i + 1) + " x = " + xTail[i] + " y = " + yTail[i]);
+        }
 
         // Part 1, 2 knots in the rope
 
