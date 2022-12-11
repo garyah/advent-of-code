@@ -103,8 +103,8 @@ public class Day11 {
         return true;
     }
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\sample_input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\sample_input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         isPart2 = true;
 
@@ -192,7 +192,7 @@ public class Day11 {
         Arrays.sort(numInspectsArray);
         int firstMonkeyNumInspects = numInspectsArray[numInspectsArray.length - 1];
         int secondMonkeyNumInspects = numInspectsArray[numInspectsArray.length - 2];
-        int activityLevel = firstMonkeyNumInspects * secondMonkeyNumInspects;
+        long activityLevel = firstMonkeyNumInspects * secondMonkeyNumInspects;
 
         System.out.println("firstMonkeyNumInspects = " + firstMonkeyNumInspects);
         System.out.println("secondMonkeyNumInspects = " + secondMonkeyNumInspects);
