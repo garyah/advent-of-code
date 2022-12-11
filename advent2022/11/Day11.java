@@ -1,4 +1,5 @@
 import java.io.*;
+import java.math.BigInteger;
 import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
@@ -11,7 +12,7 @@ enum Operater {
 }
 
 class Monkey {
-    public List<Long> itemWorryLevels;
+    public List<BigInteger> itemWorryLevels;
     public Operater operater;
     public boolean isOperandVar;
     public int operand;
@@ -19,12 +20,8 @@ class Monkey {
     public List<Integer> trueList;
     public List<Integer> falseList;
     public int numInspects;
-    Monkey (/*Operater operater, boolean isOperandVarOrConst, int operand, int testDivBy*/) {
-        itemWorryLevels = new ArrayList<Long>();
-        // this.operater = operater;
-        // this.isOperandVarOrConst = isOperandVarOrConst;
-        // this.operand = operand;
-        // this.testDivBy = testDivBy;
+    Monkey () {
+        itemWorryLevels = new ArrayList<BigInteger>();
         trueList = new ArrayList<Integer>();
         falseList = new ArrayList<Integer>();
         numInspects = 0;
@@ -32,39 +29,48 @@ class Monkey {
 }
 public class Day11 {
     static List<Monkey> monkeys;
+    static boolean isPart2;
 
-    static void doTurn(int monkeyIdx, Monkey monkey) {
+    static boolean doTurn(int monkeyIdx, Monkey monkey) {
         // increase worry level during inspection
         for (int i = 0; i< monkey.itemWorryLevels.size(); i++) {
-            long itemWorryLevel = monkey.itemWorryLevels.get(i);
+            BigInteger itemWorryLevel = monkey.itemWorryLevels.get(i);
             switch (monkey.operater) {
                 case Add:
-                    itemWorryLevel += monkey.isOperandVar ? itemWorryLevel : monkey.operand;
+                    itemWorryLevel = itemWorryLevel.add(monkey.isOperandVar ? itemWorryLevel : BigInteger.valueOf(monkey.operand));
                     break;
                 case Multiply:
-                    itemWorryLevel *= monkey.isOperandVar ? itemWorryLevel : monkey.operand;
+                    itemWorryLevel = itemWorryLevel.multiply(monkey.isOperandVar ? itemWorryLevel : BigInteger.valueOf(monkey.operand));
                     break;
                 default:
                     break;
+            }
+            if (itemWorryLevel.compareTo(BigInteger.valueOf(0)) == -1) {
+                System.out.print("overflow!!!");
+                System.out.println("Monkey " + monkeyIdx + ": Worry level during inspection changed to = " + itemWorryLevel);
+                return false;
             }
             monkey.itemWorryLevels.set(i, itemWorryLevel);
             monkey.numInspects++;
         }
         // System.out.println("Monkey " + monkeyIdx + ": Worry levels during inspection changed to = " + monkey.itemWorryLevels);
 
-        // decrease worry level after inspection
-        for (int i = 0; i< monkey.itemWorryLevels.size(); i++) {
-            long itemWorryLevel = monkey.itemWorryLevels.get(i);
-            itemWorryLevel /= 3;
-            monkey.itemWorryLevels.set(i, itemWorryLevel);
+        // decrease worry level after inspection (if not part 2!)
+        if (!isPart2) {
+            for (int i = 0; i< monkey.itemWorryLevels.size(); i++) {
+                BigInteger itemWorryLevel = monkey.itemWorryLevels.get(i);
+                itemWorryLevel = itemWorryLevel.divide(BigInteger.valueOf(3));
+                monkey.itemWorryLevels.set(i, itemWorryLevel);
+            }
+            // System.out.println("Monkey " + monkeyIdx + ": Worry levels after inspection changed to = " + monkey.itemWorryLevels);
         }
-        // System.out.println("Monkey " + monkeyIdx + ": Worry levels after inspection changed to = " + monkey.itemWorryLevels);
 
         // perform tests on worry level, throwing items to other monkeys
         for (int i = 0; i < monkey.itemWorryLevels.size(); i++) {
-            long itemWorryLevel = monkey.itemWorryLevels.get(i);
+            BigInteger itemWorryLevel = monkey.itemWorryLevels.get(i);
             int thrownMonkeyIdx;
-            if (itemWorryLevel % monkey.testDivBy == 0) {
+            BigInteger modValue = itemWorryLevel.mod(BigInteger.valueOf(monkey.testDivBy));
+            if (modValue.compareTo(BigInteger.valueOf(0)) == 0) {
                 // test true, throw to monkey on true list
                 thrownMonkeyIdx = monkey.trueList.get(0);
             } else {
@@ -76,28 +82,31 @@ public class Day11 {
             thrownMonkey.itemWorryLevels.add(itemWorryLevel);
             // System.out.println("Monkey " + monkeyIdx + ": Throws item with worry level = " + itemWorryLevel + " to monkey " + thrownMonkeyIdx);
         }
+        return true;
     }
     static void printWorryLevels() {
         for (int i = 0; i < monkeys.size(); i++) {
-            System.out.println("Monkey " + i + ": Worry levels at end of round = " + monkeys.get(i).itemWorryLevels);
+            // System.out.println("Monkey " + i + ": Worry levels at end of round = " + monkeys.get(i).itemWorryLevels);
         }
     }
-    static void printNumInspects() {
+    static void printNumInspects(int round) {
         for (int i = 0; i < monkeys.size(); i++) {
-            // System.out.println("Monkey " + i + ": inspected items " + monkeys.get(i).numInspects + " times.");
+            System.out.println("Monkey " + i + ": inspected items " + monkeys.get(i).numInspects + " times.");
         }
     }
-    static void performRound() {
+    static boolean performRound(int round, int roundInterval) {
         for (int i = 0; i < monkeys.size(); i++) {
-            doTurn(i, monkeys.get(i));
+            if (!doTurn(i, monkeys.get(i))) return false;
         }
         printWorryLevels();
-        printNumInspects();
+        if (round == 1 || round == 20 || round % roundInterval == 0) printNumInspects(round);
+        return true;
     }
     public static void main(String[] args) throws IOException {
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\sample_input.txt");
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
+        isPart2 = true;
 
         // read file
         monkeys = new ArrayList<Monkey>();
@@ -116,7 +125,7 @@ public class Day11 {
                     String itemsString = line.substring(line.indexOf("Starting items: ") + "Starting items: ".length(), line.length());
                     String[] itemStrings = itemsString.split(", ");
                     for (String itemString : itemStrings) {
-                        currentMonkey.itemWorryLevels.add(Long.parseLong(itemString));
+                        currentMonkey.itemWorryLevels.add(BigInteger.valueOf(Long.parseLong(itemString)));
                     }
                     // System.out.println("Starting items = " + currentMonkey.itemWorryLevels);
                 }
@@ -161,12 +170,18 @@ public class Day11 {
         System.out.println("# lines = " + lines.size());
         System.out.println("# monkeys = " + monkeys.size());
 
-        // Part 1
+        // Parts 1 + 2
 
         // perform set number of rounds
-        for (int n = 0; n < 20; n++) {
-            System.out.println("Round: " + (n + 1));
-            performRound();
+        int numRounds = isPart2 ? 10000 : 20;
+        int roundInterval = isPart2 ? 1000 : 1;
+        for (int round = 1; round <= numRounds; round++) {
+            System.out.print(".");
+            if (round == 1 || round == 20 || round % roundInterval == 0) System.out.println("Round: " + round);
+            if (!performRound(round, roundInterval)) {
+                System.out.println("Overflow for Round: " + round);
+                break;
+            }
         }
 
         // find most active monkeys
