@@ -5,9 +5,7 @@ import java.util.*;
 
 enum Operater {
     Add,
-    Subtract,
-    Multiply,
-    Divide
+    Multiply
 }
 
 class Monkey {
@@ -16,17 +14,13 @@ class Monkey {
     public boolean isOperandVar;
     public int operand;
     public int testDivBy;
-    public List<Integer> trueList;
-    public List<Integer> falseList;
+    public int trueMonkeyIdx;
+    public int falseMonkeyIdx;
     public int numInspects;
-    Monkey (/*Operater operater, boolean isOperandVarOrConst, int operand, int testDivBy*/) {
+    Monkey () {
         itemWorryLevels = new ArrayList<Long>();
-        // this.operater = operater;
-        // this.isOperandVarOrConst = isOperandVarOrConst;
-        // this.operand = operand;
-        // this.testDivBy = testDivBy;
-        trueList = new ArrayList<Integer>();
-        falseList = new ArrayList<Integer>();
+        // trueList = new ArrayList<Integer>();
+        // falseList = new ArrayList<Integer>();
         numInspects = 0;
     }
 }
@@ -43,8 +37,6 @@ public class Day11 {
                     break;
                 case Multiply:
                     itemWorryLevel *= monkey.isOperandVar ? itemWorryLevel : monkey.operand;
-                    break;
-                default:
                     break;
             }
             monkey.itemWorryLevels.set(i, itemWorryLevel);
@@ -65,11 +57,11 @@ public class Day11 {
             long itemWorryLevel = monkey.itemWorryLevels.get(i);
             int thrownMonkeyIdx;
             if (itemWorryLevel % monkey.testDivBy == 0) {
-                // test true, throw to monkey on true list
-                thrownMonkeyIdx = monkey.trueList.get(0);
+                // test true, throw to index of monkey for true
+                thrownMonkeyIdx = monkey.trueMonkeyIdx;
             } else {
-                // test false, throw to monkey on false list
-                thrownMonkeyIdx = monkey.falseList.get(0);
+                // test false, throw to index of monkey for false
+                thrownMonkeyIdx = monkey.falseMonkeyIdx;
             }
             monkey.itemWorryLevels.remove(i--);
             Monkey thrownMonkey = monkeys.get(thrownMonkeyIdx);
@@ -95,8 +87,8 @@ public class Day11 {
         printNumInspects();
     }
     public static void main(String[] args) throws IOException {
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\sample_input.txt");
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
 
         // read file
@@ -128,8 +120,6 @@ public class Day11 {
                         case '+':
                             currentMonkey.operater = Operater.Add;
                             break;
-                        // case '-':
-                        // case '/':
                         case '*':
                             currentMonkey.operater = Operater.Multiply;
                             break;
@@ -147,13 +137,13 @@ public class Day11 {
                 }
                 if (line.contains("If true:")) {
                     String ifArgString = line.substring(line.indexOf("If true: throw to monkey ") + "If true: throw to monkey ".length(), line.length());
-                    currentMonkey.trueList.add(Integer.parseInt(ifArgString));
-                    // System.out.println("If true list = " + currentMonkey.trueList);
+                    currentMonkey.trueMonkeyIdx = Integer.parseInt(ifArgString);
+                    // System.out.println("If true monkey index = " + currentMonkey.trueMonkeyIdx);
                 }
                 if (line.contains("If false:")) {
                     String ifArgString = line.substring(line.indexOf("If false: throw to monkey ") + "If false: throw to monkey ".length(), line.length());
-                    currentMonkey.falseList.add(Integer.parseInt(ifArgString));
-                    // System.out.println("If false list = " + currentMonkey.falseList);
+                    currentMonkey.falseMonkeyIdx = Integer.parseInt(ifArgString);
+                    // System.out.println("If false monkey index = " + currentMonkey.falseMonkeyIdx);
                 }
             }
         }
