@@ -10,6 +10,7 @@ enum Operater {
 
 class Monkey {
     public List<Long> itemWorryLevels;
+    public List<ArrayList<Long>> itemWorryLevelMods;
     public Operater operater;
     public boolean isOperandVar;
     public int operand;
@@ -19,17 +20,17 @@ class Monkey {
     public int numInspects;
     Monkey () {
         itemWorryLevels = new ArrayList<Long>();
-        // trueList = new ArrayList<Integer>();
-        // falseList = new ArrayList<Integer>();
+        itemWorryLevelMods = new ArrayList<ArrayList<Long>>();
         numInspects = 0;
     }
 }
 public class Day11 {
     static List<Monkey> monkeys;
+    static boolean isPart2;
 
     static void doTurn(int monkeyIdx, Monkey monkey) {
-        // increase worry level during inspection
-        for (int i = 0; i< monkey.itemWorryLevels.size(); i++) {
+        // increase worry level during inspection, part 1 way
+        for (int i = 0; i < monkey.itemWorryLevels.size(); i++) {
             long itemWorryLevel = monkey.itemWorryLevels.get(i);
             switch (monkey.operater) {
                 case Add:
@@ -44,15 +45,15 @@ public class Day11 {
         }
         // System.out.println("Monkey " + monkeyIdx + ": Worry levels during inspection changed to = " + monkey.itemWorryLevels);
 
-        // decrease worry level after inspection
-        for (int i = 0; i< monkey.itemWorryLevels.size(); i++) {
+        // decrease worry level after inspection, only for part 1
+        for (int i = 0; i < monkey.itemWorryLevels.size(); i++) {
             long itemWorryLevel = monkey.itemWorryLevels.get(i);
             itemWorryLevel /= 3;
             monkey.itemWorryLevels.set(i, itemWorryLevel);
         }
         // System.out.println("Monkey " + monkeyIdx + ": Worry levels after inspection changed to = " + monkey.itemWorryLevels);
 
-        // perform tests on worry level, throwing items to other monkeys
+        // perform tests on worry level, throwing items to other monkeys, part 1 way
         for (int i = 0; i < monkey.itemWorryLevels.size(); i++) {
             long itemWorryLevel = monkey.itemWorryLevels.get(i);
             int thrownMonkeyIdx;
@@ -69,27 +70,90 @@ public class Day11 {
             // System.out.println("Monkey " + monkeyIdx + ": Throws item with worry level = " + itemWorryLevel + " to monkey " + thrownMonkeyIdx);
         }
     }
+    static void doTurnPart2(int monkeyIdx, Monkey monkey) {
+        // increase worry level mods during inspection, part 2 way
+        for (int i = 0; i < monkey.itemWorryLevelMods.size(); i++) {
+            ArrayList<Long> itemWorryLevelMods = monkey.itemWorryLevelMods.get(i);
+            for (int otherMonkeyIdx = 0; otherMonkeyIdx < monkeys.size(); otherMonkeyIdx++) {
+                long itemWorryLevelMod = itemWorryLevelMods.get(otherMonkeyIdx);
+                switch (monkey.operater) {
+                    case Add:
+                        itemWorryLevelMod += monkey.isOperandVar ? itemWorryLevelMod : monkey.operand;
+                        break;
+                    case Multiply:
+                        itemWorryLevelMod *= monkey.isOperandVar ? itemWorryLevelMod : monkey.operand;
+                        break;
+                }
+                Monkey otherMonkey = monkeys.get(otherMonkeyIdx);
+                itemWorryLevelMod %= otherMonkey.testDivBy;
+                itemWorryLevelMods.set(otherMonkeyIdx, itemWorryLevelMod);
+            }
+            monkey.numInspects++;
+        }
+        // System.out.println("Monkey " + monkeyIdx + ": Worry modulo levels during inspection changed to = " + monkey.itemWorryLevelMods);
+
+        // perform tests on worry level, throwing items to other monkeys, part 2 way
+        for (int i = 0; i < monkey.itemWorryLevelMods.size(); i++) {
+            ArrayList<Long> itemWorryLevelMods = monkey.itemWorryLevelMods.get(i);
+            long itemWorryLevelMod = itemWorryLevelMods.get(monkeyIdx);
+            int thrownMonkeyIdx;
+            if (itemWorryLevelMod == 0) {
+                // test true, throw to index of monkey for true
+                thrownMonkeyIdx = monkey.trueMonkeyIdx;
+            } else {
+                // test false, throw to index of monkey for false
+                thrownMonkeyIdx = monkey.falseMonkeyIdx;
+            }
+            monkey.itemWorryLevelMods.remove(i--);
+            Monkey thrownMonkey = monkeys.get(thrownMonkeyIdx);
+            thrownMonkey.itemWorryLevelMods.add(itemWorryLevelMods);
+            // System.out.println("Monkey " + monkeyIdx + ": Throws item with worry modulo level = " + itemWorryLevelMod + " to monkey " + thrownMonkeyIdx);
+        }
+    }
     static void printWorryLevels() {
         for (int i = 0; i < monkeys.size(); i++) {
             System.out.println("Monkey " + i + ": Worry levels at end of round = " + monkeys.get(i).itemWorryLevels);
         }
     }
+    static void printWorryLevelMods() {
+        for (int i = 0; i < monkeys.size(); i++) {
+            System.out.println("Monkey " + i + ": Worry modulo levels at end of round = " + monkeys.get(i).itemWorryLevelMods);
+        }
+    }
     static void printNumInspects() {
         for (int i = 0; i < monkeys.size(); i++) {
-            // System.out.println("Monkey " + i + ": inspected items " + monkeys.get(i).numInspects + " times.");
+            System.out.println("Monkey " + i + ": inspected items " + monkeys.get(i).numInspects + " times.");
         }
     }
     static void performRound() {
         for (int i = 0; i < monkeys.size(); i++) {
-            doTurn(i, monkeys.get(i));
+            if (isPart2) {
+                doTurnPart2(i, monkeys.get(i));
+                continue;
+             }
+             doTurn(i, monkeys.get(i));
         }
-        printWorryLevels();
-        printNumInspects();
+    }
+    static void initItemWorryLevelMods() {
+        for (int currentMonkeyIdx = 0; currentMonkeyIdx < monkeys.size(); currentMonkeyIdx++) {
+            Monkey currentMonkey = monkeys.get(currentMonkeyIdx);
+            for (int itemIdx = 0; itemIdx < currentMonkey.itemWorryLevels.size(); itemIdx++) {
+                long itemWorryLevel = currentMonkey.itemWorryLevels.get(itemIdx);
+                ArrayList<Long> itemWorryLevelMods = new ArrayList<Long>();
+                for (int otherMonkeyIdx = 0; otherMonkeyIdx < monkeys.size(); otherMonkeyIdx++) {
+                    Monkey otherMonkey = monkeys.get(otherMonkeyIdx);
+                    itemWorryLevelMods.add(itemWorryLevel % otherMonkey.testDivBy);
+                }
+                currentMonkey.itemWorryLevelMods.add(itemWorryLevelMods);
+            }
+            System.out.println("Monkey " + currentMonkeyIdx + ": Worry modulo values for starting items = " + currentMonkey.itemWorryLevelMods);
+        }
     }
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\sample_input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\sample_input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\11\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
+        isPart2 = true;
 
         // read file
         monkeys = new ArrayList<Monkey>();
@@ -151,12 +215,18 @@ public class Day11 {
         System.out.println("# lines = " + lines.size());
         System.out.println("# monkeys = " + monkeys.size());
 
-        // Part 1
+        // Part 2 only: init mod values for tests for all items at start
+        if (isPart2) initItemWorryLevelMods();
 
         // perform set number of rounds
-        for (int n = 0; n < 20; n++) {
-            System.out.println("Round: " + (n + 1));
+        int interval = isPart2 ? 1000 : 1;
+        int numRounds = isPart2 ? 10000 : 20;
+        for (int round = 1; round <= numRounds; round++) {
+            if (round == 1 || round == 20 || round % interval == 0) System.out.println("Round: " + round);
             performRound();
+            // if (!isPart2) printWorryLevels();
+            // if (isPart2) printWorryLevelMods();
+            if (round == 1 || round == 20 || round % interval == 0) printNumInspects();
         }
 
         // find most active monkeys
@@ -165,8 +235,8 @@ public class Day11 {
             numInspectsArray[i] = monkeys.get(i).numInspects;
         }
         Arrays.sort(numInspectsArray);
-        int firstMonkeyNumInspects = numInspectsArray[numInspectsArray.length - 1];
-        int secondMonkeyNumInspects = numInspectsArray[numInspectsArray.length - 2];
+        long firstMonkeyNumInspects = numInspectsArray[numInspectsArray.length - 1];
+        long secondMonkeyNumInspects = numInspectsArray[numInspectsArray.length - 2];
         long activityLevel = firstMonkeyNumInspects * secondMonkeyNumInspects;
 
         System.out.println("firstMonkeyNumInspects = " + firstMonkeyNumInspects);
