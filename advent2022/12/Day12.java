@@ -76,11 +76,19 @@ public class Day12 {
         initDijkstra();
         while (!remaining.isEmpty()) {
             String point = remaining.remove();
-            System.out.print(point + ": ");
+            // System.out.print(point + ": ");
             String[] fields = point.split(",");
             int pointIdx = Integer.parseInt(fields[1]);
-            for (int adjacentPointIdx : getAdjacentPoints(pointIdx)) {
-                System.out.print(adjacentPointIdx + " ");
+
+            if (pathWeight[pointIdx] == Long.MAX_VALUE) { // nothing but infinite weights left, done!
+                // System.out.println();
+                continue;
+            }
+            List<Integer> adjacentPoints = getAdjacentPoints(pointIdx);
+            // if (adjacentPoints.isEmpty()) break; // reached the end point (but other points can trip this prematurely!)
+
+            for (int adjacentPointIdx : adjacentPoints) {
+                // System.out.print(adjacentPointIdx + " ");
 
                 long candidateWeight = pathWeight[pointIdx] + 1;
                 if (candidateWeight < 0) {
@@ -99,7 +107,7 @@ public class Day12 {
                     remaining.add(adjacentPoint);
                 }
             }
-            System.out.println();
+            // System.out.println();
         }
         return true;
     }
