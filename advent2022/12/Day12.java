@@ -17,7 +17,9 @@ public class Day12 {
     static int[] previous;
     static DecimalFormat decimalFormat = new DecimalFormat("00000000000000000000");
     static PriorityQueue<String> remaining;
-    static boolean isPart2;
+
+    // Part 2
+    static List<Integer> candidateStartingPoints;
 
     static void printGrid() {
         for (int row = 0; row < numRows; row++) {
@@ -111,6 +113,18 @@ public class Day12 {
         }
         return true;
     }
+    static void findCandidateStartingPoints() {
+        candidateStartingPoints = new ArrayList<Integer>();
+
+        int pointIdx = 0;
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numCols; col++, pointIdx++) {
+                if (grid[row][col] == 0) {
+                    candidateStartingPoints.add(pointIdx);
+                }
+            }
+        }
+    }
     public static void main(String[] args) throws IOException {
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\12\\sample_input.txt");
         Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2022\\12\\input.txt");
@@ -119,7 +133,6 @@ public class Day12 {
         numCols = lines.get(0).length();
         numPoints = numRows * numCols;
         grid = new char[numRows][numCols];
-        // isPart2 = true;
 
         // read file
         int row = 0;
@@ -144,6 +157,8 @@ public class Day12 {
         }
 
         System.out.println("# lines = " + lines.size() + ", numRows = " + numRows + ", numCols = " + numCols + ", numPoints = " + numPoints);
+        System.out.println("startRow = " + startRow + ", startCol = " + startCol);
+        System.out.println("endRow = " + endRow + ", endCol = " + endCol);
 
         // print grid
         printGrid();
@@ -155,7 +170,32 @@ public class Day12 {
         }
         int endPointIdx = endRow * numCols + endCol;
         long minNumSteps = pathWeight[endPointIdx];
+
+        System.out.println("endPointIdx = " + endPointIdx);
         System.out.println("minNumSteps = " + minNumSteps);
+
+        // Part 2: find minimum steps across some new starting points
+
+        // figure out candidate new starting points, which are at lowest elevation
+        findCandidateStartingPoints();
+
+        System.out.println("# of candidate starting points = " + candidateStartingPoints.size());
+
+        // run Dijkstra again on the grid, for each candidate start point
+        long minMinNumSteps = Long.MAX_VALUE;
+        for (int candidateStartingPointIdx : candidateStartingPoints) {
+            System.out.print(".");
+            startRow = candidateStartingPointIdx / numCols;
+            startCol = candidateStartingPointIdx % numCols;
+            if (!dijkstra()) {
+                System.out.println("Overflow detected");
+                return;
+            }
+            minMinNumSteps = Math.min(minMinNumSteps, pathWeight[endPointIdx]);
+        }
+        System.out.println();
+
+        System.out.println("minMinNumSteps = " + minMinNumSteps);
     }
 
     void snippets() {
