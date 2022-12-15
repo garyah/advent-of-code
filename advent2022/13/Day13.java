@@ -107,8 +107,14 @@ public class Day13 {
         System.out.println("currentIndex = " + currentIndex);
         System.out.println("sumCorrectOrderIndices = " + sumCorrectOrderIndices);
 
+        testCompare();
+    }
+
+    static void testCompare() {
         // TEST CASES FOR COMPARISON, FOR PART 1
 
+        List<Object> firstPacket = null;
+        List<Object> secondPacket = null;
         int result;
         int expectedResult;
         List<Object> tempList1;
