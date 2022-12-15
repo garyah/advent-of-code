@@ -32,10 +32,28 @@ public class Day13 {
         }
         return Integer.parseInt(line);
     }
-    static List<Object> parseLine(String line) {
+    static List<Object> parseLineV1(String line) {
         String list = line.substring(1, line.length() - 1);
         List<Object> parseResult = new ArrayList<Object>();
         parseResult.add(parseSubLine(list));
+        return parseResult;
+    }
+    static List<Object> parseLine(String line) {
+        // String list = line.substring(1, line.length() - 1);
+        List<Object> parseResult = new ArrayList<Object>();
+        for (int i = 0; i < line.length(); i++) {
+            if (line.charAt(i) == '[') {
+                List<Object> list = new ArrayList<Object>();
+                continue;
+            }
+            if (line.charAt(i) == '[') {
+                List<Object> list = new ArrayList<Object>();
+            }
+            if (line.charAt(i) == ',') {
+                List<Object> list = new ArrayList<Object>();
+            }
+        }
+        // parseResult.add(parseSubLine(list));
         return parseResult;
     }
     static int compareObjects(Object firstObj, Object secondObj) {
