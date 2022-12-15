@@ -2,26 +2,40 @@ import java.io.*;
 import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
-import java.text.DecimalFormat;
 
 public class Day13 {
     // static boolean isPart2;
 
-    static List<Object> fromString(String string) {
-        // String[] numberStrings = string.replace("[", "").replace("]", "").split(",");
-        String[] numberStrings = string.split(",");
-        // int result[] = new int[strings.length];
-        // for (int i = 0; i < result.length; i++) {
-        //     result[i] = Integer.parseInt(strings[i]);
-        // }
-        List<Object> result = new ArrayList<Object>();
-        for (String numberString : numberStrings) {
-            result.add(Integer.parseInt(numberString));
+    // static List<Object> fromString(String string) {
+    //     // String[] numberStrings = string.replace("[", "").replace("]", "").split(",");
+    //     String[] numberStrings = string.split(",");
+    //     List<Object> result = new ArrayList<Object>();
+    //     for (String numberString : numberStrings) {
+    //         result.add(Integer.parseInt(numberString));
+    //     }
+    //     return result;
+    // }
+    static Object parseSubLine(String line) {
+        if (line.contains(",")) {
+            String[] elems = line.split(",");
+            List<Object> parseResult = new ArrayList<Object>();
+            for (String elemString : elems) {
+                parseResult.add(parseSubLine(elemString));
+            }
+            return parseResult;
         }
-        return result;
+        if (line.startsWith("[") && line.endsWith("]")) {
+            String list = line.substring(1, line.length() - 1);
+            List<Object> parseResult = new ArrayList<Object>();
+            parseResult.add(parseSubLine(list));
+            return parseResult;
+        }
+        return Integer.parseInt(line);
     }
     static List<Object> parseLine(String line) {
+        String list = line.substring(1, line.length() - 1);
         List<Object> parseResult = new ArrayList<Object>();
+        parseResult.add(parseSubLine(list));
         return parseResult;
     }
     static int compareObjects(Object firstObj, Object secondObj) {
@@ -89,15 +103,17 @@ public class Day13 {
             if (line.length() != 0) {
                 if (isFirst) {
                     firstPacket = parseLine(line);
+                    System.out.println("firstPacket = " + firstPacket);
                     isFirst = false;
                     continue;
                 }
                 // !isFirst (second packet)
                 secondPacket = parseLine(line);
+                System.out.println("secondPacket = " + secondPacket);
                 isFirst = true;
-                if (comparePackets(firstPacket, secondPacket) == -1) {
-                    sumCorrectOrderIndices += currentIndex;
-                }
+                // if (comparePackets(firstPacket, secondPacket) == -1) {
+                //     sumCorrectOrderIndices += currentIndex;
+                // }
                 currentIndex++;
             }
         }
@@ -107,7 +123,7 @@ public class Day13 {
         System.out.println("currentIndex = " + currentIndex);
         System.out.println("sumCorrectOrderIndices = " + sumCorrectOrderIndices);
 
-        testCompare();
+        // testCompare();
     }
 
     static void testCompare() {
