@@ -49,23 +49,24 @@ public class Day13 {
         // at this point, must be compare two lists
         List<Object> firstList = (List<Object>)firstObj;
         List<Object> secondList = (List<Object>)secondObj;
-        if (firstList.size() < secondList.size()) return -1; // right order
-        if (firstList.size() > secondList.size()) return 1; // wrong order
 
-        // compare two lists, number of elements same
+        // compare two lists, number of elements can be same or different
         int index = 0;
-        int numElems = firstList.size();
-        for (; index < numElems; index++) {
+        int numFirstElems = firstList.size();
+        int numSecondElems = secondList.size();
+        for (; index < numFirstElems && index < numSecondElems; index++) {
             Object firstElem = firstList.get(index);
             Object secondElem = secondList.get(index);
             int elemCompare = compareObjects(firstElem, secondElem);
             if (elemCompare != 0) return elemCompare;
         }
+
+        // ran out of elements to compare, need to base things on number of elements at this point
+        if (numSecondElems > numFirstElems) return -1; // right order
+        if (numSecondElems < numFirstElems) return 1; // wrong order
         return 0;
     }
     static int comparePackets(List<Object> firstPacket, List<Object> secondPacket) {
-        if (firstPacket.size() < secondPacket.size()) return -1; // right order
-        if (firstPacket.size() > secondPacket.size()) return 1; // wrong order
         int result = compareObjects(firstPacket, secondPacket);
         if (result == 0) {
             System.out.println("Packets cannot be compared, firstPacket = " + firstPacket + ", secondPacket = " + secondPacket);
@@ -106,9 +107,12 @@ public class Day13 {
         System.out.println("currentIndex = " + currentIndex);
         System.out.println("sumCorrectOrderIndices = " + sumCorrectOrderIndices);
 
+        // TEST CASES FOR COMPARISON, FOR PART 1
+
         int result;
         int expectedResult;
         List<Object> tempList1;
+        List<Object> tempList2;
 
         firstPacket = new ArrayList<Object>();
         firstPacket.add(1);
@@ -148,7 +152,124 @@ public class Day13 {
         System.out.println("secondPacket = " + secondPacket);
         System.out.println("result = " + result + (result < 0 ? " (right order)" : " (wrong order)"));
         expectedResult = -1;
-        System.out.println("test 1 " + (result == expectedResult ? "PASS" : "FAIL"));
+        System.out.println("test 2 " + (result == expectedResult ? "PASS" : "FAIL"));
+
+        firstPacket = new ArrayList<Object>();
+        firstPacket.add(9);
+        secondPacket = new ArrayList<Object>();
+        tempList1 = new ArrayList<Object>();
+        tempList1.add(8);
+        tempList1.add(7);
+        tempList1.add(6);
+        secondPacket.add(tempList1);
+        result = comparePackets(firstPacket, secondPacket);
+        System.out.println("firstPacket = " + firstPacket);
+        System.out.println("secondPacket = " + secondPacket);
+        System.out.println("result = " + result + (result < 0 ? " (right order)" : " (wrong order)"));
+        expectedResult = 1;
+        System.out.println("test 3 " + (result == expectedResult ? "PASS" : "FAIL"));
+
+        firstPacket = new ArrayList<Object>();
+        tempList1 = new ArrayList<Object>();
+        tempList1.add(4);
+        tempList1.add(4);
+        firstPacket.add(tempList1);
+        firstPacket.add(4);
+        firstPacket.add(4);
+        secondPacket = new ArrayList<Object>();
+        secondPacket.add(tempList1);
+        secondPacket.add(4);
+        secondPacket.add(4);
+        secondPacket.add(4);
+        result = comparePackets(firstPacket, secondPacket);
+        System.out.println("firstPacket = " + firstPacket);
+        System.out.println("secondPacket = " + secondPacket);
+        System.out.println("result = " + result + (result < 0 ? " (right order)" : " (wrong order)"));
+        expectedResult = -1;
+        System.out.println("test 4 " + (result == expectedResult ? "PASS" : "FAIL"));
+
+        firstPacket = new ArrayList<Object>();
+        firstPacket.add(7);
+        firstPacket.add(7);
+        firstPacket.add(7);
+        firstPacket.add(7);
+        secondPacket = new ArrayList<Object>();
+        secondPacket.add(7);
+        secondPacket.add(7);
+        result = comparePackets(firstPacket, secondPacket);
+        System.out.println("firstPacket = " + firstPacket);
+        System.out.println("secondPacket = " + secondPacket);
+        System.out.println("result = " + result + (result < 0 ? " (right order)" : " (wrong order)"));
+        expectedResult = 1;
+        System.out.println("test 5 " + (result == expectedResult ? "PASS" : "FAIL"));
+
+        firstPacket = new ArrayList<Object>();
+        secondPacket = new ArrayList<Object>();
+        secondPacket.add(3);
+        result = comparePackets(firstPacket, secondPacket);
+        System.out.println("firstPacket = " + firstPacket);
+        System.out.println("secondPacket = " + secondPacket);
+        System.out.println("result = " + result + (result < 0 ? " (right order)" : " (wrong order)"));
+        expectedResult = -1;
+        System.out.println("test 6 " + (result == expectedResult ? "PASS" : "FAIL"));
+
+        firstPacket = new ArrayList<Object>();
+        tempList1 = new ArrayList<Object>();
+        tempList2 = new ArrayList<Object>();
+        tempList1.add(tempList2);
+        firstPacket.add(tempList1);
+        secondPacket = new ArrayList<Object>();
+        secondPacket.add(tempList2);
+        result = comparePackets(firstPacket, secondPacket);
+        System.out.println("firstPacket = " + firstPacket);
+        System.out.println("secondPacket = " + secondPacket);
+        System.out.println("result = " + result + (result < 0 ? " (right order)" : " (wrong order)"));
+        expectedResult = 1;
+        System.out.println("test 7 " + (result == expectedResult ? "PASS" : "FAIL"));
+
+        List<Object> tempList3, tempList4;
+        firstPacket = new ArrayList<Object>();
+        firstPacket.add(1);
+        tempList1 = new ArrayList<Object>();
+        tempList1.add(2);
+        tempList2 = new ArrayList<Object>();
+        tempList2.add(3);
+        tempList3 = new ArrayList<Object>();
+        tempList3.add(4);
+        tempList4 = new ArrayList<Object>();
+        tempList4.add(5);
+        tempList4.add(6);
+        tempList4.add(7);
+        tempList3.add(tempList4);
+        tempList2.add(tempList3);
+        tempList1.add(tempList2);
+        firstPacket.add(tempList1);
+        firstPacket.add(8);
+        firstPacket.add(9);
+        secondPacket = new ArrayList<Object>();
+        secondPacket.add(1);
+        tempList1 = new ArrayList<Object>();
+        tempList1.add(2);
+        tempList2 = new ArrayList<Object>();
+        tempList2.add(3);
+        tempList3 = new ArrayList<Object>();
+        tempList3.add(4);
+        tempList4 = new ArrayList<Object>();
+        tempList4.add(5);
+        tempList4.add(6);
+        tempList4.add(0);
+        tempList3.add(tempList4);
+        tempList2.add(tempList3);
+        tempList1.add(tempList2);
+        secondPacket.add(tempList1);
+        secondPacket.add(8);
+        secondPacket.add(9);
+        result = comparePackets(firstPacket, secondPacket);
+        System.out.println("firstPacket = " + firstPacket);
+        System.out.println("secondPacket = " + secondPacket);
+        System.out.println("result = " + result + (result < 0 ? " (right order)" : " (wrong order)"));
+        expectedResult = 1;
+        System.out.println("test 8 " + (result == expectedResult ? "PASS" : "FAIL"));
     }
 
     void snippets() {
