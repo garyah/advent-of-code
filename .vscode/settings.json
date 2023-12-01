@@ -14,5 +14,6 @@
             "silent": false
           }
         ]
-      }
+      },
+      "dotnet.defaultSolution": "disable"
 }
