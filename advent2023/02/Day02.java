@@ -13,29 +13,78 @@ public class Day02 {
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         // isPart2 = true;
 
+        // Part 1
+        // int idSum = 0;
+        // int maxNumRed = 12;
+        // int maxNumGreen = 13;
+        // int maxNumBlue = 14;
+
+        // Part 2
+        int powerSum = 0;
+
         // read file
         for (String line : lines) {
             if (line.length() != 0) {
-                for (int i = 0; i < line.length(); i++) {
+                String[] fields = line.replaceAll("\\s+$", "").split(": ");
+
+                String[] gameIdFields = fields[0].split(" ");
+                int id = Integer.parseInt(gameIdFields[1]);
+
+                String[] turnFields = fields[1].split("; ");
+
+                // Part 2
+                int maxNumRed = 0;
+                int maxNumGreen = 0;
+                int maxNumBlue = 0;
+
+                int i = 0;
+                for (; i < turnFields.length; i++) {
+                    int numRed = 0;
+                    int numGreen = 0;
+                    int numBlue = 0;
+
+                    String[] rgbFields = turnFields[i].split(", ");
+                    for (int j = 0; j < rgbFields.length; j++) {
+                        String[] colorFields = rgbFields[j].split(" ");
+                        String color = colorFields[1];
+                        if (color.equals("red")) {
+                            numRed = Integer.parseInt(colorFields[0]);
+                        } else if (color.equals("green")) {
+                            numGreen = Integer.parseInt(colorFields[0]);
+                        } else { // "blue"
+                            numBlue = Integer.parseInt(colorFields[0]);
+                        }
+                    }
+
                     // Part 1
-                    // char c = line.charAt(i);
-                    // if (c >= '0' && c <= '9') {
-                    //     int digit = c - '0';
-                    //     if (num < 0) {
-                    //         num = digit * 10 + digit;
-                    //     } else {
-                    //         num -= digitSave;
-                    //         num += digit;
-                    //     }
-                    //     digitSave = digit;
+                    // if (numRed > maxNumRed || numGreen > maxNumGreen || numBlue > maxNumBlue) {
+                    //     break;
                     // }
 
                     // Part 2
+                    maxNumRed = Math.max(maxNumRed, numRed);
+                    maxNumGreen = Math.max(maxNumGreen, numGreen);
+                    maxNumBlue = Math.max(maxNumBlue, numBlue);
                 }
+
+                // Part 1
+                // if (i >= turnFields.length) {
+                //     idSum += id;
+                // }
+
+                // Part 2
+                int power = maxNumRed * maxNumGreen * maxNumBlue;
+                powerSum += power;
             }
         }
 
         System.out.println("# lines = " + lines.size());
+
+        // Part 1
+        // System.out.println("idSum = " + idSum);
+
+        // Part 2
+        System.out.println("powerSum = " + powerSum);
     }
 
     void snippets() {
