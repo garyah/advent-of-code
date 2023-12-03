@@ -3,24 +3,36 @@ import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
 
-public class Day02 {
-    // static boolean isPart2;
+class Answer {
+    int idSum;
+    int powerSum;
+}
 
+public class Day02 {
     public static void main(String[] args) throws IOException {
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\02\\sample_input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\02\\sample_input2.txt");
         Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\02\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
-        // isPart2 = true;
+        System.out.println("# lines = " + lines.size());
+
+        Answer answer = solve(lines);
+
+        System.out.println("part 1: sum of game ids = " + answer.idSum);
+        System.out.println("part 2: sum of color powers = " + answer.powerSum);
+    }
+
+    private static Answer solve(List<String> lines) {
+        Answer answer = new Answer();
 
         // Part 1
-        // int idSum = 0;
-        // int maxNumRed = 12;
-        // int maxNumGreen = 13;
-        // int maxNumBlue = 14;
+        answer.idSum = 0;
+        int startNumRed = 12;
+        int startNumGreen = 13;
+        int startNumBlue = 14;
 
         // Part 2
-        int powerSum = 0;
+        answer.powerSum = 0;
 
         // read file
         for (String line : lines) {
@@ -32,10 +44,10 @@ public class Day02 {
 
                 String[] turnFields = fields[1].split("; ");
 
-                // Part 2
                 int maxNumRed = 0;
                 int maxNumGreen = 0;
                 int maxNumBlue = 0;
+                boolean isPossible = true;
 
                 int i = 0;
                 for (; i < turnFields.length; i++) {
@@ -57,9 +69,9 @@ public class Day02 {
                     }
 
                     // Part 1
-                    // if (numRed > maxNumRed || numGreen > maxNumGreen || numBlue > maxNumBlue) {
-                    //     break;
-                    // }
+                    if (numRed > startNumRed || numGreen > startNumGreen || numBlue > startNumBlue) {
+                        isPossible = false;
+                    }
 
                     // Part 2
                     maxNumRed = Math.max(maxNumRed, numRed);
@@ -68,23 +80,16 @@ public class Day02 {
                 }
 
                 // Part 1
-                // if (i >= turnFields.length) {
-                //     idSum += id;
-                // }
+                if (isPossible) {
+                    answer.idSum += id;
+                }
 
                 // Part 2
                 int power = maxNumRed * maxNumGreen * maxNumBlue;
-                powerSum += power;
+                answer.powerSum += power;
             }
         }
-
-        System.out.println("# lines = " + lines.size());
-
-        // Part 1
-        // System.out.println("idSum = " + idSum);
-
-        // Part 2
-        System.out.println("powerSum = " + powerSum);
+        return answer;
     }
 
     void snippets() {
