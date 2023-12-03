@@ -4,32 +4,24 @@ import java.nio.file.*;
 import java.util.*;
 
 public class Day03 {
-    // static boolean isPart2;
-
     public static void main(String[] args) throws IOException {
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\03\\sample_input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\03\\sample_input2.txt");
         Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\03\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
-        // isPart2 = true;
         int nRows = lines.size();
         System.out.println("# lines / nRows = " + nRows);
         int nCols = lines.get(0).length();
         System.out.println("first line length / nCols = " + nCols);
 
-        // Part 1
         char[][] grid = new char[nRows][nCols];
 
-        // Part 2
-
-        // make grid
         makeGrid(lines, grid);
 
         // Part 1: find sum of part numbers (with adjacent non-periods)
-        System.out.println("sum of part numbers = " + findSumPartNumbers(grid));
+        System.out.println("part 1: sum of part numbers = " + findSumPartNumbers(grid));
 
         // Part 2: find sum of gear ratios (product of part numbers adjacent to *)
-        System.out.println("sum of gear ratios = " + findSumGearRatios(grid));
+        System.out.println("part 2: sum of gear ratios = " + findSumGearRatios(grid));
     }
 
     private static void makeGrid(List<String> lines, char[][] grid) {
@@ -37,14 +29,11 @@ public class Day03 {
         int c = 0;
         for (String line : lines) {
             if (line.length() != 0) {
-                // Part 1
                 for (int i = 0; i < line.length(); i++) {
                     grid[r][c++] = line.charAt(i);
                 }
                 c = 0;
                 r++;
-
-                // Part 2
             }
         }
     }
