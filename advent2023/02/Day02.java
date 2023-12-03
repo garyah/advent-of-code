@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
+import java.util.regex.MatchResult;
 
 class Answer {
     int idSum;
@@ -11,18 +12,18 @@ class Answer {
 public class Day02 {
     public static void main(String[] args) throws IOException {
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\02\\sample_input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\02\\sample_input2.txt");
         Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\02\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         System.out.println("# lines = " + lines.size());
+        Scanner scanner = new Scanner(myPath);
 
-        Answer answer = solve(lines);
+        Answer answer = solve(scanner);
 
         System.out.println("part 1: sum of game ids = " + answer.idSum);
         System.out.println("part 2: sum of color powers = " + answer.powerSum);
     }
 
-    private static Answer solve(List<String> lines) {
+    private static Answer solve(Scanner scanner) {
         Answer answer = new Answer();
 
         // Part 1
@@ -34,61 +35,56 @@ public class Day02 {
         // Part 2
         answer.powerSum = 0;
 
-        // read file
-        for (String line : lines) {
-            if (line.length() != 0) {
-                String[] fields = line.replaceAll("\\s+$", "").split(": ");
+        scanner.useDelimiter("[\\p{javaWhitespace}:,;]+");
+        while (scanner.hasNextLine()) {
+            scanner.next("Game");
+            int id = scanner.nextInt();
 
-                String[] gameIdFields = fields[0].split(" ");
-                int id = Integer.parseInt(gameIdFields[1]);
+            int maxNumRed = 0;
+            int maxNumGreen = 0;
+            int maxNumBlue = 0;
+            boolean isPossible = true;
 
-                String[] turnFields = fields[1].split("; ");
+            while (scanner.hasNextInt()) {
+                int numRed = 0;
+                int numGreen = 0;
+                int numBlue = 0;
 
-                int maxNumRed = 0;
-                int maxNumGreen = 0;
-                int maxNumBlue = 0;
-                boolean isPossible = true;
-
-                int i = 0;
-                for (; i < turnFields.length; i++) {
-                    int numRed = 0;
-                    int numGreen = 0;
-                    int numBlue = 0;
-
-                    String[] rgbFields = turnFields[i].split(", ");
-                    for (int j = 0; j < rgbFields.length; j++) {
-                        String[] colorFields = rgbFields[j].split(" ");
-                        String color = colorFields[1];
-                        if (color.equals("red")) {
-                            numRed = Integer.parseInt(colorFields[0]);
-                        } else if (color.equals("green")) {
-                            numGreen = Integer.parseInt(colorFields[0]);
-                        } else { // "blue"
-                            numBlue = Integer.parseInt(colorFields[0]);
-                        }
-                    }
-
-                    // Part 1
-                    if (numRed > startNumRed || numGreen > startNumGreen || numBlue > startNumBlue) {
-                        isPossible = false;
-                    }
-
-                    // Part 2
-                    maxNumRed = Math.max(maxNumRed, numRed);
-                    maxNumGreen = Math.max(maxNumGreen, numGreen);
-                    maxNumBlue = Math.max(maxNumBlue, numBlue);
+                int quantity = scanner.nextInt();
+                scanner.next("(red|green|blue)");
+                MatchResult matchResult = scanner.match();
+                String color = matchResult.group(1);
+                if (color.equals("red")) {
+                    numRed = quantity;
+                } else if (color.equals("green")) {
+                    numGreen = quantity;
+                } else { // "blue"
+                    numBlue = quantity;
                 }
 
                 // Part 1
-                if (isPossible) {
-                    answer.idSum += id;
+                if (numRed > startNumRed || numGreen > startNumGreen || numBlue > startNumBlue) {
+                    isPossible = false;
                 }
 
                 // Part 2
-                int power = maxNumRed * maxNumGreen * maxNumBlue;
-                answer.powerSum += power;
+                maxNumRed = Math.max(maxNumRed, numRed);
+                maxNumGreen = Math.max(maxNumGreen, numGreen);
+                maxNumBlue = Math.max(maxNumBlue, numBlue);
             }
+
+            // Part 1
+            if (isPossible) {
+                answer.idSum += id;
+            }
+
+            // Part 2
+            int power = maxNumRed * maxNumGreen * maxNumBlue;
+            answer.powerSum += power;
+
+            scanner.nextLine();
         }
+
         return answer;
     }
 
