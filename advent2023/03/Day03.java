@@ -25,14 +25,11 @@ public class Day03 {
         // make grid
         makeGrid(lines, grid);
 
-        // find part numbers
-        int sumPartNumbers = findSumPartNumbers(grid);
+        // Part 1: find sum of part numbers (with adjacent non-periods)
+        System.out.println("sum of part numbers = " + findSumPartNumbers(grid));
 
-        // Part 1
-        System.out.println("sumPartNumbers = " + sumPartNumbers);
-
-        // Part 2
-        // System.out.println("powerSum = " + powerSum);
+        // Part 2: find sum of gear ratios (product of part numbers adjacent to *)
+        System.out.println("sum of gear ratios = " + findSumGearRatios(grid));
     }
 
     private static void makeGrid(List<String> lines, char[][] grid) {
@@ -59,30 +56,23 @@ public class Day03 {
         int nCols = grid[0].length;
         StringBuilder partNumber = new StringBuilder();
         for (int r = 0; r < nRows; r++) {
-            for (int c = 0; c < nCols; c++) {
-                if (Character.isDigit(grid[r][c])) {
+            for (int c = 0; c <= nCols; c++) {
+                if (c < nCols && Character.isDigit(grid[r][c])) {
                     partNumber.append(grid[r][c]);
                     continue;
                 }
-                if (partNumber.length() > 0 && checkAdjacency(grid, r, c - partNumber.length(), c - 1)) {
+                if (partNumber.length() > 0 && isAdjacentNonPeriod(grid, r, c - partNumber.length(), c - 1)) {
                     // System.out.println(Integer.parseInt(partNumber.toString()));
                     sumPartNumbers += Integer.parseInt(partNumber.toString());
                 }
                 partNumber = new StringBuilder();
             }
-
-            // process part number at end of row before discarding
-            if (partNumber.length() > 0 && checkAdjacency(grid, r, nCols - partNumber.length(), nCols - 1)) {
-                // System.out.println(Integer.parseInt(partNumber.toString()));
-                sumPartNumbers += Integer.parseInt(partNumber.toString());
-            }
-            partNumber = new StringBuilder();
         }
 
         return sumPartNumbers;
     }
 
-    private static boolean checkAdjacency(char[][] grid, int row, int startCol, int endCol) {
+    private static boolean isAdjacentNonPeriod(char[][] grid, int row, int startCol, int endCol) {
         // System.out.println(row + ", " + startCol + ", " + endCol);
         int nRows = grid.length;
         int nCols = grid[0].length;
@@ -110,6 +100,77 @@ public class Day03 {
             }
         }
         return false;
+    }
+
+    private static int findSumGearRatios(char[][] grid) {
+        int sumGearRatios = 0;
+
+        int nRows = grid.length;
+        int nCols = grid[0].length;
+        StringBuilder partNumber = new StringBuilder();
+        Map<Integer, Integer[]> starMap = new HashMap<>();
+        for (int r = 0; r < nRows; r++) {
+            for (int c = 0; c <= nCols; c++) {
+                if (c < nCols && Character.isDigit(grid[r][c])) {
+                    partNumber.append(grid[r][c]);
+                    continue;
+                }
+                if (partNumber.length() > 0) {
+                    int starPos = adjacentStar(grid, r, c - partNumber.length(), c - 1);
+                    if (starPos != -1) {
+                        // System.out.println(Integer.parseInt(partNumber.toString()));
+                        int partNum = Integer.parseInt(partNumber.toString());
+
+                        if (starMap.containsKey(starPos)) {
+                            Integer[] value = starMap.get(starPos);
+                            value[1] = value[1] == 0 ? partNum : -value[1];
+                            starMap.put(starPos, value);
+                        } else {
+                            starMap.put(starPos, new Integer[] {partNum, 0});
+                        }
+                    }
+                }
+                partNumber = new StringBuilder();
+            }
+        }
+
+        for (Map.Entry<Integer, Integer[]> entry : starMap.entrySet()) {
+            Integer[] value = entry.getValue();
+            if (value[1] <= 0) continue;
+            sumGearRatios += value[0] * value[1];
+        }
+
+        return sumGearRatios;
+    }
+
+    private static int adjacentStar(char[][] grid, int row, int startCol, int endCol) {
+        // System.out.println(row + ", " + startCol + ", " + endCol);
+        int nRows = grid.length;
+        int nCols = grid[0].length;
+        int r = -1;
+        if (startCol > 0) {
+            if (grid[row][startCol - 1] == '*') {/*System.out.println(row + ", " + (startCol - 1));*/ return row * nCols + startCol - 1;}
+        }
+        if (endCol < nCols - 1) {
+            if (grid[row][endCol + 1] == '*') {/*System.out.println(row + ", " + (endCol + 1));*/ return row * nCols + endCol + 1;}
+        }
+        if (row > 0) {
+            r = row - 1;
+            for (int c = (startCol > 0 ? startCol - 1 : startCol);
+                c <= (endCol < nCols - 1 ? endCol + 1 : endCol);
+                c++) {
+                if (grid[r][c] == '*') {/*System.out.println(r + ", " + c);*/ return r * nCols + c;}
+            }
+        }
+        if (row < nRows - 1) {
+            r = row + 1;
+            for (int c = (startCol > 0 ? startCol - 1 : startCol);
+                c <= (endCol < nCols - 1 ? endCol + 1 : endCol);
+                c++) {
+                if (grid[r][c] == '*') {/*System.out.println(r + ", " + c);*/ return r * nCols + c;}
+            }
+        }
+        return -1;
     }
 
     void snippets() {
