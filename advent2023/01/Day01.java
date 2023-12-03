@@ -4,16 +4,19 @@ import java.nio.file.*;
 import java.util.*;
 
 public class Day01 {
-    // static boolean isPart2;
-
     public static void main(String[] args) throws IOException {
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\01\\sample_input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\01\\sample_input2.txt");
         Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\01\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
-        // isPart2 = true;
+        System.out.println("# lines = " + lines.size());
 
-        // read file
+        // find answers
+        System.out.println("part 1 sum = " + sumOfDigitPairs(lines, true));
+        System.out.println("part 2 sum = " + sumOfDigitPairs(lines, false));
+    }
+
+    private static int sumOfDigitPairs(List<String> lines, boolean isPart1) {
         int sum = 0;
         for (String line : lines) {
             if (line.length() != 0) {
@@ -21,17 +24,20 @@ public class Day01 {
                 int digitSave = -1;
                 for (int i = 0; i < line.length(); i++) {
                     // Part 1
-                    // char c = line.charAt(i);
-                    // if (c >= '0' && c <= '9') {
-                    //     int digit = c - '0';
-                    //     if (num < 0) {
-                    //         num = digit * 10 + digit;
-                    //     } else {
-                    //         num -= digitSave;
-                    //         num += digit;
-                    //     }
-                    //     digitSave = digit;
-                    // }
+                    if (isPart1) {
+                        char c = line.charAt(i);
+                        if (c >= '0' && c <= '9') {
+                            int digit = c - '0';
+                            if (num < 0) {
+                                num = digit * 10 + digit;
+                            } else {
+                                num -= digitSave;
+                                num += digit;
+                            }
+                            digitSave = digit;
+                        }
+                        continue;
+                    }
 
                     // Part 2
                     String s = line.substring(i);
@@ -68,14 +74,13 @@ public class Day01 {
                         digitSave = digit;
                     }
                 }
+
                 if (num >= 0) {
                     sum += num;
                 }
             }
         }
-
-        System.out.println("# lines = " + lines.size());
-        System.out.println("sum = " + sum);
+        return sum;
     }
 
     void snippets() {
