@@ -7,36 +7,109 @@ public class Day03 {
     // static boolean isPart2;
 
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\03\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\03\\sample_input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\03\\sample_input2.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\03\\input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\03\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         // isPart2 = true;
+        int nRows = lines.size();
+        System.out.println("# lines / nRows = " + nRows);
+        int nCols = lines.get(0).length();
+        System.out.println("first line length / nCols = " + nCols);
 
         // Part 1
-        // int idSum = 0;
-        // int maxNumRed = 12;
-        // int maxNumGreen = 13;
-        // int maxNumBlue = 14;
+        char[][] grid = new char[nRows][nCols];
 
         // Part 2
-        // int powerSum = 0;
 
-        // read file
-        for (String line : lines) {
-            if (line.length() != 0) {
-                // Part 1
-                // Part 2
-            }
-        }
+        // make grid
+        makeGrid(lines, grid);
 
-        System.out.println("# lines = " + lines.size());
+        // find part numbers
+        int sumPartNumbers = findSumPartNumbers(grid);
 
         // Part 1
-        // System.out.println("idSum = " + idSum);
+        System.out.println("sumPartNumbers = " + sumPartNumbers);
 
         // Part 2
         // System.out.println("powerSum = " + powerSum);
+    }
+
+    private static void makeGrid(List<String> lines, char[][] grid) {
+        int r = 0;
+        int c = 0;
+        for (String line : lines) {
+            if (line.length() != 0) {
+                // Part 1
+                for (int i = 0; i < line.length(); i++) {
+                    grid[r][c++] = line.charAt(i);
+                }
+                c = 0;
+                r++;
+
+                // Part 2
+            }
+        }
+    }
+
+    private static int findSumPartNumbers(char[][] grid) {
+        int sumPartNumbers = 0;
+
+        int nRows = grid.length;
+        int nCols = grid[0].length;
+        StringBuilder partNumber = new StringBuilder();
+        for (int r = 0; r < nRows; r++) {
+            for (int c = 0; c < nCols; c++) {
+                if (Character.isDigit(grid[r][c])) {
+                    partNumber.append(grid[r][c]);
+                    continue;
+                }
+                if (partNumber.length() > 0 && checkAdjacency(grid, r, c - partNumber.length(), c - 1)) {
+                    // System.out.println(Integer.parseInt(partNumber.toString()));
+                    sumPartNumbers += Integer.parseInt(partNumber.toString());
+                }
+                partNumber = new StringBuilder();
+            }
+
+            // process part number at end of row before discarding
+            if (partNumber.length() > 0 && checkAdjacency(grid, r, nCols - partNumber.length(), nCols - 1)) {
+                // System.out.println(Integer.parseInt(partNumber.toString()));
+                sumPartNumbers += Integer.parseInt(partNumber.toString());
+            }
+            partNumber = new StringBuilder();
+        }
+
+        return sumPartNumbers;
+    }
+
+    private static boolean checkAdjacency(char[][] grid, int row, int startCol, int endCol) {
+        // System.out.println(row + ", " + startCol + ", " + endCol);
+        int nRows = grid.length;
+        int nCols = grid[0].length;
+        int r = -1;
+        if (startCol > 0) {
+            if (grid[row][startCol - 1] != '.') {/*System.out.println(row + ", " + (startCol - 1));*/ return true;}
+        }
+        if (endCol < nCols - 1) {
+            if (grid[row][endCol + 1] != '.') {/*System.out.println(row + ", " + (endCol + 1));*/ return true;}
+        }
+        if (row > 0) {
+            r = row - 1;
+            for (int c = (startCol > 0 ? startCol - 1 : startCol);
+                c <= (endCol < nCols - 1 ? endCol + 1 : endCol);
+                c++) {
+                if (grid[r][c] != '.') {/*System.out.println(r + ", " + c);*/ return true;}
+            }
+        }
+        if (row < nRows - 1) {
+            r = row + 1;
+            for (int c = (startCol > 0 ? startCol - 1 : startCol);
+                c <= (endCol < nCols - 1 ? endCol + 1 : endCol);
+                c++) {
+                if (grid[r][c] != '.') {/*System.out.println(r + ", " + c);*/ return true;}
+            }
+        }
+        return false;
     }
 
     void snippets() {
