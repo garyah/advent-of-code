@@ -2,8 +2,10 @@ import java.io.*;
 import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
+// import java.util.regex.MatchResult;
 
-class Answer {
+class Day04Answer {
+    int pointsSum;
 }
 
 public class Day04 {
@@ -18,77 +20,72 @@ public class Day04 {
         // System.out.println("first line length / nCols = " + nCols);
         Scanner scanner = new Scanner(myPath);
 
-        // char[][] grid = makeGrid(lines, grid);
+        Day04Answer answer = solve(lines, scanner);
 
-        Answer answer = solve(lines, scanner);
-
-        // Part 1: ...
-        System.out.println("part 1: ... = " + answer);
+        // Part 1: sum of card points
+        System.out.println("part 1: sum of card points = " + answer.pointsSum);
 
         // Part 2: ...
-        System.out.println("part 2: ... = " + answer);
+        // System.out.println("part 2: ... = " + answer);
     }
 
-    // private static char[][] makeGrid(List<String> lines) {
-    //     int nRows = lines.size();
-    //     int nCols = lines.get(0).length();
-    //     char[][] grid = new char[nRows][nCols];
-
-    //     int r = 0;
-    //     int c = 0;
-    //     for (String line : lines) {
-    //         if (line.length() != 0) {
-    //             // Part 1
-    //             for (int i = 0; i < line.length(); i++) {
-    //                 grid[r][c++] = line.charAt(i);
-    //             }
-    //             c = 0;
-    //             r++;
-
-    //             // Part 2
-    //         }
-    //     }
-
-    //     return grid;
-    // }
-
-    private static Answer solve(List<String> lines, Scanner scanner) {
-        Answer answer = new Answer();
+    private static Day04Answer solve(List<String> lines, Scanner scanner) {
+        Day04Answer answer = new Day04Answer();
 
         // Part 1
-        // answer.idSum = 0;
+        answer.pointsSum = 0;
 
         // Part 2
         // answer.powerSum = 0;
 
-        // for (String line : lines) {
-        //     if (line.length() != 0) {
-        //         // Part 1
-        //         // Part 2
-        //     }
-        // }
+        scanner.useDelimiter("[\\p{javaWhitespace}:]+");
+        while (scanner.hasNextLine()) {
+            scanner.next("Card");
+            int id = scanner.nextInt();
+            // System.out.print(id + ": ");
 
-        // scanner.useDelimiter("[\\p{javaWhitespace}:,;]+");
-        // while (scanner.hasNextLine()) {
-        //     scanner.next("Game");
-        //     int id = scanner.nextInt();
+            // winning numbers
+            Set<Integer> winNums = new HashSet<Integer>();
+            while (scanner.hasNextInt()) {
+                int number = scanner.nextInt();
+                // System.out.print(number + " ");
+                winNums.add(number);
+                // MatchResult matchResult = scanner.match();
+            }
 
-        //     while (scanner.hasNextInt()) {
-        //         int quantity = scanner.nextInt();
-        //         scanner.next("(red|green|blue)");
-        //         MatchResult matchResult = scanner.match();
+            scanner.next("\\|");
+            // System.out.print(" | ");
 
-        //         // Part 1
+            // have these numbers
+            List<Integer> haveNums = new ArrayList<Integer>();
+            while (scanner.hasNextInt()) {
+                int number = scanner.nextInt();
+                // System.out.print(number + " ");
+                haveNums.add(number);
+                // MatchResult matchResult = scanner.match();
+            }
 
-        //         // Part 2
-        //     }
+            // System.out.println();
 
-        //     // Part 1
+            // Part 1
+            // match have numbers to winning numbers, scoring based on number of winning numbers
+            int numPoints = 0;
+            for (Integer haveNum : haveNums) {
+                if (winNums.contains(haveNum)) {
+                    if (numPoints == 0) {
+                        numPoints = 1;
+                    } else {
+                        numPoints *= 2;
+                    }
+                }
+            }
+            answer.pointsSum += numPoints;
 
-        //     // Part 2
+            // Part 2
+            // Match have numbers to winning numbers, scoring based on total resulting number of cards
 
-        //     scanner.nextLine();
-        // }
+            scanner.nextLine();
+        }
 
         return answer;
     }
