@@ -6,13 +6,14 @@ import java.util.*;
 
 class Day04Answer {
     int pointsSum;
+    int numCards;
 }
 
 public class Day04 {
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\04\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\04\\sample_input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\04\\sample_input2.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\04\\input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\04\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
         System.out.println("# lines / nRows = " + nRows);
@@ -25,8 +26,8 @@ public class Day04 {
         // Part 1: sum of card points
         System.out.println("part 1: sum of card points = " + answer.pointsSum);
 
-        // Part 2: ...
-        // System.out.println("part 2: ... = " + answer);
+        // Part 2: total number of cards
+        System.out.println("part 2: total number of cards = " + answer.numCards);
     }
 
     private static Day04Answer solve(List<String> lines, Scanner scanner) {
@@ -36,7 +37,8 @@ public class Day04 {
         answer.pointsSum = 0;
 
         // Part 2
-        // answer.powerSum = 0;
+        answer.numCards = 0;
+        List<Integer> cardInventory = new ArrayList<>();
 
         scanner.useDelimiter("[\\p{javaWhitespace}:]+");
         while (scanner.hasNextLine()) {
@@ -44,8 +46,16 @@ public class Day04 {
             int id = scanner.nextInt();
             // System.out.print(id + ": ");
 
+            if (cardInventory.size() < id) {
+                System.out.println("adding count of 1 for card " + id);
+                cardInventory.add(1);
+            } else {
+                System.out.println("setting count of " + (cardInventory.get(id - 1) + 1) + " for card " + id);
+                cardInventory.set(id - 1, cardInventory.get(id - 1) + 1);
+            }
+
             // winning numbers
-            Set<Integer> winNums = new HashSet<Integer>();
+            Set<Integer> winNums = new HashSet<>();
             while (scanner.hasNextInt()) {
                 int number = scanner.nextInt();
                 // System.out.print(number + " ");
@@ -57,7 +67,7 @@ public class Day04 {
             // System.out.print(" | ");
 
             // have these numbers
-            List<Integer> haveNums = new ArrayList<Integer>();
+            List<Integer> haveNums = new ArrayList<>();
             while (scanner.hasNextInt()) {
                 int number = scanner.nextInt();
                 // System.out.print(number + " ");
@@ -68,7 +78,7 @@ public class Day04 {
             // System.out.println();
 
             // Part 1
-            // match have numbers to winning numbers, scoring based on number of winning numbers
+            // Match have numbers to winning numbers, scoring based on number of winning numbers
             int numPoints = 0;
             for (Integer haveNum : haveNums) {
                 if (winNums.contains(haveNum)) {
@@ -83,8 +93,32 @@ public class Day04 {
 
             // Part 2
             // Match have numbers to winning numbers, scoring based on total resulting number of cards
+            int numWinNums = 0;
+            for (Integer haveNum : haveNums) {
+                if (winNums.contains(haveNum)) {
+                    numWinNums++;
+                }
+            }
+            int numberToCopyFrom = cardInventory.get(id - 1);
+            while (numWinNums > 0) {
+                if (cardInventory.size() < id + 1) {
+                    System.out.println("adding count of " + numberToCopyFrom + " for card " + (id + 1));
+                    cardInventory.add(numberToCopyFrom);
+                } else {
+                    System.out.println("setting count of " + (cardInventory.get(id) + numberToCopyFrom) + " for card " + (id + 1));
+                    cardInventory.set(id, cardInventory.get(id) + numberToCopyFrom);
+                }
+                numWinNums--;
+                id++;
+            }
 
             scanner.nextLine();
+        }
+
+        // Part 2
+        // Tally up the total resulting number of cards
+        for (Integer cardCount : cardInventory) {
+            answer.numCards += cardCount;
         }
 
         return answer;
