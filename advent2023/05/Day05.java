@@ -3,14 +3,15 @@ import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
 
-class Answer {
+class Day05Answer {
+    long closest;
 }
 
 public class Day05 {
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\04\\sample_input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\04\\sample_input2.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\04\\input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\sample_input2.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
         System.out.println("# lines / nRows = " + nRows);
@@ -18,79 +19,97 @@ public class Day05 {
         // System.out.println("first line length / nCols = " + nCols);
         Scanner scanner = new Scanner(myPath);
 
-        // char[][] grid = makeGrid(lines, grid);
+        Day05Answer answer = solve(lines, scanner);
 
-        Answer answer = solve(lines, scanner);
-
-        // Part 1: ...
-        System.out.println("part 1: ... = " + answer);
+        // Part 1: closest location
+        System.out.println("part 1: closest location = " + answer.closest);
 
         // Part 2: ...
         System.out.println("part 2: ... = " + answer);
     }
 
-    // private static char[][] makeGrid(List<String> lines) {
-    //     int nRows = lines.size();
-    //     int nCols = lines.get(0).length();
-    //     char[][] grid = new char[nRows][nCols];
-
-    //     int r = 0;
-    //     int c = 0;
-    //     for (String line : lines) {
-    //         if (line.length() != 0) {
-    //             // Part 1
-    //             for (int i = 0; i < line.length(); i++) {
-    //                 grid[r][c++] = line.charAt(i);
-    //             }
-    //             c = 0;
-    //             r++;
-
-    //             // Part 2
-    //         }
-    //     }
-
-    //     return grid;
-    // }
-
-    private static Answer solve(List<String> lines, Scanner scanner) {
-        Answer answer = new Answer();
+    private static Day05Answer solve(List<String> lines, Scanner scanner) {
+        Day05Answer answer = new Day05Answer();
+        
+        List<Long> seeds = parseSeeds(scanner);
+        List<List<Long[]>> sections = parseSections(scanner);
 
         // Part 1
-        // answer.idSum = 0;
+        answer.closest = findClosest(seeds, sections);
 
         // Part 2
-        // answer.powerSum = 0;
-
-        // for (String line : lines) {
-        //     if (line.length() != 0) {
-        //         // Part 1
-        //         // Part 2
-        //     }
-        // }
-
-        // scanner.useDelimiter("[\\p{javaWhitespace}:,;]+");
-        // while (scanner.hasNextLine()) {
-        //     scanner.next("Game");
-        //     int id = scanner.nextInt();
-
-        //     while (scanner.hasNextInt()) {
-        //         int quantity = scanner.nextInt();
-        //         scanner.next("(red|green|blue)");
-        //         MatchResult matchResult = scanner.match();
-
-        //         // Part 1
-
-        //         // Part 2
-        //     }
-
-        //     // Part 1
-
-        //     // Part 2
-
-        //     scanner.nextLine();
-        // }
 
         return answer;
+    }
+
+    private static long findClosest(List<Long> seeds, List<List<Long[]>> sections) {
+        long closest = Integer.MAX_VALUE;
+
+        for (long value : seeds) {
+            for (List<Long[]> section : sections) {
+                for (Long[] rangeValues : section) {
+                    if (value >= rangeValues[1] && value < rangeValues[1] + rangeValues[2]) {
+                        value = rangeValues[0] + (value - rangeValues[1]);
+                        break;
+                    }
+                }
+            }
+
+            closest = Math.min(closest, value);
+        }
+
+        return closest;
+    }
+
+    private static List<Long> parseSeeds(Scanner scanner) {
+        List<Long> seeds = new ArrayList<>();
+
+        // scanner.useDelimiter("[\\p{javaWhitespace}]+");
+        scanner.next("seeds:");
+        while (scanner.hasNextLong()) {
+            long seed = scanner.nextLong();
+            seeds.add(seed);
+            // System.out.print(seed + " ");
+        }
+        // System.out.println();
+        // System.out.println(scanner.nextLine());
+        // System.out.println(scanner.nextLine());
+
+        return seeds;
+    }
+
+    private static List<List<Long[]>> parseSections(Scanner scanner) {
+        List<List<Long[]>> sections = new ArrayList<List<Long[]>>();
+
+        String[] sectionTitles = {
+            "seed-to-soil",
+            "soil-to-fertilizer",
+            "fertilizer-to-water",
+            "water-to-light",
+            "light-to-temperature",
+            "temperature-to-humidity",
+            "humidity-to-location",
+        };
+        int i = 0;
+        for (String sectionTitle : sectionTitles) {
+            sections.add(new ArrayList<>());
+            processSection(scanner, sectionTitle, sections.get(i++));
+        }
+
+        return sections;
+    }
+
+    private static void processSection(Scanner scanner, String sectionTitle, List<Long[]> sectionValues) {
+        // System.out.println(sectionTitle);
+        scanner.next(sectionTitle);
+        scanner.next("map:");
+        scanner.nextLine();
+        while (scanner.hasNextLong()) {
+            Long[] values = new Long[] {scanner.nextLong(), scanner.nextLong(), scanner.nextLong()};
+            sectionValues.add(values);
+            scanner.nextLine();
+        }
+        if (scanner.hasNextLine()) scanner.nextLine();
     }
 
     void snippets() {
