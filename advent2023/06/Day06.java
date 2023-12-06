@@ -5,7 +5,6 @@ import java.util.*;
 
 class Day06Answer {
     long waysProduct;
-    // long closestP2;
 }
 
 public class Day06 {
@@ -16,17 +15,12 @@ public class Day06 {
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
         System.out.println("# lines / nRows = " + nRows);
-        // int nCols = lines.get(0).length();
-        // System.out.println("first line length / nCols = " + nCols);
         Scanner scanner = new Scanner(myPath);
 
         Day06Answer answer = solve(lines, scanner);
 
-        // Part 1: ...
-        System.out.println("part 1: ... = " + answer.waysProduct);
-
-        // Part 2: ...
-        // System.out.println("part 2: ... = " + answer.closestP2);
+        // Part 1 / 2: find product of number of ways to win, across races
+        System.out.println("part 1 / 2: ... = " + answer.waysProduct);
     }
 
     private static Day06Answer solve(List<String> lines, Scanner scanner) {
@@ -35,13 +29,8 @@ public class Day06 {
         List<Long> times = parseTimes(scanner);
         List<Long> distances = parseDistances(scanner);
 
-        // Part 1
+        // Part 1 / 2
         answer.waysProduct = findWaysProduct(times, distances);
-
-        // Part 2
-        // Map<Long, Long> seedMap = seedListToMap(seeds);
-        // List<Map<Long, Long[]>> sectionMaps = sectionsListToMap(sections);
-        // answer.closestP2 = findClosestP2(seedMap, sectionMaps);
 
         return answer;
     }
