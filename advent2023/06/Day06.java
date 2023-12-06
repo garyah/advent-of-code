@@ -10,8 +10,8 @@ class Day06Answer {
 
 public class Day06 {
     public static void main(String[] args) throws IOException {
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\06\\sample_input.txt");
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\06\\input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\06\\sample_input_p2.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\06\\input_p2.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
