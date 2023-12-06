@@ -10,9 +10,8 @@ class Day05Answer {
 
 public class Day05 {
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\sample_input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\sample_input2.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\sample_input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
         System.out.println("# lines / nRows = " + nRows);
@@ -47,43 +46,38 @@ public class Day05 {
     }
 
     private static long findClosestP2(Map<Long, Long> seedMap, List<Map<Long, Long[]>> sectionMaps) {
-        long target = -1;
+        long location = 0;
 
-        Map<Long, Long[]> lastSectionMap = sectionMaps.get(sectionMaps.size() - 1);
-        for (Map.Entry<Long, Long[]> entry : lastSectionMap.entrySet()) {
-            target = entry.getKey();
-            Long[] srcValues = entry.getValue();
-            int i = sectionMaps.size() - 2;
-            for (; i >= 0; i--) {
-                Map<Long, Long[]> nextSectionMap = sectionMaps.get(i);
-                boolean canContinue = false;
-                for (Map.Entry<Long, Long[]> nextEntry : nextSectionMap.entrySet()) {
-                    long nextTarget = nextEntry.getKey();
-                    Long[] nextSrcValues = nextEntry.getValue();
-                    if (srcValues[0] >= nextTarget
-                        && srcValues[0] + srcValues[1] <= nextTarget + nextSrcValues[1]) {
-                        srcValues[0] = nextSrcValues[0];
-                        srcValues[1] = nextSrcValues[1];
-                        canContinue = true;
-                        break;
-                    }
+        for (; location <= Long.MAX_VALUE; location++) {
+            if (isValidLocation(seedMap, sectionMaps, location)) return location;
+        }
+
+        return -1;
+    }
+
+    private static boolean isValidLocation(Map<Long, Long> seedMap, List<Map<Long, Long[]>> sectionMaps, long location) {
+        long target = location;
+
+        for (int i = sectionMaps.size() - 1; i >= 0; i--) {
+            Map<Long, Long[]> sectionMap = sectionMaps.get(i);
+            for (Map.Entry<Long, Long[]> entry : sectionMap.entrySet()) {
+                long destValue = entry.getKey();
+                Long[] srcValues = entry.getValue();
+                if (target >= destValue && target < destValue + srcValues[1]) {
+                    target = srcValues[0] + (target - destValue);
+                    break;
                 }
-                if (!canContinue) break;
-            }
-            if (i < 0) {
-                for (Map.Entry<Long, Long> seedEntry : seedMap.entrySet()) {
-                    long seedStart = seedEntry.getKey();
-                    long seedDelta = seedEntry.getValue();
-                    if (srcValues[0] >= seedStart
-                        && srcValues[0] + srcValues[1] <= seedStart + seedDelta) {
-                        ;
-                    }
-                }
-                break;
             }
         }
 
-        return target;
+        for (Map.Entry<Long, Long> entry : seedMap.entrySet()) {
+            long seedStart = entry.getKey();
+            long seedDelta = entry.getValue();
+            if (target >= seedStart && target <= seedStart + seedDelta) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static Map<Long, Long> seedListToMap(List<Long> seeds) {
