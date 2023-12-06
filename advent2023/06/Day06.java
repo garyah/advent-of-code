@@ -4,14 +4,14 @@ import java.nio.file.*;
 import java.util.*;
 
 class Day06Answer {
-    // long closestP1;
+    long waysProduct;
     // long closestP2;
 }
 
 public class Day06 {
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\06\\sample_input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\06\\sample_input2.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\06\\sample_input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\06\\input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
@@ -23,7 +23,7 @@ public class Day06 {
         Day06Answer answer = solve(lines, scanner);
 
         // Part 1: ...
-        // System.out.println("part 1: ... = " + answer.closestP1);
+        System.out.println("part 1: ... = " + answer.waysProduct);
 
         // Part 2: ...
         // System.out.println("part 2: ... = " + answer.closestP2);
@@ -32,11 +32,11 @@ public class Day06 {
     private static Day06Answer solve(List<String> lines, Scanner scanner) {
         Day06Answer answer = new Day06Answer();
         
-        // List<Long> seeds = parseSeeds(scanner);
-        // List<List<Long[]>> sections = parseSections(scanner);
+        List<Long> times = parseTimes(scanner);
+        List<Long> distances = parseDistances(scanner);
 
         // Part 1
-        // answer.closestP1 = findClosestP1(seeds, sections);
+        answer.waysProduct = findWaysProduct(times, distances);
 
         // Part 2
         // Map<Long, Long> seedMap = seedListToMap(seeds);
@@ -46,55 +46,60 @@ public class Day06 {
         return answer;
     }
 
-    private static List<Long> parseSeeds(Scanner scanner) {
-        List<Long> seeds = new ArrayList<>();
+    private static long findWaysProduct(List<Long> times, List<Long> distances) {
+        long waysProduct = 1;
+
+        for (int i = 0; i < times.size() && i < distances.size(); i++) {
+            long time = times.get(i);
+            long distance = distances.get(i);
+            waysProduct *= findWaysToBeat(time, distance);
+        }
+
+        return waysProduct;
+    }
+
+    private static long findWaysToBeat(long time, long distance) {
+        long waysToBeat = 0;
+
+        for (long t1 = 1; t1 < time; t1++) {
+            long t2 = time - t1;
+            long d = t2 * t1;
+            if (d > distance) waysToBeat++;
+        }
+
+        return waysToBeat;
+    }
+
+    private static List<Long> parseTimes(Scanner scanner) {
+        List<Long> times = new ArrayList<>();
 
         // scanner.useDelimiter("[\\p{javaWhitespace}]+");
-        scanner.next("seeds:");
+        scanner.next("Time:");
         while (scanner.hasNextLong()) {
-            long seed = scanner.nextLong();
-            seeds.add(seed);
-            // System.out.print(seed + " ");
+            long time = scanner.nextLong();
+            times.add(time);
+            // System.out.print(time + " ");
         }
-        // System.out.println();
-        // System.out.println(scanner.nextLine());
-        // System.out.println(scanner.nextLine());
-
-        return seeds;
-    }
-
-    private static List<List<Long[]>> parseSections(Scanner scanner) {
-        List<List<Long[]>> sections = new ArrayList<>();
-
-        String[] sectionTitles = {
-            "seed-to-soil",
-            "soil-to-fertilizer",
-            "fertilizer-to-water",
-            "water-to-light",
-            "light-to-temperature",
-            "temperature-to-humidity",
-            "humidity-to-location",
-        };
-        int i = 0;
-        for (String sectionTitle : sectionTitles) {
-            sections.add(new ArrayList<>());
-            parseSection(scanner, sectionTitle, sections.get(i++));
-        }
-
-        return sections;
-    }
-
-    private static void parseSection(Scanner scanner, String sectionTitle, List<Long[]> sectionValues) {
-        // System.out.println(sectionTitle);
-        scanner.next(sectionTitle);
-        scanner.next("map:");
         scanner.nextLine();
+        // System.out.println();
+
+        return times;
+    }
+
+    private static List<Long> parseDistances(Scanner scanner) {
+        List<Long> distances = new ArrayList<>();
+
+        // scanner.useDelimiter("[\\p{javaWhitespace}]+");
+        scanner.next("Distance:");
         while (scanner.hasNextLong()) {
-            Long[] rangeValues = new Long[] {scanner.nextLong(), scanner.nextLong(), scanner.nextLong()};
-            sectionValues.add(rangeValues);
-            scanner.nextLine();
+            long distance = scanner.nextLong();
+            distances.add(distance);
+            // System.out.print(distance + " ");
         }
-        if (scanner.hasNextLine()) scanner.nextLine();
+        scanner.nextLine();
+        // System.out.println();
+
+        return distances;
     }
 
     void snippets() {
