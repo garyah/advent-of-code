@@ -4,7 +4,8 @@ import java.nio.file.*;
 import java.util.*;
 
 class Day07Answer {
-    long totalWinnings;
+    long totalWinningsP1;
+    long totalWinningsP2;
 }
 
 public class Day07 {
@@ -21,28 +22,23 @@ public class Day07 {
 
         Day07Answer answer = solve(lines, scanner);
 
-        // Part 1: Total winnings
-        System.out.println("part 1: Total winnings = " + answer.totalWinnings);
+        // Part 1: Total winnings, using J as Jack
+        System.out.println("part 1: Total winnings = " + answer.totalWinningsP1);
 
-        // Part 2: ...
-        // System.out.println("part 2: ... = " + answer.closestP2);
+        // Part 2: Total winnings, using J as Joker
+        System.out.println("part 2: ... = " + answer.totalWinningsP2);
     }
 
     private static Day07Answer solve(List<String> lines, Scanner scanner) {
         Day07Answer answer = new Day07Answer();
         
-        // List<String> hands = new ArrayList<>();
-        // List<Integer> bids = new ArrayList<>();
         Map<String, Integer> handsToBids = parse(scanner);
-        Map<Integer, List<String>> typesToHands = scoreHands(handsToBids);
 
         // Part 1
-        answer.totalWinnings = findTotalWinnings(typesToHands, handsToBids);
+        answer.totalWinningsP1 = findTotalWinnings(scoreHandsP1(handsToBids), handsToBids);
 
         // Part 2
-        // Map<Long, Long> seedMap = seedListToMap(seeds);
-        // List<Map<Long, Long[]>> sectionMaps = sectionsListToMap(sections);
-        // answer.closestP2 = findClosestP2(seedMap, sectionMaps);
+        answer.totalWinningsP2 = findTotalWinnings(scoreHandsP2(handsToBids), handsToBids);
 
         return answer;
     }
@@ -52,7 +48,6 @@ public class Day07 {
 
         int rank = 1;
         for (Map.Entry<Integer, List<String>> entry : typesToHands.entrySet()) {
-            // int type = entry.getKey();
             List<String> hands = entry.getValue();
             for (String hand : hands) {
                 int bid = handsToBids.get(hand);
@@ -63,7 +58,104 @@ public class Day07 {
         return totalWinnings;
     }
 
-    private static Map<Integer, List<String>> scoreHands(Map<String, Integer> handsToBids) {
+    private static Map<Integer, List<String>> scoreHandsP2(Map<String, Integer> handsToBids) {
+        Map<Integer, List<String>> typesToHands = new TreeMap<>();
+
+        for (String hand : handsToBids.keySet()) {
+            int numPairs = 0;
+            boolean isThreeOfKind = false;
+            boolean isFourOfKind = false;
+            boolean isFiveOfKind = false;
+
+            Map<Character, Integer> countOfCard = new HashMap<>();
+            for (int i = 0; i < hand.length(); i++) {
+                char c = hand.charAt(i);
+                int count = countOfCard.getOrDefault(c, 0) + 1;
+                countOfCard.put(c, count);
+                if (c == 'J') continue;
+
+                if (count == 2) numPairs++;
+                else if (count == 3) {
+                    numPairs--;
+                    isThreeOfKind = true;
+                } else if (count == 4) {
+                    isThreeOfKind = false;
+                    isFourOfKind = true;
+                } else if (count == 5) {
+                    isFourOfKind = false;
+                    isFiveOfKind = true;
+                }
+            }
+
+            boolean isOnePair = false;
+            boolean isTwoPair = false;
+            if (numPairs == 1) {
+                isOnePair = true;
+            } else if (numPairs == 2) {
+                isTwoPair = true;
+            }
+
+            boolean isFullHouse = false;
+            if (isOnePair && isThreeOfKind) {
+                isOnePair = false;
+                isThreeOfKind = false;
+                isFullHouse = true;
+            }
+
+            int numJokers = countOfCard.getOrDefault('J', 0);
+            int type = 0;
+            if (isFiveOfKind || isFourOfKind && numJokers == 1 || isThreeOfKind && numJokers == 2 || isOnePair && numJokers == 3 || numJokers == 4 || numJokers == 5) type = 6;
+            else if (isFourOfKind || isThreeOfKind && numJokers == 1 || isOnePair && numJokers == 2 || numJokers == 3) type = 5;
+            else if (isFullHouse || isThreeOfKind && numJokers == 2 || isTwoPair && numJokers == 1) type = 4;
+            else if (isThreeOfKind || isOnePair && numJokers == 1 || numJokers == 2) type = 3;
+            else if (isTwoPair) type = 2;
+            else if (isOnePair || numJokers == 1) type = 1;
+            else type = 0;
+
+            List<String> hands = typesToHands.getOrDefault(type, new ArrayList<>());
+            if (hands.isEmpty()) {
+                hands.add(hand);
+            } else {
+                boolean isInserted = false;
+                for (int i = 0; i < hands.size() && !isInserted; i++) {
+                    String handToCheck = hands.get(i);
+                    for (int j = 0; j < hand.length() && j < handToCheck.length(); j++) {
+                        char c1 = hand.charAt(j);
+                        char c2 = handToCheck.charAt(j);
+                        if (c1 == c2) continue;
+                        if (isWeakerP2(c1, c2)) {
+                            hands.add(i, hand);
+                            isInserted = true;
+                        }
+                        break;
+                    }
+                }
+                if (!isInserted) hands.add(hand);
+            }
+            typesToHands.put(type, hands);
+        }
+
+        return typesToHands;
+    }
+
+    private static boolean isWeakerP2(char c1, char c2) {
+        if (c1 == 'J') return true;
+        if (c1 == '2' && c2 != 'J') return true;
+        if (c1 == '3' && c2 != 'J' && c2 != '2') return true;
+        if (c1 == '4' && c2 != 'J' && c2 != '3' && c2 != '2') return true;
+        if (c1 == '5' && c2 != 'J' && c2 != '4' && c2 != '3' && c2 != '2') return true;
+        if (c1 == '6' && c2 != 'J' && c2 != '5' && c2 != '4' && c2 != '3' && c2 != '2') return true;
+        if (c1 == '7' && c2 != 'J' && c2 != '6' && c2 != '5' && c2 != '4' && c2 != '3' && c2 != '2') return true;
+        if (c1 == '8' && c2 != 'J' && c2 != '7' && c2 != '6' && c2 != '5' && c2 != '4' && c2 != '3' && c2 != '2') return true;
+        if (c1 == '9' && c2 != 'J' && c2 != '8' && c2 != '7' && c2 != '6' && c2 != '5' && c2 != '4' && c2 != '3' && c2 != '2') return true;
+        if (c1 == 'T' && c2 != 'J' && c2 != '9' && c2 != '8' && c2 != '7' && c2 != '6' && c2 != '5' && c2 != '4' && c2 != '3' && c2 != '2') return true;
+        if (c1 == 'J' && c2 != 'J' && c2 != 'T' && c2 != '9' && c2 != '8' && c2 != '7' && c2 != '6' && c2 != '5' && c2 != '4' && c2 != '3' && c2 != '2') return true;
+        if (c1 == 'Q' && c2 != 'J' && c2 != 'J' && c2 != 'T' && c2 != '9' && c2 != '8' && c2 != '7' && c2 != '6' && c2 != '5' && c2 != '4' && c2 != '3' && c2 != '2') return true;
+        if (c1 == 'K' && c2 != 'J' && c2 != 'Q' && c2 != 'J' && c2 != 'T' && c2 != '9' && c2 != '8' && c2 != '7' && c2 != '6' && c2 != '5' && c2 != '4' && c2 != '3' && c2 != '2') return true;
+        return false;
+    }
+
+    private static Map<Integer, List<String>> scoreHandsP1(Map<String, Integer> handsToBids) {
         Map<Integer, List<String>> typesToHands = new TreeMap<>();
 
         for (String hand : handsToBids.keySet()) {
@@ -126,7 +218,7 @@ public class Day07 {
                         char c1 = hand.charAt(j);
                         char c2 = handToCheck.charAt(j);
                         if (c1 == c2) continue;
-                        if (isWeaker(c1, c2)) {
+                        if (isWeakerP1(c1, c2)) {
                             hands.add(i, hand);
                             isInserted = true;
                         }
@@ -141,7 +233,7 @@ public class Day07 {
         return typesToHands;
     }
 
-    private static boolean isWeaker(char c1, char c2) {
+    private static boolean isWeakerP1(char c1, char c2) {
         if (c1 == '2') return true;
         if (c1 == '3' && c2 != '2') return true;
         if (c1 == '4' && c2 != '3' && c2 != '2') return true;
