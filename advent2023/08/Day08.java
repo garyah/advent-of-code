@@ -5,12 +5,13 @@ import java.util.*;
 
 class Day08Answer {
     long numSteps;
-    // long totalWinningsP2;
+    long numStepsP2;
 }
 
 public class Day08 {
     public static void main(String[] args) throws IOException {
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\08\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\08\\sample_input2.txt");
         Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\08\\input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
@@ -22,11 +23,11 @@ public class Day08 {
 
         Day08Answer answer = solve(lines, scanner);
 
-        // Part 1: Number of steps
+        // Part 1: Number of steps, with one path
         System.out.println("part 1: Number of steps = " + answer.numSteps);
 
-        // Part 2: ...
-        // System.out.println("part 2: ... = " + answer.totalWinningsP2);
+        // TODO: Part 2: Number of steps, with simultaneous paths
+        // System.out.println("part 2: Number of steps = " + answer.numStepsP2);
     }
 
     private static Day08Answer solve(List<String> lines, Scanner scanner) {
@@ -36,19 +37,65 @@ public class Day08 {
         Map<String, String[]> nodes = parseNodes(scanner);
 
         // Part 1
-        answer.numSteps = findNumSteps(steps, nodes);
+        answer.numSteps = findNumStepsP1(steps, nodes);
 
         // Part 2
-        // answer.totalWinningsP2 = findTotalWinnings(scoreHandsP2(handsToBids), handsToBids);
+        answer.numStepsP2 = findNumStepsP2(steps, nodes);
 
         return answer;
     }
 
-    private static int findNumSteps(List<Integer> steps, Map<String, String[]> nodes) {
+    private static int findNumStepsP2(List<Integer> steps, Map<String, String[]> nodes) {
         int numSteps = 0;
 
-        String currentNode = "AAA";
-        String targetNode = "ZZZ";
+        System.out.println("# steps = " + steps.size());
+
+        List<String> currentNodes = new ArrayList<>();
+        for (String node : nodes.keySet()) {
+            if (node.endsWith("A")) {
+                currentNodes.add(node);
+            }
+        }
+        System.out.println("# current nodes = " + currentNodes.size());
+
+        List<String> targetNodes = new ArrayList<>();
+        for (String node : nodes.keySet()) {
+            if (node.endsWith("Z")) {
+                targetNodes.add(node);
+            }
+        }
+        System.out.println("# target nodes = " + targetNodes.size());
+
+        for (String currentNode : currentNodes) {
+            int numSteps0 = findNumStepsP2(currentNode, steps, nodes);
+            System.out.println("from node " + currentNode + " to a node ending in Z, number of steps = " + numSteps0);
+        }
+
+        return numSteps;
+    }
+
+    private static int findNumStepsP2(String currentNode, List<Integer> steps, Map<String, String[]> nodes) {
+        int numSteps = 0;
+
+        int s = 0;
+        do {
+            String[] nextNodes = nodes.get(currentNode);
+            currentNode = nextNodes[steps.get(s)];
+            s++;
+            s %= steps.size();
+            numSteps++;
+        } while (!currentNode.endsWith("Z"));
+
+        return numSteps;
+    }
+
+    private static int findNumStepsP1(List<Integer> steps, Map<String, String[]> nodes) {
+        return findNumStepsP1("AAA", "ZZZ", steps, nodes);
+    }
+
+    private static int findNumStepsP1(String currentNode, String targetNode, List<Integer> steps, Map<String, String[]> nodes) {
+        int numSteps = 0;
+
         int s = 0;
         do {
             String[] nextNodes = nodes.get(currentNode);
@@ -66,7 +113,7 @@ public class Day08 {
 
         // scanner.useDelimiter("[\\p{javaWhitespace}]+");
         String stepsInput = scanner.next();
-        System.out.println(stepsInput);
+        // System.out.println(stepsInput);
         scanner.nextLine();
         scanner.nextLine();
 
@@ -84,13 +131,13 @@ public class Day08 {
         scanner.useDelimiter("[\\p{javaWhitespace}=,)(]+");
         while (scanner.hasNext()) {
             String node = scanner.next();
-            System.out.print(node + " = ");
+            // System.out.print(node + " = ");
 
             String[] nextNodes = new String[2];
             nextNodes[0] = scanner.next();
-            System.out.print("(" + nextNodes[0] + ", ");
+            // System.out.print("(" + nextNodes[0] + ", ");
             nextNodes[1] = scanner.next();
-            System.out.println(nextNodes[1] + ")");
+            // System.out.println(nextNodes[1] + ")");
 
             nodes.put(node, nextNodes);
             scanner.nextLine();
