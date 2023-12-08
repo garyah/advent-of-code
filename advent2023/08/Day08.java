@@ -50,50 +50,37 @@ public class Day08 {
 
         System.out.println("# steps = " + steps.size());
 
-        List<String> currentNodes = new ArrayList<>();
-        for (String node : nodes.keySet()) {
-            if (node.endsWith("A")) {
-                currentNodes.add(node);
-            }
-        }
+        List<String> currentNodes = getNodesEndingWith(nodes, "A");
         System.out.println("# current nodes = " + currentNodes.size());
 
-        List<String> targetNodes = new ArrayList<>();
-        for (String node : nodes.keySet()) {
-            if (node.endsWith("Z")) {
-                targetNodes.add(node);
-            }
-        }
+        List<String> targetNodes = getNodesEndingWith(nodes, "Z");
         System.out.println("# target nodes = " + targetNodes.size());
 
         for (String currentNode : currentNodes) {
-            int numSteps0 = findNumStepsP2(currentNode, steps, nodes);
-            System.out.println("from node " + currentNode + " to a node ending in Z, number of steps = " + numSteps0);
+            int numStepsForNode = findNumSteps(currentNode, "Z", steps, nodes);
+            System.out.println("from node " + currentNode + " to a node ending in Z, number of steps = " + numStepsForNode);
         }
 
         return numSteps;
     }
 
-    private static int findNumStepsP2(String currentNode, List<Integer> steps, Map<String, String[]> nodes) {
-        int numSteps = 0;
+    private static List<String> getNodesEndingWith(Map<String, String[]> nodes, String endsWith) {
+        List<String> nodesEndingWith = new ArrayList<>();
 
-        int s = 0;
-        do {
-            String[] nextNodes = nodes.get(currentNode);
-            currentNode = nextNodes[steps.get(s)];
-            s++;
-            s %= steps.size();
-            numSteps++;
-        } while (!currentNode.endsWith("Z"));
+        for (String node : nodes.keySet()) {
+            if (node.endsWith(endsWith)) {
+                nodesEndingWith.add(node);
+            }
+        }
 
-        return numSteps;
+        return nodesEndingWith;
     }
 
     private static int findNumStepsP1(List<Integer> steps, Map<String, String[]> nodes) {
-        return findNumStepsP1("AAA", "ZZZ", steps, nodes);
+        return findNumSteps("AAA", "ZZZ", steps, nodes);
     }
 
-    private static int findNumStepsP1(String currentNode, String targetNode, List<Integer> steps, Map<String, String[]> nodes) {
+    private static int findNumSteps(String currentNode, String targetNodeEnding, List<Integer> steps, Map<String, String[]> nodes) {
         int numSteps = 0;
 
         int s = 0;
@@ -103,7 +90,7 @@ public class Day08 {
             s++;
             s %= steps.size();
             numSteps++;
-        } while (!currentNode.equals(targetNode));
+        } while (!currentNode.endsWith(targetNodeEnding));
 
         return numSteps;
     }
