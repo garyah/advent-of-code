@@ -4,7 +4,7 @@ import java.nio.file.*;
 import java.util.*;
 
 class Day08Answer {
-    long numSteps;
+    int numSteps;
     long numStepsP2;
 }
 
@@ -26,8 +26,8 @@ public class Day08 {
         // Part 1: Number of steps, with one path
         System.out.println("part 1: Number of steps = " + answer.numSteps);
 
-        // TODO: Part 2: Number of steps, with simultaneous paths
-        // System.out.println("part 2: Number of steps = " + answer.numStepsP2);
+        // Part 2: Number of steps, with simultaneous paths
+        System.out.println("part 2: Number of steps = " + answer.numStepsP2);
     }
 
     private static Day08Answer solve(List<String> lines, Scanner scanner) {
@@ -45,8 +45,8 @@ public class Day08 {
         return answer;
     }
 
-    private static int findNumStepsP2(List<Integer> steps, Map<String, String[]> nodes) {
-        int numSteps = 0;
+    private static long findNumStepsP2(List<Integer> steps, Map<String, String[]> nodes) {
+        long numSteps = 0;
 
         System.out.println("# steps = " + steps.size());
 
@@ -56,10 +56,13 @@ public class Day08 {
         List<String> targetNodes = getNodesEndingWith(nodes, "Z");
         System.out.println("# target nodes = " + targetNodes.size());
 
+        List<Integer> currentNodesNumSteps = new ArrayList<>();
         for (String currentNode : currentNodes) {
             int numStepsForNode = findNumSteps(currentNode, "Z", steps, nodes);
             System.out.println("from node " + currentNode + " to a node ending in Z, number of steps = " + numStepsForNode);
+            currentNodesNumSteps.add(numStepsForNode);
         }
+        numSteps = LCM.lcmFind(currentNodesNumSteps);
 
         return numSteps;
     }
