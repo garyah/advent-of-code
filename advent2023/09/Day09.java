@@ -4,15 +4,15 @@ import java.nio.file.*;
 import java.util.*;
 
 class Day09Answer {
-    // int numSteps;
+    long sumExtrapolated;
     // long numStepsP2;
 }
 
 public class Day09 {
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\09\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\09\\sample_input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\09\\sample_input2.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\09\\input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\09\\input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
@@ -23,8 +23,8 @@ public class Day09 {
 
         Day09Answer answer = solve(lines, scanner);
 
-        // Part 1: ...
-        // System.out.println("part 1: ... = " + answer.numSteps);
+        // Part 1: Sum of next values for histories
+        System.out.println("part 1: Sum of next values for histories = " + answer.sumExtrapolated);
 
         // Part 2: ...
         // System.out.println("part 2: ... = " + answer.numStepsP2);
@@ -33,11 +33,11 @@ public class Day09 {
     private static Day09Answer solve(List<String> lines, Scanner scanner) {
         Day09Answer answer = new Day09Answer();
         
-        // List<Integer> steps = parseSteps(scanner);
+        List<List<Long>> histories = parseHistories(scanner);
         // Map<String, String[]> nodes = parseNodes(scanner);
 
         // Part 1
-        // answer.numSteps = findNumStepsP1(steps, nodes);
+        answer.sumExtrapolated = findSumExtrapolated(histories);
 
         // Part 2
         // answer.numStepsP2 = findNumStepsP2(steps, nodes);
@@ -45,42 +45,64 @@ public class Day09 {
         return answer;
     }
 
-    private static List<Integer> parseSteps(Scanner scanner) {
-        List<Integer> steps = new ArrayList<>();
+    private static long findSumExtrapolated(List<List<Long>> histories) {
+        long sumExtrapolated = 0;
 
-        // scanner.useDelimiter("[\\p{javaWhitespace}]+");
-        String stepsInput = scanner.next();
-        // System.out.println(stepsInput);
-        scanner.nextLine();
-        scanner.nextLine();
+        for (List<Long> history : histories) {
+            List<List<Long>> sequences = new ArrayList<>();
+            sequences.add(history);
+            List<Long> currentSequence = history;
+            boolean isNotAllZero = false;
+            do {
+                List<Long> newSequence = new ArrayList<>();
+                isNotAllZero = false;
+                for (int i = 0; i < currentSequence.size() - 1; i++) {
+                    long value1 = currentSequence.get(i);
+                    long value2 = currentSequence.get(i + 1);
+                    long delta = value2 - value1;
+                    newSequence.add(delta);
+                    if (delta != 0) isNotAllZero = true;
+                }
+                sequences.add(newSequence);
+                currentSequence = newSequence;
+            } while (isNotAllZero);
 
-        for (int i = 0; i < stepsInput.length(); i++) {
-            char c = stepsInput.charAt(i);
-            steps.add((c == 'L') ? 0 : 1);
+            List<Long> sequence = sequences.get(sequences.size() - 1);
+            sequence.add(0L);
+            for (int i = sequences.size() - 2; i >= 0; i--) {
+                sequence = sequences.get(i + 1);
+                long value = sequence.get(sequence.size() - 1);
+                sequence = sequences.get(i);
+                value += sequence.get(sequence.size() - 1);
+                sequence.add(value);
+            }
+            sumExtrapolated += sequence.get(sequence.size() - 1);
         }
 
-        return steps;
+        return sumExtrapolated;
     }
 
-    private static Map<String, String[]> parseNodes(Scanner scanner) {
-        Map<String, String[]> nodes = new HashMap<>();
+    // private static boolean isNotAllZero(List<Long> sequence) {
+    //     return false;
+    // }
 
-        scanner.useDelimiter("[\\p{javaWhitespace}=,)(]+");
-        while (scanner.hasNext()) {
-            String node = scanner.next();
-            // System.out.print(node + " = ");
+    private static List<List<Long>> parseHistories(Scanner scanner) {
+        List<List<Long>> histories = new ArrayList<>();
 
-            String[] nextNodes = new String[2];
-            nextNodes[0] = scanner.next();
-            // System.out.print("(" + nextNodes[0] + ", ");
-            nextNodes[1] = scanner.next();
-            // System.out.println(nextNodes[1] + ")");
-
-            nodes.put(node, nextNodes);
+        scanner.useDelimiter("[ \\r]+");
+        while (scanner.hasNextLine()) {
+            List<Long> history = new ArrayList<>();
+            while (scanner.hasNextLong()) {
+                Long value = scanner.nextLong();
+                System.out.print(value + " ");
+                history.add(value);
+            }
+            histories.add(history);
             scanner.nextLine();
+            System.out.println();
         }
 
-        return nodes;
+        return histories;
     }
 
     void snippets() {
