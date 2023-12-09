@@ -4,8 +4,8 @@ import java.nio.file.*;
 import java.util.*;
 
 class Day09Answer {
-    long sumExtrapolated;
-    // long numStepsP2;
+    long sumExtrapolatedP1;
+    long sumExtrapolatedP2;
 }
 
 public class Day09 {
@@ -24,48 +24,52 @@ public class Day09 {
         Day09Answer answer = solve(lines, scanner);
 
         // Part 1: Sum of next values for histories
-        System.out.println("part 1: Sum of next values for histories = " + answer.sumExtrapolated);
+        System.out.println("part 1: Sum of next values for histories = " + answer.sumExtrapolatedP1);
 
-        // Part 2: ...
-        // System.out.println("part 2: ... = " + answer.numStepsP2);
+        // Part 2: Sum of previous values for histories
+        System.out.println("part 2: Sum of previous values for histories = " + answer.sumExtrapolatedP2);
     }
 
     private static Day09Answer solve(List<String> lines, Scanner scanner) {
         Day09Answer answer = new Day09Answer();
         
         List<List<Long>> histories = parseHistories(scanner);
-        // Map<String, String[]> nodes = parseNodes(scanner);
 
         // Part 1
-        answer.sumExtrapolated = findSumExtrapolated(histories);
+        answer.sumExtrapolatedP1 = findSumExtrapolatedP1(histories);
 
         // Part 2
-        // answer.numStepsP2 = findNumStepsP2(steps, nodes);
+        answer.sumExtrapolatedP2 = findSumExtrapolatedP2(histories);
 
         return answer;
     }
 
-    private static long findSumExtrapolated(List<List<Long>> histories) {
+    private static long findSumExtrapolatedP2(List<List<Long>> histories) {
         long sumExtrapolated = 0;
 
         for (List<Long> history : histories) {
-            List<List<Long>> sequences = new ArrayList<>();
-            sequences.add(history);
-            List<Long> currentSequence = history;
-            boolean isNotAllZero = false;
-            do {
-                List<Long> newSequence = new ArrayList<>();
-                isNotAllZero = false;
-                for (int i = 0; i < currentSequence.size() - 1; i++) {
-                    long value1 = currentSequence.get(i);
-                    long value2 = currentSequence.get(i + 1);
-                    long delta = value2 - value1;
-                    newSequence.add(delta);
-                    if (delta != 0) isNotAllZero = true;
-                }
-                sequences.add(newSequence);
-                currentSequence = newSequence;
-            } while (isNotAllZero);
+            List<List<Long>> sequences = makeSequences(history);
+
+            List<Long> sequence = sequences.get(sequences.size() - 1);
+            sequence.add(0, 0L);
+            for (int i = sequences.size() - 2; i >= 0; i--) {
+                sequence = sequences.get(i + 1);
+                long value = -(sequence.get(0));
+                sequence = sequences.get(i);
+                value += sequence.get(0);
+                sequence.add(0, value);
+            }
+            sumExtrapolated += sequence.get(0);
+        }
+
+        return sumExtrapolated;
+    }
+
+    private static long findSumExtrapolatedP1(List<List<Long>> histories) {
+        long sumExtrapolated = 0;
+
+        for (List<Long> history : histories) {
+            List<List<Long>> sequences = makeSequences(history);
 
             List<Long> sequence = sequences.get(sequences.size() - 1);
             sequence.add(0L);
@@ -82,9 +86,26 @@ public class Day09 {
         return sumExtrapolated;
     }
 
-    // private static boolean isNotAllZero(List<Long> sequence) {
-    //     return false;
-    // }
+    private static List<List<Long>> makeSequences(List<Long> history) {
+        List<List<Long>> sequences = new ArrayList<>();
+        sequences.add(history);
+        List<Long> currentSequence = history;
+        boolean isNotAllZero = false;
+        do {
+            List<Long> nextSequence = new ArrayList<>();
+            isNotAllZero = false;
+            for (int i = 0; i < currentSequence.size() - 1; i++) {
+                long value1 = currentSequence.get(i);
+                long value2 = currentSequence.get(i + 1);
+                long delta = value2 - value1;
+                nextSequence.add(delta);
+                if (delta != 0) isNotAllZero = true;
+            }
+            sequences.add(nextSequence);
+            currentSequence = nextSequence;
+        } while (isNotAllZero);
+        return sequences;
+    }
 
     private static List<List<Long>> parseHistories(Scanner scanner) {
         List<List<Long>> histories = new ArrayList<>();
@@ -94,12 +115,12 @@ public class Day09 {
             List<Long> history = new ArrayList<>();
             while (scanner.hasNextLong()) {
                 Long value = scanner.nextLong();
-                System.out.print(value + " ");
+                // System.out.print(value + " ");
                 history.add(value);
             }
             histories.add(history);
             scanner.nextLine();
-            System.out.println();
+            // System.out.println();
         }
 
         return histories;
