@@ -4,7 +4,7 @@ import java.nio.file.*;
 import java.util.*;
 
 class Day10Answer {
-    // long sumExtrapolatedP1;
+    long numStepsFarthest;
     // long sumExtrapolatedP2;
 }
 
@@ -17,50 +17,195 @@ public class Day10 {
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
         System.out.println("# lines / nRows = " + nRows);
-        // int nCols = lines.get(0).length();
-        // System.out.println("first line length / nCols = " + nCols);
-        Scanner scanner = new Scanner(myPath);
+        int nCols = lines.get(0).length();
+        System.out.println("first line length / nCols = " + nCols);
+        // Scanner scanner = new Scanner(myPath);
 
-        Day10Answer answer = solve(lines, scanner);
+        Day10Answer answer = solve(lines, nRows, nCols/*, scanner*/);
 
-        // Part 1: ...
-        // System.out.println("part 1: ... = " + answer.sumExtrapolatedP1);
+        // Part 1: Number of steps to farthest point on loop
+        System.out.println("part 1: Number of steps to farthest point on loop = " + answer.numStepsFarthest);
 
         // Part 2: ...
         // System.out.println("part 2: ... = " + answer.sumExtrapolatedP2);
     }
 
-    private static Day10Answer solve(List<String> lines, Scanner scanner) {
+    private static Day10Answer solve(List<String> lines, int nRows, int nCols/*, Scanner scanner */) {
         Day10Answer answer = new Day10Answer();
         
-        // List<List<Long>> histories = parseHistories(scanner);
+        char[][] sketch = parseSketch(lines, nRows, nCols);
 
         // Part 1
-        // answer.sumExtrapolatedP1 = findSumExtrapolatedP1(histories);
+        answer.numStepsFarthest = findNumStepsFarthest(sketch, nRows, nCols);
 
         // Part 2
-        // answer.sumExtrapolatedP2 = findSumExtrapolatedP2(histories);
+        // answer.sumExtrapolatedP2 = findSumExtrapolatedP2(sketch);
 
         return answer;
     }
 
-    private static List<List<Long>> parseHistories(Scanner scanner) {
-        List<List<Long>> histories = new ArrayList<>();
+    private static int findNumStepsFarthest(char[][] sketch, int nRows, int nCols) {
+        // int numStepsFarthest = 0;
 
-        scanner.useDelimiter("[ \\r]+");
-        while (scanner.hasNextLine()) {
-            List<Long> history = new ArrayList<>();
-            while (scanner.hasNextLong()) {
-                Long value = scanner.nextLong();
-                // System.out.print(value + " ");
-                history.add(value);
+        // find S (starting point)
+        Integer[] startCoords = getStartCoords(sketch, nRows, nCols);
+        int startRow = startCoords[0];
+        int startCol = startCoords[1];
+
+        // walk loop in both directions, distances increasing
+        // when same point reached in both directions, should be farthest point on loop from start
+        return walkLoop(sketch, nRows, nCols, startRow, startCol);
+
+        // return numStepsFarthest;
+    }
+
+    private static int walkLoop(char[][] sketch, int nRows, int nCols, int startRow, int startCol) {
+        int numStepsFarthest = 0;
+
+        System.out.println("startRow = " + startRow + ", startCol = " + startCol);
+
+        boolean[][][] visited = new boolean[nRows][nCols][2];
+        visited[startRow][startCol][0] = true;
+        visited[startRow][startCol][1] = true;
+        Integer[][] p = new Integer[][] {{startRow, startCol}, {startRow, startCol}};
+        Integer[] startDirs = getDirs(sketch, nRows, nCols, startRow, startCol);
+        for (int i = 0; i < p.length && i < startDirs.length; i++) {
+            Integer[] dirs = new Integer[] {startDirs[i]};
+            updatePos(p, i, dirs, visited);
+        }
+        numStepsFarthest++;
+        do {
+            for (int i = 0; i < p.length; i++) {
+                Integer[] dirs = getDirs(sketch, nRows, nCols, p[i][0], p[i][1]);
+                updatePos(p, i, dirs, visited);
+
+                // System.out.println("point #" + i + ", row = " + p[i][0] + ", col = " + p[i][1]);
             }
-            histories.add(history);
-            scanner.nextLine();
-            // System.out.println();
+            numStepsFarthest++;
+        } while (p[0][0] != p[1][0] || p[0][1] != p[1][1]);
+
+        return numStepsFarthest;
+    }
+
+    private static void updatePos(Integer[][] p, int idx, Integer[] dirs, boolean[][][] visited) {
+        int r = p[idx][0];
+        int c = p[idx][1];
+        boolean done = false;
+        for (int i = 0; i < dirs.length; i++) {
+            switch (dirs[i]) {
+                case 0:
+                    // go right, if not visited
+                    if (visited[r][c + 1][idx]) continue;
+                    c++;
+                    done = true;
+                    break;
+                case 1:
+                    // go down, if not visited
+                    if (visited[r + 1][c][idx]) continue;
+                    r++;
+                    done = true;
+                    break;
+                case 2:
+                    // go left, if not visited
+                    if (visited[r][c - 1][idx]) continue;
+                    c--;
+                    done = true;
+                    break;
+                case 3:
+                    // go up, if not visited
+                    if (visited[r - 1][c][idx]) continue;
+                    r--;
+                    done = true;
+                    break;
+                default:
+                    break;
+            }
+            if (done) break;
+        }
+        p[idx][0] = r;
+        p[idx][1] = c;
+        visited[r][c][idx] = true;
+    }
+
+    private static Integer[] getDirs(char[][] sketch, int nRows, int nCols, int startRow, int startCol) {
+        Integer[] startDirs = new Integer[] {-1, -1};
+
+        // System.out.println("getDirs(): startRow = " + startRow + ", startCol = " + startCol);
+
+        int i = 0;
+        char c0 = sketch[startRow][startCol];
+        char c = '.';
+        if (startCol + 1 < nCols) { // look right
+            if (c0 == '-' || c0 == 'F' || c0 == 'L' || c0 == 'S') {
+                c = sketch[startRow][startCol + 1];
+                if (c == '-' || c == '7' || c == 'J') startDirs[i++] = 0;
+            }
+        }
+        if (startRow + 1 < nRows) { // look down
+            if (c0 == '|' || c0 == 'F' || c0 == '7' || c0 == 'S') {
+                c = sketch[startRow + 1][startCol];
+                if (c == '|' || c == 'L' || c == 'J') startDirs[i++] = 1;
+            }
+        }
+        if (startCol - 1 >= 0) { // look left
+            if (c0 == '-' || c0 == '7' || c0 == 'J' || c0 == 'S') {
+                c = sketch[startRow][startCol - 1];
+                if (c == '-' || c == 'F' || c == 'L') startDirs[i++] = 2;
+            }
+        }
+        if (startRow - 1 >= 0) { // look up
+            if (c0 == '|' || c0 == 'L' || c0 == 'J' || c0 == 'S') {
+                c = sketch[startRow - 1][startCol];
+                if (c == '|' || c == 'F' || c == '7') startDirs[i++] = 3;
+            }
         }
 
-        return histories;
+        // System.out.println("getDirs(): startDirs[0] = " + startDirs[0] + ", startDirs[1] = " + startDirs[1]);
+
+        return startDirs;
+    }
+
+    private static Integer[] getStartCoords(char[][] sketch, int nRows, int nCols) {
+        Integer[] startCoords = new Integer[] {-1, -1};
+
+        for (int r = 0; r < nRows; r++) {
+            for (int c = 0; c < nCols; c++) {
+                if (sketch[r][c] == 'S') {
+                    startCoords[0] = r;
+                    startCoords[1] = c;
+                    return startCoords;
+                }
+            }
+        }
+
+        return startCoords;
+    }
+
+    private static char[][] parseSketch(List<String> lines, int nRows, int nCols) {
+        char[][] sketch = new char[nRows][nCols];
+
+        int r = 0;
+        for (String line : lines) {
+            for (int c = 0; c < line.length(); c++) {
+                sketch[r][c] = line.charAt(c);
+            }
+            r++;
+        }
+
+        // // scanner.useDelimiter("[ \\r]+");
+        // while (scanner.hasNextLine()) {
+        //     List<Long> history = new ArrayList<>();
+        //     while (scanner.hasNextLong()) {
+        //         Long value = scanner.nextLong();
+        //         // System.out.print(value + " ");
+        //         history.add(value);
+        //     }
+        //     sketch.add(history);
+        //     scanner.nextLine();
+        //     // System.out.println();
+        // }
+
+        return sketch;
     }
 
     void snippets() {
