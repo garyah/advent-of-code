@@ -4,7 +4,7 @@ import java.nio.file.*;
 import java.util.*;
 
 public class Day09 {
-    static final int numKnots = 2;
+    static final int numKnots = 10;
     static final int numTails = numKnots - 1;
     static int[] xNode;
     static int[] yNode;
@@ -128,7 +128,7 @@ public class Day09 {
         drawGrid();
         for (String line : lines) {
             if (line.length() != 0) {
-                System.out.println(line);
+                // System.out.println(line);
                 String[] fields = line.split(" ");
                 String command = fields[0];
                 int distance = Integer.parseInt(fields[1]);
@@ -140,7 +140,7 @@ public class Day09 {
         }
         drawVisited();
 
-        System.out.println("# lines = " + lines.size());
+        // System.out.println("# lines = " + lines.size());
         System.out.print("head x = " + xNode[0] + " y = " + yNode[0] + ", ");
         for (int i = 1; i <= numTails; i++) {
             System.out.println("tail #" + (i) + " x = " + xNode[i] + " y = " + yNode[i]);
