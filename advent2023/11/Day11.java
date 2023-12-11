@@ -4,56 +4,131 @@ import java.nio.file.*;
 import java.util.*;
 
 class Day11Answer {
-    // long numStepsFarthest;
+    long sumShortestPaths;
     // long sumExtrapolatedP2;
 }
 
 public class Day11 {
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\11\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\11\\sample_input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\11\\sample_input2.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\11\\input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\11\\input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
         System.out.println("# lines / nRows = " + nRows);
-        // int nCols = lines.get(0).length();
-        // System.out.println("first line length / nCols = " + nCols);
-        Scanner scanner = new Scanner(myPath);
+        int nCols = lines.get(0).length();
+        System.out.println("first line length / nCols = " + nCols);
+        // Scanner scanner = new Scanner(myPath);
 
-        Day11Answer answer = solve(lines, scanner);
+        Day11Answer answer = solve(lines, nRows, nCols/*, scanner*/);
 
-        // Part 1: ...
-        // System.out.println("part 1: ... = " + answer.numStepsFarthest);
+        // Part 1: Sum of shortest paths
+        System.out.println("part 1: Sum of shortest paths = " + answer.sumShortestPaths);
 
         // Part 2: ...
         // System.out.println("part 2: ... = " + answer.sumExtrapolatedP2);
     }
 
-    private static Day11Answer solve(List<String> lines, Scanner scanner) {
+    private static Day11Answer solve(List<String> lines, int nRows, int nCols/*, Scanner scanner */) {
         Day11Answer answer = new Day11Answer();
         
-        // char[][] sketch = parseSketch(lines);
+        List<StringBuilder> input = parseInput(lines);
+
+        List<StringBuilder> expanded = expandInput(input);
+        nRows = expanded.size();
+        System.out.println("solve(): universe nRows = " + nRows);
+        nCols = expanded.get(0).length();
+        System.out.println("solve(): universe nCols = " + nCols);
+
+        List<Integer[]> galaxies = processGalaxies(expanded);
 
         // Part 1
-        // answer.numStepsFarthest = findNumStepsFarthest(sketch);
+        answer.sumShortestPaths = findSumShortestPaths(galaxies);
 
         // Part 2
-        // answer.sumExtrapolatedP2 = findSumExtrapolatedP2(sketch);
+        // answer.sumExtrapolatedP2 = findSumExtrapolatedP2(universe);
 
         return answer;
     }
 
-    private static char[][] parseSketch(List<String> lines, int nRows, int nCols) {
-        char[][] sketch = new char[nRows][nCols];
+    private static int findSumShortestPaths(List<Integer[]> galaxies) {
+        int sumShortestPaths = 0;
 
-        // int r = 0;
-        // for (String line : lines) {
-        //     for (int c = 0; c < line.length(); c++) {
-        //         sketch[r][c] = line.charAt(c);
-        //     }
-        //     r++;
-        // }
+        // permute pairs of galaxies, to find their shortest paths, summing lengths
+        int numGalaxies = galaxies.size();
+        for (int i = 0; i < numGalaxies; i++) {
+            for (int j = i + 1; j < numGalaxies; j++) {
+                sumShortestPaths += manhattan(galaxies.get(i), galaxies.get(j));
+            }
+        }
+
+        return sumShortestPaths;
+    }
+
+    private static int manhattan(Integer[] p1, Integer[] p2) {
+        return Math.abs(p2[0] - p1[0]) + Math.abs(p2[1] - p1[1]);
+    }
+
+    private static List<Integer[]> processGalaxies(List<StringBuilder> expanded) {
+        List<Integer[]> galaxies = new ArrayList<>();
+
+        int r = 0;
+        for (StringBuilder row : expanded) {
+            for (int c = 0; c < row.length(); c++) {
+                if (row.charAt(c) == '#') {
+                    galaxies.add(new Integer[] {r, c});
+                }
+            }
+            r++;
+        }
+
+        return galaxies;
+    }
+
+    private static List<StringBuilder> expandInput(List<StringBuilder> input) {
+        List<StringBuilder> expanded = new ArrayList<>();
+
+        int nCols = input.get(0).length();
+        boolean[] isEmptyCols = new boolean[nCols];
+        for (int c = 0; c < nCols; c++) {
+            isEmptyCols[c] = true;
+        }
+
+        for (int i = 0; i < input.size(); i++) {
+            StringBuilder row = input.get(i);
+            expanded.add(row);
+            boolean isEmptyRow = true;
+            for (int j = 0; j < row.length(); j++) {
+                if (row.charAt(j) == '#') {
+                    isEmptyRow = false;
+                    isEmptyCols[j] = false;
+                }
+            }
+            if (isEmptyRow) {
+                expanded.add(new StringBuilder(row));
+            }
+        }
+
+        for (int i = 0; i < expanded.size(); i++) {
+            StringBuilder row = expanded.get(i);
+            for (int j = row.length() - 1; j >= 0; j--) {
+                if (isEmptyCols[j]) {
+                    row.insert(j, '.');
+                }
+            }
+        }
+
+        return expanded;
+    }
+
+    private static List<StringBuilder> parseInput(List<String> lines) {
+        List<StringBuilder> input = new ArrayList<>();
+
+        for (String line : lines) {
+            StringBuilder inputRow = new StringBuilder(line);
+            input.add(inputRow);
+        }
 
         // // scanner.useDelimiter("[ \\r]+");
         // while (scanner.hasNextLine()) {
@@ -63,12 +138,12 @@ public class Day11 {
         //         // System.out.print(value + " ");
         //         history.add(value);
         //     }
-        //     sketch.add(history);
+        //     universe.add(history);
         //     scanner.nextLine();
         //     // System.out.println();
         // }
 
-        return sketch;
+        return input;
     }
 
     void snippets() {
