@@ -5,7 +5,7 @@ import java.util.*;
 
 class Day11Answer {
     long sumShortestPaths;
-    // long sumExtrapolatedP2;
+    long sumShortestPathsP2;
 }
 
 public class Day11 {
@@ -26,34 +26,86 @@ public class Day11 {
         // Part 1: Sum of shortest paths
         System.out.println("part 1: Sum of shortest paths = " + answer.sumShortestPaths);
 
-        // Part 2: ...
-        // System.out.println("part 2: ... = " + answer.sumExtrapolatedP2);
+        // Part 2: Sum of shortest paths
+        System.out.println("part 2: Sum of shortest paths, with much more expansion = " + answer.sumShortestPathsP2);
     }
 
     private static Day11Answer solve(List<String> lines, int nRows, int nCols/*, Scanner scanner */) {
         Day11Answer answer = new Day11Answer();
         
-        List<StringBuilder> input = parseInput(lines);
+        // List<StringBuilder> input = parseInput(lines);
 
-        List<StringBuilder> expanded = expandInput(input);
-        nRows = expanded.size();
-        System.out.println("solve(): universe nRows = " + nRows);
-        nCols = expanded.get(0).length();
-        System.out.println("solve(): universe nCols = " + nCols);
-
-        List<Integer[]> galaxies = processGalaxies(expanded);
+        // List<StringBuilder> expanded = expandInput(input);
+        // System.out.println("solve(): universe nRows = " + expanded.size());
+        // System.out.println("solve(): universe nCols = " + expanded.get(0).length());
 
         // Part 1
+        Integer[] rowIndices = new Integer[nRows];
+        Integer[] colIndices = new Integer[nCols];
+        setIndicesForExpansion(lines, 1, rowIndices, colIndices);
+        List<Integer[]> galaxies = processGalaxiesImproved(lines, rowIndices, colIndices);
+        System.out.println("solve(): number of galaxies = " + galaxies.size());
         answer.sumShortestPaths = findSumShortestPaths(galaxies);
 
         // Part 2
-        // answer.sumExtrapolatedP2 = findSumExtrapolatedP2(universe);
+        rowIndices = new Integer[nRows];
+        colIndices = new Integer[nCols];
+        setIndicesForExpansion(lines, 1000 * 1000 - 1, rowIndices, colIndices);
+        galaxies = processGalaxiesImproved(lines, rowIndices, colIndices);
+        System.out.println("solve(): number of galaxies = " + galaxies.size());
+        answer.sumShortestPathsP2 = findSumShortestPaths(galaxies);
 
         return answer;
     }
 
-    private static int findSumShortestPaths(List<Integer[]> galaxies) {
-        int sumShortestPaths = 0;
+    private static List<Integer[]> processGalaxiesImproved(List<String> input, Integer[] rowIndices, Integer[] colIndices) {
+        List<Integer[]> galaxies = new ArrayList<>();
+
+        int r = 0;
+        for (String row : input) {
+            for (int c = 0; c < row.length(); c++) {
+                if (row.charAt(c) == '#') {
+                    galaxies.add(new Integer[] {rowIndices[r], colIndices[c]});
+                }
+            }
+            r++;
+        }
+
+        return galaxies;
+    }
+
+    private static void setIndicesForExpansion(List<String> input, int expansionLevel, Integer[] rowIndices, Integer[] colIndices) {
+        int nCols = colIndices.length;
+        boolean[] isEmptyCols = new boolean[nCols];
+        for (int c = 0; c < nCols; c++) {
+            isEmptyCols[c] = true;
+        }
+
+        for (int r = 0; r < input.size(); r++) {
+            String row = input.get(r);
+            boolean isEmptyRow = true;
+            for (int c = 0; c < row.length(); c++) {
+                if (row.charAt(c) == '#') {
+                    isEmptyRow = false;
+                    isEmptyCols[c] = false;
+                }
+            }
+            rowIndices[r] = (r == 0) ? 0 : rowIndices[r - 1] + 1;
+            if (isEmptyRow) {
+                rowIndices[r] += expansionLevel;
+            }
+        }
+
+        for (int c = 0; c < nCols; c++) {
+            colIndices[c] = (c == 0) ? 0 : colIndices[c - 1] + 1;
+            if (isEmptyCols[c]) {
+                colIndices[c] += expansionLevel;
+            }
+        }
+    }
+
+    private static long findSumShortestPaths(List<Integer[]> galaxies) {
+        long sumShortestPaths = 0;
 
         // permute pairs of galaxies, to find their shortest paths, summing lengths
         int numGalaxies = galaxies.size();
