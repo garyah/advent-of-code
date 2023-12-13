@@ -60,6 +60,21 @@ public class Day12 {
     }
 
     private static long recurse(String record, int recordIdx, List<Integer> damageInfo, int damageInfoIdx, StringBuilder processed) {
+        int numDamaged = 0;
+        while (recordIdx < record.length() && record.charAt(recordIdx) == '#') {
+            numDamaged++;
+            recordIdx++;
+        }
+        while (recordIdx < record.length() && record.charAt(recordIdx) == '.' || recordIdx == record.length()) {
+            if (numDamaged > 0) {
+                if (damageInfo.get(damageInfoIdx) != numDamaged) return 0;
+                if (damageInfoIdx == damageInfo.size() - 1) return 1;
+                damageInfoIdx++;
+                numDamaged = 0;
+            }
+            if (recordIdx == record.length()) return 0;
+            recordIdx++;
+        }
         return 0;
     }
 
