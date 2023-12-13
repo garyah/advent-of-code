@@ -25,6 +25,7 @@ public class Day13 {
 
         // Part 1: Summary of pattern reflections
         // 24923 is too low!!!
+        // 594123 is too high!!!
         System.out.println("part 1: Summary of pattern reflections = " + answer.patternsSummaryP1);
 
         // Part 2: Sum of shortest paths
@@ -58,17 +59,24 @@ public class Day13 {
     }
 
     private static long summarizePattern(List<String> pattern) {
+        long patternSummary = 0;
+
         int nCols = pattern.get(0).length();
         for (int c = 0; c < nCols - 1; c++) {
-            if (isReflectedVertically(pattern, nCols, c)) return c + 1;
+            if (isReflectedVertically(pattern, nCols, c)) {
+                patternSummary += c + 1;
+            }
         }
 
         int nRows = pattern.size();
         for (int r = 0; r < nRows - 1; r++) {
-            if (isReflectedHorizontally(pattern, nRows, r)) return (r + 1) * 100;
+            if (isReflectedHorizontally(pattern, nRows, r)) {
+                patternSummary += (r + 1) * 100;
+            }
         }
 
-        return -1;
+        // System.out.println("something is wrong, no reflection found!");
+        return patternSummary;
     }
 
     private static boolean isReflectedVertically(List<String> pattern, int nCols, int c) {
