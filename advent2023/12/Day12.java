@@ -4,7 +4,7 @@ import java.nio.file.*;
 import java.util.*;
 
 class Day12Answer {
-    // long sumShortestPathsP1;
+    long numTotalArrangementsP1;
     // long sumShortestPathsP2;
 }
 
@@ -23,8 +23,8 @@ public class Day12 {
 
         Day12Answer answer = solve(/*lines, nRows, nCols,*/ scanner);
 
-        // Part 1: Sum of shortest paths
-        // System.out.println("part 1: Sum of shortest paths = " + answer.sumShortestPathsP1);
+        // Part 1: Total number of possible arrangements
+        System.out.println("part 1: Total number of possible arrangements = " + answer.numTotalArrangementsP1);
 
         // Part 2: Sum of shortest paths
         // System.out.println("part 2: Sum of shortest paths, with much more expansion = " + answer.sumShortestPathsP2);
@@ -33,10 +33,12 @@ public class Day12 {
     private static Day12Answer solve(/*List<String> lines, int nRows, int nCols, */ Scanner scanner) {
         Day12Answer answer = new Day12Answer();
         
-        // ... input = parseInput(scanner);
+        List<String> records = new ArrayList<>();
+        List<List<Integer>> damageInfos = new ArrayList<>();
+        parseInput(scanner, records, damageInfos);
 
         // Part 1
-        // answer.sumShortestPathsP1 = findAnswerP1(input);
+        answer.numTotalArrangementsP1 = findAnswerP1(records, damageInfos);
 
         // Part 2
         // answer.sumShortestPathsP2 = findAnswerP2(input);
@@ -44,80 +46,49 @@ public class Day12 {
         return answer;
     }
 
-    private static List<Integer[]> processGalaxies(List<StringBuilder> expanded) {
-        List<Integer[]> galaxies = new ArrayList<>();
+    private static long findAnswerP1(List<String> records, List<List<Integer>> damageInfos) {
+        long numTotalArrangementsP1 = 0;
 
-        int r = 0;
-        for (StringBuilder row : expanded) {
-            for (int c = 0; c < row.length(); c++) {
-                if (row.charAt(c) == '#') {
-                    galaxies.add(new Integer[] {r, c});
-                }
-            }
-            r++;
+        for (int i = 0; i < records.size() && i < damageInfos.size(); i++) {
+            String record = records.get(i);
+            List<Integer> damageInfo = damageInfos.get(i);
+
+            numTotalArrangementsP1 += recurse(record, 0, damageInfo, 0, new StringBuilder());
         }
 
-        return galaxies;
+        return numTotalArrangementsP1;
     }
 
-    private static List<StringBuilder> expandInput(List<StringBuilder> input) {
-        List<StringBuilder> expanded = new ArrayList<>();
-
-        int nCols = input.get(0).length();
-        boolean[] isEmptyCols = new boolean[nCols];
-        for (int c = 0; c < nCols; c++) {
-            isEmptyCols[c] = true;
-        }
-
-        for (int i = 0; i < input.size(); i++) {
-            StringBuilder row = input.get(i);
-            expanded.add(row);
-            boolean isEmptyRow = true;
-            for (int j = 0; j < row.length(); j++) {
-                if (row.charAt(j) == '#') {
-                    isEmptyRow = false;
-                    isEmptyCols[j] = false;
-                }
-            }
-            if (isEmptyRow) {
-                expanded.add(new StringBuilder(row));
-            }
-        }
-
-        for (int i = 0; i < expanded.size(); i++) {
-            StringBuilder row = expanded.get(i);
-            for (int j = row.length() - 1; j >= 0; j--) {
-                if (isEmptyCols[j]) {
-                    row.insert(j, '.');
-                }
-            }
-        }
-
-        return expanded;
+    private static long recurse(String record, int recordIdx, List<Integer> damageInfo, int damageInfoIdx, StringBuilder processed) {
+        return 0;
     }
 
-    private static List<StringBuilder> parseInput(/*List<String> lines, int nRows, int nCols, */ Scanner scanner) {
-        List<StringBuilder> input = new ArrayList<>();
-
+    private static void parseInput(
+        /*List<String> lines, int nRows, int nCols, */
+        Scanner scanner,
+        List<String> records,
+        List<List<Integer>> damageInfos
+    ) {
         // for (String line : lines) {
         //     StringBuilder inputRow = new StringBuilder(line);
         //     input.add(inputRow);
         // }
 
-        // scanner.useDelimiter("[ \\r]+");
+        scanner.useDelimiter("[ \\r,]+");
         while (scanner.hasNextLine()) {
-            List<Long> history = new ArrayList<>();
-            while (scanner.hasNextLong()) {
-                Long value = scanner.nextLong();
-                // System.out.print(value + " ");
-                history.add(value);
+            String record = scanner.next();
+            records.add(record);
+            // System.out.print(record + " ");
+            List<Integer> damageInfo = new ArrayList<>();
+            while (scanner.hasNextInt()) {
+                int value = scanner.nextInt();
+                damageInfo.add(value);
+                // System.out.print(value + ",");
             }
-            // input.add(history);
-            scanner.nextLine();
+            damageInfos.add(damageInfo);
             // System.out.println();
+            scanner.nextLine();
         }
-
-        return input;
     }
 
     void snippets() {
