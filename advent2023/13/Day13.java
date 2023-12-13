@@ -59,24 +59,22 @@ public class Day13 {
     }
 
     private static long summarizePattern(List<String> pattern) {
-        long patternSummary = 0;
-
         int nCols = pattern.get(0).length();
         for (int c = 0; c < nCols - 1; c++) {
             if (isReflectedVertically(pattern, nCols, c)) {
-                patternSummary += c + 1;
+                return c + 1;
             }
         }
 
         int nRows = pattern.size();
         for (int r = 0; r < nRows - 1; r++) {
             if (isReflectedHorizontally(pattern, nRows, r)) {
-                patternSummary += (r + 1) * 100;
+                return (r + 1) * 100;
             }
         }
 
-        // System.out.println("something is wrong, no reflection found!");
-        return patternSummary;
+        System.out.println("Something is wrong, no reflection found in pattern!");
+        return 0L;
     }
 
     private static boolean isReflectedVertically(List<String> pattern, int nCols, int c) {
@@ -99,7 +97,7 @@ public class Day13 {
             return true;
         }
         if (r >= mid) {
-            for (int i = r, j = r + 1; i >= (r + 1) << 1 && j < nRows; i--, j++) {
+            for (int i = r, j = r + 1; i >= ((r + 1) << 1) - nRows && j < nRows; i--, j++) {
                 if (pattern.get(i).equals(pattern.get(j))) continue;
                 return false;
             }
