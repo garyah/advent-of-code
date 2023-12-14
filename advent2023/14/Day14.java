@@ -4,41 +4,39 @@ import java.nio.file.*;
 import java.util.*;
 
 class Day13Answer {
-    long patternsSummaryP1;
+    long totalLoadP1;
     // long sumShortestPathsP2;
 }
 
 public class Day14 {
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\sample_input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\sample_input2.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
         System.out.println("# lines / nRows = " + nRows);
-        // int nCols = lines.get(0).length();
-        // System.out.println("first line length / nCols = " + nCols);
+        int nCols = lines.get(0).length();
+        System.out.println("first line length / nCols = " + nCols);
         // Scanner scanner = new Scanner(myPath);
 
-        Day13Answer answer = solve(lines/*, nRows, nCols, scanner*/);
+        Day13Answer answer = solve(lines, nRows, nCols/*, scanner*/);
 
-        // Part 1: Summary of pattern reflections
-        // 24923 is too low!!!
-        // 594123 is too high!!!
-        System.out.println("part 1: Summary of pattern reflections = " + answer.patternsSummaryP1);
+        // Part 1: Total load
+        System.out.println("part 1: Total load = " + answer.totalLoadP1);
 
         // Part 2: Sum of shortest paths
         // System.out.println("part 2: Sum of shortest paths, with much more expansion = " + answer.sumShortestPathsP2);
     }
 
-    private static Day13Answer solve(List<String> lines/*, int nRows, int nCols, Scanner scanner*/) {
+    private static Day13Answer solve(List<String> lines, int nRows, int nCols/*, Scanner scanner*/) {
         Day13Answer answer = new Day13Answer();
         
-        List<List<String>> patterns = parseInput(lines);
+        char[][] pattern = parseInput(lines, nRows, nCols);
 
         // Part 1
-        answer.patternsSummaryP1 = findAnswerP1(patterns);
+        answer.totalLoadP1 = findAnswerP1(pattern, nRows, nCols);
 
         // Part 2
         // answer.sumShortestPathsP2 = findAnswerP2(input);
@@ -46,16 +44,39 @@ public class Day14 {
         return answer;
     }
 
-    private static long findAnswerP1(List<List<String>> patterns) {
-        long patternsSummaryP1 = 0;
+    private static long findAnswerP1(char[][] pattern, int nRows, int nCols) {
+        // move Os to top
+        for (int r = 0; r < nRows; r++) {
+            for (int c = 0; c < nCols; c++) {
+                if (pattern[r][c] == 'O') moveToTop(pattern, nRows, nCols, r, c);
+            }
+        }
 
-        // for (int i = 0; i < patterns.size(); i++) {
-        //     List<String> pattern = patterns.get(i);
+        // sum the loads of Os
+        return calcLoad(pattern, nRows, nCols);
+    }
 
-        //     patternsSummaryP1 += summarizePattern(pattern);
-        // }
+    private static void moveToTop(char[][] pattern, int nRows, int nCols, int r0, int c0) {
+        int r = r0 - 1;
+        for (; r >= 0; r--) {
+            if (pattern[r][c0] == 'O' || pattern[r][c0] == '#') break;
+        }
+        pattern[r0][c0] = '.';
+        pattern[r + 1][c0] = 'O';
+    }
 
-        return patternsSummaryP1;
+    private static long calcLoad(char[][] pattern, int nRows, int nCols) {
+        long load = 0;
+
+        for (int r = 0; r < nRows; r++) {
+            for (int c = 0; c < nCols; c++) {
+                if (pattern[r][c] == 'O') {
+                    load += nRows - r;
+                }
+            }
+        }
+
+        return load;
     }
 
     private static String reverse(String s) {
@@ -68,30 +89,42 @@ public class Day14 {
         return sb.toString();
     }
 
-    private static List<List<String>> parseInput(
-        List<String> lines/*, int nRows, int nCols, */
+    private static char[][] parseInput(
+        List<String> lines, int nRows, int nCols
         // Scanner scanner
     ) {
-        List<List<String>> patterns = new ArrayList<>();
-        List<String> pattern = new ArrayList<>();
+        char[][] pattern = new char[nRows][nCols];
 
+        int r = 0;
         for (String line : lines) {
-            if (line.length() != 0) {
-                pattern.add(line);
-                // System.out.println(line);
-                continue;
+            for (int c = 0; c < nCols; c++) {
+                pattern[r][c] = line.charAt(c);
             }
-            if (pattern.size() != 0) {
-                patterns.add(pattern);
-                pattern = new ArrayList<>();
-            }
-            // System.out.println();
+            r++;
         }
 
-        if (pattern.size() != 0) {
-            patterns.add(pattern);
-        }
-        return patterns;
+        return pattern;
+
+        // List<List<String>> patterns = new ArrayList<>();
+        // List<String> pattern = new ArrayList<>();
+
+        // for (String line : lines) {
+        //     if (line.length() != 0) {
+        //         pattern.add(line);
+        //         // System.out.println(line);
+        //         continue;
+        //     }
+        //     if (pattern.size() != 0) {
+        //         patterns.add(pattern);
+        //         pattern = new ArrayList<>();
+        //     }
+        //     // System.out.println();
+        // }
+
+        // if (pattern.size() != 0) {
+        //     patterns.add(pattern);
+        // }
+        // return patterns;
 
         // scanner.useDelimiter("[ \\r]+");
         // scanner.useDelimiter("[ ]+");
