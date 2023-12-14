@@ -5,14 +5,14 @@ import java.util.*;
 
 class Day13Answer {
     long totalLoadP1;
-    // long sumShortestPathsP2;
+    long totalLoadP2;
 }
 
 public class Day14 {
     public static void main(String[] args) throws IOException {
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\sample_input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\sample_input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\sample_input2.txt");
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
@@ -26,8 +26,8 @@ public class Day14 {
         // Part 1: Total load
         System.out.println("part 1: Total load = " + answer.totalLoadP1);
 
-        // Part 2: Sum of shortest paths
-        // System.out.println("part 2: Sum of shortest paths, with much more expansion = " + answer.sumShortestPathsP2);
+        // Part 2: Total load after 1000000000 cycles
+        System.out.println("part 2: Total load after 1000000000 cycles = " + answer.totalLoadP2);
     }
 
     private static Day13Answer solve(List<String> lines, int nRows, int nCols/*, Scanner scanner*/) {
@@ -36,19 +36,91 @@ public class Day14 {
         char[][] pattern = parseInput(lines, nRows, nCols);
 
         // Part 1
-        answer.totalLoadP1 = findAnswerP1(pattern, nRows, nCols);
+        // answer.totalLoadP1 = findAnswerP1(pattern, nRows, nCols);
 
         // Part 2
-        // answer.sumShortestPathsP2 = findAnswerP2(input);
+        answer.totalLoadP2 = findAnswerP2(pattern, nRows, nCols, 1000000000);
 
         return answer;
+    }
+
+    private static long findAnswerP2(char[][] pattern, int nRows, int nCols, int nCycles) {
+        // move Os to top, left, bottom, right, in cycle
+        for (int dir = 0; dir < 4; dir++) {
+            moveAllInDir(pattern, nRows, nCols, dir);
+        }
+
+        // sum the loads of Os
+        return calcLoad(pattern, nRows, nCols);
+    }
+
+    private static void moveAllInDir(char[][] pattern, int nRows, int nCols, int dir) {
+        int delta = 0;
+        switch (dir) {
+            case 0:
+            case 2:
+                delta = (dir == 0) ? 1 : -1;
+                for (int r = (dir == 0) ? 0 : nRows - 1; dir == 0 && r < nRows || dir == 2 && r >= 0; r += delta) {
+                    for (int c = (dir == 0) ? 0 : nCols - 1; dir == 0 && c < nCols || dir == 2 && c >= 0; c += delta) {
+                        if (pattern[r][c] == 'O') moveOneInDir(pattern, nRows, nCols, r, c, dir);
+                    }
+                }
+
+                break;
+            case 1:
+            case 3:
+            default:
+                delta = (dir == 1) ? 1 : -1;
+                for (int c = (dir == 1) ? 0 : nCols - 1; dir == 1 && c < nCols || dir == 3 && c >= 0; c += delta) {
+                    for (int r = (dir == 1) ? 0 : nRows - 1; dir == 1 && r < nRows || dir == 3 && r >= 0; r += delta) {
+                        if (pattern[r][c] == 'O') moveOneInDir(pattern, nRows, nCols, r, c, dir);
+                    }
+                }
+
+                break;
+        }
+
+        // for (int r = 0; r < nRows; r++) {
+        //     for (int c = 0; c < nCols; c++) {
+        //         if (pattern[r][c] == 'O') moveOneInDir(pattern, nRows, nCols, r, c, dir);
+        //     }
+        // }
+    }
+
+    private static void moveOneInDir(char[][] pattern, int nRows, int nCols, int r0, int c0, int dir) {
+        int delta = 0;
+        switch (dir) {
+            case 0:
+            case 2:
+                delta = (dir == 0) ? -1 : 1;
+                int r = r0 + delta;
+                for (; dir == 0 && r >= 0 || dir == 2 && r < nRows; r += delta) {
+                    if (pattern[r][c0] == 'O' || pattern[r][c0] == '#') break;
+                }
+                pattern[r0][c0] = '.';
+                pattern[r - delta][c0] = 'O';
+
+                break;
+            case 1:
+            case 3:
+            default:
+                delta = (dir == 1) ? -1 : 1;
+                int c = c0 + delta;
+                for (; dir == 1 && c >= 0 || dir == 3 && c < nCols; c += delta) {
+                    if (pattern[r0][c] == 'O' || pattern[r0][c] == '#') break;
+                }
+                pattern[r0][c0] = '.';
+                pattern[r0][c - delta] = 'O';
+
+                break;
+        }
     }
 
     private static long findAnswerP1(char[][] pattern, int nRows, int nCols) {
         // move Os to top
         for (int r = 0; r < nRows; r++) {
             for (int c = 0; c < nCols; c++) {
-                if (pattern[r][c] == 'O') moveToTop(pattern, nRows, nCols, r, c);
+                if (pattern[r][c] == 'O') moveOneToTop(pattern, nRows, nCols, r, c);
             }
         }
 
@@ -56,7 +128,7 @@ public class Day14 {
         return calcLoad(pattern, nRows, nCols);
     }
 
-    private static void moveToTop(char[][] pattern, int nRows, int nCols, int r0, int c0) {
+    private static void moveOneToTop(char[][] pattern, int nRows, int nCols, int r0, int c0) {
         int r = r0 - 1;
         for (; r >= 0; r--) {
             if (pattern[r][c0] == 'O' || pattern[r][c0] == '#') break;
