@@ -11,7 +11,6 @@ class Day14Answer {
 public class Day14 {
     public static void main(String[] args) throws IOException {
         Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\sample_input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\sample_input2.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
@@ -32,32 +31,46 @@ public class Day14 {
 
     private static Day14Answer solve(List<String> lines, int nRows, int nCols/*, Scanner scanner*/) {
         Day14Answer answer = new Day14Answer();
-        
-        char[][] pattern = parseInput(lines, nRows, nCols);
 
         // Part 1
-        // answer.totalLoadP1 = findAnswerP1(pattern, nRows, nCols);
+        char[][] pattern = parseInput(lines, nRows, nCols);
+        answer.totalLoadP1 = findAnswerP1(pattern, nRows, nCols);
 
         // Part 2
+        pattern = parseInput(lines, nRows, nCols);
         answer.totalLoadP2 = findAnswerP2(pattern, nRows, nCols, 1000000000);
 
         return answer;
     }
 
     private static long findAnswerP2(char[][] pattern, int nRows, int nCols, int nCycles) {
-        for (int dir = 0; dir < 4; dir++) {
-            moveAllInDir(pattern, nRows, nCols, dir);
-        }
-        char[][] savePattern = copyPattern(pattern, nRows, nCols);
+        Map<Integer, Long> cycleModuloToLoadValues = new HashMap<>();
+
+        long initialLoad = calcLoad(pattern, nRows, nCols);
+        System.out.println("initial load = " + initialLoad);
         int m = 0;
+        cycleModuloToLoadValues.put(m, initialLoad);
         do {
             for (int dir = 0; dir < 4; dir++) {
                 moveAllInDir(pattern, nRows, nCols, dir);
             }
+
             m++;
             if (m % 1000000 == 0) System.out.print(".");
-        } while (!arePatternsEqual(savePattern, nRows, nCols, pattern));
-        System.out.println("m = " + m);
+
+            long load = calcLoad(pattern, nRows, nCols);
+            if (load == initialLoad || m == 21) {
+                System.out.println("final m = " + m + ", load = " + load);
+                break;
+            }
+
+            cycleModuloToLoadValues.put(m, load);
+            System.out.println("m = " + m + ", load = " + load);
+
+            if (m == nCycles) return -1L;
+        } while (true);
+
+        return cycleModuloToLoadValues.getOrDefault((nCycles % m), -1L);
 
         // move Os to top, left, bottom, right, in cycle, for certain number of cycles
         // for (int n = 0; n < nCycles; n++) {
@@ -68,7 +81,7 @@ public class Day14 {
         // }
 
         // sum the loads of Os
-        return calcLoad(pattern, nRows, nCols);
+        // return calcLoad(pattern, nRows, nCols);
     }
 
     private static boolean arePatternsEqual(char[][] pattern1, int nRows, int nCols, char[][] pattern2) {
@@ -118,12 +131,6 @@ public class Day14 {
 
                 break;
         }
-
-        // for (int r = 0; r < nRows; r++) {
-        //     for (int c = 0; c < nCols; c++) {
-        //         if (pattern[r][c] == 'O') moveOneInDir(pattern, nRows, nCols, r, c, dir);
-        //     }
-        // }
     }
 
     private static void moveOneInDir(char[][] pattern, int nRows, int nCols, int r0, int c0, int dir) {
