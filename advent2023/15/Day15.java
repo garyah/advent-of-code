@@ -4,47 +4,47 @@ import java.nio.file.*;
 import java.util.*;
 
 class Day15Answer {
-    long totalLoadP1;
+    long sumOfHashesP1;
     long totalLoadP2;
 }
 
 public class Day15 {
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\15\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\15\\sample_input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\15\\sample_input2.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\15\\input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\15\\input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
         System.out.println("# lines / nRows = " + nRows);
         int nCols = 0; // lines.get(0).length();
         System.out.println("first line length / nCols = " + nCols);
-        // Scanner scanner = new Scanner(myPath);
+        Scanner scanner = new Scanner(myPath);
 
-        Day15Answer answer = solve(lines, nRows, nCols/*, scanner*/);
+        Day15Answer answer = solve(lines, nRows, nCols, scanner);
 
         // Part 1: ...
-        System.out.println("part 1: ... = " + answer.totalLoadP1);
+        System.out.println("part 1: ... = " + answer.sumOfHashesP1);
 
         // Part 2: ...
         System.out.println("part 2: ... = " + answer.totalLoadP2);
     }
 
-    private static Day15Answer solve(List<String> lines, int nRows, int nCols/*, Scanner scanner*/) {
+    private static Day15Answer solve(List<String> lines, int nRows, int nCols, Scanner scanner) {
         Day15Answer answer = new Day15Answer();
         
-        char[][] pattern = parseInput(lines, nRows, nCols);
+        List<String> steps = parseInput(/*lines, nRows, nCols*/scanner);
 
         // Part 1
-        answer.totalLoadP1 = findAnswerP1(pattern, nRows, nCols);
+        answer.sumOfHashesP1 = findAnswerP1(steps/*, nRows, nCols*/);
 
         // Part 2
-        answer.totalLoadP2 = findAnswerP2(pattern, nRows, nCols, 1000000000);
+        answer.totalLoadP2 = findAnswerP2(steps/*, nRows, nCols*/);
 
         return answer;
     }
 
-    private static long findAnswerP2(char[][] pattern, int nRows, int nCols, int nCycles) {
+    private static long findAnswerP2(List<String> steps/*, int nRows, int nCols, int nCycles*/) {
         // for (int dir = 0; dir < 4; dir++) {
         //     moveAllInDir(pattern, nRows, nCols, dir);
         // }
@@ -72,7 +72,12 @@ public class Day15 {
         return 0;
     }
 
-    private static long findAnswerP1(char[][] pattern, int nRows, int nCols) {
+    private static long findAnswerP1(List<String> steps/*, int nRows, int nCols*/) {
+        long sumOfHashesP1 = 0;
+
+        for (String step : steps) {
+            sumOfHashesP1 += getHash(step);
+        }
         // // move Os to top
         // for (int r = 0; r < nRows; r++) {
         //     for (int c = 0; c < nCols; c++) {
@@ -82,24 +87,39 @@ public class Day15 {
 
         // // sum the loads of Os
         // return calcLoad(pattern, nRows, nCols);
-        return 0;
+
+        return sumOfHashesP1;
     }
 
-    private static char[][] parseInput(
-        List<String> lines, int nRows, int nCols
-        // Scanner scanner
-    ) {
-        char[][] pattern = new char[nRows][nCols];
+    private static int getHash(String step) {
+        int hash = 0;
 
-        int r = 0;
-        for (String line : lines) {
-            for (int c = 0; c < nCols; c++) {
-                pattern[r][c] = line.charAt(c);
-            }
-            r++;
+        for (int i = 0; i < step.length(); i++) {
+            char c = step.charAt(i);
+            int ascii = (int)c;
+            hash += ascii;
+            hash *= 17;
+            hash %= 256;
         }
 
-        return pattern;
+        return hash;
+    }
+
+    private static List<String> parseInput(
+        // List<String> lines, int nRows, int nCols
+        Scanner scanner
+    ) {
+        // char[][] pattern = new char[nRows][nCols];
+
+        // int r = 0;
+        // for (String line : lines) {
+        //     for (int c = 0; c < nCols; c++) {
+        //         pattern[r][c] = line.charAt(c);
+        //     }
+        //     r++;
+        // }
+
+        // return pattern;
 
         // List<List<String>> patterns = new ArrayList<>();
         // List<String> pattern = new ArrayList<>();
@@ -122,20 +142,24 @@ public class Day15 {
         // }
         // return patterns;
 
+        List<String> steps = new ArrayList<>();
+
         // scanner.useDelimiter("[ \\r]+");
-        // scanner.useDelimiter("[ ]+");
-        // while (scanner.hasNextLine()) {
-        //     while (scanner.hasNext()) {
-        //         String row = scanner.next();
-        //         // pattern.add(row);
-        //         System.out.println(row);
-        //         scanner.nextLine();
-        //     }
-        //     while (scanner.hasNextLine() && !scanner.hasNext()) {
-        //         System.out.println();
-        //         scanner.nextLine();
-        //     }
-        // }
+        scanner.useDelimiter("[ \\r,]+");
+        if (scanner.hasNextLine()) {
+            while (scanner.hasNext()) {
+                String step = scanner.next();
+                steps.add(step);
+                // System.out.println(step + ",");
+                // scanner.nextLine();
+            }
+            // while (scanner.hasNextLine() && !scanner.hasNext()) {
+            //     System.out.println();
+            //     scanner.nextLine();
+            // }
+        }
+
+        return steps;
     }
 
     private static String reverse(String s) {
