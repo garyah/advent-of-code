@@ -5,7 +5,7 @@ import java.util.*;
 
 class Day15Answer {
     long sumOfHashesP1;
-    long totalLoadP2;
+    long focusPowerP2;
 }
 
 public class Day15 {
@@ -23,11 +23,11 @@ public class Day15 {
 
         Day15Answer answer = solve(lines, nRows, nCols, scanner);
 
-        // Part 1: ...
-        System.out.println("part 1: ... = " + answer.sumOfHashesP1);
+        // Part 1: Sum of hashes
+        System.out.println("part 1: Sum of hashes = " + answer.sumOfHashesP1);
 
-        // Part 2: ...
-        System.out.println("part 2: ... = " + answer.totalLoadP2);
+        // Part 2: Focusing power
+        System.out.println("part 2: Focusing power = " + answer.focusPowerP2);
     }
 
     private static Day15Answer solve(List<String> lines, int nRows, int nCols, Scanner scanner) {
@@ -39,37 +39,77 @@ public class Day15 {
         answer.sumOfHashesP1 = findAnswerP1(steps/*, nRows, nCols*/);
 
         // Part 2
-        answer.totalLoadP2 = findAnswerP2(steps/*, nRows, nCols*/);
+        answer.focusPowerP2 = findAnswerP2(steps/*, nRows, nCols*/);
 
         return answer;
     }
 
     private static long findAnswerP2(List<String> steps/*, int nRows, int nCols, int nCycles*/) {
-        // for (int dir = 0; dir < 4; dir++) {
-        //     moveAllInDir(pattern, nRows, nCols, dir);
-        // }
-        // char[][] savePattern = copyPattern(pattern, nRows, nCols);
-        // int m = 0;
-        // do {
-        //     for (int dir = 0; dir < 4; dir++) {
-        //         moveAllInDir(pattern, nRows, nCols, dir);
-        //     }
-        //     m++;
-        //     if (m % 1000000 == 0) System.out.print(".");
-        // } while (!arePatternsEqual(savePattern, nRows, nCols, pattern));
-        // System.out.println("m = " + m);
+        // initialize data structures
+        List<Map<String, Integer>> boxes = new ArrayList<>();
+        List<List<Integer>> contents = new ArrayList<>();
+        for (int i = 0; i < 256; i++) {
+            boxes.add(new HashMap<>());
+            contents.add(new ArrayList<>());
+        }
 
-        // move Os to top, left, bottom, right, in cycle, for certain number of cycles
-        // for (int n = 0; n < nCycles; n++) {
-        //     if (n % 1000000 == 0) System.out.print(".");
-        //     for (int dir = 0; dir < 4; dir++) {
-        //         moveAllInDir(pattern, nRows, nCols, dir);
-        //     }
-        // }
+        // apply operations from sequence
+        for (String step : steps) {
+            String label = "";
+            int focalLength = 0;
+            if (step.contains("=")) {
+                label = step.substring(0, step.indexOf("="));
+                focalLength = Integer.parseInt(step.substring(step.indexOf("=") + 1));
+            } else { // contains -
+                label = step.substring(0, step.indexOf("-"));
+            }
+            int boxIdx = getHash(label);
+            Map<String, Integer> box = boxes.get(boxIdx);
+            List<Integer> content = contents.get(boxIdx);
+            if (focalLength > 0) {
+                // add or update operation
+                if (box.containsKey(label)) {
+                    // update operation
+                    int lensIdx = box.get(label);
+                    content.set(lensIdx, focalLength);
+                } else {
+                    // add operation
+                    box.put(label, content.size());
+                    content.add(focalLength);
+                }
+            } else {
+                // remove operation
+                if (box.containsKey(label)) {
+                    int lensIdx = box.get(label);
+                    content.remove(lensIdx);
+                    box.remove(label);
 
-        // sum the loads of Os
-        // return calcLoad(pattern, nRows, nCols);
-        return 0;
+                    // fixup index for remaining items
+                    // System.out.println(box.values());
+                    for (Map.Entry<String, Integer> entry : box.entrySet()) {
+                        String key = entry.getKey();
+                        int value = entry.getValue();
+                        if (value > lensIdx) {
+                            box.put(key, value - 1);
+                        }
+                    }
+                    // System.out.println(box.values());
+                }
+            }
+        }
+
+        // sum up the focusing power
+        long focusPowerP2 = 0;
+        for (int i = 0; i < 256; i++) {
+            if (boxes.get(i).size() > 0) {
+                List<Integer> content = contents.get(i);
+                for (int j = 0; j < content.size(); j++) {
+                    focusPowerP2 += (i + 1) * (j + 1) * content.get(j);
+                }
+            }
+        }
+
+        return focusPowerP2;
     }
 
     private static long findAnswerP1(List<String> steps/*, int nRows, int nCols*/) {
@@ -78,15 +118,6 @@ public class Day15 {
         for (String step : steps) {
             sumOfHashesP1 += getHash(step);
         }
-        // // move Os to top
-        // for (int r = 0; r < nRows; r++) {
-        //     for (int c = 0; c < nCols; c++) {
-        //         if (pattern[r][c] == 'O') moveOneToTop(pattern, nRows, nCols, r, c);
-        //     }
-        // }
-
-        // // sum the loads of Os
-        // return calcLoad(pattern, nRows, nCols);
 
         return sumOfHashesP1;
     }
