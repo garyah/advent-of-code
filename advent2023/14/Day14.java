@@ -44,33 +44,28 @@ public class Day14 {
     }
 
     private static long findAnswerP2(char[][] pattern, int nRows, int nCols, int nCycles) {
-        Map<Integer, Long> cycleModuloToLoadValues = new HashMap<>();
+        List<Long> loads = new ArrayList<>();
 
-        long initialLoad = calcLoad(pattern, nRows, nCols);
-        System.out.println("initial load = " + initialLoad);
-        int m = 0;
-        cycleModuloToLoadValues.put(m, initialLoad);
-        do {
+        for (int i = 0; i < 100; i++) {
+            long load = calcLoad(pattern, nRows, nCols);
+            System.out.println("m = " + i + ", load = " + load);
+            // if (m % 1000000 == 0) System.out.print(".");
+            loads.add(load);
+
             for (int dir = 0; dir < 4; dir++) {
                 moveAllInDir(pattern, nRows, nCols, dir);
             }
+        }
 
-            m++;
-            if (m % 1000000 == 0) System.out.print(".");
-
-            long load = calcLoad(pattern, nRows, nCols);
-            if (load == initialLoad || m == 21) {
-                System.out.println("final m = " + m + ", load = " + load);
-                break;
+        for (int m = 7; m < 100; m++) {
+            for (int i = m; i < 100; i += m) {
+                if (loads.get(i) == loads.get(i - m)) {
+                    System.out.println("matching with m = " + m);
+                    break;
+                }
             }
-
-            cycleModuloToLoadValues.put(m, load);
-            System.out.println("m = " + m + ", load = " + load);
-
-            if (m == nCycles) return -1L;
-        } while (true);
-
-        return cycleModuloToLoadValues.getOrDefault((nCycles % m), -1L);
+        }
+        return 0;
 
         // move Os to top, left, bottom, right, in cycle, for certain number of cycles
         // for (int n = 0; n < nCycles; n++) {
