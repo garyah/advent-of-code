@@ -3,7 +3,7 @@ import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
 
-class Day13Answer {
+class Day14Answer {
     long totalLoadP1;
     long totalLoadP2;
 }
@@ -21,7 +21,7 @@ public class Day14 {
         System.out.println("first line length / nCols = " + nCols);
         // Scanner scanner = new Scanner(myPath);
 
-        Day13Answer answer = solve(lines, nRows, nCols/*, scanner*/);
+        Day14Answer answer = solve(lines, nRows, nCols/*, scanner*/);
 
         // Part 1: Total load
         System.out.println("part 1: Total load = " + answer.totalLoadP1);
@@ -30,8 +30,8 @@ public class Day14 {
         System.out.println("part 2: Total load after 1000000000 cycles = " + answer.totalLoadP2);
     }
 
-    private static Day13Answer solve(List<String> lines, int nRows, int nCols/*, Scanner scanner*/) {
-        Day13Answer answer = new Day13Answer();
+    private static Day14Answer solve(List<String> lines, int nRows, int nCols/*, Scanner scanner*/) {
+        Day14Answer answer = new Day14Answer();
         
         char[][] pattern = parseInput(lines, nRows, nCols);
 
@@ -45,13 +45,52 @@ public class Day14 {
     }
 
     private static long findAnswerP2(char[][] pattern, int nRows, int nCols, int nCycles) {
-        // move Os to top, left, bottom, right, in cycle
         for (int dir = 0; dir < 4; dir++) {
             moveAllInDir(pattern, nRows, nCols, dir);
         }
+        char[][] savePattern = copyPattern(pattern, nRows, nCols);
+        int m = 0;
+        do {
+            for (int dir = 0; dir < 4; dir++) {
+                moveAllInDir(pattern, nRows, nCols, dir);
+            }
+            m++;
+            if (m % 1000000 == 0) System.out.print(".");
+        } while (!arePatternsEqual(savePattern, nRows, nCols, pattern));
+        System.out.println("m = " + m);
+
+        // move Os to top, left, bottom, right, in cycle, for certain number of cycles
+        // for (int n = 0; n < nCycles; n++) {
+        //     if (n % 1000000 == 0) System.out.print(".");
+        //     for (int dir = 0; dir < 4; dir++) {
+        //         moveAllInDir(pattern, nRows, nCols, dir);
+        //     }
+        // }
 
         // sum the loads of Os
         return calcLoad(pattern, nRows, nCols);
+    }
+
+    private static boolean arePatternsEqual(char[][] pattern1, int nRows, int nCols, char[][] pattern2) {
+        for (int r = 0; r < nRows; r++) {
+            for (int c = 0; c < nCols; c++) {
+                if (pattern1[r][c] != pattern2[r][c]) return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static char[][] copyPattern(char[][] srcPattern, int nRows, int nCols) {
+        char[][] dstPattern = new char[nRows][nCols];
+
+        for (int r = 0; r < nRows; r++) {
+            for (int c = 0; c < nCols; c++) {
+                dstPattern[r][c] = srcPattern[r][c];
+            }
+        }
+
+        return dstPattern;
     }
 
     private static void moveAllInDir(char[][] pattern, int nRows, int nCols, int dir) {
