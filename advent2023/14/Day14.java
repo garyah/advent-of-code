@@ -10,8 +10,8 @@ class Day14Answer {
 
 public class Day14 {
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\sample_input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\sample_input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\14\\input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
@@ -46,10 +46,13 @@ public class Day14 {
     private static long findAnswerP2(char[][] pattern, int nRows, int nCols, int nCycles) {
         List<Long> loads = new ArrayList<>();
 
-        for (int i = 0; i < 100; i++) {
+        int maxValues = 100 * 1000;
+        int maxModulo = 30 * 1000;
+
+        for (int i = 0; i < maxValues; i++) {
             long load = calcLoad(pattern, nRows, nCols);
-            System.out.println("m = " + i + ", load = " + load);
-            // if (m % 1000000 == 0) System.out.print(".");
+            // System.out.println("i = " + i + ", load = " + load);
+            // if (i % 1000000 == 0) System.out.print(".");
             loads.add(load);
 
             for (int dir = 0; dir < 4; dir++) {
@@ -57,15 +60,35 @@ public class Day14 {
             }
         }
 
-        for (int m = 7; m < 100; m++) {
-            for (int i = m; i < 100; i += m) {
-                if (loads.get(i) == loads.get(i - m)) {
-                    System.out.println("matching with m = " + m);
+        int m = 7;
+        for (; m < maxModulo; m++) {
+            // boolean isRepeated = true;
+            int i = m * 3;
+            for (; i < maxValues && i > m * 2; i--) {
+                if (loads.get(i) != loads.get(i - m)) {
+                    // System.out.println("matching with m = " + m);
+                    // System.out.println("indexes " + i + " and " + (i - m) + " have matching value of " + loads.get(i) + ", m = " + m);
+                    // isRepeated = false;
                     break;
                 }
             }
+            // if (isRepeated) break;
+            if (i >= maxValues) {
+                System.out.println("nothing found, ran out of cached values");
+                return -1;
+            }
+            if (i == m * 2) break;
         }
-        return 0;
+        if (m == maxModulo) {
+                System.out.println("nothing found, hit upper limit of m to explore");
+                return -1;
+        }
+        System.out.println("candidate m where all values are repeated = " + m);
+        System.out.println("nCycles % m = " + (nCycles % m));
+
+        long totalLoadP2 = loads.get(m + (nCycles % m));
+        System.out.println("total load at correct cycle = " + totalLoadP2);
+        return totalLoadP2;
 
         // move Os to top, left, bottom, right, in cycle, for certain number of cycles
         // for (int n = 0; n < nCycles; n++) {
