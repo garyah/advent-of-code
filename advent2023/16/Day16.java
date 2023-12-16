@@ -4,8 +4,58 @@ import java.nio.file.*;
 import java.util.*;
 
 class Day16Answer {
-    long sumOfHashesP1;
+    long numEnergizedP1;
     long focusPowerP2;
+}
+
+class Day16Beam {
+    int nRows;
+    int nCols;
+    int row;
+    int col;
+    int dir; // 0:R, 1:D, 2:L, 3:U
+    boolean[][] visited;
+
+    Day16Beam(int nRows, int nCols, int row, int col, int dir) {
+        this.nRows = nRows;
+        this.nCols = nCols;
+        this.row = row;
+        this.col = col;
+        this.dir = dir;
+        visited = new boolean[nRows][nCols];
+    }
+
+    boolean updatePos() {
+        switch (dir) {
+            case 0:
+                col++;
+                if (col >= nCols) return false;
+                break;
+            case 1:
+                row++;
+                if (row >= nRows) return false;
+                break;
+            case 2:
+                col--;
+                if (col < 0) return false;
+                break;
+            case 3:
+            default:
+                row--;
+                if (row < 0) return false;
+                break;
+        }
+        return true;
+    }
+
+    void setVisited() {
+        // System.out.println("row" + row + " col" + col);
+        visited[row][col] = true;
+    }
+
+    boolean isVisited() {
+        return visited[row][col];
+    }
 }
 
 public class Day16 {
@@ -13,33 +63,32 @@ public class Day16 {
         Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\16\\sample_input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\16\\sample_input2.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\16\\input.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\05\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
         System.out.println("# lines / nRows = " + nRows);
-        int nCols = 0; // lines.get(0).length();
+        int nCols = lines.get(0).length();
         System.out.println("first line length / nCols = " + nCols);
-        Scanner scanner = new Scanner(myPath);
+        // Scanner scanner = new Scanner(myPath);
 
-        // Day16Answer answer = solve(lines, nRows, nCols, scanner);
+        Day16Answer answer = solve(lines, nRows, nCols/*, scanner*/);
 
-        // Part 1: Sum of hashes
-        // System.out.println("part 1: Sum of hashes = " + answer.sumOfHashesP1);
+        // Part 1: Number of energized tiles
+        System.out.println("part 1: Number of energized tiles = " + answer.numEnergizedP1);
 
         // Part 2: Focusing power
         // System.out.println("part 2: Focusing power = " + answer.focusPowerP2);
     }
 
-    private static Day16Answer solve(List<String> lines, int nRows, int nCols, Scanner scanner) {
+    private static Day16Answer solve(List<String> lines, int nRows, int nCols/*, Scanner scanner*/) {
         Day16Answer answer = new Day16Answer();
         
-        List<String> steps = parseInput(/*lines, nRows, nCols*/scanner);
+        char[][] pattern = parseInput(lines, nRows, nCols/*, scanner*/);
 
         // Part 1
-        answer.sumOfHashesP1 = findAnswerP1(steps/*, nRows, nCols*/);
+        answer.numEnergizedP1 = findAnswerP1(pattern, nRows, nCols);
 
         // Part 2
-        answer.focusPowerP2 = findAnswerP2(steps/*, nRows, nCols*/);
+        // answer.focusPowerP2 = findAnswerP2(steps/*, nRows, nCols*/);
 
         return answer;
     }
@@ -50,27 +99,119 @@ public class Day16 {
         return focusPowerP2;
     }
 
-    private static long findAnswerP1(List<String> steps/*, int nRows, int nCols*/) {
-        long sumOfHashesP1 = 0;
+    private static long findAnswerP1(char[][] pattern, int nRows, int nCols) {
+        long numEnergizedP1 = 0;
 
-        return sumOfHashesP1;
+        boolean[][] energized = new boolean[nRows][nCols];
+
+        // Create first beam, set current location and direction, add to queue, set in energized table
+        Day16Beam beam = new Day16Beam(nRows, nCols, 0, 0, 0);
+        beam.setVisited();
+        Deque<Day16Beam> q = new ArrayDeque<>();
+        q.offer(beam);
+        energized[0][0] = true;
+        numEnergizedP1++;
+
+        // While not empty queue, process next beam, enq new beams at splitters, end process when beam loops or exits pattern
+        while (!q.isEmpty()) {
+            beam = q.poll();
+            boolean isDone = false;
+            while (!isDone) {
+                if (!beam.updatePos()) {
+                    // exit of pattern
+                    isDone = true;
+                    break;
+                }
+                if (beam.isVisited()) {
+                    // beam has looped
+                    isDone = true;
+                    break;
+                }
+                beam.setVisited();
+                if (!energized[beam.row][beam.col]) {
+                    energized[beam.row][beam.col] = true;
+                    numEnergizedP1++;
+                }
+
+                // deal with mirrors, splitters
+                switch (pattern[beam.row][beam.col]) {
+                    case '/':
+                        switch (beam.dir) {
+                            case 0:
+                                beam.dir = 3;
+                                break;
+                            case 1:
+                                beam.dir = 2;
+                                break;
+                            case 2:
+                                beam.dir = 1;
+                                break;
+                            case 3:
+                            default:
+                                beam.dir = 0;
+                                break;
+                        }
+                        break;
+                    case '\\':
+                        switch (beam.dir) {
+                            case 0:
+                                beam.dir = 1;
+                                break;
+                            case 1:
+                                beam.dir = 0;
+                                break;
+                            case 2:
+                                beam.dir = 3;
+                                break;
+                            case 3:
+                            default:
+                                beam.dir = 2;
+                                break;
+                        }
+                        break;
+                    case '|':
+                        if (beam.dir == 0 || beam.dir == 2) {
+                            // split beam, changing dir of existing beam, make / enq new beam with opposite dir
+                            beam.dir = 1;
+                            Day16Beam newBeam = new Day16Beam(nRows, nCols, beam.row, beam.col, 3);
+                            newBeam.setVisited();
+                            q.offer(newBeam);
+                        }
+                        break;
+                    case '-':
+                        if (beam.dir == 1 || beam.dir == 3) {
+                            // split beam, changing dir of existing beam, make / enq new beam with opposite dir
+                            beam.dir = 0;
+                            Day16Beam newBeam = new Day16Beam(nRows, nCols, beam.row, beam.col, 2);
+                            newBeam.setVisited();
+                            q.offer(newBeam);
+                        }
+                        break;
+                    case '.':
+                    default:
+                        break;
+                }
+            }
+        }
+
+        return numEnergizedP1;
     }
 
-    private static List<String> parseInput(
-        // List<String> lines, int nRows, int nCols
-        Scanner scanner
+    private static char[][] parseInput(
+        List<String> lines, int nRows, int nCols
+        // Scanner scanner
     ) {
-        // char[][] pattern = new char[nRows][nCols];
+        char[][] pattern = new char[nRows][nCols];
 
-        // int r = 0;
-        // for (String line : lines) {
-        //     for (int c = 0; c < nCols; c++) {
-        //         pattern[r][c] = line.charAt(c);
-        //     }
-        //     r++;
-        // }
+        int r = 0;
+        for (String line : lines) {
+            for (int c = 0; c < nCols; c++) {
+                pattern[r][c] = line.charAt(c);
+            }
+            r++;
+        }
 
-        // return pattern;
+        return pattern;
 
         // List<List<String>> patterns = new ArrayList<>();
         // List<String> pattern = new ArrayList<>();
@@ -93,24 +234,24 @@ public class Day16 {
         // }
         // return patterns;
 
-        List<String> steps = new ArrayList<>();
+        // List<String> steps = new ArrayList<>();
 
         // scanner.useDelimiter("[ \\r]+");
-        scanner.useDelimiter("[ \\r,]+");
-        if (scanner.hasNextLine()) {
-            while (scanner.hasNext()) {
-                String step = scanner.next();
-                steps.add(step);
-                // System.out.println(step + ",");
-                // scanner.nextLine();
-            }
-            // while (scanner.hasNextLine() && !scanner.hasNext()) {
-            //     System.out.println();
-            //     scanner.nextLine();
-            // }
-        }
+        // scanner.useDelimiter("[ \\r,]+");
+        // if (scanner.hasNextLine()) {
+        //     while (scanner.hasNext()) {
+        //         String step = scanner.next();
+        //         steps.add(step);
+        //         // System.out.println(step + ",");
+        //         // scanner.nextLine();
+        //     }
+        //     // while (scanner.hasNextLine() && !scanner.hasNext()) {
+        //     //     System.out.println();
+        //     //     scanner.nextLine();
+        //     // }
+        // }
 
-        return steps;
+        // return steps;
     }
 
     private static String reverse(String s) {
