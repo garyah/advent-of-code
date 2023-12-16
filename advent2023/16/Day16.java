@@ -60,9 +60,9 @@ class Day16Beam {
 
 public class Day16 {
     public static void main(String[] args) throws IOException {
-        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\16\\sample_input.txt");
+        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\16\\sample_input.txt");
         // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\16\\sample_input2.txt");
-        // Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\16\\input.txt");
+        Path myPath = Paths.get("C:\\Users\\garya\\ws\\advent-of-code\\advent2023\\16\\input.txt");
         List<String> lines = Files.readAllLines(myPath, StandardCharsets.UTF_8);
         int nRows = lines.size();
         System.out.println("# lines / nRows = " + nRows);
@@ -73,6 +73,7 @@ public class Day16 {
         Day16Answer answer = solve(lines, nRows, nCols/*, scanner*/);
 
         // Part 1: Number of energized tiles
+        // answer of 7193 too low!
         System.out.println("part 1: Number of energized tiles = " + answer.numEnergizedP1);
 
         // Part 2: Focusing power
@@ -100,9 +101,10 @@ public class Day16 {
     }
 
     private static long findAnswerP1(char[][] pattern, int nRows, int nCols) {
-        long numEnergizedP1 = 0;
+        long numEnergized = 0;
 
         boolean[][] energized = new boolean[nRows][nCols];
+        boolean[][][] visitedForDir = new boolean[nRows][nCols][4];
 
         // Create first beam, set current location and direction, add to queue, set in energized table
         Day16Beam beam = new Day16Beam(nRows, nCols, 0, 0, 0);
@@ -110,12 +112,13 @@ public class Day16 {
         Deque<Day16Beam> q = new ArrayDeque<>();
         q.offer(beam);
         energized[0][0] = true;
-        numEnergizedP1++;
+        numEnergized++;
 
         // While not empty queue, process next beam, enq new beams at splitters, end process when beam loops or exits pattern
         while (!q.isEmpty()) {
             beam = q.poll();
             boolean isDone = false;
+            // long numEnergizedSave = numEnergized;
             while (!isDone) {
                 if (!beam.updatePos()) {
                     // exit of pattern
@@ -130,7 +133,7 @@ public class Day16 {
                 beam.setVisited();
                 if (!energized[beam.row][beam.col]) {
                     energized[beam.row][beam.col] = true;
-                    numEnergizedP1++;
+                    numEnergized++;
                 }
 
                 // deal with mirrors, splitters
@@ -173,28 +176,38 @@ public class Day16 {
                         if (beam.dir == 0 || beam.dir == 2) {
                             // split beam, changing dir of existing beam, make / enq new beam with opposite dir
                             beam.dir = 1;
-                            Day16Beam newBeam = new Day16Beam(nRows, nCols, beam.row, beam.col, 3);
-                            newBeam.setVisited();
-                            q.offer(newBeam);
+                            if (!visitedForDir[beam.row][beam.col][beam.dir]) {
+                                Day16Beam newBeam = new Day16Beam(nRows, nCols, beam.row, beam.col, 3);
+                                newBeam.setVisited();
+                                q.offer(newBeam);
+                            }
                         }
                         break;
                     case '-':
                         if (beam.dir == 1 || beam.dir == 3) {
                             // split beam, changing dir of existing beam, make / enq new beam with opposite dir
                             beam.dir = 0;
-                            Day16Beam newBeam = new Day16Beam(nRows, nCols, beam.row, beam.col, 2);
-                            newBeam.setVisited();
-                            q.offer(newBeam);
+                            if (!visitedForDir[beam.row][beam.col][beam.dir]) {
+                                Day16Beam newBeam = new Day16Beam(nRows, nCols, beam.row, beam.col, 2);
+                                newBeam.setVisited();
+                                q.offer(newBeam);
+                            }
                         }
                         break;
                     case '.':
                     default:
                         break;
                 }
+
+                visitedForDir[beam.row][beam.col][beam.dir] = true;
             }
+
+            // if (numEnergized == numEnergizedSave) {
+            //     break;
+            // }
         }
 
-        return numEnergizedP1;
+        return numEnergized;
     }
 
     private static char[][] parseInput(
